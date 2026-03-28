@@ -60,12 +60,12 @@ export class WorldScene extends Phaser.Scene {
     this.renderCurrentMap();
   }
 
-  update(time: number): void {
+  update(time: number, delta: number): void {
     if (!this.hero || !this.worldRuntime) {
       return;
     }
 
-    if (this.updateDialogue()) {
+    if (this.updateDialogue(delta)) {
       return;
     }
 
@@ -224,13 +224,14 @@ export class WorldScene extends Phaser.Scene {
     }
   }
 
-  private updateDialogue(): boolean {
+  private updateDialogue(delta: number): boolean {
     if (!this.dialogueSession) {
       return false;
     }
 
     const accelerated = this.fastDialogueKey?.isDown ?? false;
-    const view = this.dialogueSession.update(this.game.loop.delta, accelerated);
+    const effectiveDelta = Number.isFinite(delta) && delta > 0 ? delta : 16;
+    const view = this.dialogueSession.update(effectiveDelta, accelerated);
     if (view) {
       this.dialogueBox?.show(view);
     }
