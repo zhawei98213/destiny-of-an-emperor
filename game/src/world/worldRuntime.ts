@@ -41,6 +41,10 @@ function isBlocked(map: MapDefinition, x: number, y: number): boolean {
     return true;
   }
 
+  if (map.npcs.some((npc) => npc.x === x && npc.y === y)) {
+    return true;
+  }
+
   const index = y * map.width + x;
   return map.collisionLayers.some((layer) => (layer.blocked[index] ?? 0) !== 0);
 }

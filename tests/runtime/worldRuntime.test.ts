@@ -98,6 +98,39 @@ describe("world runtime", () => {
     expect(blocked.state.facing).toBe("up");
   });
 
+  it("treats npc tiles as blocked so interaction happens from an adjacent tile", () => {
+    const database = createWorldDatabase();
+    if (!database.maps[0]) {
+      throw new Error("expected seeded map data");
+    }
+
+    database.maps[0].npcs = [
+      {
+        id: "guide",
+        name: "Guide",
+        x: 2,
+        y: 2,
+        sprite: "guide",
+        facing: "down",
+        behavior: "idle",
+        eventId: "guide-event",
+      },
+    ];
+
+    const runtime = new WorldRuntime(database, {
+      currentMapId: "town",
+      currentSpawnId: "town-start",
+      playerX: 1,
+      playerY: 2,
+      facing: "right",
+    });
+
+    const blocked = runtime.move("right");
+    expect(blocked.type).toBe("blocked");
+    expect(blocked.state.playerX).toBe(1);
+    expect(blocked.state.playerY).toBe(2);
+  });
+
   it("transitions through portals and lands on the target spawn point", () => {
     const runtime = new WorldRuntime(createWorldDatabase());
 
