@@ -1,0 +1,8 @@
+{
+  "root": "/content/manual",
+  "kind": "manual",
+  "files": [
+    "world.content.json",
+    "story.content.json"
+  ]
+}

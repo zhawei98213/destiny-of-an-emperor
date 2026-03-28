@@ -1,0 +1,452 @@
+import {
+  ensureArray,
+  ensureBoolean,
+  ensureLiteral,
+  ensureNumber,
+  ensureOptionalBoolean,
+  ensureOptionalNumber,
+  ensureOptionalString,
+  ensureRecord,
+  ensureString,
+  ensureStringArray,
+} from "@/content/schema/primitives";
+import type {
+  BattleGroupDefinition,
+  CollisionLayerDefinition,
+  ContentDatabase,
+  ContentManifest,
+  ContentPack,
+  DialogueLineDefinition,
+  EnemyDefinition,
+  EventDefinition,
+  EventStep,
+  FlagDefinition,
+  InventoryEntry,
+  InventoryState,
+  ItemDefinition,
+  MapDefinition,
+  NpcDefinition,
+  PartyMemberDefinition,
+  PortalDefinition,
+  QuestStateDefinition,
+  SaveData,
+  ShopDefinition,
+  ShopInventoryEntry,
+  SkillDefinition,
+  SpawnPointDefinition,
+  TileLayerDefinition,
+  TriggerDefinition,
+  UnitStats,
+} from "@/types/content";
+
+function validateUnitStats(value: unknown, path: string): UnitStats {
+  const record = ensureRecord(value, path);
+  return {
+    maxHp: ensureNumber(record.maxHp, `${path}.maxHp`),
+    maxMp: ensureNumber(record.maxMp, `${path}.maxMp`),
+    attack: ensureNumber(record.attack, `${path}.attack`),
+    defense: ensureNumber(record.defense, `${path}.defense`),
+    speed: ensureNumber(record.speed, `${path}.speed`),
+  };
+}
+
+export function validateTileLayerDefinition(value: unknown, path: string): TileLayerDefinition {
+  const record = ensureRecord(value, path);
+  return {
+    id: ensureString(record.id, `${path}.id`),
+    name: ensureString(record.name, `${path}.name`),
+    width: ensureNumber(record.width, `${path}.width`),
+    height: ensureNumber(record.height, `${path}.height`),
+    tiles: ensureArray(record.tiles, `${path}.tiles`).map((tile, index) =>
+      ensureNumber(tile, `${path}.tiles[${index}]`),
+    ),
+  };
+}
+
+export function validateCollisionLayerDefinition(
+  value: unknown,
+  path: string,
+): CollisionLayerDefinition {
+  const record = ensureRecord(value, path);
+  return {
+    id: ensureString(record.id, `${path}.id`),
+    name: ensureString(record.name, `${path}.name`),
+    width: ensureNumber(record.width, `${path}.width`),
+    height: ensureNumber(record.height, `${path}.height`),
+    blocked: ensureArray(record.blocked, `${path}.blocked`).map((entry, index) =>
+      ensureNumber(entry, `${path}.blocked[${index}]`),
+    ),
+  };
+}
+
+export function validatePortalDefinition(value: unknown, path: string): PortalDefinition {
+  const record = ensureRecord(value, path);
+  return {
+    id: ensureString(record.id, `${path}.id`),
+    x: ensureNumber(record.x, `${path}.x`),
+    y: ensureNumber(record.y, `${path}.y`),
+    width: ensureNumber(record.width, `${path}.width`),
+    height: ensureNumber(record.height, `${path}.height`),
+    targetMapId: ensureString(record.targetMapId, `${path}.targetMapId`),
+    targetSpawnId: ensureString(record.targetSpawnId, `${path}.targetSpawnId`),
+  };
+}
+
+export function validateSpawnPointDefinition(
+  value: unknown,
+  path: string,
+): SpawnPointDefinition {
+  const record = ensureRecord(value, path);
+  return {
+    id: ensureString(record.id, `${path}.id`),
+    x: ensureNumber(record.x, `${path}.x`),
+    y: ensureNumber(record.y, `${path}.y`),
+    facing: ensureLiteral(record.facing, ["up", "down", "left", "right"], `${path}.facing`),
+  };
+}
+
+export function validateNpcDefinition(value: unknown, path: string): NpcDefinition {
+  const record = ensureRecord(value, path);
+  return {
+    id: ensureString(record.id, `${path}.id`),
+    name: ensureString(record.name, `${path}.name`),
+    x: ensureNumber(record.x, `${path}.x`),
+    y: ensureNumber(record.y, `${path}.y`),
+    sprite: ensureString(record.sprite, `${path}.sprite`),
+    eventId: ensureOptionalString(record.eventId, `${path}.eventId`),
+    shopId: ensureOptionalString(record.shopId, `${path}.shopId`),
+  };
+}
+
+export function validateTriggerDefinition(value: unknown, path: string): TriggerDefinition {
+  const record = ensureRecord(value, path);
+  return {
+    id: ensureString(record.id, `${path}.id`),
+    x: ensureNumber(record.x, `${path}.x`),
+    y: ensureNumber(record.y, `${path}.y`),
+    width: ensureNumber(record.width, `${path}.width`),
+    height: ensureNumber(record.height, `${path}.height`),
+    eventId: ensureString(record.eventId, `${path}.eventId`),
+    once: ensureOptionalBoolean(record.once, `${path}.once`) ?? false,
+  };
+}
+
+export function validateMapDefinition(value: unknown, path: string): MapDefinition {
+  const record = ensureRecord(value, path);
+  return {
+    id: ensureString(record.id, `${path}.id`),
+    name: ensureString(record.name, `${path}.name`),
+    width: ensureNumber(record.width, `${path}.width`),
+    height: ensureNumber(record.height, `${path}.height`),
+    tileWidth: ensureNumber(record.tileWidth, `${path}.tileWidth`),
+    tileHeight: ensureNumber(record.tileHeight, `${path}.tileHeight`),
+    tileLayers: ensureArray(record.tileLayers, `${path}.tileLayers`).map((entry, index) =>
+      validateTileLayerDefinition(entry, `${path}.tileLayers[${index}]`),
+    ),
+    collisionLayers: ensureArray(record.collisionLayers, `${path}.collisionLayers`).map(
+      (entry, index) =>
+        validateCollisionLayerDefinition(entry, `${path}.collisionLayers[${index}]`),
+    ),
+    portals: ensureArray(record.portals, `${path}.portals`).map((entry, index) =>
+      validatePortalDefinition(entry, `${path}.portals[${index}]`),
+    ),
+    spawnPoints: ensureArray(record.spawnPoints, `${path}.spawnPoints`).map((entry, index) =>
+      validateSpawnPointDefinition(entry, `${path}.spawnPoints[${index}]`),
+    ),
+    npcs: ensureArray(record.npcs, `${path}.npcs`).map((entry, index) =>
+      validateNpcDefinition(entry, `${path}.npcs[${index}]`),
+    ),
+    triggers: ensureArray(record.triggers, `${path}.triggers`).map((entry, index) =>
+      validateTriggerDefinition(entry, `${path}.triggers[${index}]`),
+    ),
+  };
+}
+
+export function validateDialogueLineDefinition(
+  value: unknown,
+  path: string,
+): DialogueLineDefinition {
+  const record = ensureRecord(value, path);
+  return {
+    id: ensureString(record.id, `${path}.id`),
+    speakerName: ensureString(record.speakerName, `${path}.speakerName`),
+    speakerNpcId: ensureOptionalString(record.speakerNpcId, `${path}.speakerNpcId`),
+    text: ensureString(record.text, `${path}.text`),
+  };
+}
+
+function validateEventStep(value: unknown, path: string): EventStep {
+  const record = ensureRecord(value, path);
+  const type = ensureLiteral(
+    record.type,
+    ["dialogue", "setFlag", "openShop", "startBattle", "end"],
+    `${path}.type`,
+  );
+
+  switch (type) {
+    case "dialogue":
+      return {
+        type,
+        lineId: ensureString(record.lineId, `${path}.lineId`),
+      };
+    case "setFlag":
+      return {
+        type,
+        flagId: ensureString(record.flagId, `${path}.flagId`),
+        value: ensureBoolean(record.value, `${path}.value`),
+      };
+    case "openShop":
+      return {
+        type,
+        shopId: ensureString(record.shopId, `${path}.shopId`),
+      };
+    case "startBattle":
+      return {
+        type,
+        battleGroupId: ensureString(record.battleGroupId, `${path}.battleGroupId`),
+      };
+    case "end":
+      return { type };
+  }
+}
+
+export function validateEventDefinition(value: unknown, path: string): EventDefinition {
+  const record = ensureRecord(value, path);
+  return {
+    id: ensureString(record.id, `${path}.id`),
+    name: ensureString(record.name, `${path}.name`),
+    steps: ensureArray(record.steps, `${path}.steps`).map((entry, index) =>
+      validateEventStep(entry, `${path}.steps[${index}]`),
+    ),
+  };
+}
+
+export function validateItemDefinition(value: unknown, path: string): ItemDefinition {
+  const record = ensureRecord(value, path);
+  return {
+    id: ensureString(record.id, `${path}.id`),
+    name: ensureString(record.name, `${path}.name`),
+    description: ensureString(record.description, `${path}.description`),
+    kind: ensureLiteral(record.kind, ["consumable", "equipment", "key"], `${path}.kind`),
+    price: ensureNumber(record.price, `${path}.price`),
+  };
+}
+
+export function validateSkillDefinition(value: unknown, path: string): SkillDefinition {
+  const record = ensureRecord(value, path);
+  return {
+    id: ensureString(record.id, `${path}.id`),
+    name: ensureString(record.name, `${path}.name`),
+    description: ensureString(record.description, `${path}.description`),
+    mpCost: ensureNumber(record.mpCost, `${path}.mpCost`),
+    power: ensureNumber(record.power, `${path}.power`),
+    target: ensureLiteral(
+      record.target,
+      ["ally", "enemy", "self", "all-enemies"],
+      `${path}.target`,
+    ),
+  };
+}
+
+export function validatePartyMemberDefinition(
+  value: unknown,
+  path: string,
+): PartyMemberDefinition {
+  const record = ensureRecord(value, path);
+  return {
+    id: ensureString(record.id, `${path}.id`),
+    name: ensureString(record.name, `${path}.name`),
+    className: ensureString(record.className, `${path}.className`),
+    level: ensureNumber(record.level, `${path}.level`),
+    skills: ensureStringArray(record.skills, `${path}.skills`),
+    baseStats: validateUnitStats(record.baseStats, `${path}.baseStats`),
+  };
+}
+
+export function validateEnemyDefinition(value: unknown, path: string): EnemyDefinition {
+  const record = ensureRecord(value, path);
+  return {
+    id: ensureString(record.id, `${path}.id`),
+    name: ensureString(record.name, `${path}.name`),
+    level: ensureNumber(record.level, `${path}.level`),
+    skills: ensureStringArray(record.skills, `${path}.skills`),
+    rewardGold: ensureNumber(record.rewardGold, `${path}.rewardGold`),
+    rewardExperience: ensureNumber(record.rewardExperience, `${path}.rewardExperience`),
+    baseStats: validateUnitStats(record.baseStats, `${path}.baseStats`),
+  };
+}
+
+export function validateBattleGroupDefinition(
+  value: unknown,
+  path: string,
+): BattleGroupDefinition {
+  const record = ensureRecord(value, path);
+  return {
+    id: ensureString(record.id, `${path}.id`),
+    name: ensureString(record.name, `${path}.name`),
+    enemyIds: ensureStringArray(record.enemyIds, `${path}.enemyIds`),
+  };
+}
+
+export function validateShopInventoryEntry(
+  value: unknown,
+  path: string,
+): ShopInventoryEntry {
+  const record = ensureRecord(value, path);
+  return {
+    itemId: ensureString(record.itemId, `${path}.itemId`),
+    price: ensureOptionalNumber(record.price, `${path}.price`),
+  };
+}
+
+export function validateShopDefinition(value: unknown, path: string): ShopDefinition {
+  const record = ensureRecord(value, path);
+  return {
+    id: ensureString(record.id, `${path}.id`),
+    name: ensureString(record.name, `${path}.name`),
+    inventory: ensureArray(record.inventory, `${path}.inventory`).map((entry, index) =>
+      validateShopInventoryEntry(entry, `${path}.inventory[${index}]`),
+    ),
+  };
+}
+
+export function validateFlagDefinition(value: unknown, path: string): FlagDefinition {
+  const record = ensureRecord(value, path);
+  return {
+    id: ensureString(record.id, `${path}.id`),
+    defaultValue: ensureBoolean(record.defaultValue, `${path}.defaultValue`),
+  };
+}
+
+export function validateQuestStateDefinition(
+  value: unknown,
+  path: string,
+): QuestStateDefinition {
+  const record = ensureRecord(value, path);
+  return {
+    id: ensureString(record.id, `${path}.id`),
+    stages: ensureStringArray(record.stages, `${path}.stages`),
+    initialStage: ensureString(record.initialStage, `${path}.initialStage`),
+  };
+}
+
+export function validateInventoryEntry(value: unknown, path: string): InventoryEntry {
+  const record = ensureRecord(value, path);
+  return {
+    itemId: ensureString(record.itemId, `${path}.itemId`),
+    quantity: ensureNumber(record.quantity, `${path}.quantity`),
+  };
+}
+
+export function validateInventoryState(value: unknown, path: string): InventoryState {
+  const record = ensureRecord(value, path);
+  return {
+    gold: ensureNumber(record.gold, `${path}.gold`),
+    items: ensureArray(record.items, `${path}.items`).map((entry, index) =>
+      validateInventoryEntry(entry, `${path}.items[${index}]`),
+    ),
+  };
+}
+
+export function validateSaveData(value: unknown, path = "saveData"): SaveData {
+  const record = ensureRecord(value, path);
+  const flagsRecord = ensureRecord(record.flags, `${path}.flags`);
+  const questStatesRecord = ensureRecord(record.questStates, `${path}.questStates`);
+
+  const flags = Object.fromEntries(
+    Object.entries(flagsRecord).map(([key, entry]) => [
+      key,
+      ensureBoolean(entry, `${path}.flags.${key}`),
+    ]),
+  );
+
+  const questStates = Object.fromEntries(
+    Object.entries(questStatesRecord).map(([key, entry]) => [
+      key,
+      ensureString(entry, `${path}.questStates.${key}`),
+    ]),
+  );
+
+  return {
+    slot: ensureString(record.slot, `${path}.slot`),
+    mapId: ensureString(record.mapId, `${path}.mapId`),
+    spawnPointId: ensureString(record.spawnPointId, `${path}.spawnPointId`),
+    partyMemberIds: ensureStringArray(record.partyMemberIds, `${path}.partyMemberIds`),
+    flags,
+    questStates,
+    inventory: validateInventoryState(record.inventory, `${path}.inventory`),
+  };
+}
+
+export function validateContentManifest(value: unknown, path: string): ContentManifest {
+  const record = ensureRecord(value, path);
+  return {
+    root: ensureString(record.root, `${path}.root`),
+    kind: ensureLiteral(record.kind, ["manual", "generated"], `${path}.kind`),
+    files: ensureStringArray(record.files, `${path}.files`),
+  };
+}
+
+export function validateContentPack(value: unknown, path: string): ContentPack {
+  const record = ensureRecord(value, path);
+  const meta = ensureRecord(record.meta, `${path}.meta`);
+
+  return {
+    meta: {
+      id: ensureString(meta.id, `${path}.meta.id`),
+      kind: ensureLiteral(meta.kind, ["manual", "generated"], `${path}.meta.kind`),
+      version: ensureNumber(meta.version, `${path}.meta.version`),
+      description: ensureString(meta.description, `${path}.meta.description`),
+    },
+    maps: ensureArray(record.maps ?? [], `${path}.maps`).map((entry, index) =>
+      validateMapDefinition(entry, `${path}.maps[${index}]`),
+    ),
+    dialogueLines: ensureArray(record.dialogueLines ?? [], `${path}.dialogueLines`).map(
+      (entry, index) => validateDialogueLineDefinition(entry, `${path}.dialogueLines[${index}]`),
+    ),
+    events: ensureArray(record.events ?? [], `${path}.events`).map((entry, index) =>
+      validateEventDefinition(entry, `${path}.events[${index}]`),
+    ),
+    items: ensureArray(record.items ?? [], `${path}.items`).map((entry, index) =>
+      validateItemDefinition(entry, `${path}.items[${index}]`),
+    ),
+    partyMembers: ensureArray(record.partyMembers ?? [], `${path}.partyMembers`).map(
+      (entry, index) => validatePartyMemberDefinition(entry, `${path}.partyMembers[${index}]`),
+    ),
+    enemies: ensureArray(record.enemies ?? [], `${path}.enemies`).map((entry, index) =>
+      validateEnemyDefinition(entry, `${path}.enemies[${index}]`),
+    ),
+    battleGroups: ensureArray(record.battleGroups ?? [], `${path}.battleGroups`).map(
+      (entry, index) => validateBattleGroupDefinition(entry, `${path}.battleGroups[${index}]`),
+    ),
+    shops: ensureArray(record.shops ?? [], `${path}.shops`).map((entry, index) =>
+      validateShopDefinition(entry, `${path}.shops[${index}]`),
+    ),
+    skills: ensureArray(record.skills ?? [], `${path}.skills`).map((entry, index) =>
+      validateSkillDefinition(entry, `${path}.skills[${index}]`),
+    ),
+    flags: ensureArray(record.flags ?? [], `${path}.flags`).map((entry, index) =>
+      validateFlagDefinition(entry, `${path}.flags[${index}]`),
+    ),
+    questStates: ensureArray(record.questStates ?? [], `${path}.questStates`).map(
+      (entry, index) => validateQuestStateDefinition(entry, `${path}.questStates[${index}]`),
+    ),
+  };
+}
+
+export function createEmptyContentDatabase(): ContentDatabase {
+  return {
+    packs: [],
+    maps: [],
+    dialogueLines: [],
+    events: [],
+    items: [],
+    partyMembers: [],
+    enemies: [],
+    battleGroups: [],
+    shops: [],
+    skills: [],
+    flags: [],
+    questStates: [],
+  };
+}

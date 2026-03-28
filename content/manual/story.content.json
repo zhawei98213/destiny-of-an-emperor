@@ -1,0 +1,102 @@
+{
+  "meta": {
+    "id": "manual-story",
+    "kind": "manual",
+    "version": 1,
+    "description": "Hand-authored dialogue, events, and shop definitions."
+  },
+  "dialogueLines": [
+    {
+      "id": "intro-line-1",
+      "speakerName": "Village Guide",
+      "speakerNpcId": "village-guide",
+      "text": "The road ahead is clear enough for a systems demo."
+    },
+    {
+      "id": "intro-line-2",
+      "speakerName": "Village Guide",
+      "speakerNpcId": "village-guide",
+      "text": "Talk to the merchant or enter the training yard."
+    },
+    {
+      "id": "merchant-line-1",
+      "speakerName": "Merchant",
+      "speakerNpcId": "merchant",
+      "text": "I only stock placeholder wares, but the data path is real."
+    }
+  ],
+  "events": [
+    {
+      "id": "intro-event",
+      "name": "Intro Event",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lineId": "intro-line-1"
+        },
+        {
+          "type": "dialogue",
+          "lineId": "intro-line-2"
+        },
+        {
+          "type": "setFlag",
+          "flagId": "intro-complete",
+          "value": true
+        },
+        {
+          "type": "end"
+        }
+      ]
+    },
+    {
+      "id": "merchant-event",
+      "name": "Merchant Event",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lineId": "merchant-line-1"
+        },
+        {
+          "type": "setFlag",
+          "flagId": "merchant-met",
+          "value": true
+        },
+        {
+          "type": "openShop",
+          "shopId": "starter-shop"
+        },
+        {
+          "type": "end"
+        }
+      ]
+    },
+    {
+      "id": "training-battle-event",
+      "name": "Training Battle Event",
+      "steps": [
+        {
+          "type": "startBattle",
+          "battleGroupId": "training-slimes"
+        },
+        {
+          "type": "end"
+        }
+      ]
+    }
+  ],
+  "shops": [
+    {
+      "id": "starter-shop",
+      "name": "Starter Shop",
+      "inventory": [
+        {
+          "itemId": "herb"
+        },
+        {
+          "itemId": "bronze-sword",
+          "price": 40
+        }
+      ]
+    }
+  ]
+}

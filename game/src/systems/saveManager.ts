@@ -1,10 +1,5 @@
-import type { FlagMap } from "@/types/content";
-
-export interface SaveState {
-  slot: string;
-  scene: string;
-  flags: FlagMap;
-}
+import { validateSaveData, validateSaveDataReferences } from "@/content/schema";
+import type { ContentDatabase, SaveData } from "@/types/content";
 
 export interface SaveStorage {
   getItem(key: string): string | null;
@@ -24,14 +19,23 @@ export class MemoryStorage implements SaveStorage {
 }
 
 export class SaveManager {
-  constructor(private readonly storage: SaveStorage) {}
+  constructor(
+    private readonly storage: SaveStorage,
+    private readonly database: ContentDatabase,
+  ) {}
 
-  save(state: SaveState): void {
+  save(state: SaveData): void {
+    validateSaveDataReferences(validateSaveData(state), this.database);
     this.storage.setItem(`save:${state.slot}`, JSON.stringify(state));
   }
 
-  load(slot: string): SaveState | null {
+  load(slot: string): SaveData | null {
     const raw = this.storage.getItem(`save:${slot}`);
-    return raw ? (JSON.parse(raw) as SaveState) : null;
+    if (!raw) {
+      return null;
+    }
+
+    const saveData = validateSaveData(JSON.parse(raw) as unknown);
+    return validateSaveDataReferences(saveData, this.database);
   }
 }

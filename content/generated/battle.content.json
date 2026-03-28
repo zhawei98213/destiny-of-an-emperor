@@ -1,0 +1,52 @@
+{
+  "meta": {
+    "id": "generated-battle",
+    "kind": "generated",
+    "version": 1,
+    "description": "Generated encounter and enemy placeholder data."
+  },
+  "enemies": [
+    {
+      "id": "green-slime",
+      "name": "Green Slime",
+      "level": 1,
+      "skills": ["slash"],
+      "rewardGold": 4,
+      "rewardExperience": 3,
+      "baseStats": {
+        "maxHp": 12,
+        "maxMp": 0,
+        "attack": 5,
+        "defense": 2,
+        "speed": 3
+      }
+    },
+    {
+      "id": "brown-wolf",
+      "name": "Brown Wolf",
+      "level": 2,
+      "skills": ["slash"],
+      "rewardGold": 7,
+      "rewardExperience": 5,
+      "baseStats": {
+        "maxHp": 18,
+        "maxMp": 0,
+        "attack": 7,
+        "defense": 4,
+        "speed": 6
+      }
+    }
+  ],
+  "battleGroups": [
+    {
+      "id": "training-slimes",
+      "name": "Training Slimes",
+      "enemyIds": ["green-slime", "green-slime"]
+    },
+    {
+      "id": "field-wolves",
+      "name": "Field Wolves",
+      "enemyIds": ["brown-wolf"]
+    }
+  ]
+}
