@@ -48,8 +48,8 @@ The playable skeleton contains four scenes:
 - `BootScene`：加载启动内容并切换到标题画面。
 - `TitleScene`: minimal entry screen; pressing Enter or clicking starts the world.
 - `TitleScene`：最小化入口界面；按 Enter 或点击即可进入世界场景。
-- `WorldScene`: renders data-driven maps, follows the player camera, applies grid collision, and transitions through map portals while preserving world runtime state.
-- `WorldScene`：渲染数据驱动地图、让摄像机跟随玩家、应用基于网格的碰撞，并在保留世界运行时状态的前提下通过 portal 进行地图切换。
+- `WorldScene`: renders data-driven maps, follows the player camera, applies grid collision, loads NPCs from content, and handles scene-safe portal and dialogue interactions while preserving world runtime state.
+- `WorldScene`：渲染数据驱动地图、让摄像机跟随玩家、应用基于网格的碰撞、从内容数据加载 NPC，并在保留世界运行时状态的前提下处理 portal 和对话交互。
 - `BattleScene`: placeholder battle screen entered with `B` and exited with `Esc`.
 - `BattleScene`：占位战斗场景，按 `B` 进入，按 `Esc` 返回。
 
@@ -67,6 +67,8 @@ The first extension points are intentionally typed and data-driven:
 - `saveManager`：持久化类型化存档槽，并依据已加载的内容数据库校验存档引用。
 - `eventInterpreter`: executes declarative event steps such as dialogue, flags, shops, and battle launches.
 - `eventInterpreter`：执行声明式事件步骤，例如对话、标记设置、商店打开和战斗启动。
+- `dialogueSession` + `dialogueBox`: keep dialogue presentation and typewriter flow separate from event execution so portraits, audio, and choices can be extended later.
+- `dialogueSession` + `dialogueBox`：将对话展示与逐字播放流程从事件执行中分离，为后续头像、音效和选项扩展预留接口。
 
 `content/source/` is reserved for raw import material and is intentionally outside the runtime loading path. `content/manual/` is for hand-authored packs. `content/generated/` is for tool-produced packs that already satisfy runtime schema.
 `content/source/` 保留给原始导入材料，刻意不进入运行时加载路径。`content/manual/` 用于手工编写内容包。`content/generated/` 用于已经满足运行时 schema 的工具生成内容包。
@@ -85,6 +87,8 @@ The current test suite covers:
 - 事件解释器命令执行
 - world runtime movement, collision, and portal transitions
 - 世界运行时中的移动、碰撞和 portal 切换
+- NPC facing-based interaction targeting and dialogue typewriter flow
+- 基于朝向的 NPC 交互目标判定和对话逐字显示流程
 - scene registry wiring and boot-first startup order
 - 场景注册表接线和以 Boot 开始的启动顺序
 
@@ -97,10 +101,16 @@ Manual verification in the current demo:
 2. 启动游戏，在 `town` 中用方向键移动。
 3. Walk into walls to confirm collision blocks movement.
 3. 走向墙体，确认碰撞会阻止移动。
-4. Step onto the east gate portal in `town` to enter `field`.
-4. 走到 `town` 东侧出口 portal，确认可以进入 `field`。
-5. Confirm the player appears at the `field` gate spawn and can return through the west portal.
-5. 确认玩家出现在 `field` 的门口出生点，并且可以通过西侧 portal 返回。
+4. Face the village guide and press `Space` to start dialogue, then press `Space` again to skip or advance lines.
+4. 面向村口向导并按 `Space` 开始对话，再按 `Space` 可跳过当前逐字显示或进入下一句。
+5. Confirm the player cannot move while dialogue is active and regains movement after the dialogue ends.
+5. 确认对话过程中玩家无法移动，并且对话结束后能恢复移动控制。
+6. Face the merchant and confirm a different dialogue payload is shown.
+6. 面向商人并确认会显示不同的对话内容。
+7. Step onto the east gate portal in `town` to enter `field`.
+7. 走到 `town` 东侧出口 portal，确认可以进入 `field`。
+8. Confirm the player appears at the `field` gate spawn and can return through the west portal.
+8. 确认玩家出现在 `field` 的门口出生点，并且可以通过西侧 portal 返回。
 
 Use these tests as the baseline for future content pipelines, state machines, and gameplay systems.
 后续扩展内容管线、状态机和玩法系统时，应以这些测试作为基线。
