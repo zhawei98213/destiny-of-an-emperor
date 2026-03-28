@@ -23,22 +23,23 @@ export class DialogueBox {
 
     const parent = scene.game.canvas.parentElement;
     if (parent && typeof document !== "undefined") {
-      if (!parent.style.position) {
-        parent.style.position = "relative";
-      }
-
       this.overlay = document.createElement("div");
-      this.overlay.style.position = "absolute";
-      this.overlay.style.left = "20px";
-      this.overlay.style.right = "20px";
-      this.overlay.style.bottom = "14px";
-      this.overlay.style.height = "104px";
+      this.overlay.style.position = "fixed";
+      this.overlay.style.left = "50%";
+      this.overlay.style.bottom = "24px";
+      this.overlay.style.transform = "translateX(-50%)";
+      this.overlay.style.width = "min(92vw, 600px)";
+      this.overlay.style.minHeight = "112px";
       this.overlay.style.display = "none";
       this.overlay.style.pointerEvents = "none";
-      this.overlay.style.zIndex = "20";
+      this.overlay.style.zIndex = "99999";
       this.overlay.style.padding = "10px 18px";
       this.overlay.style.boxSizing = "border-box";
       this.overlay.style.fontFamily = "monospace";
+      this.overlay.style.background = "rgba(15, 23, 42, 0.94)";
+      this.overlay.style.border = "2px solid #eab308";
+      this.overlay.style.borderRadius = "8px";
+      this.overlay.style.boxShadow = "0 10px 30px rgba(0, 0, 0, 0.35)";
 
       this.speakerText = document.createElement("div");
       this.speakerText.style.color = "#fde68a";
@@ -62,7 +63,7 @@ export class DialogueBox {
       this.overlay.appendChild(this.speakerText);
       this.overlay.appendChild(this.bodyText);
       this.overlay.appendChild(this.promptText);
-      parent.appendChild(this.overlay);
+      document.body.appendChild(this.overlay);
 
       scene.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
         this.overlay?.remove();
@@ -74,7 +75,7 @@ export class DialogueBox {
   }
 
   show(view: DialogueSessionView): void {
-    const fallbackText = view.cue.text.length > 0 ? view.cue.text.slice(0, 1) : "";
+    const fallbackText = view.cue.text;
     const visibleText = view.visibleText.length > 0 ? view.visibleText : fallbackText;
 
     this.background.setVisible(true);
