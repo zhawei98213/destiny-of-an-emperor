@@ -24,6 +24,16 @@ describe("dialogue session", () => {
     expect(skippedView?.isLineComplete).toBe(true);
   });
 
+  it("accumulates small frame deltas into visible characters", () => {
+    const session = new DialogueSession([createCue("Hello")], 48);
+
+    for (let index = 0; index < 2; index += 1) {
+      session.update(16, false);
+    }
+
+    expect(session.getView()?.visibleText).toBe("H");
+  });
+
   it("advances across multiple lines and completes at the end", () => {
     const session = new DialogueSession([createCue("Hello"), createCue("Again")], 30);
 

@@ -10,6 +10,8 @@ export interface DialogueSessionView {
 export class DialogueSession {
   private cueIndex = 0;
 
+  private visibleCharacterProgress = 0;
+
   private visibleCharacterCount = 0;
 
   private completed = false;
@@ -35,8 +37,8 @@ export class DialogueSession {
     }
 
     const speedMultiplier = accelerated ? 3 : 1;
-    const nextVisibleCount = this.visibleCharacterCount + ((deltaMs / 1000) * this.charactersPerSecond * speedMultiplier);
-    this.visibleCharacterCount = Math.min(cue.text.length, Math.floor(nextVisibleCount));
+    this.visibleCharacterProgress += (deltaMs / 1000) * this.charactersPerSecond * speedMultiplier;
+    this.visibleCharacterCount = Math.min(cue.text.length, Math.floor(this.visibleCharacterProgress));
 
     return this.getView();
   }
@@ -53,12 +55,14 @@ export class DialogueSession {
     }
 
     if (this.visibleCharacterCount < cue.text.length) {
+      this.visibleCharacterProgress = cue.text.length;
       this.visibleCharacterCount = cue.text.length;
       return this.getView();
     }
 
     if (this.cueIndex < this.cues.length - 1) {
       this.cueIndex += 1;
+      this.visibleCharacterProgress = 0;
       this.visibleCharacterCount = 0;
       return this.getView();
     }
