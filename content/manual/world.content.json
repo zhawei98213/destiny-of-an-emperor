@@ -84,14 +84,13 @@
       ],
       "npcs": [
         {
-          "id": "village-guide",
-          "name": "Village Guide",
-          "x": 8,
-          "y": 5,
-          "sprite": "guide",
-          "facing": "down",
-          "behavior": "idle",
-          "eventId": "intro-event"
+          "id": "town-guard",
+          "name": "Town Guard",
+          "x": 16,
+          "y": 6,
+          "sprite": "guard",
+          "facing": "left",
+          "behavior": "idle"
         },
         {
           "id": "merchant",
@@ -100,19 +99,48 @@
           "y": 5,
           "sprite": "merchant",
           "facing": "left",
-          "behavior": "idle",
-          "shopId": "starter-shop",
-          "eventId": "merchant-event"
+          "behavior": "idle"
+        },
+        {
+          "id": "village-guide",
+          "name": "Village Guide",
+          "x": 8,
+          "y": 5,
+          "sprite": "guide",
+          "facing": "down",
+          "behavior": "idle"
         }
       ],
       "triggers": [
         {
-          "id": "intro-trigger",
-          "x": 10,
-          "y": 7,
+          "id": "guard-talk-trigger",
+          "kind": "npcInteraction",
+          "npcId": "town-guard",
+          "eventId": "guard-gate-event",
+          "once": false
+        },
+        {
+          "id": "merchant-talk-trigger",
+          "kind": "npcInteraction",
+          "npcId": "merchant",
+          "eventId": "merchant-pass-event",
+          "once": false
+        },
+        {
+          "id": "guide-talk-trigger",
+          "kind": "npcInteraction",
+          "npcId": "village-guide",
+          "eventId": "intro-event",
+          "once": false
+        },
+        {
+          "id": "town-chest-trigger",
+          "kind": "tile",
+          "x": 3,
+          "y": 5,
           "width": 1,
           "height": 1,
-          "eventId": "intro-event",
+          "eventId": "town-chest-event",
           "once": true
         }
       ]
@@ -195,10 +223,11 @@
       "triggers": [
         {
           "id": "field-battle-trigger",
-          "x": 12,
-          "y": 7,
-          "width": 1,
-          "height": 1,
+          "kind": "region",
+          "x": 10,
+          "y": 6,
+          "width": 4,
+          "height": 3,
           "eventId": "training-battle-event",
           "once": false
         }
@@ -262,6 +291,14 @@
     },
     {
       "id": "merchant-met",
+      "defaultValue": false
+    },
+    {
+      "id": "gate-pass",
+      "defaultValue": false
+    },
+    {
+      "id": "town-chest-opened",
       "defaultValue": false
     }
   ],

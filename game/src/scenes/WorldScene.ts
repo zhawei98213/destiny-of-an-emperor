@@ -1,12 +1,19 @@
 import Phaser from "phaser";
-import { CONTENT_REGISTRY_KEY, WORLD_RUNTIME_REGISTRY_KEY } from "@/content/contentKeys";
+import {
+  CONTENT_REGISTRY_KEY,
+  GAME_STATE_REGISTRY_KEY,
+  WORLD_RUNTIME_REGISTRY_KEY,
+} from "@/content/contentKeys";
 import { SceneKey } from "@/core/sceneRegistry";
+import type { WarpTarget } from "@/systems/eventInterpreter";
 import type { ContentDatabase, Facing } from "@/types/content";
 import { createEventRuntime, EventInterpreter } from "@/systems/eventInterpreter";
+import { GameStateRuntime } from "@/systems/gameStateRuntime";
 import { DialogueBox } from "@/ui/dialogueBox";
 import { DialogueSession } from "@/ui/dialogueSession";
 import { renderWorldMap } from "@/world/renderWorldMap";
 import { findNpcInFront } from "@/world/worldInteraction";
+import { findNpcInteractionTrigger, findTriggersAtPoint } from "@/world/worldTriggerResolver";
 import { WorldRuntime } from "@/world/worldRuntime";
 
 export class WorldScene extends Phaser.Scene {
@@ -32,9 +39,15 @@ export class WorldScene extends Phaser.Scene {
 
   private contentDatabase?: ContentDatabase;
 
+  private gameStateRuntime?: GameStateRuntime;
+
   private dialogueBox?: DialogueBox;
 
   private dialogueSession?: DialogueSession;
+
+  private pendingWarpTarget?: WarpTarget;
+
+  private pendingBattleGroupId?: string;
 
   private readonly eventInterpreter = new EventInterpreter();
 
@@ -46,8 +59,9 @@ export class WorldScene extends Phaser.Scene {
 
   create(): void {
     this.contentDatabase = this.registry.get(CONTENT_REGISTRY_KEY) as ContentDatabase | undefined;
+    this.gameStateRuntime = this.registry.get(GAME_STATE_REGISTRY_KEY) as GameStateRuntime | undefined;
     this.worldRuntime = this.registry.get(WORLD_RUNTIME_REGISTRY_KEY) as WorldRuntime | undefined;
-    if (!this.contentDatabase || !this.worldRuntime) {
+    if (!this.contentDatabase || !this.gameStateRuntime || !this.worldRuntime) {
       throw new Error("WorldScene requires bootstrapped content and world runtime.");
     }
 
@@ -96,7 +110,10 @@ export class WorldScene extends Phaser.Scene {
 
     if (result.type === "portal") {
       this.scene.restart();
+      return;
     }
+
+    this.tryStartStepTriggers();
   }
 
   private getMovementDirection(): Facing | undefined {
@@ -195,33 +212,23 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private tryStartNpcInteraction(): void {
-    if (!this.worldRuntime || !this.contentDatabase) {
+    if (!this.worldRuntime || !this.contentDatabase || !this.gameStateRuntime) {
       return;
     }
 
     const map = this.worldRuntime.getCurrentMap();
     const state = this.worldRuntime.getState();
     const npc = findNpcInFront(map, state);
-    if (!npc?.eventId) {
+    if (!npc) {
       return;
     }
 
-    const event = this.contentDatabase.events.find((entry) => entry.id === npc.eventId);
-    if (!event) {
-      throw new Error(`WorldScene could not find event "${npc.eventId}" for npc "${npc.id}".`);
-    }
-
-    const runtime = createEventRuntime();
-    this.eventInterpreter.execute(event, this.contentDatabase, runtime);
-    if (runtime.dialogueLog.length === 0) {
+    const trigger = findNpcInteractionTrigger(map, npc.id);
+    if (!trigger) {
       return;
     }
 
-    this.dialogueSession = new DialogueSession(runtime.dialogueLog);
-    const initialView = this.dialogueSession.getView();
-    if (initialView) {
-      this.dialogueBox?.show(initialView);
-    }
+    this.executeTrigger(trigger.id);
   }
 
   private updateDialogue(delta: number): boolean {
@@ -241,11 +248,100 @@ export class WorldScene extends Phaser.Scene {
       if (nextView?.isComplete) {
         this.dialogueBox?.hide();
         this.dialogueSession = undefined;
+        this.applyPendingEventEffects();
       } else if (nextView) {
         this.dialogueBox?.show(nextView);
       }
     }
 
     return true;
+  }
+
+  private tryStartStepTriggers(): void {
+    if (!this.worldRuntime) {
+      return;
+    }
+
+    const map = this.worldRuntime.getCurrentMap();
+    const state = this.worldRuntime.getState();
+    const currentTileTriggers = findTriggersAtPoint(map, {
+      x: state.playerX,
+      y: state.playerY,
+    });
+
+    const trigger = currentTileTriggers[0];
+    if (!trigger) {
+      return;
+    }
+
+    this.executeTrigger(trigger.id);
+  }
+
+  private executeTrigger(triggerId: string): void {
+    if (!this.worldRuntime || !this.contentDatabase || !this.gameStateRuntime) {
+      return;
+    }
+
+    const map = this.worldRuntime.getCurrentMap();
+    const trigger = map.triggers.find((entry) => entry.id === triggerId);
+    if (!trigger) {
+      throw new Error(`WorldScene could not find trigger "${triggerId}" on map "${map.id}".`);
+    }
+
+    if (trigger.once && this.gameStateRuntime.isTriggerConsumed(trigger.id)) {
+      return;
+    }
+
+    const event = this.contentDatabase.events.find((entry) => entry.id === trigger.eventId);
+    if (!event) {
+      throw new Error(`WorldScene could not find event "${trigger.eventId}" for trigger "${trigger.id}".`);
+    }
+
+    const worldState = this.worldRuntime.getState();
+    const snapshot = this.gameStateRuntime.getSnapshot();
+    const runtime = createEventRuntime(this.contentDatabase, {
+      flags: snapshot.flags,
+      inventory: snapshot.inventory,
+      partyMemberIds: snapshot.partyMemberIds,
+      world: {
+        currentMapId: worldState.currentMapId,
+        currentSpawnPointId: worldState.currentSpawnId,
+      },
+    });
+
+    this.eventInterpreter.execute(event, this.contentDatabase, runtime);
+    this.gameStateRuntime.applyEventRuntime(runtime);
+    if (trigger.once) {
+      this.gameStateRuntime.consumeTrigger(trigger.id);
+    }
+
+    this.pendingWarpTarget = runtime.pendingWarp;
+    this.pendingBattleGroupId = runtime.startedBattleGroupIds.at(-1);
+
+    if (runtime.dialogueLog.length > 0) {
+      this.dialogueSession = new DialogueSession(runtime.dialogueLog);
+      const initialView = this.dialogueSession.getView();
+      if (initialView) {
+        this.dialogueBox?.show(initialView);
+      }
+      return;
+    }
+
+    this.applyPendingEventEffects();
+  }
+
+  private applyPendingEventEffects(): void {
+    if (this.pendingWarpTarget && this.worldRuntime) {
+      this.worldRuntime.setSpawn(this.pendingWarpTarget.mapId, this.pendingWarpTarget.spawnPointId);
+      this.pendingWarpTarget = undefined;
+      this.pendingBattleGroupId = undefined;
+      this.scene.restart();
+      return;
+    }
+
+    if (this.pendingBattleGroupId) {
+      this.pendingBattleGroupId = undefined;
+      this.scene.start(SceneKey.Battle);
+    }
   }
 }

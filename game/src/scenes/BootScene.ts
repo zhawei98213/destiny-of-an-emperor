@@ -3,9 +3,11 @@ import { BrowserContentReader, loadContentDatabase } from "@/content/contentLoad
 import {
   CONTENT_REGISTRY_KEY,
   DEFAULT_CONTENT_MANIFESTS,
+  GAME_STATE_REGISTRY_KEY,
   WORLD_RUNTIME_REGISTRY_KEY,
 } from "@/content/contentKeys";
 import { SceneKey } from "@/core/sceneRegistry";
+import { GameStateRuntime } from "@/systems/gameStateRuntime";
 import { WorldRuntime } from "@/world/worldRuntime";
 
 export class BootScene extends Phaser.Scene {
@@ -24,6 +26,7 @@ export class BootScene extends Phaser.Scene {
         DEFAULT_CONTENT_MANIFESTS,
       );
       this.registry.set(CONTENT_REGISTRY_KEY, database);
+      this.registry.set(GAME_STATE_REGISTRY_KEY, new GameStateRuntime(database));
       this.registry.set(WORLD_RUNTIME_REGISTRY_KEY, new WorldRuntime(database));
       this.scene.start(SceneKey.Title);
     } catch (error) {

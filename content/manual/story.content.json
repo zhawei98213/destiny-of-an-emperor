@@ -29,6 +29,36 @@
       "text": "I only stock placeholder wares, but the data path is real.",
       "portraitId": "merchant-default",
       "soundId": "voice-merchant"
+    },
+    {
+      "id": "merchant-line-2",
+      "speakerName": "Merchant",
+      "speakerNpcId": "merchant",
+      "text": "Take this pass and show it to the guard by the east gate.",
+      "portraitId": "merchant-default",
+      "soundId": "voice-merchant"
+    },
+    {
+      "id": "guard-line-blocked",
+      "speakerName": "Town Guard",
+      "speakerNpcId": "town-guard",
+      "text": "Hold it. No one leaves town without a merchant pass.",
+      "portraitId": "guard-default",
+      "soundId": "voice-guard"
+    },
+    {
+      "id": "guard-line-open",
+      "speakerName": "Town Guard",
+      "speakerNpcId": "town-guard",
+      "text": "Pass confirmed. You may head into the field now.",
+      "portraitId": "guard-default",
+      "soundId": "voice-guard"
+    },
+    {
+      "id": "chest-line-open",
+      "speakerName": "System",
+      "text": "You found an Herb in the chest.",
+      "soundId": "sfx-chest"
     }
   ],
   "events": [
@@ -55,38 +85,58 @@
       ]
     },
     {
-      "id": "merchant-event",
-      "name": "Merchant Event",
+      "id": "merchant-pass-event",
+      "name": "Merchant Pass Event",
+      "steps": [
+        { "type": "dialogue", "lineId": "merchant-line-1" },
+        { "type": "dialogue", "lineId": "merchant-line-2" },
+        { "type": "setFlag", "flagId": "merchant-met" },
+        { "type": "setFlag", "flagId": "gate-pass" },
+        { "type": "playSfx", "sfxId": "sfx-pass" },
+        { "type": "end" }
+      ]
+    },
+    {
+      "id": "guard-gate-event",
+      "name": "Guard Gate Event",
       "steps": [
         {
-          "type": "dialogue",
-          "lineId": "merchant-line-1"
+          "type": "ifNotFlag",
+          "flagId": "gate-pass",
+          "steps": [
+            { "type": "dialogue", "lineId": "guard-line-blocked" },
+            { "type": "end" }
+          ]
         },
         {
-          "type": "setFlag",
-          "flagId": "merchant-met",
-          "value": true
-        },
-        {
-          "type": "openShop",
-          "shopId": "starter-shop"
-        },
-        {
-          "type": "end"
+          "type": "ifFlag",
+          "flagId": "gate-pass",
+          "steps": [
+            { "type": "dialogue", "lineId": "guard-line-open" },
+            { "type": "warp", "targetMapId": "field", "targetSpawnId": "field-gate" },
+            { "type": "end" }
+          ]
         }
+      ]
+    },
+    {
+      "id": "town-chest-event",
+      "name": "Town Chest Event",
+      "steps": [
+        { "type": "dialogue", "lineId": "chest-line-open" },
+        { "type": "giveItem", "itemId": "herb", "quantity": 1 },
+        { "type": "setFlag", "flagId": "town-chest-opened" },
+        { "type": "playSfx", "sfxId": "sfx-chest" },
+        { "type": "end" }
       ]
     },
     {
       "id": "training-battle-event",
       "name": "Training Battle Event",
       "steps": [
-        {
-          "type": "startBattle",
-          "battleGroupId": "training-slimes"
-        },
-        {
-          "type": "end"
-        }
+        { "type": "playSfx", "sfxId": "sfx-battle-alert" },
+        { "type": "startBattle", "battleGroupId": "training-slimes" },
+        { "type": "end" }
       ]
     }
   ],
