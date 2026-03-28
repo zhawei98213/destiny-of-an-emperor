@@ -113,6 +113,8 @@ export function validateNpcDefinition(value: unknown, path: string): NpcDefiniti
     x: ensureNumber(record.x, `${path}.x`),
     y: ensureNumber(record.y, `${path}.y`),
     sprite: ensureString(record.sprite, `${path}.sprite`),
+    facing: ensureLiteral(record.facing, ["up", "down", "left", "right"], `${path}.facing`),
+    behavior: ensureLiteral(record.behavior ?? "idle", ["idle"], `${path}.behavior`),
     eventId: ensureOptionalString(record.eventId, `${path}.eventId`),
     shopId: ensureOptionalString(record.shopId, `${path}.shopId`),
   };
@@ -172,6 +174,8 @@ export function validateDialogueLineDefinition(
     speakerName: ensureString(record.speakerName, `${path}.speakerName`),
     speakerNpcId: ensureOptionalString(record.speakerNpcId, `${path}.speakerNpcId`),
     text: ensureString(record.text, `${path}.text`),
+    portraitId: ensureOptionalString(record.portraitId, `${path}.portraitId`),
+    soundId: ensureOptionalString(record.soundId, `${path}.soundId`),
   };
 }
 

@@ -89,6 +89,8 @@
           "x": 8,
           "y": 5,
           "sprite": "guide",
+          "facing": "down",
+          "behavior": "idle",
           "eventId": "intro-event"
         },
         {
@@ -97,6 +99,8 @@
           "x": 12,
           "y": 5,
           "sprite": "merchant",
+          "facing": "left",
+          "behavior": "idle",
           "shopId": "starter-shop",
           "eventId": "merchant-event"
         }

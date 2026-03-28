@@ -1,8 +1,8 @@
-import type { ContentDatabase, EventDefinition, FlagStateMap } from "@/types/content";
+import type { ContentDatabase, DialogueCue, EventDefinition, FlagStateMap } from "@/types/content";
 
 export interface EventRuntime {
   flags: FlagStateMap;
-  dialogueLog: string[];
+  dialogueLog: DialogueCue[];
   openedShopIds: string[];
   startedBattleGroupIds: string[];
   ended: boolean;
@@ -18,6 +18,29 @@ export function createEventRuntime(): EventRuntime {
   };
 }
 
+export function createDialogueCue(
+  database: ContentDatabase,
+  event: EventDefinition,
+  lineId: string,
+): DialogueCue {
+  const line = database.dialogueLines.find((entry) => entry.id === lineId);
+  if (!line) {
+    throw new Error(
+      `[event] ${event.id}: missing dialogue line "${lineId}" during execution`,
+    );
+  }
+
+  return {
+    id: line.id,
+    speakerName: line.speakerName,
+    speakerNpcId: line.speakerNpcId,
+    text: line.text,
+    portraitId: line.portraitId,
+    soundId: line.soundId,
+    choices: undefined,
+  };
+}
+
 export class EventInterpreter {
   execute(event: EventDefinition, database: ContentDatabase, runtime: EventRuntime): EventRuntime {
     for (const command of event.steps) {
@@ -27,16 +50,7 @@ export class EventInterpreter {
 
       switch (command.type) {
         case "dialogue":
-          {
-            const line = database.dialogueLines.find((entry) => entry.id === command.lineId);
-            if (!line) {
-              throw new Error(
-                `[event] ${event.id}: missing dialogue line "${command.lineId}" during execution`,
-              );
-            }
-
-            runtime.dialogueLog.push(`${line.speakerName}: ${line.text}`);
-          }
+          runtime.dialogueLog.push(createDialogueCue(database, event, command.lineId));
           break;
         case "setFlag":
           runtime.flags[command.flagId] = command.value;

@@ -50,7 +50,7 @@ describe("content loader", () => {
             collisionLayers: [{ id: "collision", name: "Collision", width: 20, height: 15, blocked: starterMapCollision }],
             portals: [],
             spawnPoints: [{ id: "hero-start", x: 8, y: 7, facing: "down" }],
-            npcs: [{ id: "liu-bei", name: "Liu Bei", x: 9, y: 7, sprite: "hero", eventId: "intro-event" }],
+            npcs: [{ id: "liu-bei", name: "Liu Bei", x: 9, y: 7, sprite: "hero", facing: "down", behavior: "idle", eventId: "intro-event" }],
             triggers: [{ id: "intro-trigger", x: 8, y: 7, width: 1, height: 1, eventId: "intro-event", once: true }],
           },
         ],
@@ -74,7 +74,7 @@ describe("content loader", () => {
           version: 1,
           description: "manual story content",
         },
-        dialogueLines: [{ id: "line-1", speakerName: "Liu Bei", speakerNpcId: "liu-bei", text: "We should move." }],
+        dialogueLines: [{ id: "line-1", speakerName: "Liu Bei", speakerNpcId: "liu-bei", text: "We should move.", portraitId: "hero-default", soundId: "voice-hero" }],
         events: [{
           id: "intro-event",
           name: "Intro Event",

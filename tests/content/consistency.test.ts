@@ -20,7 +20,7 @@ function createBaseDatabase(): ContentDatabase {
         collisionLayers: [{ id: "collision", name: "Collision", width, height, blocked: Array.from({ length: width * height }, () => 0) }],
         portals: [],
         spawnPoints: [{ id: "start", x: 1, y: 1, facing: "down" }],
-        npcs: [{ id: "npc-1", name: "Guide", x: 1, y: 1, sprite: "guide", eventId: "event-1" }],
+        npcs: [{ id: "npc-1", name: "Guide", x: 1, y: 1, sprite: "guide", facing: "down", behavior: "idle", eventId: "event-1" }],
         triggers: [{ id: "trigger-1", x: 2, y: 2, width: 1, height: 1, eventId: "event-1", once: false }],
       },
     ],

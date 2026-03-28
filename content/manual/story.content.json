@@ -10,19 +10,25 @@
       "id": "intro-line-1",
       "speakerName": "Village Guide",
       "speakerNpcId": "village-guide",
-      "text": "The road ahead is clear enough for a systems demo."
+      "text": "The road ahead is clear enough for a systems demo.",
+      "portraitId": "guide-default",
+      "soundId": "voice-guide"
     },
     {
       "id": "intro-line-2",
       "speakerName": "Village Guide",
       "speakerNpcId": "village-guide",
-      "text": "Talk to the merchant or enter the training yard."
+      "text": "Talk to the merchant or enter the training yard.",
+      "portraitId": "guide-default",
+      "soundId": "voice-guide"
     },
     {
       "id": "merchant-line-1",
       "speakerName": "Merchant",
       "speakerNpcId": "merchant",
-      "text": "I only stock placeholder wares, but the data path is real."
+      "text": "I only stock placeholder wares, but the data path is real.",
+      "portraitId": "merchant-default",
+      "soundId": "voice-merchant"
     }
   ],
   "events": [

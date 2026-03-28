@@ -2,6 +2,7 @@ export type Facing = "up" | "down" | "left" | "right";
 export type ItemKind = "consumable" | "equipment" | "key";
 export type SkillTarget = "ally" | "enemy" | "self" | "all-enemies";
 export type ContentPackKind = "manual" | "generated";
+export type NpcBehavior = "idle";
 export type FlagStateMap = Record<string, boolean>;
 export type QuestStateMap = Record<string, string>;
 
@@ -44,6 +45,8 @@ export interface NpcDefinition {
   x: number;
   y: number;
   sprite: string;
+  facing: Facing;
+  behavior: NpcBehavior;
   eventId?: string;
   shopId?: string;
 }
@@ -78,6 +81,23 @@ export interface DialogueLineDefinition {
   speakerName: string;
   speakerNpcId?: string;
   text: string;
+  portraitId?: string;
+  soundId?: string;
+}
+
+export interface DialogueChoiceOption {
+  id: string;
+  label: string;
+}
+
+export interface DialogueCue {
+  id: string;
+  speakerName: string;
+  speakerNpcId?: string;
+  text: string;
+  portraitId?: string;
+  soundId?: string;
+  choices?: DialogueChoiceOption[];
 }
 
 export interface DialogueEventStep {
