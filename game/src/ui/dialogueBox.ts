@@ -14,7 +14,7 @@ export class DialogueBox {
 
   private readonly promptText: Phaser.GameObjects.Text;
 
-  constructor(scene: Phaser.Scene) {
+  constructor(private readonly scene: Phaser.Scene) {
     this.background = scene.add.rectangle(320, 298, 600, 112, 0x0f172a, 0.94)
       .setStrokeStyle(2, 0xeab308)
       .setScrollFactor(0)
@@ -43,10 +43,22 @@ export class DialogueBox {
   }
 
   show(view: DialogueSessionView): void {
+    const fallbackText = view.cue.text.length > 0 ? view.cue.text.slice(0, 1) : "";
+    const visibleText = view.visibleText.length > 0 ? view.visibleText : fallbackText;
+
+    this.speakerText.setText(view.cue.speakerName);
+    this.bodyText.setText(visibleText);
+    this.promptText.setText(view.isLineComplete ? "Enter" : "Skip");
+
     this.background.setVisible(true);
-    this.speakerText.setVisible(true).setText(view.cue.speakerName);
-    this.bodyText.setVisible(true).setText(view.visibleText);
-    this.promptText.setVisible(true).setText(view.isLineComplete ? "Enter" : "Skip");
+    this.speakerText.setVisible(true);
+    this.bodyText.setVisible(true);
+    this.promptText.setVisible(true);
+
+    this.scene.children.bringToTop(this.background);
+    this.scene.children.bringToTop(this.speakerText);
+    this.scene.children.bringToTop(this.bodyText);
+    this.scene.children.bringToTop(this.promptText);
   }
 
   hide(): void {
