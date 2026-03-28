@@ -53,6 +53,9 @@ The playable skeleton contains four scenes:
 - `BattleScene`: placeholder battle screen entered with `B` and exited with `Esc`.
 - `BattleScene`：占位战斗场景，按 `B` 进入，按 `Esc` 返回。
 
+The world layer now uses one unified event system for NPC interaction, tile triggers, and region triggers.
+世界层现在使用一套统一事件系统来驱动 NPC 交互、tile trigger 和 region trigger。
+
 ## Data-Driven Seams
 ## 数据驱动接缝
 
@@ -67,8 +70,13 @@ The first extension points are intentionally typed and data-driven:
 - `saveManager`：持久化类型化存档槽，并依据已加载的内容数据库校验存档引用。
 - `eventInterpreter`: executes declarative event steps such as dialogue, flags, shops, and battle launches.
 - `eventInterpreter`：执行声明式事件步骤，例如对话、标记设置、商店打开和战斗启动。
+- `gameStateRuntime` + `worldTriggerResolver`: keep persistent flags, inventory, party membership, and consumed one-shot triggers separate from scene code while mapping NPC, tile, and region triggers to events.
+- `gameStateRuntime` + `worldTriggerResolver`：把持久化 flags、inventory、party 成员和一次性 trigger 消费状态从 scene 中分离出来，并负责把 NPC、tile、region trigger 映射到事件。
 - `dialogueSession` + `dialogueBox`: keep dialogue presentation and typewriter flow separate from event execution so portraits, audio, and choices can be extended later.
 - `dialogueSession` + `dialogueBox`：将对话展示与逐字播放流程从事件执行中分离，为后续头像、音效和选项扩展预留接口。
+
+Supported event opcodes currently include `dialogue`, `setFlag`, `clearFlag`, `ifFlag`, `ifNotFlag`, `warp`, `giveItem`, `removeItem`, `joinParty`, `startBattle`, `playSfx`, `openShop`, and `end`.
+当前支持的事件 opcode 包括 `dialogue`、`setFlag`、`clearFlag`、`ifFlag`、`ifNotFlag`、`warp`、`giveItem`、`removeItem`、`joinParty`、`startBattle`、`playSfx`、`openShop` 和 `end`。
 
 `content/source/` is reserved for raw import material and is intentionally outside the runtime loading path. `content/manual/` is for hand-authored packs. `content/generated/` is for tool-produced packs that already satisfy runtime schema.
 `content/source/` 保留给原始导入材料，刻意不进入运行时加载路径。`content/manual/` 用于手工编写内容包。`content/generated/` 用于已经满足运行时 schema 的工具生成内容包。
@@ -89,6 +97,8 @@ The current test suite covers:
 - 世界运行时中的移动、碰撞和 portal 切换
 - NPC facing-based interaction targeting and dialogue typewriter flow
 - 基于朝向的 NPC 交互目标判定和对话逐字显示流程
+- unified event interpreter branching, warp, inventory mutation, and trigger resolution
+- 统一事件解释器的条件分支、warp、物品变更和 trigger 解析
 - scene registry wiring and boot-first startup order
 - 场景注册表接线和以 Boot 开始的启动顺序
 
@@ -105,12 +115,14 @@ Manual verification in the current demo:
 4. 面向村口向导并按 `Space` 开始对话，再按 `Space` 可跳过当前逐字显示或进入下一句。
 5. Confirm the player cannot move while dialogue is active and regains movement after the dialogue ends.
 5. 确认对话过程中玩家无法移动，并且对话结束后能恢复移动控制。
-6. Face the merchant and confirm a different dialogue payload is shown.
-6. 面向商人并确认会显示不同的对话内容。
-7. Step onto the east gate portal in `town` to enter `field`.
-7. 走到 `town` 东侧出口 portal，确认可以进入 `field`。
-8. Confirm the player appears at the `field` gate spawn and can return through the west portal.
-8. 确认玩家出现在 `field` 的门口出生点，并且可以通过西侧 portal 返回。
+6. Face the merchant, confirm a different dialogue is shown, and then talk to the guard to verify the guard now allows passage.
+6. 面向商人，确认会显示不同的对话，并再次与守卫对话，确认守卫已经放行。
+7. Walk onto the chest tile in `town` and confirm the chest event grants an `Herb`.
+7. 走到 `town` 的宝箱 tile 上，确认宝箱事件会获得一个 `Herb`。
+8. After receiving the pass, talk to the guard again and confirm the same event interpreter now warps the player to `field`.
+8. 拿到通行许可后再次与守卫对话，确认同一套事件解释器会把玩家传送到 `field`。
+9. Move through the `field` region trigger and confirm it can start the training battle flow.
+9. 走进 `field` 的 region trigger，确认它可以启动训练战斗流程。
 
 Use these tests as the baseline for future content pipelines, state machines, and gameplay systems.
 后续扩展内容管线、状态机和玩法系统时，应以这些测试作为基线。
