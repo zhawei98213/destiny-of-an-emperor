@@ -59,3 +59,24 @@ Update `README.md` and this file when you introduce new directories, commands, o
 
 Code comments, documentation, and `README.md` content should be written bilingually in English and Chinese whenever they are added or updated.
 代码注释、项目文档以及 `README.md` 的新增或更新内容都应使用英文和中文双语编写。
+
+## Implementation Rules
+## 实施规则
+
+Prefer preserving layering and data-driven design over quick hardcoded solutions.
+优先维护分层和数据驱动设计，不为了速度把逻辑硬编码进去。
+
+After each change, check whether the change breaks directory responsibilities, introduces an unvalidated data format, or places story logic directly in a scene.
+每次改动后，都要检查是否破坏目录职责、是否引入了未校验的数据格式、以及是否把剧情逻辑直接写进了 scene。
+
+When adding a new content format, update schema and validation in the same change.
+新增内容格式时，必须在同一次改动里同步更新 schema 和校验逻辑。
+
+When adding a key feature, include at least a minimal automated test or a reproducible verification script.
+新增关键功能时，至少补一个最小自动化测试或可复现的验证脚本。
+
+Prefer small, scoped commits and avoid unrelated refactors.
+尽量保持小步、范围明确的提交，避免顺手做无关重构。
+
+In responses, present what changed, why it changed, and how it was verified before listing run commands.
+输出时先说明改了什么、为什么这么改、如何验证，再给运行命令。
