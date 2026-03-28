@@ -21,7 +21,7 @@ function createBaseDatabase(): ContentDatabase {
         portals: [],
         spawnPoints: [{ id: "start", x: 1, y: 1, facing: "down" }],
         npcs: [{ id: "npc-1", name: "Guide", x: 1, y: 1, sprite: "guide", facing: "down", behavior: "idle", eventId: "event-1" }],
-        triggers: [{ id: "trigger-1", x: 2, y: 2, width: 1, height: 1, eventId: "event-1", once: false }],
+        triggers: [{ id: "trigger-1", kind: "tile", x: 2, y: 2, width: 1, height: 1, eventId: "event-1", once: false }],
       },
     ],
     dialogueLines: [{ id: "line-1", speakerName: "Guide", speakerNpcId: "npc-1", text: "Hello" }],

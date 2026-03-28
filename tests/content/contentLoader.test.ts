@@ -51,7 +51,7 @@ describe("content loader", () => {
             portals: [],
             spawnPoints: [{ id: "hero-start", x: 8, y: 7, facing: "down" }],
             npcs: [{ id: "liu-bei", name: "Liu Bei", x: 9, y: 7, sprite: "hero", facing: "down", behavior: "idle", eventId: "intro-event" }],
-            triggers: [{ id: "intro-trigger", x: 8, y: 7, width: 1, height: 1, eventId: "intro-event", once: true }],
+            triggers: [{ id: "intro-trigger", kind: "tile", x: 8, y: 7, width: 1, height: 1, eventId: "intro-event", once: true }],
           },
         ],
         flags: [{ id: "intro-complete", defaultValue: false }],

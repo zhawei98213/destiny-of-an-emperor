@@ -3,6 +3,7 @@ export type ItemKind = "consumable" | "equipment" | "key";
 export type SkillTarget = "ally" | "enemy" | "self" | "all-enemies";
 export type ContentPackKind = "manual" | "generated";
 export type NpcBehavior = "idle";
+export type TriggerKind = "npcInteraction" | "tile" | "region";
 export type FlagStateMap = Record<string, boolean>;
 export type QuestStateMap = Record<string, string>;
 
@@ -53,10 +54,12 @@ export interface NpcDefinition {
 
 export interface TriggerDefinition {
   id: string;
-  x: number;
-  y: number;
-  width: number;
-  height: number;
+  kind: TriggerKind;
+  x?: number;
+  y?: number;
+  width?: number;
+  height?: number;
+  npcId?: string;
   eventId: string;
   once: boolean;
 }
@@ -108,7 +111,47 @@ export interface DialogueEventStep {
 export interface SetFlagEventStep {
   type: "setFlag";
   flagId: string;
-  value: boolean;
+  value?: boolean;
+}
+
+export interface ClearFlagEventStep {
+  type: "clearFlag";
+  flagId: string;
+}
+
+export interface IfFlagEventStep {
+  type: "ifFlag";
+  flagId: string;
+  steps: EventStep[];
+}
+
+export interface IfNotFlagEventStep {
+  type: "ifNotFlag";
+  flagId: string;
+  steps: EventStep[];
+}
+
+export interface WarpEventStep {
+  type: "warp";
+  targetMapId: string;
+  targetSpawnId: string;
+}
+
+export interface GiveItemEventStep {
+  type: "giveItem";
+  itemId: string;
+  quantity: number;
+}
+
+export interface RemoveItemEventStep {
+  type: "removeItem";
+  itemId: string;
+  quantity: number;
+}
+
+export interface JoinPartyEventStep {
+  type: "joinParty";
+  partyMemberId: string;
 }
 
 export interface OpenShopEventStep {
@@ -121,6 +164,11 @@ export interface StartBattleEventStep {
   battleGroupId: string;
 }
 
+export interface PlaySfxEventStep {
+  type: "playSfx";
+  sfxId: string;
+}
+
 export interface EndEventStep {
   type: "end";
 }
@@ -128,8 +176,16 @@ export interface EndEventStep {
 export type EventStep =
   | DialogueEventStep
   | SetFlagEventStep
+  | ClearFlagEventStep
+  | IfFlagEventStep
+  | IfNotFlagEventStep
+  | WarpEventStep
+  | GiveItemEventStep
+  | RemoveItemEventStep
+  | JoinPartyEventStep
   | OpenShopEventStep
   | StartBattleEventStep
+  | PlaySfxEventStep
   | EndEventStep;
 
 export interface EventDefinition {

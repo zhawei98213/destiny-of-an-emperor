@@ -122,12 +122,15 @@ export function validateNpcDefinition(value: unknown, path: string): NpcDefiniti
 
 export function validateTriggerDefinition(value: unknown, path: string): TriggerDefinition {
   const record = ensureRecord(value, path);
+  const kind = ensureLiteral(record.kind ?? "tile", ["npcInteraction", "tile", "region"], `${path}.kind`);
   return {
     id: ensureString(record.id, `${path}.id`),
-    x: ensureNumber(record.x, `${path}.x`),
-    y: ensureNumber(record.y, `${path}.y`),
-    width: ensureNumber(record.width, `${path}.width`),
-    height: ensureNumber(record.height, `${path}.height`),
+    kind,
+    x: kind === "npcInteraction" ? ensureOptionalNumber(record.x, `${path}.x`) : ensureNumber(record.x, `${path}.x`),
+    y: kind === "npcInteraction" ? ensureOptionalNumber(record.y, `${path}.y`) : ensureNumber(record.y, `${path}.y`),
+    width: kind === "npcInteraction" ? ensureOptionalNumber(record.width, `${path}.width`) : ensureOptionalNumber(record.width, `${path}.width`) ?? 1,
+    height: kind === "npcInteraction" ? ensureOptionalNumber(record.height, `${path}.height`) : ensureOptionalNumber(record.height, `${path}.height`) ?? 1,
+    npcId: ensureOptionalString(record.npcId, `${path}.npcId`),
     eventId: ensureString(record.eventId, `${path}.eventId`),
     once: ensureOptionalBoolean(record.once, `${path}.once`) ?? false,
   };
@@ -183,7 +186,21 @@ function validateEventStep(value: unknown, path: string): EventStep {
   const record = ensureRecord(value, path);
   const type = ensureLiteral(
     record.type,
-    ["dialogue", "setFlag", "openShop", "startBattle", "end"],
+    [
+      "dialogue",
+      "setFlag",
+      "clearFlag",
+      "ifFlag",
+      "ifNotFlag",
+      "warp",
+      "giveItem",
+      "removeItem",
+      "joinParty",
+      "openShop",
+      "startBattle",
+      "playSfx",
+      "end",
+    ],
     `${path}.type`,
   );
 
@@ -197,7 +214,51 @@ function validateEventStep(value: unknown, path: string): EventStep {
       return {
         type,
         flagId: ensureString(record.flagId, `${path}.flagId`),
-        value: ensureBoolean(record.value, `${path}.value`),
+        value: ensureOptionalBoolean(record.value, `${path}.value`),
+      };
+    case "clearFlag":
+      return {
+        type,
+        flagId: ensureString(record.flagId, `${path}.flagId`),
+      };
+    case "ifFlag":
+      return {
+        type,
+        flagId: ensureString(record.flagId, `${path}.flagId`),
+        steps: ensureArray(record.steps, `${path}.steps`).map((entry, index) =>
+          validateEventStep(entry, `${path}.steps[${index}]`),
+        ),
+      };
+    case "ifNotFlag":
+      return {
+        type,
+        flagId: ensureString(record.flagId, `${path}.flagId`),
+        steps: ensureArray(record.steps, `${path}.steps`).map((entry, index) =>
+          validateEventStep(entry, `${path}.steps[${index}]`),
+        ),
+      };
+    case "warp":
+      return {
+        type,
+        targetMapId: ensureString(record.targetMapId, `${path}.targetMapId`),
+        targetSpawnId: ensureString(record.targetSpawnId, `${path}.targetSpawnId`),
+      };
+    case "giveItem":
+      return {
+        type,
+        itemId: ensureString(record.itemId, `${path}.itemId`),
+        quantity: ensureNumber(record.quantity, `${path}.quantity`),
+      };
+    case "removeItem":
+      return {
+        type,
+        itemId: ensureString(record.itemId, `${path}.itemId`),
+        quantity: ensureNumber(record.quantity, `${path}.quantity`),
+      };
+    case "joinParty":
+      return {
+        type,
+        partyMemberId: ensureString(record.partyMemberId, `${path}.partyMemberId`),
       };
     case "openShop":
       return {
@@ -208,6 +269,11 @@ function validateEventStep(value: unknown, path: string): EventStep {
       return {
         type,
         battleGroupId: ensureString(record.battleGroupId, `${path}.battleGroupId`),
+      };
+    case "playSfx":
+      return {
+        type,
+        sfxId: ensureString(record.sfxId, `${path}.sfxId`),
       };
     case "end":
       return { type };

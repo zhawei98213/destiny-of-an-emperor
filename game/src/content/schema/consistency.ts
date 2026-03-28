@@ -126,38 +126,81 @@ function validateEventReferences(
   flagIds: Set<string>,
   shopIds: Set<string>,
   battleGroupIds: Set<string>,
+  mapIndex: Map<string, MapDefinition>,
+  spawnIndex: Map<string, Set<string>>,
+  itemIds: Set<string>,
+  partyMemberIds: Set<string>,
 ): void {
+  function validateStep(step: EventDefinition["steps"][number], path: string): void {
+    switch (step.type) {
+      case "dialogue":
+        if (!lineIds.has(step.lineId)) {
+          failSchema(`${path}.lineId`, `references missing dialogue line "${step.lineId}"`);
+        }
+        break;
+      case "setFlag":
+      case "clearFlag":
+        if (!flagIds.has(step.flagId)) {
+          failSchema(`${path}.flagId`, `references missing flag "${step.flagId}"`);
+        }
+        break;
+      case "ifFlag":
+      case "ifNotFlag":
+        if (!flagIds.has(step.flagId)) {
+          failSchema(`${path}.flagId`, `references missing flag "${step.flagId}"`);
+        }
+        step.steps.forEach((nestedStep, nestedIndex) => {
+          validateStep(nestedStep, `${path}.steps[${nestedIndex}]`);
+        });
+        break;
+      case "warp":
+        if (!mapIndex.has(step.targetMapId)) {
+          failSchema(`${path}.targetMapId`, `references missing map "${step.targetMapId}"`);
+        }
+
+        if (!spawnIndex.get(step.targetMapId)?.has(step.targetSpawnId)) {
+          failSchema(
+            `${path}.targetSpawnId`,
+            `references missing spawn "${step.targetSpawnId}" on map "${step.targetMapId}"`,
+          );
+        }
+        break;
+      case "giveItem":
+      case "removeItem":
+        if (!itemIds.has(step.itemId)) {
+          failSchema(`${path}.itemId`, `references missing item "${step.itemId}"`);
+        }
+        break;
+      case "joinParty":
+        if (!partyMemberIds.has(step.partyMemberId)) {
+          failSchema(
+            `${path}.partyMemberId`,
+            `references missing party member "${step.partyMemberId}"`,
+          );
+        }
+        break;
+      case "openShop":
+        if (!shopIds.has(step.shopId)) {
+          failSchema(`${path}.shopId`, `references missing shop "${step.shopId}"`);
+        }
+        break;
+      case "startBattle":
+        if (!battleGroupIds.has(step.battleGroupId)) {
+          failSchema(
+            `${path}.battleGroupId`,
+            `references missing battle group "${step.battleGroupId}"`,
+          );
+        }
+        break;
+      case "playSfx":
+      case "end":
+        break;
+    }
+  }
+
   events.forEach((event) => {
     event.steps.forEach((step, index) => {
-      const path = `events.${event.id}.steps[${index}]`;
-
-      switch (step.type) {
-        case "dialogue":
-          if (!lineIds.has(step.lineId)) {
-            failSchema(`${path}.lineId`, `references missing dialogue line "${step.lineId}"`);
-          }
-          break;
-        case "setFlag":
-          if (!flagIds.has(step.flagId)) {
-            failSchema(`${path}.flagId`, `references missing flag "${step.flagId}"`);
-          }
-          break;
-        case "openShop":
-          if (!shopIds.has(step.shopId)) {
-            failSchema(`${path}.shopId`, `references missing shop "${step.shopId}"`);
-          }
-          break;
-        case "startBattle":
-          if (!battleGroupIds.has(step.battleGroupId)) {
-            failSchema(
-              `${path}.battleGroupId`,
-              `references missing battle group "${step.battleGroupId}"`,
-            );
-          }
-          break;
-        case "end":
-          break;
-      }
+      validateStep(step, `events.${event.id}.steps[${index}]`);
     });
   });
 }
@@ -233,14 +276,27 @@ export function validateContentReferences(database: ContentDatabase): ContentDat
     });
 
     map.triggers.forEach((trigger, index) => {
-      validateRectInBounds(
-        map,
-        `maps.${map.id}.triggers[${index}]`,
-        trigger.x,
-        trigger.y,
-        trigger.width,
-        trigger.height,
-      );
+      if (trigger.kind === "npcInteraction") {
+        if (!trigger.npcId) {
+          failSchema(`maps.${map.id}.triggers[${index}].npcId`, "npcInteraction trigger requires npcId");
+        }
+
+        if (!map.npcs.some((npc) => npc.id === trigger.npcId)) {
+          failSchema(
+            `maps.${map.id}.triggers[${index}].npcId`,
+            `references missing npc "${trigger.npcId}" on map "${map.id}"`,
+          );
+        }
+      } else {
+        validateRectInBounds(
+          map,
+          `maps.${map.id}.triggers[${index}]`,
+          trigger.x ?? 0,
+          trigger.y ?? 0,
+          trigger.width ?? 1,
+          trigger.height ?? 1,
+        );
+      }
 
       if (!eventIndex.has(trigger.eventId)) {
         failSchema(
@@ -258,6 +314,10 @@ export function validateContentReferences(database: ContentDatabase): ContentDat
     new Set(flagIndex.keys()),
     new Set(shopIndex.keys()),
     new Set(battleGroupIndex.keys()),
+    mapIndex,
+    spawnIndex,
+    new Set(itemIndex.keys()),
+    new Set(database.partyMembers.map((member) => member.id)),
   );
 
   database.shops.forEach((shop) => {

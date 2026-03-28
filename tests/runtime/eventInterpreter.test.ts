@@ -5,13 +5,12 @@ import type { ContentDatabase, EventDefinition } from "@/types/content";
 describe("event interpreter", () => {
   it("executes dialogue, setFlag, and end", () => {
     const interpreter = new EventInterpreter();
-    const runtime = createEventRuntime();
     const event: EventDefinition = {
       id: "intro",
       name: "Intro",
       steps: [
         { type: "dialogue", lineId: "line-1" },
-        { type: "setFlag", flagId: "introSeen", value: true },
+        { type: "setFlag", flagId: "introSeen" },
         { type: "end" },
         { type: "dialogue", lineId: "line-2" },
       ],
@@ -33,6 +32,7 @@ describe("event interpreter", () => {
       flags: [],
       questStates: [],
     };
+    const runtime = createEventRuntime(database);
 
     interpreter.execute(event, database, runtime);
 
@@ -45,7 +45,7 @@ describe("event interpreter", () => {
       soundId: "blip",
       choices: undefined,
     }]);
-    expect(runtime.flags.introSeen).toBe(true);
+    expect(runtime.state.flags.introSeen).toBe(true);
     expect(runtime.ended).toBe(true);
   });
 
@@ -88,5 +88,105 @@ describe("event interpreter", () => {
       soundId: "voice-guide",
       choices: undefined,
     });
+  });
+
+  it("executes ifFlag, warp, giveItem, and end against shared runtime state", () => {
+    const interpreter = new EventInterpreter();
+    const event: EventDefinition = {
+      id: "guard-pass-event",
+      name: "Guard Pass Event",
+      steps: [
+        {
+          type: "ifFlag",
+          flagId: "gate-open",
+          steps: [
+            { type: "warp", targetMapId: "field", targetSpawnId: "field-gate" },
+          ],
+        },
+        {
+          type: "ifNotFlag",
+          flagId: "chest-opened",
+          steps: [
+            { type: "giveItem", itemId: "herb", quantity: 1 },
+            { type: "setFlag", flagId: "chest-opened" },
+          ],
+        },
+        { type: "end" },
+        { type: "giveItem", itemId: "herb", quantity: 99 },
+      ],
+    };
+    const database: ContentDatabase = {
+      packs: [],
+      maps: [
+        {
+          id: "town",
+          name: "Town",
+          width: 5,
+          height: 5,
+          tileWidth: 16,
+          tileHeight: 16,
+          tileLayers: [{ id: "ground", name: "Ground", width: 5, height: 5, tiles: Array.from({ length: 25 }, () => 1) }],
+          collisionLayers: [{ id: "collision", name: "Collision", width: 5, height: 5, blocked: Array.from({ length: 25 }, () => 0) }],
+          portals: [],
+          spawnPoints: [{ id: "town-start", x: 1, y: 1, facing: "down" }],
+          npcs: [],
+          triggers: [],
+        },
+        {
+          id: "field",
+          name: "Field",
+          width: 5,
+          height: 5,
+          tileWidth: 16,
+          tileHeight: 16,
+          tileLayers: [{ id: "ground", name: "Ground", width: 5, height: 5, tiles: Array.from({ length: 25 }, () => 1) }],
+          collisionLayers: [{ id: "collision", name: "Collision", width: 5, height: 5, blocked: Array.from({ length: 25 }, () => 0) }],
+          portals: [],
+          spawnPoints: [{ id: "field-gate", x: 2, y: 2, facing: "right" }],
+          npcs: [],
+          triggers: [],
+        },
+      ],
+      dialogueLines: [],
+      events: [event],
+      items: [{ id: "herb", name: "Herb", description: "HP", kind: "consumable", price: 10 }],
+      partyMembers: [{
+        id: "hero",
+        name: "Hero",
+        className: "Lord",
+        level: 1,
+        skills: ["skill-1"],
+        baseStats: { maxHp: 10, maxMp: 5, attack: 5, defense: 5, speed: 5 },
+      }],
+      enemies: [],
+      battleGroups: [],
+      shops: [],
+      skills: [{ id: "skill-1", name: "Strike", description: "Hit", mpCost: 0, power: 4, target: "enemy" }],
+      flags: [
+        { id: "gate-open", defaultValue: true },
+        { id: "chest-opened", defaultValue: false },
+      ],
+      questStates: [],
+    };
+    const runtime = createEventRuntime(database, {
+      world: {
+        currentMapId: "town",
+        currentSpawnPointId: "town-start",
+      },
+    });
+
+    interpreter.execute(event, database, runtime);
+
+    expect(runtime.pendingWarp).toEqual({
+      mapId: "field",
+      spawnPointId: "field-gate",
+    });
+    expect(runtime.state.world).toEqual({
+      currentMapId: "field",
+      currentSpawnPointId: "field-gate",
+    });
+    expect(runtime.state.inventory.items).toEqual([{ itemId: "herb", quantity: 1 }]);
+    expect(runtime.state.flags["chest-opened"]).toBe(true);
+    expect(runtime.ended).toBe(true);
   });
 });
