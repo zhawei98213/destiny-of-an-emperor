@@ -2,10 +2,6 @@ import Phaser from "phaser";
 import type { DialogueSessionView } from "@/ui/dialogueSession";
 
 export class DialogueBox {
-  private static readonly BackgroundDepth = 1000;
-
-  private readonly background: Phaser.GameObjects.Rectangle;
-
   private readonly overlay?: HTMLDivElement;
 
   private readonly speakerText?: HTMLDivElement;
@@ -15,14 +11,11 @@ export class DialogueBox {
   private readonly promptText?: HTMLDivElement;
 
   constructor(scene: Phaser.Scene) {
-    this.background = scene.add.rectangle(320, 298, 600, 112, 0x0f172a, 0.94)
-      .setStrokeStyle(2, 0xeab308)
-      .setScrollFactor(0)
-      .setDepth(DialogueBox.BackgroundDepth)
-      .setVisible(false);
-
     const parent = scene.game.canvas.parentElement;
     if (parent && typeof document !== "undefined") {
+      // Use a DOM overlay for dialogue text because Phaser text objects were not
+      // rendering reliably in the user's environment.
+      // 使用 DOM overlay 显示对话文本，因为在当前用户环境中 Phaser 文本对象渲染不稳定。
       this.overlay = document.createElement("div");
       this.overlay.style.position = "fixed";
       this.overlay.style.left = "50%";
@@ -78,8 +71,6 @@ export class DialogueBox {
     const fallbackText = view.cue.text;
     const visibleText = view.visibleText.length > 0 ? view.visibleText : fallbackText;
 
-    this.background.setVisible(true);
-
     if (this.overlay && this.speakerText && this.bodyText && this.promptText) {
       this.speakerText.textContent = view.cue.speakerName;
       this.bodyText.textContent = visibleText;
@@ -89,8 +80,6 @@ export class DialogueBox {
   }
 
   hide(): void {
-    this.background.setVisible(false);
-
     if (this.overlay && this.speakerText && this.bodyText && this.promptText) {
       this.overlay.style.display = "none";
       this.speakerText.textContent = "";
