@@ -377,15 +377,15 @@ export function validateSaveDataReferences(
   saveData: SaveData,
   database: ContentDatabase,
 ): SaveData {
-  const map = database.maps.find((entry) => entry.id === saveData.mapId);
+  const map = database.maps.find((entry) => entry.id === saveData.world.mapId);
   if (!map) {
-    failSchema(`saveData.mapId`, `references missing map "${saveData.mapId}"`);
+    failSchema(`saveData.world.mapId`, `references missing map "${saveData.world.mapId}"`);
   }
 
-  if (!map.spawnPoints.some((entry) => entry.id === saveData.spawnPointId)) {
+  if (!map.spawnPoints.some((entry) => entry.id === saveData.world.spawnPointId)) {
     failSchema(
-      "saveData.spawnPointId",
-      `references missing spawn "${saveData.spawnPointId}" on map "${saveData.mapId}"`,
+      "saveData.world.spawnPointId",
+      `references missing spawn "${saveData.world.spawnPointId}" on map "${saveData.world.mapId}"`,
     );
   }
 
@@ -421,6 +421,12 @@ export function validateSaveDataReferences(
         `saveData.questStates.${questId}`,
         `invalid stage "${stage}", expected one of ${quest.stages.join(", ")}`,
       );
+    }
+  });
+
+  Object.keys(saveData.shopStates).forEach((shopId) => {
+    if (!database.shops.some((shop) => shop.id === shopId)) {
+      failSchema(`saveData.shopStates.${shopId}`, `references missing shop "${shopId}"`);
     }
   });
 

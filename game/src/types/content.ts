@@ -6,6 +6,7 @@ export type NpcBehavior = "idle";
 export type TriggerKind = "npcInteraction" | "tile" | "region";
 export type FlagStateMap = Record<string, boolean>;
 export type QuestStateMap = Record<string, string>;
+export type ShopStateMap = Record<string, { visited: boolean }>;
 
 export interface TileLayerDefinition {
   id: string;
@@ -276,14 +277,25 @@ export interface InventoryState {
   items: InventoryEntry[];
 }
 
-export interface SaveData {
-  slot: string;
+export interface SaveWorldState {
   mapId: string;
   spawnPointId: string;
+  playerX: number;
+  playerY: number;
+  facing: Facing;
+}
+
+export interface SaveData {
+  version: number;
+  slot: string;
+  world: SaveWorldState;
   partyMemberIds: string[];
   flags: FlagStateMap;
   questStates: QuestStateMap;
   inventory: InventoryState;
+  chapterId?: string;
+  shopStates: ShopStateMap;
+  consumedTriggerIds: string[];
 }
 
 export interface ContentPackMeta {

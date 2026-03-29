@@ -422,6 +422,8 @@ export function validateSaveData(value: unknown, path = "saveData"): SaveData {
   const record = ensureRecord(value, path);
   const flagsRecord = ensureRecord(record.flags, `${path}.flags`);
   const questStatesRecord = ensureRecord(record.questStates, `${path}.questStates`);
+  const worldRecord = ensureRecord(record.world, `${path}.world`);
+  const shopStatesRecord = ensureRecord(record.shopStates ?? {}, `${path}.shopStates`);
 
   const flags = Object.fromEntries(
     Object.entries(flagsRecord).map(([key, entry]) => [
@@ -437,14 +439,35 @@ export function validateSaveData(value: unknown, path = "saveData"): SaveData {
     ]),
   );
 
+  const shopStates = Object.fromEntries(
+    Object.entries(shopStatesRecord).map(([key, entry]) => {
+      const shopRecord = ensureRecord(entry, `${path}.shopStates.${key}`);
+      return [
+        key,
+        {
+          visited: ensureBoolean(shopRecord.visited, `${path}.shopStates.${key}.visited`),
+        },
+      ];
+    }),
+  );
+
   return {
+    version: ensureNumber(record.version, `${path}.version`),
     slot: ensureString(record.slot, `${path}.slot`),
-    mapId: ensureString(record.mapId, `${path}.mapId`),
-    spawnPointId: ensureString(record.spawnPointId, `${path}.spawnPointId`),
+    world: {
+      mapId: ensureString(worldRecord.mapId, `${path}.world.mapId`),
+      spawnPointId: ensureString(worldRecord.spawnPointId, `${path}.world.spawnPointId`),
+      playerX: ensureNumber(worldRecord.playerX, `${path}.world.playerX`),
+      playerY: ensureNumber(worldRecord.playerY, `${path}.world.playerY`),
+      facing: ensureLiteral(worldRecord.facing, ["up", "down", "left", "right"], `${path}.world.facing`),
+    },
     partyMemberIds: ensureStringArray(record.partyMemberIds, `${path}.partyMemberIds`),
     flags,
     questStates,
     inventory: validateInventoryState(record.inventory, `${path}.inventory`),
+    chapterId: ensureOptionalString(record.chapterId, `${path}.chapterId`),
+    shopStates,
+    consumedTriggerIds: ensureStringArray(record.consumedTriggerIds ?? [], `${path}.consumedTriggerIds`),
   };
 }
 
