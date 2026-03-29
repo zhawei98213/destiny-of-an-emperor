@@ -12,6 +12,9 @@ import {
   runCli,
   stableStringify,
 } from "./lib/importerCore";
+import { loadAllChapterMetadata } from "./lib/chapterMetadata";
+
+const manualChapterDir = path.join(repoRoot, "content", "manual", "chapters");
 
 class FileSystemContentReader {
   constructor(private readonly rootDir: string) {}
@@ -50,6 +53,7 @@ export async function validateAllContent(): Promise<void> {
     new FileSystemContentReader(repoRoot),
     DEFAULT_CONTENT_MANIFESTS,
   );
+  const chapterRecords = await loadAllChapterMetadata(manualChapterDir);
   console.log(
     [
       "Content validation passed.",
@@ -58,6 +62,7 @@ export async function validateAllContent(): Promise<void> {
       `events=${database.events.length}`,
       `items=${database.items.length}`,
       `enemies=${database.enemies.length}`,
+      `chapters=${chapterRecords.length}`,
     ].join(" "),
   );
 }

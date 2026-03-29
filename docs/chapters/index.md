@@ -1,0 +1,36 @@
+# Chapter Index
+# 章节索引
+
+This directory tracks chapter-level planning documents for real remake slices.
+这个目录用于跟踪真实复刻切片的章节级计划文档。
+
+## Status Values
+## 状态值
+
+- `planned`: scope exists but import work has not started
+- `planned`：已定义范围，但尚未开始导入
+- `importing`: source, importer, or manual assembly is in progress
+- `importing`：source、导入器或 manual 组装进行中
+- `validating`: content can load, and validation or runtime checking is underway
+- `validating`：内容已能加载，正在做校验或运行时核对
+- `parity-review`: parity and regression review are active, but divergences remain
+- `parity-review`：正在做 parity 与 regression 审核，但仍存在差异
+- `locked`: the slice meets current lock criteria
+- `locked`：该切片已满足当前锁定标准
+
+## Files
+## 文件
+
+- [chapter-template.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-template.md): copy this file to create `chapter-xx-plan.md`
+- [chapter-template.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-template.md)：复制此文件以创建 `chapter-xx-plan.md`
+- [chapter-factory-template.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapter-factory-template.md): execution workflow reference
+- [chapter-factory-template.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapter-factory-template.md)：执行工艺参考
+
+## Current Chapter Records
+## 当前章节记录
+
+- `chapter-01-lou-sang`: first real slice, currently `parity-review`
+- `chapter-01-lou-sang`：第一段真实切片，当前状态为 `parity-review`
+
+The matching chapter metadata lives in `content/manual/chapters/`.
+对应的章节元数据位于 `content/manual/chapters/`。

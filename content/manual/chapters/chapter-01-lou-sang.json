@@ -1,0 +1,53 @@
+{
+  "format": "chapter-metadata-v1",
+  "chapterId": "chapter-01-lou-sang",
+  "title": "Lou Sang Village Opening",
+  "areaLabel": "Lou Sang Village and Eastern Field Gate Slice",
+  "status": "parity-review",
+  "maps": [
+    "town",
+    "field"
+  ],
+  "npcs": [
+    "town-guard",
+    "merchant",
+    "village-guide",
+    "field-patrol"
+  ],
+  "events": [
+    "intro-event",
+    "lou-sang-guard-event",
+    "lou-sang-shop-event",
+    "lou-sang-chest-event",
+    "lou-sang-east-exit-event"
+  ],
+  "shops": [
+    "starter-shop"
+  ],
+  "enemyGroups": [
+    "training-slimes"
+  ],
+  "regressionCases": [
+    "guard-blocked-without-pass",
+    "guard-opens-gate-with-pass",
+    "east-exit-warp-after-guard-opens-gate",
+    "chest-first-open",
+    "chest-second-check",
+    "shop-counter-opens-shop-state",
+    "field-battle-roundtrip",
+    "save-load-restores-runtime"
+  ],
+  "paritySummary": {
+    "mapLayout": "importing",
+    "collision": "importing",
+    "npcPlacement": "importing",
+    "dialogue": "parity-review",
+    "events": "parity-review",
+    "flags": "parity-review",
+    "transitions": "locked",
+    "items": "parity-review",
+    "shops": "parity-review",
+    "battles": "validating"
+  },
+  "notes": "Migrated first real slice into chapter-level metadata. Runtime loop, parity rows, and regression cases exist, but dialogue, item rewards, and shop data still contain curated placeholders. / 已把第一段真实切片迁入章节级元数据。当前已有 runtime 闭环、parity 条目和 regression case，但对白、物品奖励和商店数据仍包含人工占位内容。"
+}
