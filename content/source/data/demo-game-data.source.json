@@ -1,0 +1,95 @@
+{
+  "format": "game-data-source-v1",
+  "items": [
+    {
+      "id": "herb",
+      "name": "Herb",
+      "description": "Restores a small amount of HP.",
+      "kind": "consumable",
+      "price": 10
+    },
+    {
+      "id": "bronze-sword",
+      "name": "Bronze Sword",
+      "description": "A basic weapon for early recruits.",
+      "kind": "equipment",
+      "price": 45
+    }
+  ],
+  "shops": [
+    {
+      "id": "starter-shop",
+      "name": "Starter Shop",
+      "inventory": [
+        {
+          "itemId": "herb"
+        },
+        {
+          "itemId": "bronze-sword",
+          "price": 40
+        }
+      ]
+    }
+  ],
+  "enemies": [
+    {
+      "id": "green-slime",
+      "name": "Green Slime",
+      "level": 1,
+      "skills": [
+        "slash"
+      ],
+      "rewardGold": 4,
+      "rewardExperience": 3,
+      "dropItems": [
+        {
+          "itemId": "herb",
+          "quantity": 1,
+          "chance": 1
+        }
+      ],
+      "baseStats": {
+        "maxHp": 12,
+        "maxMp": 0,
+        "attack": 5,
+        "defense": 2,
+        "speed": 3
+      }
+    },
+    {
+      "id": "brown-wolf",
+      "name": "Brown Wolf",
+      "level": 2,
+      "skills": [
+        "slash"
+      ],
+      "rewardGold": 7,
+      "rewardExperience": 5,
+      "dropItems": [],
+      "baseStats": {
+        "maxHp": 18,
+        "maxMp": 0,
+        "attack": 7,
+        "defense": 4,
+        "speed": 6
+      }
+    }
+  ],
+  "battleGroups": [
+    {
+      "id": "training-slimes",
+      "name": "Training Slimes",
+      "enemyIds": [
+        "green-slime",
+        "green-slime"
+      ]
+    },
+    {
+      "id": "field-wolves",
+      "name": "Field Wolves",
+      "enemyIds": [
+        "brown-wolf"
+      ]
+    }
+  ]
+}

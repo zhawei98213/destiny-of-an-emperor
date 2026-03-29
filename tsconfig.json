@@ -18,5 +18,5 @@
       "@/*": ["game/src/*"]
     }
   },
-  "include": ["game/src", "tests", "vite.config.ts"]
+  "include": ["game/src", "tests", "tools", "vite.config.ts"]
 }

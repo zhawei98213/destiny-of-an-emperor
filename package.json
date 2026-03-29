@@ -6,7 +6,12 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
-    "check:content": "vite-node tools/check-content.ts",
+    "check:content": "vite-node tools/validate-content.ts",
+    "import:all": "vite-node tools/import-all.ts",
+    "import:sprites": "vite-node tools/run-import-sprites.ts",
+    "import:maps": "vite-node tools/run-import-maps.ts",
+    "import:text": "vite-node tools/run-import-text.ts",
+    "import:data": "vite-node tools/run-import-data.ts",
     "test": "vitest run",
     "test:watch": "vitest"
   },
