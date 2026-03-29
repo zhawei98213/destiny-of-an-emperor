@@ -14,6 +14,10 @@ Current skills:
 - `content-import-validator`
 - `jrpg-runtime-architect`
 - `map-event-pipeline`
+- `real-map-import`
+- `real-event-import`
+- `parity-audit`
+- `regression-repair`
 
 Keep this file as directory-level documentation only. Do not define a concrete skill here.
 这个文件只作为目录级说明文档使用，不要在这里定义具体 skill。
