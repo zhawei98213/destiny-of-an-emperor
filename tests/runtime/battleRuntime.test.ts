@@ -67,6 +67,7 @@ describe("battle runtime", () => {
       gold: 4,
       items: [{ itemId: "herb", quantity: 1 }],
     });
+    expect(result.outcome?.partyStates.hero?.currentHp).toBe(16);
 
     gameState.applyBattleResult(result.outcome!);
     const snapshot = gameState.getSnapshot();
@@ -112,6 +113,17 @@ describe("battle runtime", () => {
     expect(nextState.outcome).toEqual({
       battleGroupId: "starter-slime",
       outcome: "defeat",
+      partyStates: {
+        hero: {
+          memberId: "hero",
+          level: 1,
+          experience: 0,
+          currentHp: 16,
+          currentMp: 4,
+          statusIds: [],
+          formationSlot: 0,
+        },
+      },
       rewards: {
         experience: 0,
         gold: 0,

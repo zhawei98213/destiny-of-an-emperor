@@ -47,11 +47,13 @@ describe("game state runtime", () => {
     const runtime = createEventRuntime(database);
     runtime.state.flags.opened = true;
     runtime.state.inventory.items.push({ itemId: "herb", quantity: 1 });
+    runtime.state.partyStates.hero.currentHp = 3;
     gameState.applyEventRuntime(runtime);
     gameState.consumeTrigger("chest-trigger");
 
     expect(gameState.getSnapshot().flags.opened).toBe(true);
     expect(gameState.getSnapshot().inventory.items).toEqual([{ itemId: "herb", quantity: 1 }]);
+    expect(gameState.getSnapshot().partyStates.hero?.currentHp).toBe(3);
     expect(gameState.isTriggerConsumed("chest-trigger")).toBe(true);
   });
 });

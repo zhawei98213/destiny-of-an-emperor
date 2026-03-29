@@ -161,6 +161,10 @@ export interface OpenShopEventStep {
   shopId: string;
 }
 
+export interface RestorePartyEventStep {
+  type: "restoreParty";
+}
+
 export interface StartBattleEventStep {
   type: "startBattle";
   battleGroupId: string;
@@ -186,6 +190,7 @@ export type EventStep =
   | RemoveItemEventStep
   | JoinPartyEventStep
   | OpenShopEventStep
+  | RestorePartyEventStep
   | StartBattleEventStep
   | PlaySfxEventStep
   | EndEventStep;
@@ -375,5 +380,6 @@ export interface BattleReward {
 export interface BattleResult {
   battleGroupId: string;
   outcome: "victory" | "defeat";
+  partyStates: PartyStateMap;
   rewards: BattleReward;
 }

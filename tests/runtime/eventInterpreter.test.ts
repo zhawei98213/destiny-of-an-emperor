@@ -90,7 +90,7 @@ describe("event interpreter", () => {
     });
   });
 
-  it("executes ifFlag, warp, giveItem, and end against shared runtime state", () => {
+  it("executes ifFlag, warp, restoreParty, giveItem, and end against shared runtime state", () => {
     const interpreter = new EventInterpreter();
     const event: EventDefinition = {
       id: "guard-pass-event",
@@ -107,6 +107,7 @@ describe("event interpreter", () => {
           type: "ifNotFlag",
           flagId: "chest-opened",
           steps: [
+            { type: "restoreParty" },
             { type: "giveItem", itemId: "herb", quantity: 1 },
             { type: "setFlag", flagId: "chest-opened" },
           ],
@@ -169,6 +170,17 @@ describe("event interpreter", () => {
       questStates: [],
     };
     const runtime = createEventRuntime(database, {
+      partyStates: {
+        hero: {
+          memberId: "hero",
+          level: 1,
+          experience: 0,
+          currentHp: 1,
+          currentMp: 0,
+          statusIds: ["poison"],
+          formationSlot: 0,
+        },
+      },
       world: {
         currentMapId: "town",
         currentSpawnPointId: "town-start",
@@ -187,6 +199,15 @@ describe("event interpreter", () => {
     });
     expect(runtime.state.inventory.items).toEqual([{ itemId: "herb", quantity: 1 }]);
     expect(runtime.state.flags["chest-opened"]).toBe(true);
+    expect(runtime.state.partyStates.hero).toEqual({
+      memberId: "hero",
+      level: 1,
+      experience: 0,
+      currentHp: 10,
+      currentMp: 5,
+      statusIds: [],
+      formationSlot: 0,
+    });
     expect(runtime.ended).toBe(true);
   });
 });

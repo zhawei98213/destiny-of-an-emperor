@@ -109,6 +109,14 @@ export class GameStateRuntime {
       items: runtime.state.inventory.items.map((entry) => ({ ...entry })),
     };
     this.partyMemberIds = [...runtime.state.partyMemberIds];
+    this.partyStates = Object.fromEntries(
+      Object.entries(runtime.state.partyStates).map(([memberId, state]) => [memberId, { ...state, statusIds: [...state.statusIds] }]),
+    );
+    runtime.openedShopIds.forEach((shopId) => {
+      this.shopStates[shopId] = {
+        visited: true,
+      };
+    });
     this.ensurePartyStatesForMembers();
   }
 
@@ -129,26 +137,26 @@ export class GameStateRuntime {
   }
 
   applyBattleResult(result: BattleResult): void {
+    this.partyStates = Object.fromEntries(
+      Object.entries(result.partyStates).map(([memberId, state]) => [memberId, { ...state, statusIds: [...state.statusIds] }]),
+    );
+    this.ensurePartyStatesForMembers();
+
     if (result.outcome !== "victory") {
       return;
     }
 
+    this.partyStates = Object.fromEntries(
+      Object.entries(this.partyStates).map(([memberId, state]) => [memberId, {
+        ...state,
+        experience: state.experience + result.rewards.experience,
+        statusIds: [...state.statusIds],
+      }]),
+    );
+
     this.inventory = {
       gold: this.inventory.gold + result.rewards.gold,
       items: this.mergeInventoryItems(result.rewards.items),
-    };
-
-    const nextPartyStates: PartyStateMap = {};
-    this.partyMemberIds.forEach((memberId, index) => {
-      const currentState = this.partyStates[memberId] ?? this.createDefaultPartyState(memberId, index);
-      nextPartyStates[memberId] = {
-        ...currentState,
-        experience: currentState.experience + result.rewards.experience,
-      };
-    });
-    this.partyStates = {
-      ...this.partyStates,
-      ...nextPartyStates,
     };
   }
 

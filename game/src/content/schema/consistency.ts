@@ -184,6 +184,8 @@ function validateEventReferences(
           failSchema(`${path}.shopId`, `references missing shop "${step.shopId}"`);
         }
         break;
+      case "restoreParty":
+        break;
       case "startBattle":
         if (!battleGroupIds.has(step.battleGroupId)) {
           failSchema(

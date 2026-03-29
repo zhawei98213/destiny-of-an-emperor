@@ -6,6 +6,7 @@ import type {
   InventoryEntry,
   PartyMemberDefinition,
   PartyMemberState,
+  PartyStateMap,
 } from "@/types/content";
 import type { GameStateSnapshot } from "@/systems/gameStateRuntime";
 
@@ -292,12 +293,14 @@ function finalizeBattle(state: BattleState, outcome: BattleResult["outcome"]): B
   const rewards = outcome === "victory"
     ? collectRewards(state.units)
     : { experience: 0, gold: 0, items: [] };
+  const partyStates = buildBattlePartyStates(state.units, outcome);
 
   return {
     ...state,
     outcome: {
       battleGroupId: state.request.battleGroupId,
       outcome,
+      partyStates,
       rewards,
     },
     log: [
@@ -322,4 +325,22 @@ function collectRewards(units: BattleUnit[]): BattleResult["rewards"] {
     gold: defeatedEnemies.reduce((total, enemy) => total + enemy.rewardGold, 0),
     items: [...itemMap.entries()].map(([itemId, quantity]) => ({ itemId, quantity })),
   };
+}
+
+function buildBattlePartyStates(units: BattleUnit[], outcome: BattleResult["outcome"]): PartyStateMap {
+  const allies = units.filter((unit) => unit.side === "ally");
+  return Object.fromEntries(
+    allies.map((ally) => [
+      ally.definitionId,
+      {
+        memberId: ally.definitionId,
+        level: ally.level,
+        experience: 0,
+        currentHp: outcome === "defeat" ? ally.maxHp : ally.currentHp,
+        currentMp: outcome === "defeat" ? ally.maxMp : ally.currentMp,
+        statusIds: outcome === "defeat" ? [] : [...ally.statusIds],
+        formationSlot: ally.formationSlot,
+      },
+    ]),
+  );
 }

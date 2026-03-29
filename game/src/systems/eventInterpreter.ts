@@ -5,6 +5,7 @@ import type {
   EventStep,
   FlagStateMap,
   InventoryState,
+  PartyStateMap,
 } from "@/types/content";
 
 export interface EventWorldState {
@@ -22,6 +23,7 @@ export interface EventRuntime {
     flags: FlagStateMap;
     inventory: InventoryState;
     partyMemberIds: string[];
+    partyStates: PartyStateMap;
     world: EventWorldState;
   };
   dialogueLog: DialogueCue[];
@@ -36,6 +38,7 @@ export interface CreateEventRuntimeOptions {
   flags?: FlagStateMap;
   inventory?: InventoryState;
   partyMemberIds?: string[];
+  partyStates?: PartyStateMap;
   world?: Partial<EventWorldState>;
 }
 
@@ -63,6 +66,24 @@ export function createEventRuntime(
         items: [],
       },
       partyMemberIds: options.partyMemberIds ?? defaultPartyMemberIds,
+      partyStates: options.partyStates
+        ? Object.fromEntries(
+          Object.entries(options.partyStates).map(([memberId, state]) => [memberId, { ...state, statusIds: [...state.statusIds] }]),
+        )
+        : Object.fromEntries(
+          (options.partyMemberIds ?? defaultPartyMemberIds).map((memberId, index) => {
+            const member = database?.partyMembers.find((entry) => entry.id === memberId);
+            return [memberId, {
+              memberId,
+              level: member?.level ?? 1,
+              experience: 0,
+              currentHp: member?.baseStats.maxHp ?? 1,
+              currentMp: member?.baseStats.maxMp ?? 0,
+              statusIds: [],
+              formationSlot: index,
+            }];
+          }),
+        ),
       world: {
         currentMapId: defaultMapId,
         currentSpawnPointId: defaultSpawnPointId,
@@ -201,6 +222,23 @@ export class EventInterpreter {
         break;
       case "openShop":
         runtime.openedShopIds.push(command.shopId);
+        break;
+      case "restoreParty":
+        runtime.state.partyStates = Object.fromEntries(
+          runtime.state.partyMemberIds.map((memberId, index) => {
+            const member = database.partyMembers.find((entry) => entry.id === memberId);
+            const currentState = runtime.state.partyStates[memberId];
+            return [memberId, {
+              memberId,
+              level: currentState?.level ?? member?.level ?? 1,
+              experience: currentState?.experience ?? 0,
+              currentHp: member?.baseStats.maxHp ?? currentState?.currentHp ?? 1,
+              currentMp: member?.baseStats.maxMp ?? currentState?.currentMp ?? 0,
+              statusIds: [],
+              formationSlot: currentState?.formationSlot ?? index,
+            }];
+          }),
+        );
         break;
       case "startBattle":
         runtime.startedBattleGroupIds.push(command.battleGroupId);

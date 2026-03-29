@@ -209,6 +209,7 @@ function validateEventStep(value: unknown, path: string): EventStep {
       "removeItem",
       "joinParty",
       "openShop",
+      "restoreParty",
       "startBattle",
       "playSfx",
       "end",
@@ -277,6 +278,8 @@ function validateEventStep(value: unknown, path: string): EventStep {
         type,
         shopId: ensureString(record.shopId, `${path}.shopId`),
       };
+    case "restoreParty":
+      return { type };
     case "startBattle":
       return {
         type,
