@@ -72,6 +72,8 @@ export interface GoldenExpectedUi {
   activeScene: RegressionSceneId;
   dialogueLineIds: string[];
   battleOutcome?: "victory" | "defeat";
+  shopId?: string;
+  shopItemLines?: string[];
 }
 
 export interface GoldenRegressionCase {
@@ -326,6 +328,8 @@ function validateExpectedUi(value: unknown, path: string): GoldenExpectedUi {
     activeScene,
     dialogueLineIds: expectStringArray(record.dialogueLineIds, `${path}.dialogueLineIds`),
     battleOutcome,
+    shopId: record.shopId === undefined ? undefined : expectString(record.shopId, `${path}.shopId`),
+    shopItemLines: record.shopItemLines === undefined ? undefined : expectStringArray(record.shopItemLines, `${path}.shopItemLines`),
   };
 }
 

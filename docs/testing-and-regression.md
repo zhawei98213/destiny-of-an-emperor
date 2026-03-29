@@ -29,6 +29,8 @@
 - 宝箱再次检查不会重复给奖励
 - field battle enters `BattleScene`, resolves, and returns to `WorldScene`
 - 野外战斗进入 `BattleScene`、完成结算并返回 `WorldScene`
+- shop interaction opens the expected shop overlay and item price list
+- 商店交互会打开预期的商店 overlay，并显示商品与价格列表
 - save/load restores world, flags, inventory, and party state
 - 存档读档恢复世界、flag、背包和队伍状态
 
@@ -54,6 +56,8 @@ It also writes readable and machine-readable artifacts into `reports/regression/
 - opcode 改动应扩展解释器测试。
 - Golden regression cases should live under `tests/regression/` with explicit initial state, trigger, expected state, and expected UI fields.
 - 黄金回归 case 应放在 `tests/regression/` 下，并显式声明初始状态、触发行为、预期状态和预期 UI 字段。
+- Content-facing overlays such as shop UI should be represented in `expectedUi`, not only in state assertions.
+- 面向内容核对的 overlay，例如商店 UI，应在 `expectedUi` 中体现，而不只检查状态字段。
 - Importer changes should keep output order stable and failure messages specific to file and field.
 - 导入器改动应保持输出顺序稳定，并让失败信息精确到文件和字段。
 

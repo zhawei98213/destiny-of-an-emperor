@@ -16,6 +16,7 @@ import { DialogueBox } from "@/ui/dialogueBox";
 import { DialogueSession } from "@/ui/dialogueSession";
 import { MenuController } from "@/ui/menuController";
 import { MenuOverlay } from "@/ui/menuOverlay";
+import { buildShopViewModel, ShopOverlay } from "@/ui/shopOverlay";
 import { resolveRegionEncounter } from "@/world/worldEncounterRuntime";
 import { renderWorldMap } from "@/world/renderWorldMap";
 import { findNpcInFront } from "@/world/worldInteraction";
@@ -53,6 +54,8 @@ export class WorldScene extends Phaser.Scene {
 
   private menuLoadKey?: Phaser.Input.Keyboard.Key;
 
+  private cancelKey?: Phaser.Input.Keyboard.Key;
+
   private worldRuntime?: WorldRuntime;
 
   private contentDatabase?: ContentDatabase;
@@ -67,11 +70,17 @@ export class WorldScene extends Phaser.Scene {
 
   private menuController?: MenuController;
 
+  private shopOverlay?: ShopOverlay;
+
+  private activeShopId?: string;
+
   private pendingWarpTarget?: WarpTarget;
 
   private pendingBattleGroupId?: string;
 
   private pendingBattleTriggerId?: string;
+
+  private pendingShopId?: string;
 
   private readonly eventInterpreter = new EventInterpreter();
 
@@ -99,7 +108,9 @@ export class WorldScene extends Phaser.Scene {
     this.menuPreviousKey = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
     this.menuSaveKey = this.input.keyboard?.addKey("S");
     this.menuLoadKey = this.input.keyboard?.addKey("L");
+    this.cancelKey = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ESC);
     this.dialogueBox = new DialogueBox(this);
+    this.shopOverlay = new ShopOverlay();
     this.menuController = new MenuController(
       new MenuOverlay(),
       this.contentDatabase,
@@ -110,6 +121,7 @@ export class WorldScene extends Phaser.Scene {
     this.gameStateRuntime.syncWorldState(this.worldRuntime.getState());
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
       this.menuController?.destroy();
+      this.shopOverlay?.destroy();
     });
     this.renderCurrentMap();
   }
@@ -127,6 +139,10 @@ export class WorldScene extends Phaser.Scene {
     if (this.menuController?.isMenuOpen()) {
       this.handleMenuInput();
       this.menuController.refresh();
+      return;
+    }
+
+    if (this.updateShop()) {
       return;
     }
 
@@ -169,6 +185,22 @@ export class WorldScene extends Phaser.Scene {
     }
 
     this.tryStartRegionEncounter();
+  }
+
+  private updateShop(): boolean {
+    if (!this.activeShopId) {
+      return false;
+    }
+
+    if (
+      (this.interactKey && Phaser.Input.Keyboard.JustDown(this.interactKey))
+      || (this.cancelKey && Phaser.Input.Keyboard.JustDown(this.cancelKey))
+    ) {
+      this.shopOverlay?.hide();
+      this.activeShopId = undefined;
+    }
+
+    return true;
   }
 
   private getMovementDirection(): Facing | undefined {
@@ -411,6 +443,7 @@ export class WorldScene extends Phaser.Scene {
     this.pendingWarpTarget = runtime.pendingWarp;
     this.pendingBattleGroupId = runtime.startedBattleGroupIds.at(-1);
     this.pendingBattleTriggerId = runtime.startedBattleGroupIds.length > 0 ? trigger.id : undefined;
+    this.pendingShopId = runtime.openedShopIds.at(-1);
 
     if (runtime.dialogueLog.length > 0) {
       this.dialogueSession = new DialogueSession(runtime.dialogueLog);
@@ -440,6 +473,17 @@ export class WorldScene extends Phaser.Scene {
         triggerId: this.pendingBattleTriggerId,
         originMapId: this.worldRuntime.getState().currentMapId,
       });
+      return;
+    }
+
+    if (this.pendingShopId && this.contentDatabase && this.gameStateRuntime) {
+      this.activeShopId = this.pendingShopId;
+      this.shopOverlay?.render(buildShopViewModel(
+        this.contentDatabase,
+        this.gameStateRuntime.getSnapshot(),
+        this.pendingShopId,
+      ));
+      this.pendingShopId = undefined;
     }
   }
 

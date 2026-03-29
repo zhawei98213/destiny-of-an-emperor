@@ -315,7 +315,12 @@
       "expectedUi": {
         "sceneFlow": ["WorldScene"],
         "activeScene": "WorldScene",
-        "dialogueLineIds": ["lou-sang-shop-line"]
+        "dialogueLineIds": ["lou-sang-shop-line"],
+        "shopId": "starter-shop",
+        "shopItemLines": [
+          "1. Herb - 10G",
+          "2. Bronze Sword - 40G"
+        ]
       }
     },
     {

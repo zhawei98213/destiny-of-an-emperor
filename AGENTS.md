@@ -77,6 +77,8 @@ Follow it before making code, content, tooling, or documentation changes.
 - 任何真实内容导入都必须先走 `source -> tools -> generated`。
 - If save structure changes, document the compatibility strategy in the same change.
 - 如果修改存档结构，必须在同一次改动里说明兼容策略。
+- If content-facing UI behavior changes, extend regression `expectedUi` instead of validating only state.
+- 如果面向内容核对的 UI 行为发生变化，应扩展回归里的 `expectedUi`，不要只校验状态字段。
 
 ## Definition Of Done
 ## 完成定义

@@ -19,6 +19,7 @@ import {
   findNpcInteractionTrigger,
   findTriggersAtPoint,
 } from "@/world/worldTriggerResolver";
+import { buildShopViewModel } from "@/ui/shopOverlay";
 import type {
   GoldenExpectedState,
   GoldenRegressionCase,
@@ -56,6 +57,8 @@ export interface GoldenObservedUi {
   activeScene: string;
   dialogueLineIds: string[];
   battleOutcome?: "victory" | "defeat";
+  shopId?: string;
+  shopItemLines?: string[];
 }
 
 export interface GoldenObservedState {
@@ -375,6 +378,25 @@ function compareExpectedUi(expected: GoldenRegressionCase["expectedUi"], actual:
     });
   }
 
+  if (expected.shopId !== undefined && actual.shopId !== expected.shopId) {
+    mismatches.push({
+      path: "ui.shopId",
+      expected: expected.shopId,
+      actual: actual.shopId,
+    });
+  }
+
+  if (
+    expected.shopItemLines !== undefined
+    && JSON.stringify(actual.shopItemLines ?? []) !== JSON.stringify(expected.shopItemLines)
+  ) {
+    mismatches.push({
+      path: "ui.shopItemLines",
+      expected: expected.shopItemLines,
+      actual: actual.shopItemLines ?? [],
+    });
+  }
+
   return mismatches;
 }
 
@@ -475,6 +497,7 @@ function executeWorldTriggerCase(database: ContentDatabase, regressionCase: Gold
       const snapshot = harness.gameState.getSnapshot();
       let eventId: string | undefined;
       let battleGroupId: string | undefined;
+      let openedShopId: string | undefined;
 
       if (trigger.eventId) {
         const event = database.events.find((entry) => entry.id === trigger.eventId);
@@ -506,6 +529,7 @@ function executeWorldTriggerCase(database: ContentDatabase, regressionCase: Gold
         }
 
         battleGroupId = runtime.startedBattleGroupIds.at(-1);
+        openedShopId = runtime.openedShopIds.at(-1);
         eventId = event.id;
       } else if (trigger.encounterTableId) {
         const encounter = resolveRegionEncounter(
@@ -523,6 +547,12 @@ function executeWorldTriggerCase(database: ContentDatabase, regressionCase: Gold
         observedUi.battleOutcome = runBattle(database, harness.gameState, battleGroupId);
         observedUi.sceneFlow.push(WORLD_SCENE_ID);
         observedUi.activeScene = WORLD_SCENE_ID;
+      }
+
+      if (openedShopId) {
+        const shopView = buildShopViewModel(database, harness.gameState.getSnapshot(), openedShopId);
+        observedUi.shopId = shopView.shopId;
+        observedUi.shopItemLines = [...shopView.itemLines];
       }
 
       const observedState = createObservedState(harness.gameState);
