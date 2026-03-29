@@ -1,7 +1,7 @@
 {
-  "root": "/content/generated",
-  "kind": "generated",
   "files": [
     "battle.content.json"
-  ]
+  ],
+  "kind": "generated",
+  "root": "/content/generated"
 }

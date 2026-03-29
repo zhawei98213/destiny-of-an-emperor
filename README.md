@@ -33,6 +33,8 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - `npm run dev`：启动本地 Vite 开发服务器。
 - `npm run check:content`: validate manual and generated content packs plus cross-file references.
 - `npm run check:content`：校验手工和生成内容包及其跨文件引用。
+- `npm run import:all`: regenerate every first-pass importer output from `content/source/`.
+- `npm run import:all`：从 `content/source/` 重新生成第一版全部导入结果。
 - `npm test`: run the Vitest suite once.
 - `npm test`：运行一次 Vitest 测试套件。
 - `npm run build`: type-check and create a production build in `dist/`.
@@ -84,8 +86,8 @@ The first extension points are intentionally typed and data-driven:
 Supported event opcodes currently include `dialogue`, `setFlag`, `clearFlag`, `ifFlag`, `ifNotFlag`, `warp`, `giveItem`, `removeItem`, `joinParty`, `startBattle`, `playSfx`, `openShop`, and `end`.
 当前支持的事件 opcode 包括 `dialogue`、`setFlag`、`clearFlag`、`ifFlag`、`ifNotFlag`、`warp`、`giveItem`、`removeItem`、`joinParty`、`startBattle`、`playSfx`、`openShop` 和 `end`。
 
-`content/source/` is reserved for raw import material and is intentionally outside the runtime loading path. `content/manual/` is for hand-authored packs. `content/generated/` is for tool-produced packs that already satisfy runtime schema.
-`content/source/` 保留给原始导入材料，刻意不进入运行时加载路径。`content/manual/` 用于手工编写内容包。`content/generated/` 用于已经满足运行时 schema 的工具生成内容包。
+`content/source/` is reserved for raw import material and is intentionally outside the runtime loading path. `content/manual/` is for hand-authored packs. `content/generated/` is for tool-produced packs that already satisfy runtime schema. Do not hand-edit `content/generated/`; re-run `npm run import:all` instead.
+`content/source/` 保留给原始导入材料，刻意不进入运行时加载路径。`content/manual/` 用于手工编写内容包。`content/generated/` 用于已经满足运行时 schema 的工具生成内容包。不要手工修改 `content/generated/`，需要更新时请重新执行 `npm run import:all`。
 
 ## Testing
 ## 测试

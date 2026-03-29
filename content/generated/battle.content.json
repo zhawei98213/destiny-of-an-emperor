@@ -1,60 +1,78 @@
 {
-  "meta": {
-    "id": "generated-battle",
-    "kind": "generated",
-    "version": 1,
-    "description": "Generated encounter and enemy placeholder data."
-  },
-  "enemies": [
-    {
-      "id": "green-slime",
-      "name": "Green Slime",
-      "level": 1,
-      "skills": ["slash"],
-      "rewardGold": 4,
-      "rewardExperience": 3,
-      "dropItems": [
-        {
-          "itemId": "herb",
-          "quantity": 1,
-          "chance": 1
-        }
-      ],
-      "baseStats": {
-        "maxHp": 12,
-        "maxMp": 0,
-        "attack": 5,
-        "defense": 2,
-        "speed": 3
-      }
-    },
-    {
-      "id": "brown-wolf",
-      "name": "Brown Wolf",
-      "level": 2,
-      "skills": ["slash"],
-      "rewardGold": 7,
-      "rewardExperience": 5,
-      "dropItems": [],
-      "baseStats": {
-        "maxHp": 18,
-        "maxMp": 0,
-        "attack": 7,
-        "defense": 4,
-        "speed": 6
-      }
-    }
-  ],
   "battleGroups": [
     {
+      "enemyIds": [
+        "green-slime",
+        "green-slime"
+      ],
       "id": "training-slimes",
-      "name": "Training Slimes",
-      "enemyIds": ["green-slime", "green-slime"]
+      "name": "Training Slimes"
     },
     {
+      "enemyIds": [
+        "brown-wolf"
+      ],
       "id": "field-wolves",
-      "name": "Field Wolves",
-      "enemyIds": ["brown-wolf"]
+      "name": "Field Wolves"
     }
-  ]
+  ],
+  "dialogueLines": [],
+  "enemies": [
+    {
+      "baseStats": {
+        "attack": 5,
+        "defense": 2,
+        "maxHp": 12,
+        "maxMp": 0,
+        "speed": 3
+      },
+      "dropItems": [
+        {
+          "chance": 1,
+          "itemId": "herb",
+          "quantity": 1
+        }
+      ],
+      "id": "green-slime",
+      "level": 1,
+      "name": "Green Slime",
+      "rewardExperience": 3,
+      "rewardGold": 4,
+      "skills": [
+        "slash"
+      ]
+    },
+    {
+      "baseStats": {
+        "attack": 7,
+        "defense": 4,
+        "maxHp": 18,
+        "maxMp": 0,
+        "speed": 6
+      },
+      "dropItems": [],
+      "id": "brown-wolf",
+      "level": 2,
+      "name": "Brown Wolf",
+      "rewardExperience": 5,
+      "rewardGold": 7,
+      "skills": [
+        "slash"
+      ]
+    }
+  ],
+  "events": [],
+  "flags": [],
+  "items": [],
+  "maps": [],
+  "meta": {
+    "description": "Generated encounter and enemy placeholder data.",
+    "id": "generated-battle",
+    "kind": "generated",
+    "version": 1
+  },
+  "partyMembers": [],
+  "questStates": [],
+  "shops": [],
+  "skills": []
 }

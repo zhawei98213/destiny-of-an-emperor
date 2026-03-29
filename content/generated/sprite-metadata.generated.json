@@ -1,0 +1,45 @@
+{
+  "frames": [
+    {
+      "frame": {
+        "h": 16,
+        "w": 16,
+        "x": 0,
+        "y": 0
+      },
+      "id": "hero-down-1"
+    },
+    {
+      "frame": {
+        "h": 16,
+        "w": 16,
+        "x": 16,
+        "y": 0
+      },
+      "id": "hero-down-2"
+    },
+    {
+      "frame": {
+        "h": 16,
+        "w": 16,
+        "x": 0,
+        "y": 16
+      },
+      "id": "guard-left-1"
+    },
+    {
+      "frame": {
+        "h": 16,
+        "w": 16,
+        "x": 16,
+        "y": 16
+      },
+      "id": "merchant-left-1"
+    }
+  ],
+  "generatedAt": "stable",
+  "imagePath": "/assets/sprites/world-demo.png",
+  "sheetId": "world-demo-sheet",
+  "tileHeight": 16,
+  "tileWidth": 16
+}

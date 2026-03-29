@@ -1,0 +1,28 @@
+{
+  "generatedAt": "stable",
+  "importer": "map-content",
+  "maps": [
+    {
+      "id": "town",
+      "name": "Town",
+      "portalCount": 1,
+      "size": {
+        "height": 12,
+        "width": 20
+      },
+      "spawnPointCount": 2,
+      "triggerCount": 1
+    },
+    {
+      "id": "field",
+      "name": "Field",
+      "portalCount": 1,
+      "size": {
+        "height": 14,
+        "width": 24
+      },
+      "spawnPointCount": 1,
+      "triggerCount": 1
+    }
+  ]
+}

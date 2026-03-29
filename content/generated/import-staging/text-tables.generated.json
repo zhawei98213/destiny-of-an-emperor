@@ -1,0 +1,13 @@
+{
+  "dialogueLineIds": [
+    "intro-line-1",
+    "merchant-line-1",
+    "guard-line-open"
+  ],
+  "eventIds": [
+    "merchant-pass-event",
+    "training-battle-event"
+  ],
+  "generatedAt": "stable",
+  "importer": "text-tables"
+}

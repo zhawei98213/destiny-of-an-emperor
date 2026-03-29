@@ -1,0 +1,19 @@
+{
+  "battleGroupIds": [
+    "training-slimes",
+    "field-wolves"
+  ],
+  "enemyIds": [
+    "green-slime",
+    "brown-wolf"
+  ],
+  "generatedAt": "stable",
+  "importer": "game-data",
+  "itemIds": [
+    "herb",
+    "bronze-sword"
+  ],
+  "shopIds": [
+    "starter-shop"
+  ]
+}
