@@ -15,3 +15,6 @@ Menu flow is layered the same way. `WorldScene` only routes input and scene rest
 
 The save layer is versioned on purpose. `SaveData` keeps world position, flags, inventory, party, chapter progress, quest states, shop state, and one-shot trigger consumption in one schema so future content systems can extend save behavior without rewriting scene code.
 存档层被刻意设计为可版本化。`SaveData` 在同一份 schema 中保存世界坐标、flags、背包、队伍、章节进度、任务状态、商店状态和一次性 trigger 消费记录，这样未来扩展内容系统时无需回头重写 scene 代码。
+
+Battle flow follows the same boundary rules. `WorldScene` only emits a structured `BattleRequest`, `battleRuntime` builds units and resolves attacks from content data, and `BattleScene` only renders the fight plus return flow. Rewards are written back through `GameStateRuntime`, not directly by UI widgets.
+战斗流程也遵循同样的边界规则。`WorldScene` 只发出结构化的 `BattleRequest`，`battleRuntime` 从内容数据构建单位并解析攻击结算，而 `BattleScene` 只负责渲染战斗和返回流程。奖励通过 `GameStateRuntime` 写回，而不是由 UI 组件直接修改。

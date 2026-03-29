@@ -48,11 +48,10 @@ The playable skeleton contains four scenes:
 - `BootScene`：加载启动内容并切换到标题画面。
 - `TitleScene`: minimal entry screen; pressing Enter or clicking starts the world.
 - `TitleScene`：最小化入口界面；按 Enter 或点击即可进入世界场景。
-- `WorldScene`: renders data-driven maps, follows the player camera, applies grid collision, loads NPCs from content, and handles scene-safe portal and dialogue interactions while preserving world runtime state.
-- `WorldScene`: also delegates menu open/close, save/load requests, and world state sync to dedicated runtime and UI modules instead of owning those flows directly.
-- `WorldScene`：同时把菜单开关、存档读档请求和世界状态同步委托给独立的运行时与 UI 模块，而不是直接在 scene 内部承载这些流程。
-- `BattleScene`: placeholder battle screen entered with `B` and exited with `Esc`.
-- `BattleScene`：占位战斗场景，按 `B` 进入，按 `Esc` 返回。
+- `WorldScene`: renders data-driven maps, follows the player camera, applies grid collision, loads NPCs from content, handles scene-safe portal and dialogue interactions, and delegates menu plus battle requests to dedicated runtime modules instead of owning those flows directly.
+- `WorldScene`：渲染数据驱动地图、处理场景安全的 portal 与对话交互，并把菜单、战斗请求和世界状态同步委托给独立的运行时与 UI 模块，而不是直接在 scene 内部承载这些流程。
+- `BattleScene`: consumes a structured battle request, builds ally and enemy units from content, resolves basic attacks plus simple enemy AI, and returns to the world after victory or defeat.
+- `BattleScene`：消费结构化的战斗请求，从内容数据构建我方与敌方单位，完成基础攻击和简单敌方 AI，并在胜利或失败后返回世界场景。
 
 The world layer now uses one unified event system for NPC interaction, tile triggers, and region triggers.
 世界层现在使用一套统一事件系统来驱动 NPC 交互、tile trigger 和 region trigger。
@@ -71,6 +70,8 @@ The first extension points are intentionally typed and data-driven:
 - `saveManager`：持久化类型化存档槽，并依据已加载的内容数据库校验存档引用。
 - `menuController` + `menuOverlay`: keep the main menu shell, tab switching, and save/load actions separate from scene code while reading from one unified runtime snapshot.
 - `menuController` + `menuOverlay`：把主菜单骨架、页签切换和存档读档动作从 scene 代码中分离出去，并统一读取同一份运行时快照。
+- `battleRuntime`: keeps battle requests, unit models, attack resolution, enemy AI turns, and reward summaries in pure runtime code so `BattleScene` stays focused on UI and flow control.
+- `battleRuntime`：把战斗请求、单位模型、攻击结算、敌方 AI 回合和奖励汇总放在纯运行时代码中，让 `BattleScene` 只负责 UI 和流程控制。
 - `eventInterpreter`: executes declarative event steps such as dialogue, flags, shops, and battle launches.
 - `eventInterpreter`：执行声明式事件步骤，例如对话、标记设置、商店打开和战斗启动。
 - `gameStateRuntime` + `worldTriggerResolver`: keep persistent flags, inventory, party membership, and consumed one-shot triggers separate from scene code while mapping NPC, tile, and region triggers to events.
@@ -106,6 +107,8 @@ The current test suite covers:
 - 统一事件解释器的条件分支、warp、物品变更和 trigger 解析
 - menu controller save/load flow and world position restoration
 - 菜单控制器的存档读档流程和世界坐标恢复
+- battle runtime victory, defeat, reward payout, and world return flow
+- 战斗运行时中的胜负判定、奖励发放和返回世界流程
 - scene registry wiring and boot-first startup order
 - 场景注册表接线和以 Boot 开始的启动顺序
 
@@ -130,10 +133,14 @@ Manual verification in the current demo:
 8. 拿到通行许可后再次与守卫对话，确认同一套事件解释器会把玩家传送到 `field`。
 9. Move through the `field` region trigger and confirm it can start the training battle flow.
 9. 走进 `field` 的 region trigger，确认它可以启动训练战斗流程。
-10. Press `M` to open the main menu, use Left and Right to switch Status, Inventory, Party, and System pages, and confirm gold plus current map coordinates are visible.
-10. 按 `M` 打开主菜单，使用左右方向键切换状态、背包、队伍和系统页面，并确认能看到金钱和当前地图坐标。
-11. Press `S` in the system page to save, move to a different tile, then press `L` to load and confirm map, position, party, inventory, and flags are restored.
-11. 在系统页按 `S` 存档，移动到另一个格子后按 `L` 读档，确认地图、位置、队伍、背包和 flags 都被恢复。
+10. In battle, press `A` to use the basic attack, wait for the enemy AI turn, and confirm the battle resolves to victory or defeat without freezing.
+10. 在战斗中按 `A` 使用基础攻击，等待敌方 AI 行动，并确认战斗能正常分出胜负而不会卡住。
+11. After battle, press `Space` to return to `WorldScene` and confirm gold, item drops, and experience are written into the menu state.
+11. 战斗结束后按 `Space` 返回 `WorldScene`，并确认金钱、掉落物和经验已经写入菜单状态。
+12. Press `M` to open the main menu, use Left and Right to switch Status, Inventory, Party, and System pages, and confirm gold plus current map coordinates are visible.
+12. 按 `M` 打开主菜单，使用左右方向键切换状态、背包、队伍和系统页面，并确认能看到金钱和当前地图坐标。
+13. Press `S` in the system page to save, move to a different tile, then press `L` to load and confirm map, position, party, inventory, and flags are restored.
+13. 在系统页按 `S` 存档，移动到另一个格子后按 `L` 读档，确认地图、位置、队伍、背包和 flags 都被恢复。
 
 Use these tests as the baseline for future content pipelines, state machines, and gameplay systems.
 后续扩展内容管线、状态机和玩法系统时，应以这些测试作为基线。

@@ -129,7 +129,15 @@ export function buildMenuViewModel(
   message: string,
 ): MenuViewModel {
   const partyMembers = snapshot.partyMemberIds
-    .map((memberId) => database.partyMembers.find((member) => member.id === memberId))
+    .map((memberId) => {
+      const definition = database.partyMembers.find((member) => member.id === memberId);
+      return definition
+        ? {
+          definition,
+          state: snapshot.partyStates[memberId],
+        }
+        : undefined;
+    })
     .filter((member): member is NonNullable<typeof member> => Boolean(member));
   const leadMember = partyMembers[0];
   const inventoryLines = snapshot.inventory.items.length > 0
@@ -139,7 +147,7 @@ export function buildMenuViewModel(
     }).join("\n")
     : "No items.\n没有物品。";
   const partyLines = partyMembers.length > 0
-    ? partyMembers.map((member, index) => `${index + 1}. ${member.name} Lv${member.level} ${member.className}`).join("\n")
+    ? partyMembers.map(({ definition, state }, index) => `${index + 1}. ${definition.name} Lv${state?.level ?? definition.level} EXP ${state?.experience ?? 0} ${definition.className}`).join("\n")
     : "No party members.\n当前没有队伍成员。";
 
   return {
@@ -148,14 +156,15 @@ export function buildMenuViewModel(
     locationText: `Map / 地图: ${snapshot.world.currentMapId} (${snapshot.world.playerX}, ${snapshot.world.playerY})`,
     statusText: leadMember
       ? [
-        `Lead / 领队: ${leadMember.name}`,
-        `Class / 职业: ${leadMember.className}`,
-        `Level / 等级: ${leadMember.level}`,
-        `HP / 生命: ${leadMember.baseStats.maxHp}`,
-        `MP / 法力: ${leadMember.baseStats.maxMp}`,
-        `ATK / 攻击: ${leadMember.baseStats.attack}`,
-        `DEF / 防御: ${leadMember.baseStats.defense}`,
-        `SPD / 速度: ${leadMember.baseStats.speed}`,
+        `Lead / 领队: ${leadMember.definition.name}`,
+        `Class / 职业: ${leadMember.definition.className}`,
+        `Level / 等级: ${leadMember.state?.level ?? leadMember.definition.level}`,
+        `EXP / 经验: ${leadMember.state?.experience ?? 0}`,
+        `HP / 生命: ${leadMember.state?.currentHp ?? leadMember.definition.baseStats.maxHp}/${leadMember.definition.baseStats.maxHp}`,
+        `MP / 法力: ${leadMember.state?.currentMp ?? leadMember.definition.baseStats.maxMp}/${leadMember.definition.baseStats.maxMp}`,
+        `ATK / 攻击: ${leadMember.definition.baseStats.attack}`,
+        `DEF / 防御: ${leadMember.definition.baseStats.defense}`,
+        `SPD / 速度: ${leadMember.definition.baseStats.speed}`,
       ].join("\n")
       : "No lead member.\n当前没有领队。",
     inventoryText: inventoryLines,
