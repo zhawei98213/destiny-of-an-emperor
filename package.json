@@ -7,12 +7,15 @@
     "dev": "vite",
     "build": "tsc --noEmit && vite build",
     "check:content": "vite-node tools/validate-content.ts",
+    "validate-content": "vite-node tools/validate-content.ts",
     "import:all": "vite-node tools/import-all.ts",
+    "import-all": "vite-node tools/import-all.ts",
     "import:sprites": "vite-node tools/run-import-sprites.ts",
     "import:maps": "vite-node tools/run-import-maps.ts",
     "import:text": "vite-node tools/run-import-text.ts",
     "import:data": "vite-node tools/run-import-data.ts",
     "test": "vitest run",
+    "regression-smoke": "npm run import-all && npm run validate-content && npm test -- --run tests/content/importers.test.ts tests/content/contentLoader.test.ts tests/content/consistency.test.ts tests/runtime/eventInterpreter.test.ts tests/runtime/worldRuntime.test.ts tests/runtime/battleRuntime.test.ts tests/runtime/saveManager.test.ts tests/runtime/menuController.test.ts tests/scenes/sceneRegistry.test.ts",
     "test:watch": "vitest"
   },
   "dependencies": {

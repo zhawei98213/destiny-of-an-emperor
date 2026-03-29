@@ -31,12 +31,16 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - `npm install`：安装项目依赖。
 - `npm run dev`: start the local Vite dev server.
 - `npm run dev`：启动本地 Vite 开发服务器。
+- `npm run import-all`: regenerate every first-pass importer output from `content/source/`.
+- `npm run import-all`：从 `content/source/` 重新生成第一版全部导入结果。
+- `npm run validate-content`: verify generated outputs and validate runtime content.
+- `npm run validate-content`：检查 generated 输出并校验运行时内容。
 - `npm run check:content`: validate manual and generated content packs plus cross-file references.
 - `npm run check:content`：校验手工和生成内容包及其跨文件引用。
-- `npm run import:all`: regenerate every first-pass importer output from `content/source/`.
-- `npm run import:all`：从 `content/source/` 重新生成第一版全部导入结果。
 - `npm test`: run the Vitest suite once.
 - `npm test`：运行一次 Vitest 测试套件。
+- `npm run regression-smoke`: run import, validation, and the minimum regression suite in one command.
+- `npm run regression-smoke`：用一条命令执行导入、校验和最小回归测试。
 - `npm run build`: type-check and create a production build in `dist/`.
 - `npm run build`：执行类型检查并在 `dist/` 目录生成生产构建。
 
