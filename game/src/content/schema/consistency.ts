@@ -154,6 +154,17 @@ function validateEventReferences(
           validateStep(nestedStep, `${path}.steps[${nestedIndex}]`);
         });
         break;
+      case "ifHasItem":
+        if (!itemIds.has(step.itemId)) {
+          failSchema(`${path}.itemId`, `references missing item "${step.itemId}"`);
+        }
+        if ((step.quantity ?? 1) <= 0) {
+          failSchema(`${path}.quantity`, "must be greater than 0");
+        }
+        step.steps.forEach((nestedStep, nestedIndex) => {
+          validateStep(nestedStep, `${path}.steps[${nestedIndex}]`);
+        });
+        break;
       case "warp":
         if (!mapIndex.has(step.targetMapId)) {
           failSchema(`${path}.targetMapId`, `references missing map "${step.targetMapId}"`);

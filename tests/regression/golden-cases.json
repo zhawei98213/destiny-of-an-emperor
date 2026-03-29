@@ -51,7 +51,62 @@
     },
     {
       "id": "guard-opens-gate-with-pass",
-      "name": "Guard opens gate with pass / 有通行证时门卫放行",
+      "name": "Guard opens gate with pass item / 持有路引时门卫放行",
+      "initialState": {
+        "world": {
+          "mapId": "town",
+          "spawnPointId": "town-start",
+          "playerX": 15,
+          "playerY": 8,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 0,
+          "items": [
+            {
+              "itemId": "travel-pass",
+              "quantity": 1
+            }
+          ]
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "town",
+        "npcId": "town-guard"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "town",
+          "currentSpawnId": "town-start",
+          "playerX": 15,
+          "playerY": 8,
+          "facing": "right"
+        },
+        "flags": {
+          "lou-sang-east-gate-open": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": [
+            {
+              "itemId": "travel-pass",
+              "quantity": 1
+            }
+          ]
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["lou-sang-guard-open-line"]
+      }
+    },
+    {
+      "id": "guard-opens-gate-with-legacy-flag",
+      "name": "Guard opens gate with legacy flag / 旧 gate-pass flag 仍可放行",
       "initialState": {
         "world": {
           "mapId": "town",
@@ -303,7 +358,12 @@
         },
         "inventory": {
           "gold": 0,
-          "items": []
+          "items": [
+            {
+              "itemId": "travel-pass",
+              "quantity": 1
+            }
+          ]
         },
         "shopStates": {
           "starter-shop": {
@@ -315,7 +375,7 @@
       "expectedUi": {
         "sceneFlow": ["WorldScene"],
         "activeScene": "WorldScene",
-        "dialogueLineIds": ["lou-sang-shop-line"],
+        "dialogueLineIds": ["lou-sang-pass-line", "lou-sang-shop-line"],
         "shopId": "starter-shop",
         "shopItemLines": [
           "1. Herb - 10G",

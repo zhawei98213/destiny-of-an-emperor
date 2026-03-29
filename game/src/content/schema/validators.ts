@@ -243,6 +243,7 @@ function validateEventStep(value: unknown, path: string): EventStep {
       "clearFlag",
       "ifFlag",
       "ifNotFlag",
+      "ifHasItem",
       "warp",
       "giveItem",
       "removeItem",
@@ -285,6 +286,15 @@ function validateEventStep(value: unknown, path: string): EventStep {
       return {
         type,
         flagId: ensureString(record.flagId, `${path}.flagId`),
+        steps: ensureArray(record.steps, `${path}.steps`).map((entry, index) =>
+          validateEventStep(entry, `${path}.steps[${index}]`),
+        ),
+      };
+    case "ifHasItem":
+      return {
+        type,
+        itemId: ensureString(record.itemId, `${path}.itemId`),
+        quantity: ensureOptionalNumber(record.quantity, `${path}.quantity`),
         steps: ensureArray(record.steps, `${path}.steps`).map((entry, index) =>
           validateEventStep(entry, `${path}.steps[${index}]`),
         ),

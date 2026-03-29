@@ -92,7 +92,7 @@ describe("event interpreter", () => {
     });
   });
 
-  it("executes ifFlag, warp, restoreParty, giveItem, and end against shared runtime state", () => {
+  it("executes ifFlag, ifHasItem, warp, restoreParty, giveItem, and end against shared runtime state", () => {
     const interpreter = new EventInterpreter();
     const event: EventDefinition = {
       id: "guard-pass-event",
@@ -109,6 +109,11 @@ describe("event interpreter", () => {
           type: "ifNotFlag",
           flagId: "chest-opened",
           steps: [
+            {
+              type: "ifHasItem",
+              itemId: "travel-pass",
+              steps: [{ type: "setFlag", flagId: "gate-open" }],
+            },
             { type: "restoreParty" },
             { type: "giveItem", itemId: "herb", quantity: 1 },
             { type: "setFlag", flagId: "chest-opened" },
@@ -152,7 +157,10 @@ describe("event interpreter", () => {
       ],
       dialogueLines: [],
       events: [event],
-      items: [{ id: "herb", name: "Herb", description: "HP", kind: "consumable", price: 10 }],
+      items: [
+        { id: "herb", name: "Herb", description: "HP", kind: "consumable", price: 10 },
+        { id: "travel-pass", name: "Travel Pass", description: "Permit", kind: "key", price: 0 },
+      ],
       partyMembers: [{
         id: "hero",
         name: "Hero",
@@ -188,6 +196,10 @@ describe("event interpreter", () => {
         currentMapId: "town",
         currentSpawnPointId: "town-start",
       },
+      inventory: {
+        gold: 0,
+        items: [{ itemId: "travel-pass", quantity: 1 }],
+      },
     });
 
     interpreter.execute(event, database, runtime);
@@ -200,7 +212,11 @@ describe("event interpreter", () => {
       currentMapId: "field",
       currentSpawnPointId: "field-gate",
     });
-    expect(runtime.state.inventory.items).toEqual([{ itemId: "herb", quantity: 1 }]);
+    expect(runtime.state.inventory.items).toEqual([
+      { itemId: "travel-pass", quantity: 1 },
+      { itemId: "herb", quantity: 1 },
+    ]);
+    expect(runtime.state.flags["gate-open"]).toBe(true);
     expect(runtime.state.flags["chest-opened"]).toBe(true);
     expect(runtime.state.partyStates.hero).toEqual({
       memberId: "hero",

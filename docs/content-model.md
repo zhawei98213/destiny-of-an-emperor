@@ -38,6 +38,31 @@ The merged runtime content database currently contains:
 - flags and quest states
 - flags 与任务状态
 
+## Current Event DSL
+## 当前事件 DSL
+
+The shared event interpreter currently supports these opcodes:
+当前共享事件解释器目前支持这些 opcode：
+
+- `dialogue`
+- `setFlag`
+- `clearFlag`
+- `ifFlag`
+- `ifNotFlag`
+- `ifHasItem`
+- `warp`
+- `giveItem`
+- `removeItem`
+- `joinParty`
+- `openShop`
+- `restoreParty`
+- `startBattle`
+- `playSfx`
+- `end`
+
+`ifHasItem` is the current minimum chapter-progression extension. Use it when a real slice needs key-item or inventory-gated progression, such as checking a route permit before a guard opens the gate.
+`ifHasItem` 是当前为章节推进补上的最小扩展。当真实切片需要按钥匙道具或背包物品控制推进时使用它，例如守门兵在放行前检查路引。
+
 ## Validation Flow
 ## 校验流程
 
@@ -75,5 +100,7 @@ The first-pass import pipeline currently generates:
 - 不要手工编辑 `content/generated/`。
 - New runtime content formats must be represented in TypeScript types and schema validators.
 - 新的运行时内容格式必须在 TypeScript 类型和 schema 校验器中体现。
+- New opcodes must be added to the shared interpreter, schema validation, and regression coverage together.
+- 新增 opcode 时，必须同时接入共享解释器、schema 校验和 regression 覆盖。
 - If a format is not runtime-consumable yet, keep it in `source/` or importer staging output, not in `game/`.
 - 如果某种格式还不能被运行时直接消费，就应留在 `source/` 或导入 staging 输出中，而不是塞进 `game/`。

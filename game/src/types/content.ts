@@ -150,6 +150,13 @@ export interface IfNotFlagEventStep {
   steps: EventStep[];
 }
 
+export interface IfHasItemEventStep {
+  type: "ifHasItem";
+  itemId: string;
+  quantity?: number;
+  steps: EventStep[];
+}
+
 export interface WarpEventStep {
   type: "warp";
   targetMapId: string;
@@ -202,6 +209,7 @@ export type EventStep =
   | ClearFlagEventStep
   | IfFlagEventStep
   | IfNotFlagEventStep
+  | IfHasItemEventStep
   | WarpEventStep
   | GiveItemEventStep
   | RemoveItemEventStep

@@ -151,6 +151,14 @@ function adjustInventoryItem(
   };
 }
 
+function hasInventoryItem(
+  inventory: InventoryState,
+  itemId: string,
+  quantity: number,
+): boolean {
+  return (inventory.items.find((entry) => entry.itemId === itemId)?.quantity ?? 0) >= quantity;
+}
+
 export class EventInterpreter {
   private executeSteps(
     steps: EventStep[],
@@ -190,6 +198,11 @@ export class EventInterpreter {
         break;
       case "ifNotFlag":
         if (!runtime.state.flags[command.flagId]) {
+          this.executeSteps(command.steps, event, database, runtime);
+        }
+        break;
+      case "ifHasItem":
+        if (hasInventoryItem(runtime.state.inventory, command.itemId, command.quantity ?? 1)) {
           this.executeSteps(command.steps, event, database, runtime);
         }
         break;

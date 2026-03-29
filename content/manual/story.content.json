@@ -31,6 +31,14 @@
       "soundId": "voice-merchant"
     },
     {
+      "id": "lou-sang-pass-line",
+      "speakerName": "补给官",
+      "speakerNpcId": "merchant",
+      "text": "村长已经打过招呼了。这份路引你收好，出村时给守门兵验一眼就行。",
+      "portraitId": "merchant-default",
+      "soundId": "voice-merchant"
+    },
+    {
       "id": "lou-sang-guard-blocked-line",
       "speakerName": "守门兵",
       "speakerNpcId": "town-guard",
@@ -114,6 +122,19 @@
       "id": "lou-sang-shop-event",
       "name": "Lou Sang Shop Event",
       "steps": [
+        {
+          "type": "ifHasItem",
+          "itemId": "travel-pass",
+          "steps": [
+            { "type": "dialogue", "lineId": "lou-sang-shop-line" },
+            { "type": "setFlag", "flagId": "merchant-met" },
+            { "type": "openShop", "shopId": "starter-shop" },
+            { "type": "playSfx", "sfxId": "sfx-shop-open" },
+            { "type": "end" }
+          ]
+        },
+        { "type": "dialogue", "lineId": "lou-sang-pass-line" },
+        { "type": "giveItem", "itemId": "travel-pass", "quantity": 1 },
         { "type": "dialogue", "lineId": "lou-sang-shop-line" },
         { "type": "setFlag", "flagId": "merchant-met" },
         { "type": "openShop", "shopId": "starter-shop" },
@@ -126,10 +147,12 @@
       "name": "Lou Sang Guard Event",
       "steps": [
         {
-          "type": "ifNotFlag",
-          "flagId": "gate-pass",
+          "type": "ifHasItem",
+          "itemId": "travel-pass",
           "steps": [
-            { "type": "dialogue", "lineId": "lou-sang-guard-blocked-line" },
+            { "type": "dialogue", "lineId": "lou-sang-guard-open-line" },
+            { "type": "setFlag", "flagId": "lou-sang-east-gate-open" },
+            { "type": "playSfx", "sfxId": "sfx-gate-open" },
             { "type": "end" }
           ]
         },
@@ -143,6 +166,7 @@
             { "type": "end" }
           ]
         },
+        { "type": "dialogue", "lineId": "lou-sang-guard-blocked-line" },
         { "type": "end" }
       ]
     },

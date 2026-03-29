@@ -10,10 +10,11 @@ describe("golden regression suite", () => {
     const suite = await loadGoldenRegressionSuite();
 
     expect(suite.version).toBe(1);
-    expect(suite.cases).toHaveLength(13);
+    expect(suite.cases).toHaveLength(14);
     expect(suite.cases.map((entry) => entry.id)).toEqual([
       "guard-blocked-without-pass",
       "guard-opens-gate-with-pass",
+      "guard-opens-gate-with-legacy-flag",
       "east-exit-warp-after-guard-opens-gate",
       "chest-first-open",
       "chest-second-check",
@@ -33,7 +34,7 @@ describe("golden regression suite", () => {
 
     expect(report.totals.mismatch).toBe(0);
     expect(report.totals.fail).toBe(0);
-    expect(report.totals.pass).toBe(13);
+    expect(report.totals.pass).toBe(14);
     expect(report.reportDirectory).toContain("reports/regression/latest");
     expect(report.cases[0]?.artifacts?.expectedSnapshotPath).toContain(".expected.snapshot.json");
     expect(report.cases[0]?.artifacts?.actualSnapshotPath).toContain(".actual.snapshot.json");

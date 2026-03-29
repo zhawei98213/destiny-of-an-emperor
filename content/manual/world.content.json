@@ -498,6 +498,13 @@
   ],
   "items": [
     {
+      "id": "travel-pass",
+      "name": "路引",
+      "description": "盖有楼桑印记的出村路引，守门兵验过后才会放行。",
+      "kind": "key",
+      "price": 0
+    },
+    {
       "id": "herb",
       "name": "Herb",
       "description": "Restores a small amount of HP.",
