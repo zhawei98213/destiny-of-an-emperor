@@ -1,5 +1,6 @@
 import Phaser from "phaser";
 import {
+  BATTLE_REQUEST_REGISTRY_KEY,
   CONTENT_REGISTRY_KEY,
   GAME_STATE_REGISTRY_KEY,
   SAVE_MANAGER_REGISTRY_KEY,
@@ -7,7 +8,7 @@ import {
 } from "@/content/contentKeys";
 import { SceneKey } from "@/core/sceneRegistry";
 import type { WarpTarget } from "@/systems/eventInterpreter";
-import type { ContentDatabase, Facing } from "@/types/content";
+import type { BattleRequest, ContentDatabase, Facing } from "@/types/content";
 import { createEventRuntime, EventInterpreter } from "@/systems/eventInterpreter";
 import { GameStateRuntime } from "@/systems/gameStateRuntime";
 import { SaveManager } from "@/systems/saveManager";
@@ -32,8 +33,6 @@ export class WorldScene extends Phaser.Scene {
   private facingMarker?: Phaser.GameObjects.Rectangle;
 
   private cursors?: Phaser.Types.Input.Keyboard.CursorKeys;
-
-  private battleKey?: Phaser.Input.Keyboard.Key;
 
   private interactKey?: Phaser.Input.Keyboard.Key;
 
@@ -67,6 +66,8 @@ export class WorldScene extends Phaser.Scene {
 
   private pendingBattleGroupId?: string;
 
+  private pendingBattleTriggerId?: string;
+
   private readonly eventInterpreter = new EventInterpreter();
 
   private nextMoveAt = 0;
@@ -86,7 +87,6 @@ export class WorldScene extends Phaser.Scene {
 
     this.cameras.main.setBackgroundColor("#0f172a");
     this.cursors = this.input.keyboard?.createCursorKeys();
-    this.battleKey = this.input.keyboard?.addKey("B");
     this.interactKey = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     this.fastDialogueKey = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
     this.menuKey = this.input.keyboard?.addKey("M");
@@ -134,11 +134,6 @@ export class WorldScene extends Phaser.Scene {
       if (this.dialogueSession) {
         return;
       }
-    }
-
-    if (this.battleKey && Phaser.Input.Keyboard.JustDown(this.battleKey)) {
-      this.scene.start(SceneKey.Battle);
-      return;
     }
 
     if (time < this.nextMoveAt) {
@@ -205,7 +200,7 @@ export class WorldScene extends Phaser.Scene {
     this.cameras.main.startFollow(this.hero, true, 0.2, 0.2);
     this.cameras.main.roundPixels = true;
 
-    this.add.text(8, 8, `${map.name}\nArrows move / 方向键移动\nSpace talks / 空格对话\nM menu / M 打开菜单\nS save L load / S 存档 L 读档\nB battle / B 进入战斗`, {
+    this.add.text(8, 8, `${map.name}\nArrows move / 方向键移动\nSpace talks / 空格对话\nM menu / M 打开菜单\nS save L load / S 存档 L 读档\nWalk into battle regions / 走进战斗区域`, {
       color: "#f8fafc",
       fontFamily: "monospace",
       fontSize: "10px",
@@ -364,6 +359,7 @@ export class WorldScene extends Phaser.Scene {
 
     this.pendingWarpTarget = runtime.pendingWarp;
     this.pendingBattleGroupId = runtime.startedBattleGroupIds.at(-1);
+    this.pendingBattleTriggerId = runtime.startedBattleGroupIds.length > 0 ? trigger.id : undefined;
 
     if (runtime.dialogueLog.length > 0) {
       this.dialogueSession = new DialogueSession(runtime.dialogueLog);
@@ -387,10 +383,20 @@ export class WorldScene extends Phaser.Scene {
       return;
     }
 
-    if (this.pendingBattleGroupId) {
-      this.pendingBattleGroupId = undefined;
-      this.scene.start(SceneKey.Battle);
+    if (this.pendingBattleGroupId && this.worldRuntime) {
+      this.startBattle({
+        battleGroupId: this.pendingBattleGroupId,
+        triggerId: this.pendingBattleTriggerId,
+        originMapId: this.worldRuntime.getState().currentMapId,
+      });
     }
+  }
+
+  private startBattle(request: BattleRequest): void {
+    this.pendingBattleGroupId = undefined;
+    this.pendingBattleTriggerId = undefined;
+    this.registry.set(BATTLE_REQUEST_REGISTRY_KEY, request);
+    this.scene.start(SceneKey.Battle);
   }
 
   private handleMenuInput(): void {
