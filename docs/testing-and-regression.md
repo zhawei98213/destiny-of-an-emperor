@@ -16,23 +16,24 @@
 ## Current Smoke Scope
 ## 当前 Smoke 范围
 
-`regression-smoke` currently covers:
-当前 `regression-smoke` 覆盖：
+`regression-smoke` now covers one golden regression report with these baseline cases:
+当前 `regression-smoke` 现在输出一份黄金回归报告，覆盖以下基线 case：
 
-- importer determinism
-- 导入器稳定性
-- content loader and cross-reference checks
-- 内容加载器与跨引用校验
-- event interpreter baseline behavior
-- 事件解释器基础行为
-- world runtime movement and portal flow
-- world runtime 的移动与 portal 流程
-- battle runtime victory and defeat loop
-- battle runtime 的胜败闭环
-- save and menu state baseline behavior
-- 存档和菜单状态的基础行为
-- scene registry wiring
-- 场景注册接线
+- guard blocked without pass
+- 无通行证时门卫阻拦
+- guard warp with pass
+- 有通行证时门卫放行并传送
+- chest first open reward and one-shot flag
+- 宝箱首次开启奖励与一次性 flag
+- chest second check does not duplicate rewards
+- 宝箱再次检查不会重复给奖励
+- field battle enters `BattleScene`, resolves, and returns to `WorldScene`
+- 野外战斗进入 `BattleScene`、完成结算并返回 `WorldScene`
+- save/load restores world, flags, inventory, and party state
+- 存档读档恢复世界、flag、背包和队伍状态
+
+The script prints one unified report and distinguishes `PASS`, `MISMATCH`, and `FAIL`.
+脚本会输出统一格式报告，并清楚区分 `PASS`、`MISMATCH` 和 `FAIL`。
 
 ## Expectations For New Work
 ## 新改动要求
@@ -41,6 +42,8 @@
 - 新增关键功能至少要补一个自动化测试或可复现验证脚本。
 - Opcode changes should extend interpreter tests.
 - opcode 改动应扩展解释器测试。
+- Golden regression cases should live under `tests/regression/` with explicit initial state, trigger, expected state, and expected UI fields.
+- 黄金回归 case 应放在 `tests/regression/` 下，并显式声明初始状态、触发行为、预期状态和预期 UI 字段。
 - Importer changes should keep output order stable and failure messages specific to file and field.
 - 导入器改动应保持输出顺序稳定，并让失败信息精确到文件和字段。
 

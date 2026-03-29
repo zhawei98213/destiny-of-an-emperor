@@ -1,0 +1,401 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "guard-blocked-without-pass",
+      "name": "Guard blocks without pass / 无通行证时门卫阻拦",
+      "initialState": {
+        "world": {
+          "mapId": "town",
+          "spawnPointId": "town-start",
+          "playerX": 15,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "gate-pass": false
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "town",
+        "npcId": "town-guard"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "town",
+          "currentSpawnId": "town-start",
+          "playerX": 15,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "gate-pass": false
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["guard-line-blocked"]
+      }
+    },
+    {
+      "id": "guard-warp-with-pass",
+      "name": "Guard warps with pass / 有通行证时门卫放行并传送",
+      "initialState": {
+        "world": {
+          "mapId": "town",
+          "spawnPointId": "town-start",
+          "playerX": 15,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "gate-pass": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "town",
+        "npcId": "town-guard"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "field",
+          "currentSpawnId": "field-gate",
+          "playerX": 2,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "gate-pass": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["guard-line-open"]
+      }
+    },
+    {
+      "id": "chest-first-open",
+      "name": "Chest first open / 宝箱首次开启",
+      "initialState": {
+        "world": {
+          "mapId": "town",
+          "spawnPointId": "town-start",
+          "playerX": 3,
+          "playerY": 5,
+          "facing": "down"
+        },
+        "flags": {
+          "town-chest-opened": false
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "tile",
+        "mapId": "town",
+        "x": 3,
+        "y": 5
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "town",
+          "currentSpawnId": "town-start",
+          "playerX": 3,
+          "playerY": 5,
+          "facing": "down"
+        },
+        "flags": {
+          "town-chest-opened": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": [
+            {
+              "itemId": "herb",
+              "quantity": 1
+            }
+          ]
+        },
+        "consumedTriggerIds": ["town-chest-trigger"]
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["chest-line-open"]
+      }
+    },
+    {
+      "id": "chest-second-check",
+      "name": "Chest second check / 宝箱再次检查不重复给物品",
+      "initialState": {
+        "world": {
+          "mapId": "town",
+          "spawnPointId": "town-start",
+          "playerX": 3,
+          "playerY": 5,
+          "facing": "down"
+        },
+        "flags": {
+          "town-chest-opened": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": [
+            {
+              "itemId": "herb",
+              "quantity": 1
+            }
+          ]
+        },
+        "consumedTriggerIds": ["town-chest-trigger"]
+      },
+      "trigger": {
+        "kind": "tile",
+        "mapId": "town",
+        "x": 3,
+        "y": 5
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "town",
+          "currentSpawnId": "town-start",
+          "playerX": 3,
+          "playerY": 5,
+          "facing": "down"
+        },
+        "flags": {
+          "town-chest-opened": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": [
+            {
+              "itemId": "herb",
+              "quantity": 1
+            }
+          ]
+        },
+        "consumedTriggerIds": ["town-chest-trigger"]
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": []
+      }
+    },
+    {
+      "id": "field-battle-roundtrip",
+      "name": "Field battle roundtrip / 触发战斗并返回世界",
+      "initialState": {
+        "world": {
+          "mapId": "field",
+          "spawnPointId": "field-gate",
+          "playerX": 10,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "gate-pass": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 0,
+            "currentHp": 24,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "region",
+        "mapId": "field",
+        "x": 10,
+        "y": 6
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "field",
+          "currentSpawnId": "field-gate",
+          "playerX": 10,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 8,
+          "items": [
+            {
+              "itemId": "herb",
+              "quantity": 2
+            }
+          ]
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 6,
+            "currentHp": 16,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene", "BattleScene", "WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["battle-start-line"],
+        "battleOutcome": "victory"
+      }
+    },
+    {
+      "id": "save-load-restores-runtime",
+      "name": "Save load restores runtime / 存档读档恢复运行时状态",
+      "initialState": {
+        "world": {
+          "mapId": "field",
+          "spawnPointId": "field-gate",
+          "playerX": 2,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "gate-pass": true,
+          "merchant-met": true,
+          "town-chest-opened": true
+        },
+        "inventory": {
+          "gold": 18,
+          "items": [
+            {
+              "itemId": "herb",
+              "quantity": 2
+            }
+          ]
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 6,
+            "currentHp": 19,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": ["town-chest-trigger"]
+      },
+      "trigger": {
+        "kind": "saveLoadRoundTrip",
+        "slot": "golden-slot",
+        "postSaveMutation": {
+          "world": {
+            "mapId": "town",
+            "spawnPointId": "town-start",
+            "playerX": 10,
+            "playerY": 8,
+            "facing": "down"
+          },
+          "flags": {
+            "gate-pass": false,
+            "merchant-met": false,
+            "town-chest-opened": false
+          },
+          "inventory": {
+            "gold": 0,
+            "items": []
+          },
+          "partyStates": {
+            "liu-bei": {
+              "memberId": "liu-bei",
+              "level": 1,
+              "experience": 0,
+              "currentHp": 1,
+              "currentMp": 0,
+              "statusIds": [],
+              "formationSlot": 0
+            }
+          },
+          "consumedTriggerIds": []
+        }
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "field",
+          "currentSpawnId": "field-gate",
+          "playerX": 2,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "gate-pass": true,
+          "merchant-met": true,
+          "town-chest-opened": true
+        },
+        "inventory": {
+          "gold": 18,
+          "items": [
+            {
+              "itemId": "herb",
+              "quantity": 2
+            }
+          ]
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 6,
+            "currentHp": 19,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": ["town-chest-trigger"]
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": []
+      }
+    }
+  ]
+}

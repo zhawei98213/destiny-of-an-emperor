@@ -118,6 +118,8 @@ The current test suite covers:
 - 菜单控制器的存档读档流程和世界坐标恢复
 - battle runtime victory, defeat, reward payout, and world return flow
 - 战斗运行时中的胜负判定、奖励发放和返回世界流程
+- golden regression cases for guard gating, chest rewards, battle roundtrip, and save/load restoration
+- 针对门卫放行、宝箱奖励、战斗往返以及存档恢复的黄金回归样例
 - scene registry wiring and boot-first startup order
 - 场景注册表接线和以 Boot 开始的启动顺序
 
