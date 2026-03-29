@@ -225,7 +225,17 @@
           "facing": "right"
         }
       ],
-      "npcs": [],
+      "npcs": [
+        {
+          "id": "field-patrol",
+          "name": "巡逻兵",
+          "x": 9,
+          "y": 7,
+          "sprite": "guard",
+          "facing": "right",
+          "behavior": "idle"
+        }
+      ],
       "triggers": [
         {
           "id": "field-battle-trigger",

@@ -6,7 +6,7 @@
       "collisionLayerCount": 1,
       "id": "field",
       "name": "Field",
-      "npcCount": 0,
+      "npcCount": 1,
       "portalCount": 1,
       "size": {
         "height": 14,
