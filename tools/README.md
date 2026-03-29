@@ -19,3 +19,39 @@ Current first-pass tooling:
 - `tools/importers/importGameData.ts`：导入敌人、物品、商店原始表，并生成运行时战斗内容包和一个 staging report。
 - `tools/validate-content.ts`: verifies source-derived generated files are up to date and then validates the final runtime content database.
 - `tools/validate-content.ts`：先检查 generated 文件是否与 source 推导结果一致，再校验最终运行时内容数据库。
+
+## Import Rules
+## 导入规范
+
+- Real content import must always start from `content/source/`.
+- 真实内容导入必须始终从 `content/source/` 开始。
+- `tools/` should parse raw inputs and emit deterministic generated outputs before anything reaches runtime content.
+- `tools/` 应先解析原始输入并输出稳定的 generated 结果，之后内容才可以进入运行时内容层。
+- Do not bypass importers by dropping raw extracted data straight into `content/manual/`.
+- 不要绕过导入器，直接把原始提取数据丢进 `content/manual/`。
+- Do not patch scenes to compensate for missing imported data.
+- 不要通过修改 scene 来补偿缺失的导入数据。
+- When a new source table or generated output shape is introduced, add or extend schema and validation in the same change.
+- 引入新的 source 表或 generated 输出结构时，必须在同一次改动里补或扩展 schema 与校验。
+- Importer output order should remain stable so diffs stay reviewable.
+- 导入器输出顺序必须保持稳定，这样 diff 才可审查。
+- Failure messages should point to a concrete file and field whenever possible.
+- 出错信息应尽量定位到具体文件和字段。
+
+## Recommended Import Flow
+## 推荐导入流程
+
+1. add raw area inputs under `content/source/`
+1. 将区域原始输入加入 `content/source/`
+2. extend or run importer scripts in `tools/`
+2. 扩展或执行 `tools/` 下的导入脚本
+3. inspect generated staging output under `content/generated/`
+3. 检查 `content/generated/` 下的 staging 输出
+4. assemble verified runtime content into `content/manual/`
+4. 将已核对的运行时内容整理进 `content/manual/`
+5. run `npm run import-all`
+5. 执行 `npm run import-all`
+6. run `npm run validate-content`
+6. 执行 `npm run validate-content`
+7. run `npm run regression-smoke` when the imported change affects runtime behavior
+7. 当导入改动影响运行时行为时，执行 `npm run regression-smoke`
