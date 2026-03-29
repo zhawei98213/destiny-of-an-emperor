@@ -9,6 +9,7 @@ import {
   ensureRecord,
   ensureString,
   ensureStringArray,
+  failSchema,
 } from "@/content/schema/primitives";
 import type {
   BattleGroupDefinition,
@@ -451,8 +452,13 @@ export function validateSaveData(value: unknown, path = "saveData"): SaveData {
     }),
   );
 
+  const version = ensureNumber(record.version, `${path}.version`);
+  if (version !== 1) {
+    failSchema(`${path}.version`, `unsupported save version "${version}"`);
+  }
+
   return {
-    version: ensureNumber(record.version, `${path}.version`),
+    version,
     slot: ensureString(record.slot, `${path}.slot`),
     world: {
       mapId: ensureString(worldRecord.mapId, `${path}.world.mapId`),

@@ -2,6 +2,7 @@ import Phaser from "phaser";
 import {
   CONTENT_REGISTRY_KEY,
   GAME_STATE_REGISTRY_KEY,
+  SAVE_MANAGER_REGISTRY_KEY,
   WORLD_RUNTIME_REGISTRY_KEY,
 } from "@/content/contentKeys";
 import { SceneKey } from "@/core/sceneRegistry";
@@ -9,8 +10,11 @@ import type { WarpTarget } from "@/systems/eventInterpreter";
 import type { ContentDatabase, Facing } from "@/types/content";
 import { createEventRuntime, EventInterpreter } from "@/systems/eventInterpreter";
 import { GameStateRuntime } from "@/systems/gameStateRuntime";
+import { SaveManager } from "@/systems/saveManager";
 import { DialogueBox } from "@/ui/dialogueBox";
 import { DialogueSession } from "@/ui/dialogueSession";
+import { MenuController } from "@/ui/menuController";
+import { MenuOverlay } from "@/ui/menuOverlay";
 import { renderWorldMap } from "@/world/renderWorldMap";
 import { findNpcInFront } from "@/world/worldInteraction";
 import { findNpcInteractionTrigger, findTriggersAtPoint } from "@/world/worldTriggerResolver";
@@ -35,15 +39,29 @@ export class WorldScene extends Phaser.Scene {
 
   private fastDialogueKey?: Phaser.Input.Keyboard.Key;
 
+  private menuKey?: Phaser.Input.Keyboard.Key;
+
+  private menuNextKey?: Phaser.Input.Keyboard.Key;
+
+  private menuPreviousKey?: Phaser.Input.Keyboard.Key;
+
+  private menuSaveKey?: Phaser.Input.Keyboard.Key;
+
+  private menuLoadKey?: Phaser.Input.Keyboard.Key;
+
   private worldRuntime?: WorldRuntime;
 
   private contentDatabase?: ContentDatabase;
 
   private gameStateRuntime?: GameStateRuntime;
 
+  private saveManager?: SaveManager;
+
   private dialogueBox?: DialogueBox;
 
   private dialogueSession?: DialogueSession;
+
+  private menuController?: MenuController;
 
   private pendingWarpTarget?: WarpTarget;
 
@@ -60,8 +78,9 @@ export class WorldScene extends Phaser.Scene {
   create(): void {
     this.contentDatabase = this.registry.get(CONTENT_REGISTRY_KEY) as ContentDatabase | undefined;
     this.gameStateRuntime = this.registry.get(GAME_STATE_REGISTRY_KEY) as GameStateRuntime | undefined;
+    this.saveManager = this.registry.get(SAVE_MANAGER_REGISTRY_KEY) as SaveManager | undefined;
     this.worldRuntime = this.registry.get(WORLD_RUNTIME_REGISTRY_KEY) as WorldRuntime | undefined;
-    if (!this.contentDatabase || !this.gameStateRuntime || !this.worldRuntime) {
+    if (!this.contentDatabase || !this.gameStateRuntime || !this.saveManager || !this.worldRuntime) {
       throw new Error("WorldScene requires bootstrapped content and world runtime.");
     }
 
@@ -70,12 +89,39 @@ export class WorldScene extends Phaser.Scene {
     this.battleKey = this.input.keyboard?.addKey("B");
     this.interactKey = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     this.fastDialogueKey = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
+    this.menuKey = this.input.keyboard?.addKey("M");
+    this.menuNextKey = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.RIGHT);
+    this.menuPreviousKey = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.LEFT);
+    this.menuSaveKey = this.input.keyboard?.addKey("S");
+    this.menuLoadKey = this.input.keyboard?.addKey("L");
     this.dialogueBox = new DialogueBox(this);
+    this.menuController = new MenuController(
+      new MenuOverlay(),
+      this.contentDatabase,
+      this.gameStateRuntime,
+      this.worldRuntime,
+      this.saveManager,
+    );
+    this.gameStateRuntime.syncWorldState(this.worldRuntime.getState());
+    this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
+      this.menuController?.destroy();
+    });
     this.renderCurrentMap();
   }
 
   update(time: number, delta: number): void {
     if (!this.hero || !this.worldRuntime) {
+      return;
+    }
+
+    if (this.menuKey && Phaser.Input.Keyboard.JustDown(this.menuKey)) {
+      this.menuController?.toggle();
+      return;
+    }
+
+    if (this.menuController?.isMenuOpen()) {
+      this.handleMenuInput();
+      this.menuController.refresh();
       return;
     }
 
@@ -105,6 +151,7 @@ export class WorldScene extends Phaser.Scene {
     }
 
     const result = this.worldRuntime.move(direction);
+    this.gameStateRuntime?.syncWorldState(result.state);
     this.syncHeroToRuntime();
     this.nextMoveAt = time + WorldScene.MoveIntervalMs;
 
@@ -158,7 +205,7 @@ export class WorldScene extends Phaser.Scene {
     this.cameras.main.startFollow(this.hero, true, 0.2, 0.2);
     this.cameras.main.roundPixels = true;
 
-    this.add.text(8, 8, `${map.name}\nArrow keys move\nSpace talks\nB enters battle`, {
+    this.add.text(8, 8, `${map.name}\nArrows move / 方向键移动\nSpace talks / 空格对话\nM menu / M 打开菜单\nS save L load / S 存档 L 读档\nB battle / B 进入战斗`, {
       color: "#f8fafc",
       fontFamily: "monospace",
       fontSize: "10px",
@@ -333,6 +380,7 @@ export class WorldScene extends Phaser.Scene {
   private applyPendingEventEffects(): void {
     if (this.pendingWarpTarget && this.worldRuntime) {
       this.worldRuntime.setSpawn(this.pendingWarpTarget.mapId, this.pendingWarpTarget.spawnPointId);
+      this.gameStateRuntime?.syncWorldState(this.worldRuntime.getState());
       this.pendingWarpTarget = undefined;
       this.pendingBattleGroupId = undefined;
       this.scene.restart();
@@ -342,6 +390,34 @@ export class WorldScene extends Phaser.Scene {
     if (this.pendingBattleGroupId) {
       this.pendingBattleGroupId = undefined;
       this.scene.start(SceneKey.Battle);
+    }
+  }
+
+  private handleMenuInput(): void {
+    if (!this.menuController) {
+      return;
+    }
+
+    if (this.menuNextKey && Phaser.Input.Keyboard.JustDown(this.menuNextKey)) {
+      this.menuController.nextTab();
+      return;
+    }
+
+    if (this.menuPreviousKey && Phaser.Input.Keyboard.JustDown(this.menuPreviousKey)) {
+      this.menuController.previousTab();
+      return;
+    }
+
+    if (this.menuSaveKey && Phaser.Input.Keyboard.JustDown(this.menuSaveKey)) {
+      this.menuController.save();
+      return;
+    }
+
+    if (this.menuLoadKey && Phaser.Input.Keyboard.JustDown(this.menuLoadKey)) {
+      const result = this.menuController.load();
+      if (result.shouldReloadWorld) {
+        this.scene.restart();
+      }
     }
   }
 }

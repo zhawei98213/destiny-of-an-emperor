@@ -49,7 +49,8 @@ The playable skeleton contains four scenes:
 - `TitleScene`: minimal entry screen; pressing Enter or clicking starts the world.
 - `TitleScene`：最小化入口界面；按 Enter 或点击即可进入世界场景。
 - `WorldScene`: renders data-driven maps, follows the player camera, applies grid collision, loads NPCs from content, and handles scene-safe portal and dialogue interactions while preserving world runtime state.
-- `WorldScene`：渲染数据驱动地图、让摄像机跟随玩家、应用基于网格的碰撞、从内容数据加载 NPC，并在保留世界运行时状态的前提下处理 portal 和对话交互。
+- `WorldScene`: also delegates menu open/close, save/load requests, and world state sync to dedicated runtime and UI modules instead of owning those flows directly.
+- `WorldScene`：同时把菜单开关、存档读档请求和世界状态同步委托给独立的运行时与 UI 模块，而不是直接在 scene 内部承载这些流程。
 - `BattleScene`: placeholder battle screen entered with `B` and exited with `Esc`.
 - `BattleScene`：占位战斗场景，按 `B` 进入，按 `Esc` 返回。
 
@@ -68,10 +69,14 @@ The first extension points are intentionally typed and data-driven:
 - `schema`：为每种 JRPG 内容模型提供对应的 TypeScript 校验器，包括地图、事件、物品、NPC、商店、战斗组、标记、任务状态、背包和存档数据。
 - `saveManager`: persists typed save slots and validates save references against the loaded content database.
 - `saveManager`：持久化类型化存档槽，并依据已加载的内容数据库校验存档引用。
+- `menuController` + `menuOverlay`: keep the main menu shell, tab switching, and save/load actions separate from scene code while reading from one unified runtime snapshot.
+- `menuController` + `menuOverlay`：把主菜单骨架、页签切换和存档读档动作从 scene 代码中分离出去，并统一读取同一份运行时快照。
 - `eventInterpreter`: executes declarative event steps such as dialogue, flags, shops, and battle launches.
 - `eventInterpreter`：执行声明式事件步骤，例如对话、标记设置、商店打开和战斗启动。
 - `gameStateRuntime` + `worldTriggerResolver`: keep persistent flags, inventory, party membership, and consumed one-shot triggers separate from scene code while mapping NPC, tile, and region triggers to events.
 - `gameStateRuntime` + `worldTriggerResolver`：把持久化 flags、inventory、party 成员和一次性 trigger 消费状态从 scene 中分离出来，并负责把 NPC、tile、region trigger 映射到事件。
+- `gameStateRuntime`: now acts as the unified state container for flags, inventory, party, money, world position, quest states, chapter progress, and shop state so SaveData stays versioned and extendable.
+- `gameStateRuntime`：现在也作为 flags、背包、队伍、金钱、世界坐标、任务状态、章节进度和商店状态的统一状态容器，使 SaveData 保持可版本化且可扩展。
 - `dialogueSession` + `dialogueBox`: keep dialogue presentation and typewriter flow separate from event execution so portraits, audio, and choices can be extended later.
 - `dialogueSession` + `dialogueBox`：将对话展示与逐字播放流程从事件执行中分离，为后续头像、音效和选项扩展预留接口。
 
@@ -99,6 +104,8 @@ The current test suite covers:
 - 基于朝向的 NPC 交互目标判定和对话逐字显示流程
 - unified event interpreter branching, warp, inventory mutation, and trigger resolution
 - 统一事件解释器的条件分支、warp、物品变更和 trigger 解析
+- menu controller save/load flow and world position restoration
+- 菜单控制器的存档读档流程和世界坐标恢复
 - scene registry wiring and boot-first startup order
 - 场景注册表接线和以 Boot 开始的启动顺序
 
@@ -123,6 +130,10 @@ Manual verification in the current demo:
 8. 拿到通行许可后再次与守卫对话，确认同一套事件解释器会把玩家传送到 `field`。
 9. Move through the `field` region trigger and confirm it can start the training battle flow.
 9. 走进 `field` 的 region trigger，确认它可以启动训练战斗流程。
+10. Press `M` to open the main menu, use Left and Right to switch Status, Inventory, Party, and System pages, and confirm gold plus current map coordinates are visible.
+10. 按 `M` 打开主菜单，使用左右方向键切换状态、背包、队伍和系统页面，并确认能看到金钱和当前地图坐标。
+11. Press `S` in the system page to save, move to a different tile, then press `L` to load and confirm map, position, party, inventory, and flags are restored.
+11. 在系统页按 `S` 存档，移动到另一个格子后按 `L` 读档，确认地图、位置、队伍、背包和 flags 都被恢复。
 
 Use these tests as the baseline for future content pipelines, state machines, and gameplay systems.
 后续扩展内容管线、状态机和玩法系统时，应以这些测试作为基线。

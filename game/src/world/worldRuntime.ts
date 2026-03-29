@@ -104,6 +104,12 @@ export class WorldRuntime {
     return getMapById(this.database, this.state.currentMapId);
   }
 
+  setState(state: WorldRuntimeState): WorldRuntimeState {
+    this.state = { ...state };
+    this.assertState();
+    return this.getState();
+  }
+
   move(direction: Facing): WorldMoveResult {
     const currentMap = this.getCurrentMap();
     const nextX = this.state.playerX + (direction === "left" ? -1 : direction === "right" ? 1 : 0);
