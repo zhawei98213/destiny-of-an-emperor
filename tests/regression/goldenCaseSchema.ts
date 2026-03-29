@@ -2,6 +2,7 @@ import type {
   Facing,
   InventoryState,
   PartyMemberState,
+  ShopStateMap,
 } from "@/types/content";
 
 export type RegressionSceneId = "WorldScene" | "BattleScene";
@@ -21,6 +22,7 @@ export interface GoldenStateSeed {
   inventory?: InventoryState;
   partyMemberIds?: string[];
   partyStates?: Record<string, PartyMemberState>;
+  shopStates?: ShopStateMap;
   consumedTriggerIds?: string[];
 }
 
@@ -60,6 +62,7 @@ export interface GoldenExpectedState {
   inventory?: InventoryState;
   partyMemberIds?: string[];
   partyStates?: Record<string, PartyMemberState>;
+  shopStates?: ShopStateMap;
   consumedTriggerIds?: string[];
 }
 
@@ -185,6 +188,7 @@ function validateStateSeed(value: unknown, path: string): GoldenStateSeed {
   const inventoryValue = record.inventory;
   const partyMemberIdsValue = record.partyMemberIds;
   const partyStatesValue = record.partyStates;
+  const shopStatesValue = record.shopStates;
   const consumedTriggerIdsValue = record.consumedTriggerIds;
 
   return {
@@ -208,6 +212,16 @@ function validateStateSeed(value: unknown, path: string): GoldenStateSeed {
     inventory: inventoryValue ? validateInventoryState(inventoryValue, `${path}.inventory`) : undefined,
     partyMemberIds: partyMemberIdsValue ? expectStringArray(partyMemberIdsValue, `${path}.partyMemberIds`) : undefined,
     partyStates: partyStatesValue ? validatePartyStateMap(partyStatesValue, `${path}.partyStates`) : undefined,
+    shopStates: shopStatesValue
+      ? Object.fromEntries(
+        Object.entries(expectRecord(shopStatesValue, `${path}.shopStates`)).map(([shopId, shopValue]) => {
+          const shopState = expectRecord(shopValue, `${path}.shopStates.${shopId}`);
+          return [shopId, {
+            visited: expectBoolean(shopState.visited, `${path}.shopStates.${shopId}.visited`),
+          }];
+        }),
+      )
+      : undefined,
     consumedTriggerIds: consumedTriggerIdsValue ? expectStringArray(consumedTriggerIdsValue, `${path}.consumedTriggerIds`) : undefined,
   };
 }
@@ -268,6 +282,16 @@ function validateExpectedState(value: unknown, path: string): GoldenExpectedStat
     inventory: record.inventory ? validateInventoryState(record.inventory, `${path}.inventory`) : undefined,
     partyMemberIds: record.partyMemberIds ? expectStringArray(record.partyMemberIds, `${path}.partyMemberIds`) : undefined,
     partyStates: record.partyStates ? validatePartyStateMap(record.partyStates, `${path}.partyStates`) : undefined,
+    shopStates: record.shopStates
+      ? Object.fromEntries(
+        Object.entries(expectRecord(record.shopStates, `${path}.shopStates`)).map(([shopId, shopValue]) => {
+          const shopState = expectRecord(shopValue, `${path}.shopStates.${shopId}`);
+          return [shopId, {
+            visited: expectBoolean(shopState.visited, `${path}.shopStates.${shopId}.visited`),
+          }];
+        }),
+      )
+      : undefined,
     consumedTriggerIds: record.consumedTriggerIds ? expectStringArray(record.consumedTriggerIds, `${path}.consumedTriggerIds`) : undefined,
   };
 }

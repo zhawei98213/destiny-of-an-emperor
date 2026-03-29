@@ -23,49 +23,39 @@
       "soundId": "voice-guide"
     },
     {
-      "id": "quartermaster-line-1",
+      "id": "lou-sang-shop-line",
       "speakerName": "Supply Keeper",
       "speakerNpcId": "merchant",
-      "text": "Supplies are short, but I can still issue one road pass for the eastern watch.",
+      "text": "This is the village supply counter. Herbs and simple blades are all I can sell today.",
       "portraitId": "merchant-default",
       "soundId": "voice-merchant"
     },
     {
-      "id": "quartermaster-line-2",
-      "speakerName": "Supply Keeper",
-      "speakerNpcId": "merchant",
-      "text": "Take this pass to the gate guard. Come back here if you need your strength restored.",
-      "portraitId": "merchant-default",
-      "soundId": "voice-merchant"
-    },
-    {
-      "id": "quartermaster-rest-line",
-      "speakerName": "Supply Keeper",
-      "speakerNpcId": "merchant",
-      "text": "Sit for a moment. I will mend your wounds and refill your travel pack.",
-      "portraitId": "merchant-default",
-      "soundId": "voice-merchant"
-    },
-    {
-      "id": "guard-line-blocked",
+      "id": "lou-sang-guard-blocked-line",
       "speakerName": "Gate Watch",
       "speakerNpcId": "town-guard",
-      "text": "Hold there. No one leaves the outpost without a sealed road pass.",
+      "text": "Stop. No one leaves Lou Sang Village without the road pass from the county messenger.",
       "portraitId": "guard-default",
       "soundId": "voice-guard"
     },
     {
-      "id": "guard-line-open",
+      "id": "lou-sang-guard-open-line",
       "speakerName": "Gate Watch",
       "speakerNpcId": "town-guard",
-      "text": "Pass confirmed. The eastern field is open, but stay alert once you leave the walls.",
+      "text": "The seal is in order. I will open the east gate. Step onto the road marker when you are ready.",
       "portraitId": "guard-default",
       "soundId": "voice-guard"
     },
     {
-      "id": "chest-line-open",
+      "id": "lou-sang-exit-line-blocked",
       "speakerName": "System",
-      "text": "You found an Herb in the outpost supply chest.",
+      "text": "The east gate is still barred from inside the village.",
+      "soundId": "sfx-blocked"
+    },
+    {
+      "id": "lou-sang-chest-line-open",
+      "speakerName": "System",
+      "text": "You found one Herb in the elder's store jar.",
       "soundId": "sfx-chest"
     },
     {
@@ -99,18 +89,25 @@
       ]
     },
     {
-      "id": "merchant-pass-event",
-      "name": "Merchant Pass Event",
+      "id": "lou-sang-shop-event",
+      "name": "Lou Sang Shop Event",
+      "steps": [
+        { "type": "dialogue", "lineId": "lou-sang-shop-line" },
+        { "type": "setFlag", "flagId": "merchant-met" },
+        { "type": "openShop", "shopId": "starter-shop" },
+        { "type": "playSfx", "sfxId": "sfx-shop-open" },
+        { "type": "end" }
+      ]
+    },
+    {
+      "id": "lou-sang-guard-event",
+      "name": "Lou Sang Guard Event",
       "steps": [
         {
           "type": "ifNotFlag",
           "flagId": "gate-pass",
           "steps": [
-            { "type": "dialogue", "lineId": "quartermaster-line-1" },
-            { "type": "dialogue", "lineId": "quartermaster-line-2" },
-            { "type": "setFlag", "flagId": "merchant-met" },
-            { "type": "setFlag", "flagId": "gate-pass" },
-            { "type": "playSfx", "sfxId": "sfx-pass" },
+            { "type": "dialogue", "lineId": "lou-sang-guard-blocked-line" },
             { "type": "end" }
           ]
         },
@@ -118,10 +115,9 @@
           "type": "ifFlag",
           "flagId": "gate-pass",
           "steps": [
-            { "type": "dialogue", "lineId": "quartermaster-rest-line" },
-            { "type": "restoreParty" },
-            { "type": "openShop", "shopId": "starter-shop" },
-            { "type": "playSfx", "sfxId": "sfx-rest" },
+            { "type": "dialogue", "lineId": "lou-sang-guard-open-line" },
+            { "type": "setFlag", "flagId": "lou-sang-east-gate-open" },
+            { "type": "playSfx", "sfxId": "sfx-gate-open" },
             { "type": "end" }
           ]
         },
@@ -129,33 +125,33 @@
       ]
     },
     {
-      "id": "guard-gate-event",
-      "name": "Guard Gate Event",
+      "id": "lou-sang-east-exit-event",
+      "name": "Lou Sang East Exit Event",
       "steps": [
         {
           "type": "ifNotFlag",
-          "flagId": "gate-pass",
+          "flagId": "lou-sang-east-gate-open",
           "steps": [
-            { "type": "dialogue", "lineId": "guard-line-blocked" },
+            { "type": "dialogue", "lineId": "lou-sang-exit-line-blocked" },
             { "type": "end" }
           ]
         },
         {
           "type": "ifFlag",
-          "flagId": "gate-pass",
+          "flagId": "lou-sang-east-gate-open",
           "steps": [
-            { "type": "dialogue", "lineId": "guard-line-open" },
             { "type": "warp", "targetMapId": "field", "targetSpawnId": "field-gate" },
             { "type": "end" }
           ]
-        }
+        },
+        { "type": "end" }
       ]
     },
     {
-      "id": "town-chest-event",
-      "name": "Town Chest Event",
+      "id": "lou-sang-chest-event",
+      "name": "Lou Sang Chest Event",
       "steps": [
-        { "type": "dialogue", "lineId": "chest-line-open" },
+        { "type": "dialogue", "lineId": "lou-sang-chest-line-open" },
         { "type": "giveItem", "itemId": "herb", "quantity": 1 },
         { "type": "setFlag", "flagId": "town-chest-opened" },
         { "type": "playSfx", "sfxId": "sfx-chest" },
@@ -176,7 +172,7 @@
   "shops": [
     {
       "id": "starter-shop",
-      "name": "Quartermaster Supplies",
+      "name": "Lou Sang Supply Counter",
       "inventory": [
         {
           "itemId": "herb"

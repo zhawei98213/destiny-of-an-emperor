@@ -21,14 +21,14 @@
       "id": "town",
       "name": "Lou Sang Village",
       "npcCount": 3,
-      "portalCount": 1,
+      "portalCount": 0,
       "size": {
         "height": 14,
         "width": 20
       },
       "sourceFile": "lou-sang-village.source.json",
       "spawnPointCount": 2,
-      "triggerCount": 0
+      "triggerCount": 4
     }
   ],
   "sourceFiles": [

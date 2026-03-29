@@ -10,6 +10,7 @@ import type {
   InventoryState,
   PartyMemberState,
   SaveData,
+  ShopStateMap,
 } from "@/types/content";
 import { WorldRuntime } from "@/world/worldRuntime";
 import { findNpcInteractionTrigger, findTriggersAtPoint } from "@/world/worldTriggerResolver";
@@ -57,6 +58,7 @@ export interface GoldenObservedState {
   inventory: InventoryState;
   partyMemberIds: string[];
   partyStates: Record<string, PartyMemberState>;
+  shopStates: ShopStateMap;
   consumedTriggerIds: string[];
 }
 
@@ -149,6 +151,16 @@ function applyStateSeed(saveData: SaveData, seed: GoldenStateSeed): SaveData {
       : Object.fromEntries(
         Object.entries(saveData.partyStates).map(([memberId, state]) => [memberId, { ...state, statusIds: [...state.statusIds] }]),
       ),
+    shopStates: seed.shopStates
+      ? Object.fromEntries(
+        Object.entries({
+          ...saveData.shopStates,
+          ...seed.shopStates,
+        }).map(([shopId, state]) => [shopId, { ...state }]),
+      )
+      : Object.fromEntries(
+        Object.entries(saveData.shopStates).map(([shopId, state]) => [shopId, { ...state }]),
+      ),
     consumedTriggerIds: seed.consumedTriggerIds
       ? [...seed.consumedTriggerIds]
       : [...saveData.consumedTriggerIds],
@@ -181,6 +193,9 @@ function createObservedState(gameState: GameStateRuntime): GoldenObservedState {
     partyMemberIds: [...snapshot.partyMemberIds],
     partyStates: Object.fromEntries(
       Object.entries(snapshot.partyStates).map(([memberId, state]) => [memberId, { ...state, statusIds: [...state.statusIds] }]),
+    ),
+    shopStates: Object.fromEntries(
+      Object.entries(snapshot.shopStates).map(([shopId, state]) => [shopId, { ...state }]),
     ),
     consumedTriggerIds: [...snapshot.consumedTriggerIds],
   };
@@ -279,6 +294,28 @@ function compareExpectedState(
           });
         }
       });
+    });
+  }
+
+  if (expected.shopStates) {
+    Object.entries(expected.shopStates).forEach(([shopId, expectedState]) => {
+      const actualState = actual.shopStates[shopId];
+      if (!actualState) {
+        mismatches.push({
+          path: `state.shopStates.${shopId}`,
+          expected: expectedState,
+          actual: undefined,
+        });
+        return;
+      }
+
+      if (JSON.stringify(actualState) !== JSON.stringify(expectedState)) {
+        mismatches.push({
+          path: `state.shopStates.${shopId}`,
+          expected: expectedState,
+          actual: actualState,
+        });
+      }
     });
   }
 

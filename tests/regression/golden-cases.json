@@ -9,7 +9,7 @@
           "mapId": "town",
           "spawnPointId": "town-start",
           "playerX": 15,
-          "playerY": 6,
+          "playerY": 8,
           "facing": "right"
         },
         "flags": {
@@ -31,7 +31,7 @@
           "currentMapId": "town",
           "currentSpawnId": "town-start",
           "playerX": 15,
-          "playerY": 6,
+          "playerY": 8,
           "facing": "right"
         },
         "flags": {
@@ -46,18 +46,18 @@
       "expectedUi": {
         "sceneFlow": ["WorldScene"],
         "activeScene": "WorldScene",
-        "dialogueLineIds": ["guard-line-blocked"]
+        "dialogueLineIds": ["lou-sang-guard-blocked-line"]
       }
     },
     {
-      "id": "guard-warp-with-pass",
-      "name": "Guard warps with pass / 有通行证时门卫放行并传送",
+      "id": "guard-opens-gate-with-pass",
+      "name": "Guard opens gate with pass / 有通行证时门卫放行",
       "initialState": {
         "world": {
           "mapId": "town",
           "spawnPointId": "town-start",
           "playerX": 15,
-          "playerY": 6,
+          "playerY": 8,
           "facing": "right"
         },
         "flags": {
@@ -76,14 +76,15 @@
       },
       "expectedState": {
         "world": {
-          "currentMapId": "field",
-          "currentSpawnId": "field-gate",
-          "playerX": 2,
-          "playerY": 7,
+          "currentMapId": "town",
+          "currentSpawnId": "town-start",
+          "playerX": 15,
+          "playerY": 8,
           "facing": "right"
         },
         "flags": {
-          "gate-pass": true
+          "gate-pass": true,
+          "lou-sang-east-gate-open": true
         },
         "inventory": {
           "gold": 0,
@@ -94,7 +95,56 @@
       "expectedUi": {
         "sceneFlow": ["WorldScene"],
         "activeScene": "WorldScene",
-        "dialogueLineIds": ["guard-line-open"]
+        "dialogueLineIds": ["lou-sang-guard-open-line"]
+      }
+    },
+    {
+      "id": "east-exit-warp-after-guard-opens-gate",
+      "name": "East exit warps after gate opens / 东门开启后出口切图",
+      "initialState": {
+        "world": {
+          "mapId": "town",
+          "spawnPointId": "town-start",
+          "playerX": 18,
+          "playerY": 8,
+          "facing": "right"
+        },
+        "flags": {
+          "lou-sang-east-gate-open": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "tile",
+        "mapId": "town",
+        "x": 18,
+        "y": 8
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "field",
+          "currentSpawnId": "field-gate",
+          "playerX": 2,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "lou-sang-east-gate-open": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": []
       }
     },
     {
@@ -105,7 +155,7 @@
           "mapId": "town",
           "spawnPointId": "town-start",
           "playerX": 3,
-          "playerY": 5,
+          "playerY": 11,
           "facing": "down"
         },
         "flags": {
@@ -121,14 +171,14 @@
         "kind": "tile",
         "mapId": "town",
         "x": 3,
-        "y": 5
+        "y": 11
       },
       "expectedState": {
         "world": {
           "currentMapId": "town",
           "currentSpawnId": "town-start",
           "playerX": 3,
-          "playerY": 5,
+          "playerY": 11,
           "facing": "down"
         },
         "flags": {
@@ -143,12 +193,12 @@
             }
           ]
         },
-        "consumedTriggerIds": ["town-chest-trigger"]
+        "consumedTriggerIds": ["lou-sang-chest-trigger"]
       },
       "expectedUi": {
         "sceneFlow": ["WorldScene"],
         "activeScene": "WorldScene",
-        "dialogueLineIds": ["chest-line-open"]
+        "dialogueLineIds": ["lou-sang-chest-line-open"]
       }
     },
     {
@@ -159,7 +209,7 @@
           "mapId": "town",
           "spawnPointId": "town-start",
           "playerX": 3,
-          "playerY": 5,
+          "playerY": 11,
           "facing": "down"
         },
         "flags": {
@@ -174,20 +224,20 @@
             }
           ]
         },
-        "consumedTriggerIds": ["town-chest-trigger"]
+        "consumedTriggerIds": ["lou-sang-chest-trigger"]
       },
       "trigger": {
         "kind": "tile",
         "mapId": "town",
         "x": 3,
-        "y": 5
+        "y": 11
       },
       "expectedState": {
         "world": {
           "currentMapId": "town",
           "currentSpawnId": "town-start",
           "playerX": 3,
-          "playerY": 5,
+          "playerY": 11,
           "facing": "down"
         },
         "flags": {
@@ -202,12 +252,70 @@
             }
           ]
         },
-        "consumedTriggerIds": ["town-chest-trigger"]
+        "consumedTriggerIds": ["lou-sang-chest-trigger"]
       },
       "expectedUi": {
         "sceneFlow": ["WorldScene"],
         "activeScene": "WorldScene",
         "dialogueLineIds": []
+      }
+    },
+    {
+      "id": "shop-counter-opens-shop-state",
+      "name": "Shop counter opens shop state / 商店柜台交互骨架",
+      "initialState": {
+        "world": {
+          "mapId": "town",
+          "spawnPointId": "town-start",
+          "playerX": 11,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "merchant-met": false
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "shopStates": {
+          "starter-shop": {
+            "visited": false
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "town",
+        "npcId": "merchant"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "town",
+          "currentSpawnId": "town-start",
+          "playerX": 11,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "merchant-met": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "shopStates": {
+          "starter-shop": {
+            "visited": true
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["lou-sang-shop-line"]
       }
     },
     {
@@ -298,6 +406,7 @@
         "flags": {
           "gate-pass": true,
           "merchant-met": true,
+          "lou-sang-east-gate-open": true,
           "town-chest-opened": true
         },
         "inventory": {
@@ -320,7 +429,12 @@
             "formationSlot": 0
           }
         },
-        "consumedTriggerIds": ["town-chest-trigger"]
+        "shopStates": {
+          "starter-shop": {
+            "visited": true
+          }
+        },
+        "consumedTriggerIds": ["lou-sang-chest-trigger"]
       },
       "trigger": {
         "kind": "saveLoadRoundTrip",
@@ -330,17 +444,23 @@
             "mapId": "town",
             "spawnPointId": "town-start",
             "playerX": 10,
-            "playerY": 8,
+            "playerY": 10,
             "facing": "down"
           },
           "flags": {
             "gate-pass": false,
             "merchant-met": false,
+            "lou-sang-east-gate-open": false,
             "town-chest-opened": false
           },
           "inventory": {
             "gold": 0,
             "items": []
+          },
+          "shopStates": {
+            "starter-shop": {
+              "visited": false
+            }
           },
           "partyStates": {
             "liu-bei": {
@@ -367,6 +487,7 @@
         "flags": {
           "gate-pass": true,
           "merchant-met": true,
+          "lou-sang-east-gate-open": true,
           "town-chest-opened": true
         },
         "inventory": {
@@ -389,7 +510,12 @@
             "formationSlot": 0
           }
         },
-        "consumedTriggerIds": ["town-chest-trigger"]
+        "shopStates": {
+          "starter-shop": {
+            "visited": true
+          }
+        },
+        "consumedTriggerIds": ["lou-sang-chest-trigger"]
       },
       "expectedUi": {
         "sceneFlow": ["WorldScene"],

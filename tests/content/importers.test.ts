@@ -20,8 +20,9 @@ describe("import tools", () => {
         name: "Lou Sang Village",
         sourceFile: "lou-sang-village.source.json",
         npcCount: 3,
-        portalCount: 1,
+        portalCount: 0,
         spawnPointCount: 2,
+        triggerCount: 4,
       }),
       expect.objectContaining({
         id: "field",

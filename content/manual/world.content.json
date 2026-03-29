@@ -62,17 +62,7 @@
           ]
         }
       ],
-      "portals": [
-        {
-          "id": "to-field",
-          "x": 18,
-          "y": 8,
-          "width": 1,
-          "height": 1,
-          "targetMapId": "field",
-          "targetSpawnId": "field-gate"
-        }
-      ],
+      "portals": [],
       "spawnPoints": [
         {
           "id": "town-start",
@@ -119,17 +109,17 @@
       ],
       "triggers": [
         {
-          "id": "guard-talk-trigger",
+          "id": "lou-sang-guard-trigger",
           "kind": "npcInteraction",
           "npcId": "town-guard",
-          "eventId": "guard-gate-event",
+          "eventId": "lou-sang-guard-event",
           "once": false
         },
         {
-          "id": "merchant-talk-trigger",
+          "id": "lou-sang-shop-trigger",
           "kind": "npcInteraction",
           "npcId": "merchant",
-          "eventId": "merchant-pass-event",
+          "eventId": "lou-sang-shop-event",
           "once": false
         },
         {
@@ -140,14 +130,24 @@
           "once": false
         },
         {
-          "id": "town-chest-trigger",
+          "id": "lou-sang-chest-trigger",
           "kind": "tile",
           "x": 3,
-          "y": 5,
+          "y": 11,
           "width": 1,
           "height": 1,
-          "eventId": "town-chest-event",
+          "eventId": "lou-sang-chest-event",
           "once": true
+        },
+        {
+          "id": "lou-sang-east-exit-trigger",
+          "kind": "tile",
+          "x": 18,
+          "y": 8,
+          "width": 1,
+          "height": 1,
+          "eventId": "lou-sang-east-exit-event",
+          "once": false
         }
       ]
     },
@@ -301,6 +301,10 @@
     },
     {
       "id": "gate-pass",
+      "defaultValue": false
+    },
+    {
+      "id": "lou-sang-east-gate-open",
       "defaultValue": false
     },
     {
