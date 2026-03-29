@@ -42,6 +42,7 @@ function createBaseDatabase(): ContentDatabase {
       skills: ["skill-1"],
       rewardGold: 1,
       rewardExperience: 1,
+      dropItems: [],
       baseStats: { maxHp: 10, maxMp: 0, attack: 3, defense: 2, speed: 2 },
     }],
     battleGroups: [{ id: "group-1", name: "Bandits", enemyIds: ["enemy-1"] }],

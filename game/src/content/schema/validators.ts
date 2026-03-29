@@ -18,6 +18,7 @@ import type {
   ContentManifest,
   ContentPack,
   DialogueLineDefinition,
+  EnemyDropDefinition,
   EnemyDefinition,
   EventDefinition,
   EventStep,
@@ -28,6 +29,7 @@ import type {
   MapDefinition,
   NpcDefinition,
   PartyMemberDefinition,
+  PartyMemberState,
   PortalDefinition,
   QuestStateDefinition,
   SaveData,
@@ -48,6 +50,15 @@ function validateUnitStats(value: unknown, path: string): UnitStats {
     attack: ensureNumber(record.attack, `${path}.attack`),
     defense: ensureNumber(record.defense, `${path}.defense`),
     speed: ensureNumber(record.speed, `${path}.speed`),
+  };
+}
+
+function validateEnemyDropDefinition(value: unknown, path: string): EnemyDropDefinition {
+  const record = ensureRecord(value, path);
+  return {
+    itemId: ensureString(record.itemId, `${path}.itemId`),
+    quantity: ensureNumber(record.quantity, `${path}.quantity`),
+    chance: ensureNumber(record.chance, `${path}.chance`),
   };
 }
 
@@ -343,6 +354,9 @@ export function validateEnemyDefinition(value: unknown, path: string): EnemyDefi
     skills: ensureStringArray(record.skills, `${path}.skills`),
     rewardGold: ensureNumber(record.rewardGold, `${path}.rewardGold`),
     rewardExperience: ensureNumber(record.rewardExperience, `${path}.rewardExperience`),
+    dropItems: ensureArray(record.dropItems ?? [], `${path}.dropItems`).map((entry, index) =>
+      validateEnemyDropDefinition(entry, `${path}.dropItems[${index}]`),
+    ),
     baseStats: validateUnitStats(record.baseStats, `${path}.baseStats`),
   };
 }
@@ -419,6 +433,19 @@ export function validateInventoryState(value: unknown, path: string): InventoryS
   };
 }
 
+function validatePartyMemberState(value: unknown, path: string): PartyMemberState {
+  const record = ensureRecord(value, path);
+  return {
+    memberId: ensureString(record.memberId, `${path}.memberId`),
+    level: ensureNumber(record.level, `${path}.level`),
+    experience: ensureNumber(record.experience, `${path}.experience`),
+    currentHp: ensureNumber(record.currentHp, `${path}.currentHp`),
+    currentMp: ensureNumber(record.currentMp, `${path}.currentMp`),
+    statusIds: ensureStringArray(record.statusIds ?? [], `${path}.statusIds`),
+    formationSlot: ensureNumber(record.formationSlot, `${path}.formationSlot`),
+  };
+}
+
 export function validateSaveData(value: unknown, path = "saveData"): SaveData {
   const record = ensureRecord(value, path);
   const flagsRecord = ensureRecord(record.flags, `${path}.flags`);
@@ -453,9 +480,17 @@ export function validateSaveData(value: unknown, path = "saveData"): SaveData {
   );
 
   const version = ensureNumber(record.version, `${path}.version`);
-  if (version !== 1) {
+  if (version !== 1 && version !== 2) {
     failSchema(`${path}.version`, `unsupported save version "${version}"`);
   }
+
+  const partyStatesRecord = ensureRecord(record.partyStates ?? {}, `${path}.partyStates`);
+  const partyStates = Object.fromEntries(
+    Object.entries(partyStatesRecord).map(([key, entry]) => [
+      key,
+      validatePartyMemberState(entry, `${path}.partyStates.${key}`),
+    ]),
+  );
 
   return {
     version,
@@ -468,6 +503,7 @@ export function validateSaveData(value: unknown, path = "saveData"): SaveData {
       facing: ensureLiteral(worldRecord.facing, ["up", "down", "left", "right"], `${path}.world.facing`),
     },
     partyMemberIds: ensureStringArray(record.partyMemberIds, `${path}.partyMemberIds`),
+    partyStates,
     flags,
     questStates,
     inventory: validateInventoryState(record.inventory, `${path}.inventory`),

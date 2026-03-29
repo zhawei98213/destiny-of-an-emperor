@@ -3,7 +3,7 @@ import type { ContentDatabase, SaveData } from "@/types/content";
 
 export const DEFAULT_SAVE_SLOT = "slot-1";
 
-export const SAVE_DATA_VERSION = 1;
+export const SAVE_DATA_VERSION = 2;
 
 export interface SaveStorage {
   getItem(key: string): string | null;

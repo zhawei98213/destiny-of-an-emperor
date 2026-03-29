@@ -13,6 +13,13 @@
       "skills": ["slash"],
       "rewardGold": 4,
       "rewardExperience": 3,
+      "dropItems": [
+        {
+          "itemId": "herb",
+          "quantity": 1,
+          "chance": 1
+        }
+      ],
       "baseStats": {
         "maxHp": 12,
         "maxMp": 0,
@@ -28,6 +35,7 @@
       "skills": ["slash"],
       "rewardGold": 7,
       "rewardExperience": 5,
+      "dropItems": [],
       "baseStats": {
         "maxHp": 18,
         "maxMp": 0,

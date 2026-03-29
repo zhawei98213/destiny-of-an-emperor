@@ -47,8 +47,6 @@ describe("game state runtime", () => {
     const runtime = createEventRuntime(database);
     runtime.state.flags.opened = true;
     runtime.state.inventory.items.push({ itemId: "herb", quantity: 1 });
-    runtime.state.partyMemberIds.push("hero-2");
-
     gameState.applyEventRuntime(runtime);
     gameState.consumeTrigger("chest-trigger");
 

@@ -342,6 +342,20 @@ export function validateContentReferences(database: ContentDatabase): ContentDat
         failSchema(`enemies.${enemy.id}.skills[${index}]`, `references missing skill "${skillId}"`);
       }
     });
+
+    enemy.dropItems.forEach((drop, index) => {
+      if (!itemIndex.has(drop.itemId)) {
+        failSchema(`enemies.${enemy.id}.dropItems[${index}].itemId`, `references missing item "${drop.itemId}"`);
+      }
+
+      if (drop.quantity <= 0) {
+        failSchema(`enemies.${enemy.id}.dropItems[${index}].quantity`, "must be greater than 0");
+      }
+
+      if (drop.chance < 0 || drop.chance > 1) {
+        failSchema(`enemies.${enemy.id}.dropItems[${index}].chance`, "must be between 0 and 1");
+      }
+    });
   });
 
   database.battleGroups.forEach((group) => {
@@ -395,6 +409,16 @@ export function validateSaveDataReferences(
         `saveData.partyMemberIds[${index}]`,
         `references missing party member "${memberId}"`,
       );
+    }
+  });
+
+  Object.entries(saveData.partyStates).forEach(([memberId, partyState]) => {
+    if (!database.partyMembers.some((entry) => entry.id === memberId)) {
+      failSchema(`saveData.partyStates.${memberId}`, `references missing party member "${memberId}"`);
+    }
+
+    if (partyState.memberId !== memberId) {
+      failSchema(`saveData.partyStates.${memberId}.memberId`, `must match key "${memberId}"`);
     }
   });
 

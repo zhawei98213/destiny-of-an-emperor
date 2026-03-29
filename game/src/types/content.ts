@@ -7,6 +7,7 @@ export type TriggerKind = "npcInteraction" | "tile" | "region";
 export type FlagStateMap = Record<string, boolean>;
 export type QuestStateMap = Record<string, string>;
 export type ShopStateMap = Record<string, { visited: boolean }>;
+export type PartyStateMap = Record<string, PartyMemberState>;
 
 export interface TileLayerDefinition {
   id: string;
@@ -227,6 +228,7 @@ export interface EnemyDefinition {
   skills: string[];
   rewardGold: number;
   rewardExperience: number;
+  dropItems: EnemyDropDefinition[];
   baseStats: UnitStats;
 }
 
@@ -234,6 +236,12 @@ export interface BattleGroupDefinition {
   id: string;
   name: string;
   enemyIds: string[];
+}
+
+export interface EnemyDropDefinition {
+  itemId: string;
+  quantity: number;
+  chance: number;
 }
 
 export interface ShopInventoryEntry {
@@ -277,6 +285,16 @@ export interface InventoryState {
   items: InventoryEntry[];
 }
 
+export interface PartyMemberState {
+  memberId: string;
+  level: number;
+  experience: number;
+  currentHp: number;
+  currentMp: number;
+  statusIds: string[];
+  formationSlot: number;
+}
+
 export interface SaveWorldState {
   mapId: string;
   spawnPointId: string;
@@ -290,6 +308,7 @@ export interface SaveData {
   slot: string;
   world: SaveWorldState;
   partyMemberIds: string[];
+  partyStates: PartyStateMap;
   flags: FlagStateMap;
   questStates: QuestStateMap;
   inventory: InventoryState;
@@ -339,4 +358,22 @@ export interface ContentDatabase {
   skills: SkillDefinition[];
   flags: FlagDefinition[];
   questStates: QuestStateDefinition[];
+}
+
+export interface BattleRequest {
+  battleGroupId: string;
+  triggerId?: string;
+  originMapId: string;
+}
+
+export interface BattleReward {
+  experience: number;
+  gold: number;
+  items: InventoryEntry[];
+}
+
+export interface BattleResult {
+  battleGroupId: string;
+  outcome: "victory" | "defeat";
+  rewards: BattleReward;
 }

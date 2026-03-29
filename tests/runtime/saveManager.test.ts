@@ -62,7 +62,7 @@ describe("save manager", () => {
     saveManager.save(saveData);
     const loaded = saveManager.load(DEFAULT_SAVE_SLOT);
 
-    expect(loaded?.version).toBe(1);
+    expect(loaded?.version).toBe(2);
     expect(loaded?.world).toEqual({
       mapId: "town",
       spawnPointId: "town-start",
@@ -71,6 +71,7 @@ describe("save manager", () => {
       facing: "left",
     });
     expect(loaded?.inventory.items).toEqual([{ itemId: "herb", quantity: 2 }]);
+    expect(loaded?.partyStates.hero?.memberId).toBe("hero");
     expect(loaded?.consumedTriggerIds).toEqual(["chest-trigger"]);
     expect(loaded?.shopStates["shop-1"]).toEqual({ visited: true });
   });

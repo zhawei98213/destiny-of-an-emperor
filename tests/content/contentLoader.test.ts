@@ -102,6 +102,7 @@ describe("content loader", () => {
           skills: ["focus"],
           rewardGold: 5,
           rewardExperience: 3,
+          dropItems: [],
           baseStats: { maxHp: 10, maxMp: 0, attack: 4, defense: 2, speed: 3 },
         }],
         battleGroups: [{ id: "starter-slimes", name: "Starter Slimes", enemyIds: ["slime"] }],
