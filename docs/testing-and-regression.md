@@ -35,6 +35,16 @@
 The script prints one unified report and distinguishes `PASS`, `MISMATCH`, and `FAIL`.
 脚本会输出统一格式报告，并清楚区分 `PASS`、`MISMATCH` 和 `FAIL`。
 
+It also writes readable and machine-readable artifacts into `reports/regression/latest/`.
+它还会把可读和机器可读的产物写入 `reports/regression/latest/`。
+
+- `summary.md`: per-case overview with expected, actual, and diff sections
+- `summary.md`：每个 case 都包含预期、实际和差异的小节
+- `report.json`: structured regression report
+- `report.json`：结构化回归报告
+- `cases/*.expected.snapshot.json`, `cases/*.actual.snapshot.json`, `cases/*.diff.snapshot.json`
+- `cases/*.expected.snapshot.json`、`cases/*.actual.snapshot.json`、`cases/*.diff.snapshot.json`
+
 ## Expectations For New Work
 ## 新改动要求
 

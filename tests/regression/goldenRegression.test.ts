@@ -1,5 +1,9 @@
 import { describe, expect, it } from "vitest";
-import { loadGoldenRegressionSuite, runGoldenRegression } from "./goldenRegressionRunner";
+import {
+  loadGoldenRegressionSuite,
+  runGoldenRegression,
+  writeGoldenRegressionArtifacts,
+} from "./goldenRegressionRunner";
 
 describe("golden regression suite", () => {
   it("loads the chapter slice golden cases", async () => {
@@ -18,10 +22,14 @@ describe("golden regression suite", () => {
   });
 
   it("passes the current golden regression chapter slice", async () => {
-    const report = await runGoldenRegression();
+    const report = await writeGoldenRegressionArtifacts(await runGoldenRegression());
 
     expect(report.totals.mismatch).toBe(0);
     expect(report.totals.fail).toBe(0);
     expect(report.totals.pass).toBe(6);
+    expect(report.reportDirectory).toContain("reports/regression/latest");
+    expect(report.cases[0]?.artifacts?.expectedSnapshotPath).toContain(".expected.snapshot.json");
+    expect(report.cases[0]?.artifacts?.actualSnapshotPath).toContain(".actual.snapshot.json");
+    expect(report.cases[0]?.artifacts?.diffSnapshotPath).toContain(".diff.snapshot.json");
   });
 });

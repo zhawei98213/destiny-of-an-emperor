@@ -1,6 +1,10 @@
-import { formatGoldenRegressionReport, runGoldenRegression } from "./goldenRegressionRunner";
+import {
+  formatGoldenRegressionReport,
+  runGoldenRegression,
+  writeGoldenRegressionArtifacts,
+} from "./goldenRegressionRunner";
 
-const report = await runGoldenRegression();
+const report = await writeGoldenRegressionArtifacts(await runGoldenRegression());
 console.log(formatGoldenRegressionReport(report));
 
 if (report.totals.mismatch > 0 || report.totals.fail > 0) {
