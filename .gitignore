@@ -4,3 +4,4 @@ dist/
 coverage/
 .DS_Store
 reports/regression/latest/
+reports/parity/latest/

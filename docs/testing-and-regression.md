@@ -12,6 +12,8 @@
 - `npm run test`：运行自动化测试套件
 - `npm run regression-smoke`: run the minimum import, validation, and regression check path
 - `npm run regression-smoke`：执行最小导入、校验和回归检查链路
+- `npm run parity-score`: score chapter parity from chapter metadata, parity state, and regression evidence
+- `npm run parity-score`：基于章节元数据、parity 状态和回归证据计算章节一致性评分
 
 ## Current Smoke Scope
 ## 当前 Smoke 范围
@@ -46,6 +48,17 @@ It also writes readable and machine-readable artifacts into `reports/regression/
 - `report.json`：结构化回归报告
 - `cases/*.expected.snapshot.json`, `cases/*.actual.snapshot.json`, `cases/*.diff.snapshot.json`
 - `cases/*.expected.snapshot.json`、`cases/*.actual.snapshot.json`、`cases/*.diff.snapshot.json`
+
+## Parity Score Output
+## 一致性评分输出
+
+`npm run parity-score` writes chapter-level score artifacts into `reports/parity/latest/`.
+`npm run parity-score` 会把章节级评分产物写入 `reports/parity/latest/`。
+
+- `summary.md`: total score, sub-scores, blockers, and minor mismatches for each chapter
+- `summary.md`：每个章节的总分、子分、阻塞项和次要偏差
+- `report.json`: structured score report for future repair loops
+- `report.json`：供后续修补流程读取的结构化评分报告
 
 ## Expectations For New Work
 ## 新改动要求
