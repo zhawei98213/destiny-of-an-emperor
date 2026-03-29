@@ -3,26 +3,36 @@
   "importer": "map-content",
   "maps": [
     {
-      "id": "town",
-      "name": "Town",
-      "portalCount": 1,
-      "size": {
-        "height": 12,
-        "width": 20
-      },
-      "spawnPointCount": 2,
-      "triggerCount": 1
-    },
-    {
+      "collisionLayerCount": 1,
       "id": "field",
       "name": "Field",
+      "npcCount": 0,
       "portalCount": 1,
       "size": {
         "height": 14,
         "width": 24
       },
+      "sourceFile": "demo-maps.source.json",
       "spawnPointCount": 1,
       "triggerCount": 1
+    },
+    {
+      "collisionLayerCount": 1,
+      "id": "town",
+      "name": "Lou Sang Village",
+      "npcCount": 3,
+      "portalCount": 1,
+      "size": {
+        "height": 14,
+        "width": 20
+      },
+      "sourceFile": "lou-sang-village.source.json",
+      "spawnPointCount": 2,
+      "triggerCount": 0
     }
+  ],
+  "sourceFiles": [
+    "demo-maps.source.json",
+    "lou-sang-village.source.json"
   ]
 }

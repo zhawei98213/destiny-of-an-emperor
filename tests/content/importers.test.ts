@@ -1,9 +1,35 @@
 import { describe, expect, it } from "vitest";
 import { validateContentPack } from "@/content/schema";
+import { buildMapImportReport } from "../../tools/importers/importMapContent";
 import { buildBattleContentPack } from "../../tools/importers/importGameData";
 import { stableStringify } from "../../tools/lib/importerCore";
 
 describe("import tools", () => {
+  it("builds deterministic map staging output from multiple source files", async () => {
+    const firstReport = await buildMapImportReport();
+    const secondReport = await buildMapImportReport();
+
+    expect(stableStringify(firstReport)).toBe(stableStringify(secondReport));
+    expect(firstReport.sourceFiles).toEqual([
+      "demo-maps.source.json",
+      "lou-sang-village.source.json",
+    ]);
+    expect(firstReport.maps).toEqual(expect.arrayContaining([
+      expect.objectContaining({
+        id: "town",
+        name: "Lou Sang Village",
+        sourceFile: "lou-sang-village.source.json",
+        npcCount: 3,
+        portalCount: 1,
+        spawnPointCount: 2,
+      }),
+      expect.objectContaining({
+        id: "field",
+        sourceFile: "demo-maps.source.json",
+      }),
+    ]));
+  });
+
   it("builds deterministic generated battle content from source", async () => {
     const firstPack = await buildBattleContentPack();
     const secondPack = await buildBattleContentPack();

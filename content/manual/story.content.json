@@ -8,7 +8,7 @@
   "dialogueLines": [
     {
       "id": "intro-line-1",
-      "speakerName": "Village Guide",
+      "speakerName": "Village Elder",
       "speakerNpcId": "village-guide",
       "text": "The eastern road has reopened, but the patrols are still thin beyond the gate.",
       "portraitId": "guide-default",
@@ -16,7 +16,7 @@
     },
     {
       "id": "intro-line-2",
-      "speakerName": "Village Guide",
+      "speakerName": "Village Elder",
       "speakerNpcId": "village-guide",
       "text": "Speak with the quartermaster, take the road pass, and be ready for the first skirmish outside town.",
       "portraitId": "guide-default",
@@ -24,7 +24,7 @@
     },
     {
       "id": "quartermaster-line-1",
-      "speakerName": "Quartermaster",
+      "speakerName": "Supply Keeper",
       "speakerNpcId": "merchant",
       "text": "Supplies are short, but I can still issue one road pass for the eastern watch.",
       "portraitId": "merchant-default",
@@ -32,7 +32,7 @@
     },
     {
       "id": "quartermaster-line-2",
-      "speakerName": "Quartermaster",
+      "speakerName": "Supply Keeper",
       "speakerNpcId": "merchant",
       "text": "Take this pass to the gate guard. Come back here if you need your strength restored.",
       "portraitId": "merchant-default",
@@ -40,7 +40,7 @@
     },
     {
       "id": "quartermaster-rest-line",
-      "speakerName": "Quartermaster",
+      "speakerName": "Supply Keeper",
       "speakerNpcId": "merchant",
       "text": "Sit for a moment. I will mend your wounds and refill your travel pack.",
       "portraitId": "merchant-default",
@@ -48,7 +48,7 @@
     },
     {
       "id": "guard-line-blocked",
-      "speakerName": "Town Guard",
+      "speakerName": "Gate Watch",
       "speakerNpcId": "town-guard",
       "text": "Hold there. No one leaves the outpost without a sealed road pass.",
       "portraitId": "guard-default",
@@ -56,7 +56,7 @@
     },
     {
       "id": "guard-line-open",
-      "speakerName": "Town Guard",
+      "speakerName": "Gate Watch",
       "speakerNpcId": "town-guard",
       "text": "Pass confirmed. The eastern field is open, but stay alert once you leave the walls.",
       "portraitId": "guard-default",
