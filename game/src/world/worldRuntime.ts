@@ -7,6 +7,7 @@ export interface WorldRuntimeState {
   playerX: number;
   playerY: number;
   facing: Facing;
+  stepCount: number;
 }
 
 export interface WorldMoveResult {
@@ -61,6 +62,7 @@ function findPortalAt(map: MapDefinition, x: number, y: number): PortalDefinitio
 function createStateFromSpawn(
   map: MapDefinition,
   spawnPoint: SpawnPointDefinition,
+  stepCount = 0,
 ): WorldRuntimeState {
   return {
     currentMapId: map.id,
@@ -68,6 +70,7 @@ function createStateFromSpawn(
     playerX: spawnPoint.x,
     playerY: spawnPoint.y,
     facing: spawnPoint.facing,
+    stepCount,
   };
 }
 
@@ -131,6 +134,7 @@ export class WorldRuntime {
       ...this.state,
       playerX: nextX,
       playerY: nextY,
+      stepCount: this.state.stepCount + 1,
     };
 
     const portal = findPortalAt(currentMap, nextX, nextY);
@@ -152,7 +156,7 @@ export class WorldRuntime {
   setSpawn(mapId: string, spawnId: string): WorldRuntimeState {
     const map = getMapById(this.database, mapId);
     const spawnPoint = getSpawnPoint(map, spawnId);
-    this.state = createStateFromSpawn(map, spawnPoint);
+    this.state = createStateFromSpawn(map, spawnPoint, this.state.stepCount);
     return this.getState();
   }
 

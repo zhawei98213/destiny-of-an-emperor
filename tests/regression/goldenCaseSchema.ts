@@ -14,6 +14,7 @@ export interface GoldenWorldStateSeed {
   playerX: number;
   playerY: number;
   facing: Facing;
+  stepCount?: number;
 }
 
 export interface GoldenStateSeed {
@@ -201,6 +202,7 @@ function validateStateSeed(value: unknown, path: string): GoldenStateSeed {
           playerX: expectNumber(world.playerX, `${path}.world.playerX`),
           playerY: expectNumber(world.playerY, `${path}.world.playerY`),
           facing: expectFacing(world.facing, `${path}.world.facing`),
+          stepCount: world.stepCount === undefined ? undefined : expectNumber(world.stepCount, `${path}.world.stepCount`),
         };
       })()
       : undefined,

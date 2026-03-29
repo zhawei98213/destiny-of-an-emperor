@@ -57,12 +57,6 @@
       "speakerName": "系统",
       "text": "你在村长家的储物罐里找到了一份草药。",
       "soundId": "sfx-chest"
-    },
-    {
-      "id": "battle-start-line",
-      "speakerName": "系统",
-      "text": "东边道路上的巡逻兵发现了你。",
-      "soundId": "sfx-battle-alert"
     }
   ],
   "events": [
@@ -157,16 +151,6 @@
         { "type": "playSfx", "sfxId": "sfx-chest" },
         { "type": "end" }
       ]
-    },
-    {
-      "id": "training-battle-event",
-      "name": "Training Battle Event",
-      "steps": [
-        { "type": "dialogue", "lineId": "battle-start-line" },
-        { "type": "playSfx", "sfxId": "sfx-battle-alert" },
-        { "type": "startBattle", "battleGroupId": "training-slimes" },
-        { "type": "end" }
-      ]
     }
   ],
   "shops": [
@@ -183,5 +167,6 @@
         }
       ]
     }
-  ]
+  ],
+  "encounterTables": []
 }

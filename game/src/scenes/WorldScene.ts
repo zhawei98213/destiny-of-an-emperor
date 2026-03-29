@@ -16,9 +16,14 @@ import { DialogueBox } from "@/ui/dialogueBox";
 import { DialogueSession } from "@/ui/dialogueSession";
 import { MenuController } from "@/ui/menuController";
 import { MenuOverlay } from "@/ui/menuOverlay";
+import { resolveRegionEncounter } from "@/world/worldEncounterRuntime";
 import { renderWorldMap } from "@/world/renderWorldMap";
 import { findNpcInFront } from "@/world/worldInteraction";
-import { findNpcInteractionTrigger, findTriggersAtPoint } from "@/world/worldTriggerResolver";
+import {
+  findEncounterTriggersAtPoint,
+  findNpcInteractionTrigger,
+  findTriggersAtPoint,
+} from "@/world/worldTriggerResolver";
 import { WorldRuntime } from "@/world/worldRuntime";
 
 export class WorldScene extends Phaser.Scene {
@@ -155,7 +160,15 @@ export class WorldScene extends Phaser.Scene {
       return;
     }
 
-    this.tryStartStepTriggers();
+    if (result.type !== "moved") {
+      return;
+    }
+
+    if (this.tryStartStepTriggers()) {
+      return;
+    }
+
+    this.tryStartRegionEncounter();
   }
 
   private getMovementDirection(): Facing | undefined {
@@ -299,9 +312,9 @@ export class WorldScene extends Phaser.Scene {
     return true;
   }
 
-  private tryStartStepTriggers(): void {
+  private tryStartStepTriggers(): boolean {
     if (!this.worldRuntime) {
-      return;
+      return false;
     }
 
     const map = this.worldRuntime.getCurrentMap();
@@ -313,10 +326,44 @@ export class WorldScene extends Phaser.Scene {
 
     const trigger = currentTileTriggers[0];
     if (!trigger) {
-      return;
+      return false;
     }
 
     this.executeTrigger(trigger.id);
+    return true;
+  }
+
+  private tryStartRegionEncounter(): void {
+    if (!this.worldRuntime || !this.contentDatabase || !this.gameStateRuntime) {
+      return;
+    }
+
+    const map = this.worldRuntime.getCurrentMap();
+    const worldState = this.worldRuntime.getState();
+    const snapshot = this.gameStateRuntime.getSnapshot();
+    const [trigger] = findEncounterTriggersAtPoint(map, {
+      x: worldState.playerX,
+      y: worldState.playerY,
+    });
+    if (!trigger) {
+      return;
+    }
+
+    const encounter = resolveRegionEncounter(
+      this.contentDatabase,
+      trigger,
+      worldState,
+      snapshot,
+    );
+    if (!encounter) {
+      return;
+    }
+
+    this.startBattle({
+      battleGroupId: encounter.battleGroupId,
+      triggerId: encounter.triggerId,
+      originMapId: worldState.currentMapId,
+    });
   }
 
   private executeTrigger(triggerId: string): void {
@@ -332,6 +379,10 @@ export class WorldScene extends Phaser.Scene {
 
     if (trigger.once && this.gameStateRuntime.isTriggerConsumed(trigger.id)) {
       return;
+    }
+
+    if (!trigger.eventId) {
+      throw new Error(`WorldScene trigger "${trigger.id}" does not define eventId.`);
     }
 
     const event = this.contentDatabase.events.find((entry) => entry.id === trigger.eventId);

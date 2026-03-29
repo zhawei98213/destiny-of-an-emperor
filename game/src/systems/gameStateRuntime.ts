@@ -74,6 +74,7 @@ export class GameStateRuntime {
       playerX: firstSpawn?.x ?? 0,
       playerY: firstSpawn?.y ?? 0,
       facing: firstSpawn?.facing ?? "down",
+      stepCount: 0,
     };
 
     if (initialSaveData) {
@@ -170,6 +171,7 @@ export class GameStateRuntime {
         playerX: this.world.playerX,
         playerY: this.world.playerY,
         facing: this.world.facing,
+        stepCount: this.world.stepCount,
       },
       partyMemberIds: [...this.partyMemberIds],
       partyStates: Object.fromEntries(
@@ -215,6 +217,7 @@ export class GameStateRuntime {
       playerX: saveData.world.playerX,
       playerY: saveData.world.playerY,
       facing: saveData.world.facing,
+      stepCount: saveData.world.stepCount,
     };
   }
 

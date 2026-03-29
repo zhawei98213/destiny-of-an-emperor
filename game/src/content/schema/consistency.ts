@@ -2,6 +2,7 @@ import { failSchema } from "@/content/schema/primitives";
 import type {
   ContentDatabase,
   DialogueLineDefinition,
+  EncounterTableDefinition,
   EventDefinition,
   MapDefinition,
   SaveData,
@@ -207,6 +208,53 @@ function validateEventReferences(
   });
 }
 
+function validateEncounterTables(
+  encounterTables: EncounterTableDefinition[],
+  battleGroupIds: Set<string>,
+  flagIds: Set<string>,
+): void {
+  encounterTables.forEach((table) => {
+    if (table.stepInterval <= 0) {
+      failSchema(`encounterTables.${table.id}.stepInterval`, "must be greater than 0");
+    }
+
+    if (table.chance < 0 || table.chance > 1) {
+      failSchema(`encounterTables.${table.id}.chance`, "must be between 0 and 1");
+    }
+
+    if (table.entries.length === 0) {
+      failSchema(`encounterTables.${table.id}.entries`, "must define at least one encounter entry");
+    }
+
+    table.entries.forEach((entry, index) => {
+      if (!battleGroupIds.has(entry.battleGroupId)) {
+        failSchema(
+          `encounterTables.${table.id}.entries[${index}].battleGroupId`,
+          `references missing battle group "${entry.battleGroupId}"`,
+        );
+      }
+
+      if (entry.weight <= 0) {
+        failSchema(`encounterTables.${table.id}.entries[${index}].weight`, "must be greater than 0");
+      }
+
+      if (entry.requiredFlagId && !flagIds.has(entry.requiredFlagId)) {
+        failSchema(
+          `encounterTables.${table.id}.entries[${index}].requiredFlagId`,
+          `references missing flag "${entry.requiredFlagId}"`,
+        );
+      }
+
+      if (entry.blockedFlagId && !flagIds.has(entry.blockedFlagId)) {
+        failSchema(
+          `encounterTables.${table.id}.entries[${index}].blockedFlagId`,
+          `references missing flag "${entry.blockedFlagId}"`,
+        );
+      }
+    });
+  });
+}
+
 export function validateContentReferences(database: ContentDatabase): ContentDatabase {
   const mapIndex = buildIndex(database.maps, "maps");
   const dialogueLineIndex = buildIndex(database.dialogueLines, "dialogueLines");
@@ -219,6 +267,7 @@ export function validateContentReferences(database: ContentDatabase): ContentDat
   const skillIndex = buildIndex(database.skills, "skills");
   const flagIndex = buildIndex(database.flags, "flags");
   buildIndex(database.questStates, "questStates");
+  const encounterTableIndex = buildIndex(database.encounterTables, "encounterTables");
   const npcIds = buildMapNpcIndex(database.maps);
   const spawnIndex = buildMapSpawnIndex(database.maps);
 
@@ -300,10 +349,24 @@ export function validateContentReferences(database: ContentDatabase): ContentDat
         );
       }
 
-      if (!eventIndex.has(trigger.eventId)) {
+      if (trigger.eventId && !eventIndex.has(trigger.eventId)) {
         failSchema(
           `maps.${map.id}.triggers[${index}].eventId`,
           `references missing event "${trigger.eventId}"`,
+        );
+      }
+
+      if (trigger.encounterTableId && !encounterTableIndex.has(trigger.encounterTableId)) {
+        failSchema(
+          `maps.${map.id}.triggers[${index}].encounterTableId`,
+          `references missing encounter table "${trigger.encounterTableId}"`,
+        );
+      }
+
+      if (trigger.encounterTableId && trigger.kind !== "region") {
+        failSchema(
+          `maps.${map.id}.triggers[${index}].encounterTableId`,
+          "encounterTableId is only supported on region triggers",
         );
       }
     });
@@ -367,6 +430,12 @@ export function validateContentReferences(database: ContentDatabase): ContentDat
       }
     });
   });
+
+  validateEncounterTables(
+    database.encounterTables,
+    new Set(battleGroupIndex.keys()),
+    new Set(flagIndex.keys()),
+  );
 
   database.questStates.forEach((questState) => {
     if (!questState.stages.includes(questState.initialStage)) {

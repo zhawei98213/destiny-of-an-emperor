@@ -62,8 +62,25 @@ export interface TriggerDefinition {
   width?: number;
   height?: number;
   npcId?: string;
-  eventId: string;
+  eventId?: string;
+  encounterTableId?: string;
   once: boolean;
+}
+
+export interface EncounterEntryDefinition {
+  id: string;
+  battleGroupId: string;
+  weight: number;
+  requiredFlagId?: string;
+  blockedFlagId?: string;
+}
+
+export interface EncounterTableDefinition {
+  id: string;
+  name: string;
+  stepInterval: number;
+  chance: number;
+  entries: EncounterEntryDefinition[];
 }
 
 export interface MapDefinition {
@@ -306,6 +323,7 @@ export interface SaveWorldState {
   playerX: number;
   playerY: number;
   facing: Facing;
+  stepCount: number;
 }
 
 export interface SaveData {
@@ -342,6 +360,7 @@ export interface ContentPack {
   skills: SkillDefinition[];
   flags: FlagDefinition[];
   questStates: QuestStateDefinition[];
+  encounterTables: EncounterTableDefinition[];
 }
 
 export interface ContentManifest {
@@ -363,6 +382,7 @@ export interface ContentDatabase {
   skills: SkillDefinition[];
   flags: FlagDefinition[];
   questStates: QuestStateDefinition[];
+  encounterTables: EncounterTableDefinition[];
 }
 
 export interface BattleRequest {

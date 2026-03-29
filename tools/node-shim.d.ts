@@ -13,7 +13,16 @@ declare module "node:path" {
 }
 
 declare module "node:fs/promises" {
+  export interface DirentLike {
+    isFile(): boolean;
+    name: string;
+  }
+
   export function mkdir(path: string, options?: { recursive?: boolean }): Promise<void>;
+  export function readdir(
+    path: string,
+    options: { withFileTypes: true },
+  ): Promise<DirentLike[]>;
   export function readFile(path: string, encoding: "utf8"): Promise<string>;
   export function writeFile(path: string, data: string, encoding: "utf8"): Promise<void>;
 }

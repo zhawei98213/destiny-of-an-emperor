@@ -31,6 +31,7 @@ describe("event interpreter", () => {
       skills: [],
       flags: [],
       questStates: [],
+      encounterTables: [],
     };
     const runtime = createEventRuntime(database);
 
@@ -77,6 +78,7 @@ describe("event interpreter", () => {
       skills: [],
       flags: [],
       questStates: [],
+      encounterTables: [],
     };
 
     expect(createDialogueCue(database, event, "line-1")).toEqual({
@@ -168,6 +170,7 @@ describe("event interpreter", () => {
         { id: "chest-opened", defaultValue: false },
       ],
       questStates: [],
+      encounterTables: [],
     };
     const runtime = createEventRuntime(database, {
       partyStates: {

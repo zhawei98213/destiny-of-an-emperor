@@ -57,6 +57,7 @@ function createDatabase(): ContentDatabase {
     skills: [{ id: "skill-1", name: "Strike", description: "Hit", mpCost: 0, power: 4, target: "enemy" }],
     flags: [{ id: "opened", defaultValue: false }],
     questStates: [{ id: "quest-1", stages: ["idle", "done"], initialStage: "idle" }],
+    encounterTables: [],
   };
 }
 
@@ -90,6 +91,7 @@ describe("menu controller", () => {
       playerX: 3,
       playerY: 3,
       facing: "right",
+      stepCount: 0,
     });
     saveManager.save(gameState.toSaveData("slot-1"));
     const loadResult = controller.load();

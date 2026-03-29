@@ -18,6 +18,8 @@ import type {
   ContentManifest,
   ContentPack,
   DialogueLineDefinition,
+  EncounterEntryDefinition,
+  EncounterTableDefinition,
   EnemyDropDefinition,
   EnemyDefinition,
   EventDefinition,
@@ -135,6 +137,12 @@ export function validateNpcDefinition(value: unknown, path: string): NpcDefiniti
 export function validateTriggerDefinition(value: unknown, path: string): TriggerDefinition {
   const record = ensureRecord(value, path);
   const kind = ensureLiteral(record.kind ?? "tile", ["npcInteraction", "tile", "region"], `${path}.kind`);
+  const eventId = ensureOptionalString(record.eventId, `${path}.eventId`);
+  const encounterTableId = ensureOptionalString(record.encounterTableId, `${path}.encounterTableId`);
+  if (!eventId && !encounterTableId) {
+    failSchema(path, "trigger must define either eventId or encounterTableId");
+  }
+
   return {
     id: ensureString(record.id, `${path}.id`),
     kind,
@@ -143,8 +151,39 @@ export function validateTriggerDefinition(value: unknown, path: string): Trigger
     width: kind === "npcInteraction" ? ensureOptionalNumber(record.width, `${path}.width`) : ensureOptionalNumber(record.width, `${path}.width`) ?? 1,
     height: kind === "npcInteraction" ? ensureOptionalNumber(record.height, `${path}.height`) : ensureOptionalNumber(record.height, `${path}.height`) ?? 1,
     npcId: ensureOptionalString(record.npcId, `${path}.npcId`),
-    eventId: ensureString(record.eventId, `${path}.eventId`),
+    eventId,
+    encounterTableId,
     once: ensureOptionalBoolean(record.once, `${path}.once`) ?? false,
+  };
+}
+
+function validateEncounterEntryDefinition(
+  value: unknown,
+  path: string,
+): EncounterEntryDefinition {
+  const record = ensureRecord(value, path);
+  return {
+    id: ensureString(record.id, `${path}.id`),
+    battleGroupId: ensureString(record.battleGroupId, `${path}.battleGroupId`),
+    weight: ensureNumber(record.weight, `${path}.weight`),
+    requiredFlagId: ensureOptionalString(record.requiredFlagId, `${path}.requiredFlagId`),
+    blockedFlagId: ensureOptionalString(record.blockedFlagId, `${path}.blockedFlagId`),
+  };
+}
+
+export function validateEncounterTableDefinition(
+  value: unknown,
+  path: string,
+): EncounterTableDefinition {
+  const record = ensureRecord(value, path);
+  return {
+    id: ensureString(record.id, `${path}.id`),
+    name: ensureString(record.name, `${path}.name`),
+    stepInterval: ensureNumber(record.stepInterval, `${path}.stepInterval`),
+    chance: ensureNumber(record.chance, `${path}.chance`),
+    entries: ensureArray(record.entries, `${path}.entries`).map((entry, index) =>
+      validateEncounterEntryDefinition(entry, `${path}.entries[${index}]`),
+    ),
   };
 }
 
@@ -504,6 +543,7 @@ export function validateSaveData(value: unknown, path = "saveData"): SaveData {
       playerX: ensureNumber(worldRecord.playerX, `${path}.world.playerX`),
       playerY: ensureNumber(worldRecord.playerY, `${path}.world.playerY`),
       facing: ensureLiteral(worldRecord.facing, ["up", "down", "left", "right"], `${path}.world.facing`),
+      stepCount: ensureOptionalNumber(worldRecord.stepCount, `${path}.world.stepCount`) ?? 0,
     },
     partyMemberIds: ensureStringArray(record.partyMemberIds, `${path}.partyMemberIds`),
     partyStates,
@@ -569,6 +609,9 @@ export function validateContentPack(value: unknown, path: string): ContentPack {
     questStates: ensureArray(record.questStates ?? [], `${path}.questStates`).map(
       (entry, index) => validateQuestStateDefinition(entry, `${path}.questStates[${index}]`),
     ),
+    encounterTables: ensureArray(record.encounterTables ?? [], `${path}.encounterTables`).map(
+      (entry, index) => validateEncounterTableDefinition(entry, `${path}.encounterTables[${index}]`),
+    ),
   };
 }
 
@@ -586,5 +629,6 @@ export function createEmptyContentDatabase(): ContentDatabase {
     skills: [],
     flags: [],
     questStates: [],
+    encounterTables: [],
   };
 }

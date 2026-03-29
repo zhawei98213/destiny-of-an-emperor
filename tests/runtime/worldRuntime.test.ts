@@ -77,6 +77,7 @@ function createWorldDatabase(): ContentDatabase {
     skills: [{ id: "skill-1", name: "Strike", description: "Hit", mpCost: 0, power: 4, target: "enemy" }],
     flags: [],
     questStates: [],
+    encounterTables: [],
   };
 }
 
@@ -90,12 +91,14 @@ describe("world runtime", () => {
     expect(moved.state.playerX).toBe(2);
     expect(moved.state.playerY).toBe(2);
     expect(moved.state.facing).toBe("right");
+    expect(moved.state.stepCount).toBe(1);
 
     const blocked = runtime.move("up");
     expect(blocked.type).toBe("blocked");
     expect(blocked.state.playerX).toBe(2);
     expect(blocked.state.playerY).toBe(2);
     expect(blocked.state.facing).toBe("up");
+    expect(blocked.state.stepCount).toBe(1);
   });
 
   it("treats npc tiles as blocked so interaction happens from an adjacent tile", () => {
@@ -123,6 +126,7 @@ describe("world runtime", () => {
       playerX: 1,
       playerY: 2,
       facing: "right",
+      stepCount: 0,
     });
 
     const blocked = runtime.move("right");
@@ -144,5 +148,6 @@ describe("world runtime", () => {
     expect(result.state.playerX).toBe(2);
     expect(result.state.playerY).toBe(2);
     expect(result.state.facing).toBe("right");
+    expect(result.state.stepCount).toBe(2);
   });
 });

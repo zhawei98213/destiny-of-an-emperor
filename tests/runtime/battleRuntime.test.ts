@@ -46,6 +46,7 @@ function createDatabase(): ContentDatabase {
     skills: [{ id: "slash", name: "Slash", description: "Hit", mpCost: 0, power: 4, target: "enemy" }],
     flags: [],
     questStates: [],
+    encounterTables: [],
   };
 }
 

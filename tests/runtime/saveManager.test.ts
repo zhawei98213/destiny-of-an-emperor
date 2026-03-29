@@ -37,6 +37,7 @@ function createDatabase(): ContentDatabase {
     skills: [{ id: "skill-1", name: "Strike", description: "Hit", mpCost: 0, power: 4, target: "enemy" }],
     flags: [{ id: "opened", defaultValue: false }],
     questStates: [{ id: "quest-1", stages: ["idle", "done"], initialStage: "idle" }],
+    encounterTables: [],
   };
 }
 
@@ -51,6 +52,7 @@ describe("save manager", () => {
       playerX: 2,
       playerY: 3,
       facing: "left",
+      stepCount: 4,
     });
     stateRuntime.consumeTrigger("chest-trigger");
 
@@ -69,6 +71,7 @@ describe("save manager", () => {
       playerX: 2,
       playerY: 3,
       facing: "left",
+      stepCount: 4,
     });
     expect(loaded?.inventory.items).toEqual([{ itemId: "herb", quantity: 2 }]);
     expect(loaded?.partyStates.hero?.memberId).toBe("hero");

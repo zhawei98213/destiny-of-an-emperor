@@ -244,7 +244,7 @@
           "y": 6,
           "width": 4,
           "height": 3,
-          "eventId": "training-battle-event",
+          "encounterTableId": "eastern-road-patrols",
           "once": false
         }
       ]
@@ -327,6 +327,21 @@
       "id": "training-yard",
       "stages": ["not-started", "started", "cleared"],
       "initialStage": "not-started"
+    }
+  ],
+  "encounterTables": [
+    {
+      "id": "eastern-road-patrols",
+      "name": "楼桑东路巡逻队",
+      "stepInterval": 2,
+      "chance": 0.55,
+      "entries": [
+        {
+          "id": "lou-sang-patrol-entry",
+          "battleGroupId": "training-slimes",
+          "weight": 1
+        }
+      ]
     }
   ]
 }

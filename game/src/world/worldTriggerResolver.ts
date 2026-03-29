@@ -28,6 +28,18 @@ export function findTriggersAtPoint(
 ): TriggerDefinition[] {
   return map.triggers.filter((trigger) => (
     (trigger.kind === "tile" || trigger.kind === "region")
+    && Boolean(trigger.eventId)
+    && isPointInsideTrigger(point, trigger)
+  ));
+}
+
+export function findEncounterTriggersAtPoint(
+  map: MapDefinition,
+  point: GridPoint,
+): TriggerDefinition[] {
+  return map.triggers.filter((trigger) => (
+    trigger.kind === "region"
+    && Boolean(trigger.encounterTableId)
     && isPointInsideTrigger(point, trigger)
   ));
 }

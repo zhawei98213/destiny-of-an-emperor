@@ -327,7 +327,8 @@
           "spawnPointId": "field-gate",
           "playerX": 10,
           "playerY": 6,
-          "facing": "right"
+          "facing": "right",
+          "stepCount": 4
         },
         "flags": {
           "gate-pass": true
@@ -388,7 +389,7 @@
       "expectedUi": {
         "sceneFlow": ["WorldScene", "BattleScene", "WorldScene"],
         "activeScene": "WorldScene",
-        "dialogueLineIds": ["battle-start-line"],
+        "dialogueLineIds": [],
         "battleOutcome": "victory"
       }
     },

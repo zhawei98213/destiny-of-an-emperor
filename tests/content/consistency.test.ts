@@ -50,6 +50,7 @@ function createBaseDatabase(): ContentDatabase {
     skills: [{ id: "skill-1", name: "Strike", description: "Hit", mpCost: 0, power: 4, target: "enemy" }],
     flags: [{ id: "flag-1", defaultValue: false }],
     questStates: [{ id: "quest-1", stages: ["idle", "done"], initialStage: "idle" }],
+    encounterTables: [],
   };
 }
 

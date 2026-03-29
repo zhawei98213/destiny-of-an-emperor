@@ -28,6 +28,7 @@ describe("world interaction", () => {
       playerX: 2,
       playerY: 2,
       facing: "right",
+      stepCount: 0,
     };
 
     expect(getTileInFront(state)).toEqual({ x: 3, y: 2 });
@@ -40,6 +41,7 @@ describe("world interaction", () => {
       playerX: 2,
       playerY: 2,
       facing: "right",
+      stepCount: 0,
     };
 
     expect(findNpcInFront(map, state)?.id).toBe("npc-1");

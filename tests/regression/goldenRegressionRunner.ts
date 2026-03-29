@@ -12,8 +12,13 @@ import type {
   SaveData,
   ShopStateMap,
 } from "@/types/content";
+import { resolveRegionEncounter } from "@/world/worldEncounterRuntime";
 import { WorldRuntime } from "@/world/worldRuntime";
-import { findNpcInteractionTrigger, findTriggersAtPoint } from "@/world/worldTriggerResolver";
+import {
+  findEncounterTriggersAtPoint,
+  findNpcInteractionTrigger,
+  findTriggersAtPoint,
+} from "@/world/worldTriggerResolver";
 import type {
   GoldenExpectedState,
   GoldenRegressionCase,
@@ -36,6 +41,7 @@ export interface GoldenCaseLocator {
   triggerId?: string;
   triggerKind: GoldenRegressionCase["trigger"]["kind"];
   eventId?: string;
+  encounterTableId?: string;
   npcId?: string;
   point?: {
     x: number;
@@ -128,6 +134,7 @@ function applyStateSeed(saveData: SaveData, seed: GoldenStateSeed): SaveData {
         playerX: seed.world.playerX,
         playerY: seed.world.playerY,
         facing: seed.world.facing,
+        stepCount: seed.world.stepCount ?? saveData.world.stepCount,
       }
       : saveData.world,
     flags: seed.flags ? { ...saveData.flags, ...seed.flags } : { ...saveData.flags },
@@ -372,36 +379,47 @@ function compareExpectedUi(expected: GoldenRegressionCase["expectedUi"], actual:
 }
 
 function resolveTrigger(database: ContentDatabase, gameState: GameStateRuntime, regressionCase: GoldenRegressionCase) {
-  if (regressionCase.trigger.kind === "saveLoadRoundTrip") {
+  const triggerSpec = regressionCase.trigger;
+  if (triggerSpec.kind === "saveLoadRoundTrip") {
     return undefined;
   }
 
-  const map = database.maps.find((entry) => entry.id === regressionCase.trigger.mapId);
+  const map = database.maps.find((entry) => entry.id === triggerSpec.mapId);
   if (!map) {
-    throw new Error(`missing map "${regressionCase.trigger.mapId}"`);
+    throw new Error(`missing map "${triggerSpec.mapId}"`);
   }
 
   if (gameState.getWorldState().currentMapId !== map.id) {
     throw new Error(`case world state is on "${gameState.getWorldState().currentMapId}" but trigger expects map "${map.id}"`);
   }
 
-  if (regressionCase.trigger.kind === "npcInteraction") {
-    const trigger = findNpcInteractionTrigger(map, regressionCase.trigger.npcId);
+  if (triggerSpec.kind === "npcInteraction") {
+    const trigger = findNpcInteractionTrigger(map, triggerSpec.npcId);
     if (!trigger) {
-      throw new Error(`missing npc interaction trigger for npc "${regressionCase.trigger.npcId}" on map "${map.id}"`);
+      throw new Error(`missing npc interaction trigger for npc "${triggerSpec.npcId}" on map "${map.id}"`);
     }
 
     return trigger;
   }
 
   const [trigger] = findTriggersAtPoint(map, {
-    x: regressionCase.trigger.x,
-    y: regressionCase.trigger.y,
-  }).filter((entry) => entry.kind === regressionCase.trigger.kind);
+    x: triggerSpec.x,
+    y: triggerSpec.y,
+  }).filter((entry) => entry.kind === triggerSpec.kind);
+
+  if (!trigger && triggerSpec.kind === "region") {
+    const [encounterTrigger] = findEncounterTriggersAtPoint(map, {
+      x: triggerSpec.x,
+      y: triggerSpec.y,
+    });
+    if (encounterTrigger) {
+      return encounterTrigger;
+    }
+  }
 
   if (!trigger) {
     throw new Error(
-      `missing ${regressionCase.trigger.kind} trigger at (${regressionCase.trigger.x}, ${regressionCase.trigger.y}) on map "${map.id}"`,
+      `missing ${triggerSpec.kind} trigger at (${triggerSpec.x}, ${triggerSpec.y}) on map "${map.id}"`,
     );
   }
 
@@ -454,36 +472,51 @@ function executeWorldTriggerCase(database: ContentDatabase, regressionCase: Gold
         };
       }
 
-      const event = database.events.find((entry) => entry.id === trigger.eventId);
-      if (!event) {
-        throw new Error(`missing event "${trigger.eventId}"`);
-      }
-
       const snapshot = harness.gameState.getSnapshot();
-      const runtime = createEventRuntime(database, {
-        flags: snapshot.flags,
-        inventory: snapshot.inventory,
-        partyMemberIds: snapshot.partyMemberIds,
-        partyStates: snapshot.partyStates,
-        world: {
-          currentMapId: snapshot.world.currentMapId,
-          currentSpawnPointId: snapshot.world.currentSpawnId,
-        },
-      });
-      new EventInterpreter().execute(event, database, runtime);
-      harness.gameState.applyEventRuntime(runtime);
-      if (trigger.once) {
-        harness.gameState.consumeTrigger(trigger.id);
+      let eventId: string | undefined;
+      let battleGroupId: string | undefined;
+
+      if (trigger.eventId) {
+        const event = database.events.find((entry) => entry.id === trigger.eventId);
+        if (!event) {
+          throw new Error(`missing event "${trigger.eventId}"`);
+        }
+
+        const runtime = createEventRuntime(database, {
+          flags: snapshot.flags,
+          inventory: snapshot.inventory,
+          partyMemberIds: snapshot.partyMemberIds,
+          partyStates: snapshot.partyStates,
+          world: {
+            currentMapId: snapshot.world.currentMapId,
+            currentSpawnPointId: snapshot.world.currentSpawnId,
+          },
+        });
+        new EventInterpreter().execute(event, database, runtime);
+        harness.gameState.applyEventRuntime(runtime);
+        if (trigger.once) {
+          harness.gameState.consumeTrigger(trigger.id);
+        }
+
+        observedUi.dialogueLineIds = runtime.dialogueLog.map((entry) => entry.id);
+
+        if (runtime.pendingWarp) {
+          harness.worldRuntime.setSpawn(runtime.pendingWarp.mapId, runtime.pendingWarp.spawnPointId);
+          harness.gameState.syncWorldState(harness.worldRuntime.getState());
+        }
+
+        battleGroupId = runtime.startedBattleGroupIds.at(-1);
+        eventId = event.id;
+      } else if (trigger.encounterTableId) {
+        const encounter = resolveRegionEncounter(
+          database,
+          trigger,
+          harness.worldRuntime.getState(),
+          snapshot,
+        );
+        battleGroupId = encounter?.battleGroupId;
       }
 
-      observedUi.dialogueLineIds = runtime.dialogueLog.map((entry) => entry.id);
-
-      if (runtime.pendingWarp) {
-        harness.worldRuntime.setSpawn(runtime.pendingWarp.mapId, runtime.pendingWarp.spawnPointId);
-        harness.gameState.syncWorldState(harness.worldRuntime.getState());
-      }
-
-      const battleGroupId = runtime.startedBattleGroupIds.at(-1);
       if (battleGroupId) {
         observedUi.sceneFlow.push(BATTLE_SCENE_ID);
         observedUi.activeScene = BATTLE_SCENE_ID;
@@ -505,8 +538,9 @@ function executeWorldTriggerCase(database: ContentDatabase, regressionCase: Gold
         mismatches: diffs.map((entry) => `${entry.path}: expected ${JSON.stringify(entry.expected)}, received ${JSON.stringify(entry.actual)}`),
         locator: createLocator(regressionCase, {
           triggerId: trigger.id,
-          eventId: event.id,
+          eventId,
           battleGroupId,
+          encounterTableId: trigger.encounterTableId,
         }),
         expectedState: regressionCase.expectedState,
         expectedUi: regressionCase.expectedUi,
@@ -656,6 +690,7 @@ function formatLocator(locator: GoldenCaseLocator): string {
     locator.npcId ? `npcId=${locator.npcId}` : undefined,
     locator.point ? `point=(${locator.point.x},${locator.point.y})` : undefined,
     locator.battleGroupId ? `battleGroupId=${locator.battleGroupId}` : undefined,
+    locator.encounterTableId ? `encounterTableId=${locator.encounterTableId}` : undefined,
     locator.slot ? `slot=${locator.slot}` : undefined,
   ].filter(Boolean);
 

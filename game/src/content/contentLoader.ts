@@ -43,6 +43,7 @@ function mergeContentPack(database: ContentDatabase, pack: ContentPack): Content
   database.skills.push(...pack.skills);
   database.flags.push(...pack.flags);
   database.questStates.push(...pack.questStates);
+  database.encounterTables.push(...pack.encounterTables);
   return database;
 }
 

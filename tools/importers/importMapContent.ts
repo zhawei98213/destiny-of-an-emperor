@@ -1,5 +1,5 @@
 import path from "node:path";
-import { readdir } from "node:fs/promises";
+import * as fs from "node:fs/promises";
 import { generatedRoot, sourceRoot, writeStableJsonFile } from "../lib/importerCore";
 import { loadMapSource } from "../lib/sourceSchemas";
 
@@ -28,14 +28,19 @@ interface LoadedMapSourceFile {
   document: Awaited<ReturnType<typeof loadMapSource>>;
 }
 
-async function loadMapSourceFiles(): Promise<LoadedMapSourceFile[]> {
-  const entries = await readdir(mapSourceDir, { withFileTypes: true });
-  const sourceFiles = entries
-    .filter((entry) => entry.isFile() && entry.name.endsWith(".source.json"))
-    .map((entry) => entry.name)
-    .sort((left, right) => left.localeCompare(right));
+interface DirectoryEntryLike {
+  isFile(): boolean;
+  name: string;
+}
 
-  return Promise.all(sourceFiles.map(async (fileName) => ({
+async function loadMapSourceFiles(): Promise<LoadedMapSourceFile[]> {
+  const entries = await fs.readdir(mapSourceDir, { withFileTypes: true }) as DirectoryEntryLike[];
+  const sourceFiles = entries
+    .filter((entry: DirectoryEntryLike) => entry.isFile() && entry.name.endsWith(".source.json"))
+    .map((entry: DirectoryEntryLike) => entry.name)
+    .sort((left: string, right: string) => left.localeCompare(right));
+
+  return Promise.all(sourceFiles.map(async (fileName: string) => ({
     fileName,
     document: await loadMapSource(path.join(mapSourceDir, fileName)),
   })));
