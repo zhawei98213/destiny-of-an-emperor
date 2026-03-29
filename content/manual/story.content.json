@@ -3,14 +3,14 @@
     "id": "manual-story",
     "kind": "manual",
     "version": 1,
-    "description": "Hand-authored dialogue, events, and shop definitions."
+    "description": "Hand-authored chapter slice dialogue, events, and shop definitions."
   },
   "dialogueLines": [
     {
       "id": "intro-line-1",
       "speakerName": "Village Guide",
       "speakerNpcId": "village-guide",
-      "text": "The road ahead is clear enough for a systems demo.",
+      "text": "The eastern road has reopened, but the patrols are still thin beyond the gate.",
       "portraitId": "guide-default",
       "soundId": "voice-guide"
     },
@@ -18,23 +18,31 @@
       "id": "intro-line-2",
       "speakerName": "Village Guide",
       "speakerNpcId": "village-guide",
-      "text": "Talk to the merchant or enter the training yard.",
+      "text": "Speak with the quartermaster, take the road pass, and be ready for the first skirmish outside town.",
       "portraitId": "guide-default",
       "soundId": "voice-guide"
     },
     {
-      "id": "merchant-line-1",
-      "speakerName": "Merchant",
+      "id": "quartermaster-line-1",
+      "speakerName": "Quartermaster",
       "speakerNpcId": "merchant",
-      "text": "I only stock placeholder wares, but the data path is real.",
+      "text": "Supplies are short, but I can still issue one road pass for the eastern watch.",
       "portraitId": "merchant-default",
       "soundId": "voice-merchant"
     },
     {
-      "id": "merchant-line-2",
-      "speakerName": "Merchant",
+      "id": "quartermaster-line-2",
+      "speakerName": "Quartermaster",
       "speakerNpcId": "merchant",
-      "text": "Take this pass and show it to the guard by the east gate.",
+      "text": "Take this pass to the gate guard. Come back here if you need your strength restored.",
+      "portraitId": "merchant-default",
+      "soundId": "voice-merchant"
+    },
+    {
+      "id": "quartermaster-rest-line",
+      "speakerName": "Quartermaster",
+      "speakerNpcId": "merchant",
+      "text": "Sit for a moment. I will mend your wounds and refill your travel pack.",
       "portraitId": "merchant-default",
       "soundId": "voice-merchant"
     },
@@ -42,7 +50,7 @@
       "id": "guard-line-blocked",
       "speakerName": "Town Guard",
       "speakerNpcId": "town-guard",
-      "text": "Hold it. No one leaves town without a merchant pass.",
+      "text": "Hold there. No one leaves the outpost without a sealed road pass.",
       "portraitId": "guard-default",
       "soundId": "voice-guard"
     },
@@ -50,15 +58,21 @@
       "id": "guard-line-open",
       "speakerName": "Town Guard",
       "speakerNpcId": "town-guard",
-      "text": "Pass confirmed. You may head into the field now.",
+      "text": "Pass confirmed. The eastern field is open, but stay alert once you leave the walls.",
       "portraitId": "guard-default",
       "soundId": "voice-guard"
     },
     {
       "id": "chest-line-open",
       "speakerName": "System",
-      "text": "You found an Herb in the chest.",
+      "text": "You found an Herb in the outpost supply chest.",
       "soundId": "sfx-chest"
+    },
+    {
+      "id": "battle-start-line",
+      "speakerName": "System",
+      "text": "A roaming patrol spots you on the eastern road.",
+      "soundId": "sfx-battle-alert"
     }
   ],
   "events": [
@@ -88,11 +102,29 @@
       "id": "merchant-pass-event",
       "name": "Merchant Pass Event",
       "steps": [
-        { "type": "dialogue", "lineId": "merchant-line-1" },
-        { "type": "dialogue", "lineId": "merchant-line-2" },
-        { "type": "setFlag", "flagId": "merchant-met" },
-        { "type": "setFlag", "flagId": "gate-pass" },
-        { "type": "playSfx", "sfxId": "sfx-pass" },
+        {
+          "type": "ifNotFlag",
+          "flagId": "gate-pass",
+          "steps": [
+            { "type": "dialogue", "lineId": "quartermaster-line-1" },
+            { "type": "dialogue", "lineId": "quartermaster-line-2" },
+            { "type": "setFlag", "flagId": "merchant-met" },
+            { "type": "setFlag", "flagId": "gate-pass" },
+            { "type": "playSfx", "sfxId": "sfx-pass" },
+            { "type": "end" }
+          ]
+        },
+        {
+          "type": "ifFlag",
+          "flagId": "gate-pass",
+          "steps": [
+            { "type": "dialogue", "lineId": "quartermaster-rest-line" },
+            { "type": "restoreParty" },
+            { "type": "openShop", "shopId": "starter-shop" },
+            { "type": "playSfx", "sfxId": "sfx-rest" },
+            { "type": "end" }
+          ]
+        },
         { "type": "end" }
       ]
     },
@@ -134,6 +166,7 @@
       "id": "training-battle-event",
       "name": "Training Battle Event",
       "steps": [
+        { "type": "dialogue", "lineId": "battle-start-line" },
         { "type": "playSfx", "sfxId": "sfx-battle-alert" },
         { "type": "startBattle", "battleGroupId": "training-slimes" },
         { "type": "end" }
@@ -143,7 +176,7 @@
   "shops": [
     {
       "id": "starter-shop",
-      "name": "Starter Shop",
+      "name": "Quartermaster Supplies",
       "inventory": [
         {
           "itemId": "herb"

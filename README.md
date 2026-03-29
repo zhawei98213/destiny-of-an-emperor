@@ -62,6 +62,9 @@ The playable skeleton contains four scenes:
 The world layer now uses one unified event system for NPC interaction, tile triggers, and region triggers.
 世界层现在使用一套统一事件系统来驱动 NPC 交互、tile trigger 和 region trigger。
 
+The current vertical slice is a small outpost chapter: speak to the guide, obtain a gate pass from the quartermaster, pass the guard, fight once in the eastern field, return to town, and save or load the result.
+当前垂直切片是一个小型前哨章节：先与向导交谈，再从军需官处取得通行凭证，通过守卫离开城镇，在东部野外完成一次战斗，然后返回城镇并进行存档或读档。
+
 ## Data-Driven Seams
 ## 数据驱动接缝
 
@@ -131,8 +134,8 @@ Manual verification in the current demo:
 4. 面向村口向导并按 `Space` 开始对话，再按 `Space` 可跳过当前逐字显示或进入下一句。
 5. Confirm the player cannot move while dialogue is active and regains movement after the dialogue ends.
 5. 确认对话过程中玩家无法移动，并且对话结束后能恢复移动控制。
-6. Face the merchant, confirm a different dialogue is shown, and then talk to the guard to verify the guard now allows passage.
-6. 面向商人，确认会显示不同的对话，并再次与守卫对话，确认守卫已经放行。
+6. Face the quartermaster, confirm the first conversation grants the road pass, then talk again later to restore the party and verify the supply-point loop works.
+6. 面向军需官，确认第一次交谈会发放通行凭证；再次交谈时则会恢复队伍状态，形成补给点闭环。
 7. Walk onto the chest tile in `town` and confirm the chest event grants an `Herb`.
 7. 走到 `town` 的宝箱 tile 上，确认宝箱事件会获得一个 `Herb`。
 8. After receiving the pass, talk to the guard again and confirm the same event interpreter now warps the player to `field`.

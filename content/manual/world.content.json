@@ -3,12 +3,13 @@
     "id": "manual-world",
     "kind": "manual",
     "version": 1,
-    "description": "Hand-authored world, player, item, skill, and state definitions."
+    "description": "Hand-authored chapter slice world, player, item, skill, and state definitions."
   },
   "maps": [
     {
       "id": "town",
       "name": "Town",
+      
       "width": 20,
       "height": 12,
       "tileWidth": 16,
@@ -94,12 +95,13 @@
         },
         {
           "id": "merchant",
-          "name": "Merchant",
+          "name": "Quartermaster",
           "x": 12,
           "y": 5,
           "sprite": "merchant",
           "facing": "left",
-          "behavior": "idle"
+          "behavior": "idle",
+          "shopId": "starter-shop"
         },
         {
           "id": "village-guide",
@@ -147,7 +149,7 @@
     },
     {
       "id": "field",
-      "name": "Field",
+      "name": "Eastern Field",
       "width": 24,
       "height": 14,
       "tileWidth": 16,
@@ -245,7 +247,7 @@
     {
       "id": "bronze-sword",
       "name": "Bronze Sword",
-      "description": "A basic weapon for early recruits.",
+      "description": "A simple bronze blade issued to outpost recruits.",
       "kind": "equipment",
       "price": 45
     }
