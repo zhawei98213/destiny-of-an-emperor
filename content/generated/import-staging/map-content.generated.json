@@ -13,8 +13,36 @@
         "width": 24
       },
       "sourceFile": "demo-maps.source.json",
+      "spawnPointCount": 2,
+      "triggerCount": 2
+    },
+    {
+      "collisionLayerCount": 1,
+      "id": "east-road",
+      "name": "Lou Sang East Road",
+      "npcCount": 1,
+      "portalCount": 2,
+      "size": {
+        "height": 14,
+        "width": 24
+      },
+      "sourceFile": "east-road-relay.source.json",
+      "spawnPointCount": 2,
+      "triggerCount": 2
+    },
+    {
+      "collisionLayerCount": 1,
+      "id": "relay-post",
+      "name": "East Relay Post",
+      "npcCount": 2,
+      "portalCount": 1,
+      "size": {
+        "height": 12,
+        "width": 18
+      },
+      "sourceFile": "east-road-relay.source.json",
       "spawnPointCount": 1,
-      "triggerCount": 1
+      "triggerCount": 2
     },
     {
       "collisionLayerCount": 1,
@@ -33,6 +61,7 @@
   ],
   "sourceFiles": [
     "demo-maps.source.json",
+    "east-road-relay.source.json",
     "lou-sang-village.source.json"
   ]
 }

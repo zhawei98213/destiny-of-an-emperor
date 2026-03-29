@@ -57,6 +57,34 @@
       "speakerName": "系统",
       "text": "你在村长家的储物罐里找到了一份草药。",
       "soundId": "sfx-chest"
+    },
+    {
+      "id": "field-east-road-line",
+      "speakerName": "系统",
+      "text": "你沿着东路继续前进，前方能看见一座供往来行人歇脚的小驿站。",
+      "soundId": "sfx-step"
+    },
+    {
+      "id": "road-scout-line",
+      "speakerName": "巡路兵",
+      "speakerNpcId": "road-scout",
+      "text": "前面的驿站还能歇脚，再往东可就不太平了。若是伤了筋骨，记得先回驿站整顿。",
+      "portraitId": "guard-default",
+      "soundId": "voice-guard"
+    },
+    {
+      "id": "relay-rest-line",
+      "speakerName": "驿站医官",
+      "speakerNpcId": "relay-healer",
+      "text": "先坐下缓口气吧。我替你把伤药和水袋都补齐，再上路也不迟。",
+      "portraitId": "merchant-default",
+      "soundId": "voice-merchant"
+    },
+    {
+      "id": "relay-cache-line-open",
+      "speakerName": "系统",
+      "text": "你在驿站角落的木箱里找到了一把铜剑。",
+      "soundId": "sfx-chest"
     }
   ],
   "events": [
@@ -148,6 +176,44 @@
         { "type": "dialogue", "lineId": "lou-sang-chest-line-open" },
         { "type": "giveItem", "itemId": "herb", "quantity": 1 },
         { "type": "setFlag", "flagId": "town-chest-opened" },
+        { "type": "playSfx", "sfxId": "sfx-chest" },
+        { "type": "end" }
+      ]
+    },
+    {
+      "id": "field-east-road-event",
+      "name": "Field East Road Event",
+      "steps": [
+        { "type": "dialogue", "lineId": "field-east-road-line" },
+        { "type": "warp", "targetMapId": "east-road", "targetSpawnId": "from-field-east" },
+        { "type": "end" }
+      ]
+    },
+    {
+      "id": "road-scout-event",
+      "name": "Road Scout Event",
+      "steps": [
+        { "type": "dialogue", "lineId": "road-scout-line" },
+        { "type": "end" }
+      ]
+    },
+    {
+      "id": "relay-rest-event",
+      "name": "Relay Rest Event",
+      "steps": [
+        { "type": "dialogue", "lineId": "relay-rest-line" },
+        { "type": "restoreParty" },
+        { "type": "playSfx", "sfxId": "sfx-rest" },
+        { "type": "end" }
+      ]
+    },
+    {
+      "id": "relay-cache-event",
+      "name": "Relay Cache Event",
+      "steps": [
+        { "type": "dialogue", "lineId": "relay-cache-line-open" },
+        { "type": "giveItem", "itemId": "bronze-sword", "quantity": 1 },
+        { "type": "setFlag", "flagId": "relay-cache-opened" },
         { "type": "playSfx", "sfxId": "sfx-chest" },
         { "type": "end" }
       ]

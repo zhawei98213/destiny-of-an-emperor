@@ -528,6 +528,276 @@
         "activeScene": "WorldScene",
         "dialogueLineIds": []
       }
+    },
+    {
+      "id": "field-east-road-warp",
+      "name": "Field east road warp / 野外东口切入驿道",
+      "initialState": {
+        "world": {
+          "mapId": "field",
+          "spawnPointId": "field-gate",
+          "playerX": 22,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "tile",
+        "mapId": "field",
+        "x": 22,
+        "y": 7
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "east-road",
+          "currentSpawnId": "from-field-east",
+          "playerX": 2,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["field-east-road-line"]
+      }
+    },
+    {
+      "id": "road-scout-talk",
+      "name": "Road scout talk / 巡路兵对话",
+      "initialState": {
+        "world": {
+          "mapId": "east-road",
+          "spawnPointId": "from-field-east",
+          "playerX": 11,
+          "playerY": 7,
+          "facing": "up"
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "east-road",
+        "npcId": "road-scout"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "east-road",
+          "currentSpawnId": "from-field-east",
+          "playerX": 11,
+          "playerY": 7,
+          "facing": "up"
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["road-scout-line"]
+      }
+    },
+    {
+      "id": "relay-rest-recovers-party",
+      "name": "Relay rest restores party / 驿站补给点恢复状态",
+      "initialState": {
+        "world": {
+          "mapId": "relay-post",
+          "spawnPointId": "relay-west-gate",
+          "playerX": 7,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 6,
+            "currentHp": 8,
+            "currentMp": 1,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "relay-post",
+        "npcId": "relay-healer"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "relay-post",
+          "currentSpawnId": "relay-west-gate",
+          "playerX": 7,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 6,
+            "currentHp": 24,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["relay-rest-line"]
+      }
+    },
+    {
+      "id": "relay-cache-first-open",
+      "name": "Relay cache first open / 驿站木箱首次开启",
+      "initialState": {
+        "world": {
+          "mapId": "relay-post",
+          "spawnPointId": "relay-west-gate",
+          "playerX": 3,
+          "playerY": 9,
+          "facing": "down"
+        },
+        "flags": {
+          "relay-cache-opened": false
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "tile",
+        "mapId": "relay-post",
+        "x": 3,
+        "y": 9
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "relay-post",
+          "currentSpawnId": "relay-west-gate",
+          "playerX": 3,
+          "playerY": 9,
+          "facing": "down"
+        },
+        "flags": {
+          "relay-cache-opened": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": [
+            {
+              "itemId": "bronze-sword",
+              "quantity": 1
+            }
+          ]
+        },
+        "consumedTriggerIds": ["relay-cache-trigger"]
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["relay-cache-line-open"]
+      }
+    },
+    {
+      "id": "east-road-battle-roundtrip",
+      "name": "East road battle roundtrip / 驿道遭遇战并返回地图",
+      "initialState": {
+        "world": {
+          "mapId": "east-road",
+          "spawnPointId": "from-field-east",
+          "playerX": 14,
+          "playerY": 6,
+          "facing": "right",
+          "stepCount": 6
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 0,
+            "currentHp": 24,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "region",
+        "mapId": "east-road",
+        "x": 14,
+        "y": 6
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "east-road",
+          "currentSpawnId": "from-field-east",
+          "playerX": 14,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 7,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 5,
+            "currentHp": 12,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene", "BattleScene", "WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": [],
+        "battleOutcome": "victory"
+      }
     }
   ]
 }

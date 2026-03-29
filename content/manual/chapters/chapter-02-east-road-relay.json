@@ -1,0 +1,46 @@
+{
+  "format": "chapter-metadata-v1",
+  "chapterId": "chapter-02-east-road-relay",
+  "title": "Lou Sang East Road Relay",
+  "areaLabel": "East Road and Relay Post Slice",
+  "status": "validating",
+  "maps": [
+    "east-road",
+    "relay-post"
+  ],
+  "npcs": [
+    "road-scout",
+    "relay-healer",
+    "relay-porter"
+  ],
+  "events": [
+    "field-east-road-event",
+    "road-scout-event",
+    "relay-rest-event",
+    "relay-cache-event"
+  ],
+  "shops": [],
+  "enemyGroups": [
+    "field-wolves"
+  ],
+  "regressionCases": [
+    "field-east-road-warp",
+    "road-scout-talk",
+    "relay-rest-recovers-party",
+    "relay-cache-first-open",
+    "east-road-battle-roundtrip"
+  ],
+  "paritySummary": {
+    "mapLayout": "validating",
+    "collision": "validating",
+    "npcPlacement": "validating",
+    "dialogue": "parity-review",
+    "events": "validating",
+    "flags": "validating",
+    "transitions": "validating",
+    "items": "parity-review",
+    "shops": "planned",
+    "battles": "validating"
+  },
+  "notes": "Second real slice extends the Lou Sang eastward route into a relay post, reusing the current world, encounter, and event DSL without scene-specific branches. Dialogue and reward details remain curated until original reference tables land. / 第二个真实切片把楼桑东路延伸到一处驿站，复用现有 world、encounter 和事件 DSL，没有为真实内容加 scene 特判。对白和奖励细节目前仍是人工整理版，待后续接入原始参考表再继续收口。"
+}

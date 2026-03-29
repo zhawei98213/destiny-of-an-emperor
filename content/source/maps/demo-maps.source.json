@@ -73,6 +73,12 @@
           "x": 2,
           "y": 7,
           "facing": "right"
+        },
+        {
+          "id": "from-east-road",
+          "x": 21,
+          "y": 7,
+          "facing": "left"
         }
       ],
       "npcs": [
@@ -87,6 +93,16 @@
         }
       ],
       "triggers": [
+        {
+          "id": "field-east-road-trigger",
+          "kind": "tile",
+          "x": 22,
+          "y": 7,
+          "width": 1,
+          "height": 1,
+          "eventId": "field-east-road-event",
+          "once": false
+        },
         {
           "id": "field-battle-trigger",
           "kind": "region",

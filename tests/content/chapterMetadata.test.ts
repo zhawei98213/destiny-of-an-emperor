@@ -11,10 +11,18 @@ describe("chapter metadata", () => {
       path.resolve(process.cwd(), "content/manual/chapters"),
     );
 
-    expect(chapters.map((entry) => entry.chapterId)).toContain("chapter-01-lou-sang");
+    expect(chapters.map((entry) => entry.chapterId)).toEqual([
+      "chapter-01-lou-sang",
+      "chapter-02-east-road-relay",
+      "chapter-template",
+    ]);
     expect(chapters.find((entry) => entry.chapterId === "chapter-01-lou-sang")?.maps).toEqual([
       "town",
       "field",
+    ]);
+    expect(chapters.find((entry) => entry.chapterId === "chapter-02-east-road-relay")?.maps).toEqual([
+      "east-road",
+      "relay-post",
     ]);
   });
 

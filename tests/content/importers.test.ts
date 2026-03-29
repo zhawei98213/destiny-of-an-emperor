@@ -12,6 +12,7 @@ describe("import tools", () => {
     expect(stableStringify(firstReport)).toBe(stableStringify(secondReport));
     expect(firstReport.sourceFiles).toEqual([
       "demo-maps.source.json",
+      "east-road-relay.source.json",
       "lou-sang-village.source.json",
     ]);
     expect(firstReport.maps).toEqual(expect.arrayContaining([
