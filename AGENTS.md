@@ -65,6 +65,8 @@ Follow it before making code, content, tooling, or documentation changes.
 
 - Do not hardcode story logic in scenes.
 - 不得把剧情逻辑写死在 scene。
+- Story and dialogue content should default to Simplified Chinese unless a task explicitly requires another language.
+- 剧情和对话内容默认使用简体中文，除非任务明确要求使用其他语言。
 - Do not hand-edit generated content.
 - 不得手工修改 generated 内容。
 - Every new data format must ship with schema and validation.

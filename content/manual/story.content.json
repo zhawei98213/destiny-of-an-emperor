@@ -8,60 +8,60 @@
   "dialogueLines": [
     {
       "id": "intro-line-1",
-      "speakerName": "Village Elder",
+      "speakerName": "村长",
       "speakerNpcId": "village-guide",
-      "text": "The eastern road has reopened, but the patrols are still thin beyond the gate.",
+      "text": "东边的道路虽然重新开放了，可城外巡逻的人手还是不够。",
       "portraitId": "guide-default",
       "soundId": "voice-guide"
     },
     {
       "id": "intro-line-2",
-      "speakerName": "Village Elder",
+      "speakerName": "村长",
       "speakerNpcId": "village-guide",
-      "text": "Speak with the quartermaster, take the road pass, and be ready for the first skirmish outside town.",
+      "text": "你先去找补给官拿路引，出村以后路上随时都可能遇到敌兵。",
       "portraitId": "guide-default",
       "soundId": "voice-guide"
     },
     {
       "id": "lou-sang-shop-line",
-      "speakerName": "Supply Keeper",
+      "speakerName": "补给官",
       "speakerNpcId": "merchant",
-      "text": "This is the village supply counter. Herbs and simple blades are all I can sell today.",
+      "text": "这里是村里的补给铺。今天能卖的只有草药和几把简陋的兵器。",
       "portraitId": "merchant-default",
       "soundId": "voice-merchant"
     },
     {
       "id": "lou-sang-guard-blocked-line",
-      "speakerName": "Gate Watch",
+      "speakerName": "守门兵",
       "speakerNpcId": "town-guard",
-      "text": "Stop. No one leaves Lou Sang Village without the road pass from the county messenger.",
+      "text": "站住。没有县里送来的路引，谁也不能离开楼桑村。",
       "portraitId": "guard-default",
       "soundId": "voice-guard"
     },
     {
       "id": "lou-sang-guard-open-line",
-      "speakerName": "Gate Watch",
+      "speakerName": "守门兵",
       "speakerNpcId": "town-guard",
-      "text": "The seal is in order. I will open the east gate. Step onto the road marker when you are ready.",
+      "text": "印记没错，我这就打开东门。你准备好了就从路标那边出去吧。",
       "portraitId": "guard-default",
       "soundId": "voice-guard"
     },
     {
       "id": "lou-sang-exit-line-blocked",
-      "speakerName": "System",
-      "text": "The east gate is still barred from inside the village.",
+      "speakerName": "系统",
+      "text": "东门还没有打开，暂时不能出村。",
       "soundId": "sfx-blocked"
     },
     {
       "id": "lou-sang-chest-line-open",
-      "speakerName": "System",
-      "text": "You found one Herb in the elder's store jar.",
+      "speakerName": "系统",
+      "text": "你在村长家的储物罐里找到了一份草药。",
       "soundId": "sfx-chest"
     },
     {
       "id": "battle-start-line",
-      "speakerName": "System",
-      "text": "A roaming patrol spots you on the eastern road.",
+      "speakerName": "系统",
+      "text": "东边道路上的巡逻兵发现了你。",
       "soundId": "sfx-battle-alert"
     }
   ],
