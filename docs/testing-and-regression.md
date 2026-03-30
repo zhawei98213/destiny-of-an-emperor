@@ -113,3 +113,26 @@ It also writes readable and machine-readable artifacts into `reports/regression/
 4. 在合并较大跨模块改动前执行 `npm run regression-smoke`
 5. `npm run battle-parity` after battle runtime, reward, encounter-table, or battle-related real content changes
 5. 在修改 battle runtime、奖励、遭遇表或真实战斗相关内容后执行 `npm run battle-parity`
+
+## CI Coverage
+## CI 覆盖范围
+
+The repository CI mirrors the minimum completion path from `AGENTS.md`.
+仓库 CI 会镜像 `AGENTS.md` 中的最小完成链路。
+
+On push and pull request, GitHub Actions runs:
+在 push 和 pull request 上，GitHub Actions 会执行：
+
+- `npm run validate-content`
+- `npm run validate-content`
+- `npm test`
+- `npm test`
+- `npm run build`
+- `npm run build`
+- `npm run regression-smoke`
+- `npm run regression-smoke`
+- `npm run parity-score`
+- `npm run parity-score`
+
+The workflow also writes the latest regression and parity summaries into the GitHub job summary so obvious remake regressions are visible without downloading artifacts.
+该工作流还会把最新 regression 与 parity 摘要写入 GitHub job summary，这样无需下载 artifact 也能看到明显的复刻回归问题。

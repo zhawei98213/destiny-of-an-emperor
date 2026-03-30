@@ -59,6 +59,8 @@ Follow it before making code, content, tooling, or documentation changes.
 - `npm run validate-content`：检查 generated 输出并校验运行时内容。
 - `npm run regression-smoke`: run import, validation, and the minimum regression suite.
 - `npm run regression-smoke`：执行导入、校验和最小回归测试链路。
+- `.github/workflows/ci.yml`: mirrors the minimum repository checks on push and pull request.
+- `.github/workflows/ci.yml`：在 push 和 pull request 上镜像仓库最小校验链路。
 - `npm run battle-parity`: generate the current real-battle parity calibration report.
 - `npm run battle-parity`：生成当前真实战斗一致性校准报告。
 - `npm run event-json`: lint event JSON structure and report formatting drift.
@@ -106,6 +108,8 @@ After a meaningful change, run at least the commands that match the risk:
 - 战斗调参或战斗相关内容改动：`npm run battle-parity`
 - Build-affecting change: `npm run build`
 - 可能影响构建的改动：`npm run build`
+- CI should stay aligned with these same checks instead of inventing a separate heavier path.
+- CI 应保持与这些相同的校验链路一致，不要额外发明一条更重的独立流程。
 
 When reporting results, always explain in this order:
 输出结果时，始终按以下顺序说明：

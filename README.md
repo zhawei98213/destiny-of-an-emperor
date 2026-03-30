@@ -57,6 +57,8 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - 战斗一致性校准报告会写入 `reports/battle-parity/latest/`。
 - `npm run build`: type-check and create a production build in `dist/`.
 - `npm run build`：执行类型检查并在 `dist/` 目录生成生产构建。
+- GitHub Actions now runs `validate-content`, `test`, `build`, `regression-smoke`, and `parity-score` on push and pull request.
+- GitHub Actions 现在会在 push 和 pull request 上执行 `validate-content`、`test`、`build`、`regression-smoke` 和 `parity-score`。
 
 ## Current Runtime
 ## 当前运行时状态

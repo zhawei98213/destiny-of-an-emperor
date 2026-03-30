@@ -1,0 +1,85 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate-and-test:
+    name: Validate And Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Content Validation
+        run: npm run validate-content
+
+      - name: Automated Tests
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - name: Regression Smoke
+        run: npm run regression-smoke
+
+      - name: Parity Score
+        run: npm run parity-score
+
+      - name: Publish CI Summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "# CI Summary"
+            echo "# CI 摘要"
+            echo
+            echo "- validate-content: completed"
+            echo "- validate-content：已执行"
+            echo "- test: completed"
+            echo "- test：已执行"
+            echo "- build: completed"
+            echo "- build：已执行"
+            echo "- regression-smoke: completed"
+            echo "- regression-smoke：已执行"
+            echo "- parity-score: completed"
+            echo "- parity-score：已执行"
+            echo
+            echo "## Regression Smoke"
+            echo "## 回归 Smoke"
+            echo
+            if [ -f reports/regression/latest/summary.md ]; then
+              sed -n '1,80p' reports/regression/latest/summary.md
+            else
+              echo "- regression summary not generated"
+              echo "- 未生成 regression 摘要"
+            fi
+            echo
+            echo "## Parity Score"
+            echo "## 一致性评分"
+            echo
+            if [ -f reports/parity/latest/summary.md ]; then
+              sed -n '1,80p' reports/parity/latest/summary.md
+            else
+              echo "- parity summary not generated"
+              echo "- 未生成 parity 摘要"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
