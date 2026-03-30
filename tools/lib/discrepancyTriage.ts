@@ -1,11 +1,12 @@
 import path from "node:path";
 import { readJsonFile, repoRoot } from "./importerCore";
 import type { ParityScoreReport } from "./parityScoring";
+import type { UiParityReport } from "./uiParity";
 
 export type TriagePriority = "P0" | "P1" | "P2" | "P3";
 
 export interface TriageEvidence {
-  source: "parity-score" | "regression-smoke";
+  source: "parity-score" | "regression-smoke" | "ui-parity";
   chapterId: string;
   dimensionId?: string;
   messages: string[];
@@ -32,6 +33,7 @@ export interface DiscrepancyTriageReport {
   inputs: {
     parityReportPath: string;
     regressionReportPath: string;
+    uiParityReportPath?: string;
   };
   summary: {
     totalItems: number;
@@ -60,6 +62,12 @@ interface RegressionReportSummary {
     total: number;
   };
   cases: RegressionCaseSummary[];
+}
+
+interface DiscrepancyTriageOptions {
+  parityReportPath?: string;
+  regressionReportPath?: string;
+  uiParityReportPath?: string;
 }
 
 interface ItemSeed {
@@ -153,6 +161,7 @@ function createEvidence(
 function buildSeeds(
   parityReport: ParityScoreReport,
   regressionReport: RegressionReportSummary,
+  uiParityReport?: UiParityReport,
 ): ItemSeed[] {
   const seeds: ItemSeed[] = [];
 
@@ -346,21 +355,66 @@ function buildSeeds(
     });
   }
 
+  uiParityReport?.cases
+    .filter((entry) => entry.status === "diverged" && entry.priority)
+    .forEach((entry) => {
+      const priority = entry.priority;
+      if (!priority) {
+        return;
+      }
+
+      seeds.push({
+        id: `ui:${entry.repairGroupId}`,
+        priority,
+        title: entry.title,
+        summary: entry.differences[0] ?? "UI parity gap requires follow-up.",
+        chapters: [entry.locator.chapterId],
+        systems: unique(entry.systems),
+        maps: [entry.locator.mapId],
+        suggestedRepairTargets: [...entry.suggestedRepairTargets],
+        dependencies: [],
+        source: [{
+          source: "ui-parity",
+          chapterId: entry.locator.chapterId,
+          dimensionId: entry.area,
+          messages: [...entry.differences],
+          caseIds: [entry.id],
+        }],
+      });
+    });
+
   return seeds;
 }
 
-export async function buildDiscrepancyTriageReport(options?: {
-  parityReportPath?: string;
-  regressionReportPath?: string;
-}): Promise<DiscrepancyTriageReport> {
+async function loadOptionalUiParityReport(targetPath: string | undefined): Promise<UiParityReport | undefined> {
+  if (!targetPath) {
+    return undefined;
+  }
+
+  try {
+    return await readJsonFile<UiParityReport>(targetPath);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    if (message.includes("ENOENT") || message.includes("no such file")) {
+      return undefined;
+    }
+
+    throw error;
+  }
+}
+
+export async function buildDiscrepancyTriageReport(options?: DiscrepancyTriageOptions): Promise<DiscrepancyTriageReport> {
   const parityReportPath = options?.parityReportPath
     ?? path.join(repoRoot, "reports", "parity", "latest", "report.json");
   const regressionReportPath = options?.regressionReportPath
     ?? path.join(repoRoot, "reports", "regression", "latest", "report.json");
+  const uiParityReportPath = options?.uiParityReportPath
+    ?? path.join(repoRoot, "reports", "ui-parity", "latest", "report.json");
 
   const parityReport = await readJsonFile<ParityScoreReport>(parityReportPath);
   const regressionReport = await readJsonFile<RegressionReportSummary>(regressionReportPath);
-  const backlog = mergeBacklogItems(buildSeeds(parityReport, regressionReport));
+  const uiParityReport = await loadOptionalUiParityReport(uiParityReportPath);
+  const backlog = mergeBacklogItems(buildSeeds(parityReport, regressionReport, uiParityReport));
   const byPriority = {
     P0: backlog.filter((entry) => entry.priority === "P0").length,
     P1: backlog.filter((entry) => entry.priority === "P1").length,
@@ -373,6 +427,7 @@ export async function buildDiscrepancyTriageReport(options?: {
     inputs: {
       parityReportPath,
       regressionReportPath,
+      uiParityReportPath: uiParityReport ? uiParityReportPath : undefined,
     },
     summary: {
       totalItems: backlog.length,

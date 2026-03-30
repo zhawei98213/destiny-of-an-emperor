@@ -1,12 +1,20 @@
+import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { buildDiscrepancyTriageReport } from "../../tools/lib/discrepancyTriage";
+import { stableStringify } from "../../tools/lib/importerCore";
+import { buildUiParityReport } from "../../tools/lib/uiParity";
 
 describe("discrepancy triage", () => {
   it("builds a repair backlog with grouped priorities from parity and regression evidence", async () => {
+    const uiParityReportPath = path.resolve(process.cwd(), "reports/ui-parity/latest/report.json");
+    await mkdir(path.dirname(uiParityReportPath), { recursive: true });
+    await writeFile(uiParityReportPath, `${stableStringify(await buildUiParityReport())}\n`, "utf8");
+
     const report = await buildDiscrepancyTriageReport({
       parityReportPath: path.resolve(process.cwd(), "reports/parity/latest/report.json"),
       regressionReportPath: path.resolve(process.cwd(), "reports/regression/latest/report.json"),
+      uiParityReportPath,
     });
 
     expect(report.summary.totalItems).toBeGreaterThan(0);
@@ -22,5 +30,9 @@ describe("discrepancy triage", () => {
 
     const dialoguePolish = report.backlog.find((entry) => entry.id === "chapter-01-lou-sang:dialogue-polish");
     expect(dialoguePolish?.priority).toBe("P3");
+
+    const uiShopFlow = report.backlog.find((entry) => entry.id === "ui:shop-flow");
+    expect(uiShopFlow?.priority).toBe("P1");
+    expect(uiShopFlow?.source.some((entry) => entry.source === "ui-parity")).toBe(true);
   });
 });

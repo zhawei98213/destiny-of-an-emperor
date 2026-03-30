@@ -59,6 +59,9 @@ export async function writeDiscrepancyTriageArtifacts(): Promise<void> {
 
   console.log("Discrepancy Triage Report / 差异分级报告");
   console.log(`Generated At / 生成时间: ${report.generatedAt}`);
+  if (report.inputs.uiParityReportPath) {
+    console.log(`UI Parity Input / UI 一致性输入: ${report.inputs.uiParityReportPath}`);
+  }
   console.log(`Total Items / 总条目数: ${report.summary.totalItems}`);
   console.log(`P0=${report.summary.byPriority.P0} P1=${report.summary.byPriority.P1} P2=${report.summary.byPriority.P2} P3=${report.summary.byPriority.P3}`);
   report.backlog.forEach((item) => {
