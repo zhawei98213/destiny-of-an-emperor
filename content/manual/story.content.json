@@ -93,6 +93,64 @@
       "speakerName": "系统",
       "text": "你在驿站角落的木箱里找到了一把铜剑。",
       "soundId": "sfx-chest"
+    },
+    {
+      "id": "relay-post-east-line",
+      "speakerName": "系统",
+      "text": "你离开驿站，继续沿着东侧山道前进，前方就是渡口。",
+      "soundId": "sfx-step"
+    },
+    {
+      "id": "ford-clerk-line-issue",
+      "speakerName": "渡口文吏",
+      "speakerNpcId": "ford-clerk",
+      "text": "前头要验文符。驿站那边已经报过你的名字，这枚渡口文符你先收着。",
+      "portraitId": "guide-default",
+      "soundId": "voice-guide"
+    },
+    {
+      "id": "ford-clerk-line-repeat",
+      "speakerName": "渡口文吏",
+      "speakerNpcId": "ford-clerk",
+      "text": "文符已经发给你了。过河时把它交给守兵验过，别在路上弄丢。",
+      "portraitId": "guide-default",
+      "soundId": "voice-guide"
+    },
+    {
+      "id": "ford-guard-line-blocked",
+      "speakerName": "渡口守兵",
+      "speakerNpcId": "ford-guard",
+      "text": "前面就是临河营地，没有渡口文符一律不得通行。",
+      "portraitId": "guard-default",
+      "soundId": "voice-guard"
+    },
+    {
+      "id": "ford-guard-line-open",
+      "speakerName": "渡口守兵",
+      "speakerNpcId": "ford-guard",
+      "text": "文符没问题，前面的木桥给你留着。顺着桥面过去就是前营。",
+      "portraitId": "guard-default",
+      "soundId": "voice-guard"
+    },
+    {
+      "id": "ford-crossing-line-blocked",
+      "speakerName": "系统",
+      "text": "木桥前的守兵还没有放行，暂时不能过去。",
+      "soundId": "sfx-blocked"
+    },
+    {
+      "id": "camp-quartermaster-line",
+      "speakerName": "营地军需官",
+      "speakerNpcId": "camp-quartermaster",
+      "text": "前营补给都在这里。草药、绷带和备用短兵都能补上，缺什么自己挑。",
+      "portraitId": "merchant-default",
+      "soundId": "voice-merchant"
+    },
+    {
+      "id": "ford-camp-cache-line-open",
+      "speakerName": "系统",
+      "text": "你在前营堆放补给的木箱里找到了一卷绷带。",
+      "soundId": "sfx-chest"
     }
   ],
   "events": [
@@ -241,6 +299,95 @@
         { "type": "playSfx", "sfxId": "sfx-chest" },
         { "type": "end" }
       ]
+    },
+    {
+      "id": "relay-post-east-event",
+      "name": "Relay Post East Event",
+      "steps": [
+        { "type": "dialogue", "lineId": "relay-post-east-line" },
+        { "type": "warp", "targetMapId": "relay-east-pass", "targetSpawnId": "from-relay-post-east" },
+        { "type": "end" }
+      ]
+    },
+    {
+      "id": "ford-clerk-event",
+      "name": "Ford Clerk Event",
+      "steps": [
+        {
+          "type": "ifHasItem",
+          "itemId": "ford-seal",
+          "steps": [
+            { "type": "dialogue", "lineId": "ford-clerk-line-repeat" },
+            { "type": "end" }
+          ]
+        },
+        { "type": "dialogue", "lineId": "ford-clerk-line-issue" },
+        { "type": "giveItem", "itemId": "ford-seal", "quantity": 1 },
+        { "type": "setFlag", "flagId": "ford-seal-issued" },
+        { "type": "end" }
+      ]
+    },
+    {
+      "id": "ford-guard-event",
+      "name": "Ford Guard Event",
+      "steps": [
+        {
+          "type": "ifHasItem",
+          "itemId": "ford-seal",
+          "steps": [
+            { "type": "dialogue", "lineId": "ford-guard-line-open" },
+            { "type": "setFlag", "flagId": "river-ford-gate-open" },
+            { "type": "playSfx", "sfxId": "sfx-gate-open" },
+            { "type": "end" }
+          ]
+        },
+        { "type": "dialogue", "lineId": "ford-guard-line-blocked" },
+        { "type": "end" }
+      ]
+    },
+    {
+      "id": "ford-east-crossing-event",
+      "name": "Ford East Crossing Event",
+      "steps": [
+        {
+          "type": "ifNotFlag",
+          "flagId": "river-ford-gate-open",
+          "steps": [
+            { "type": "dialogue", "lineId": "ford-crossing-line-blocked" },
+            { "type": "end" }
+          ]
+        },
+        {
+          "type": "ifFlag",
+          "flagId": "river-ford-gate-open",
+          "steps": [
+            { "type": "warp", "targetMapId": "ford-camp", "targetSpawnId": "from-river-crossing" },
+            { "type": "end" }
+          ]
+        },
+        { "type": "end" }
+      ]
+    },
+    {
+      "id": "camp-quartermaster-event",
+      "name": "Camp Quartermaster Event",
+      "steps": [
+        { "type": "dialogue", "lineId": "camp-quartermaster-line" },
+        { "type": "openShop", "shopId": "ford-camp-shop" },
+        { "type": "playSfx", "sfxId": "sfx-shop-open" },
+        { "type": "end" }
+      ]
+    },
+    {
+      "id": "ford-camp-cache-event",
+      "name": "Ford Camp Cache Event",
+      "steps": [
+        { "type": "dialogue", "lineId": "ford-camp-cache-line-open" },
+        { "type": "giveItem", "itemId": "bandage", "quantity": 2 },
+        { "type": "setFlag", "flagId": "ford-camp-cache-opened" },
+        { "type": "playSfx", "sfxId": "sfx-chest" },
+        { "type": "end" }
+      ]
     }
   ],
   "shops": [
@@ -254,6 +401,23 @@
         {
           "itemId": "bronze-sword",
           "price": 40
+        }
+      ]
+    },
+    {
+      "id": "ford-camp-shop",
+      "name": "Ford Camp Supply Tent",
+      "inventory": [
+        {
+          "itemId": "herb"
+        },
+        {
+          "itemId": "bandage",
+          "price": 16
+        },
+        {
+          "itemId": "bronze-sword",
+          "price": 42
         }
       ]
     }

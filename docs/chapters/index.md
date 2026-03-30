@@ -33,6 +33,8 @@ This directory tracks chapter-level planning documents for real remake slices.
 - `chapter-01-lou-sang`：第一段真实切片，当前状态为 `parity-review`
 - `chapter-02-east-road-relay`: second real slice, currently `validating`
 - `chapter-02-east-road-relay`：第二段真实切片，当前状态为 `validating`
+- `chapter-03-river-ford`: third real slice, currently `validating`
+- `chapter-03-river-ford`：第三段真实切片，当前状态为 `validating`
 
 ## Working Files
 ## 工作文件
@@ -41,6 +43,10 @@ This directory tracks chapter-level planning documents for real remake slices.
 - [chapter-02-east-road-relay-plan.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-02-east-road-relay-plan.md)：第二段真实切片的执行计划
 - [chapter-02-east-road-relay-lock-report.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-02-east-road-relay-lock-report.md): current lock and divergence report for the second real slice
 - [chapter-02-east-road-relay-lock-report.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-02-east-road-relay-lock-report.md)：第二段真实切片当前的锁定与差异报告
+- [chapter-03-river-ford-plan.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-03-river-ford-plan.md): execution plan for the third real slice
+- [chapter-03-river-ford-plan.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-03-river-ford-plan.md)：第三段真实切片的执行计划
+- [chapter-03-river-ford-lock-report.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-03-river-ford-lock-report.md): current lock and divergence report for the third real slice
+- [chapter-03-river-ford-lock-report.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-03-river-ford-lock-report.md)：第三段真实切片当前的锁定与差异报告
 
 The matching chapter metadata lives in `content/manual/chapters/`.
 对应的章节元数据位于 `content/manual/chapters/`。

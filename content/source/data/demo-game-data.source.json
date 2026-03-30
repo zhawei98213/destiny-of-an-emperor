@@ -9,6 +9,13 @@
       "price": 10
     },
     {
+      "id": "bandage",
+      "name": "Bandage",
+      "description": "Field dressing issued to scouts and river guards.",
+      "kind": "consumable",
+      "price": 18
+    },
+    {
       "id": "bronze-sword",
       "name": "Bronze Sword",
       "description": "A basic weapon for early recruits.",
@@ -27,6 +34,23 @@
         {
           "itemId": "bronze-sword",
           "price": 40
+        }
+      ]
+    },
+    {
+      "id": "ford-camp-shop",
+      "name": "Ford Camp Supply Tent",
+      "inventory": [
+        {
+          "itemId": "herb"
+        },
+        {
+          "itemId": "bandage",
+          "price": 16
+        },
+        {
+          "itemId": "bronze-sword",
+          "price": 42
         }
       ]
     }
@@ -73,6 +97,30 @@
         "defense": 4,
         "speed": 6
       }
+    },
+    {
+      "id": "river-bandit",
+      "name": "River Bandit",
+      "level": 3,
+      "skills": [
+        "slash"
+      ],
+      "rewardGold": 11,
+      "rewardExperience": 8,
+      "dropItems": [
+        {
+          "itemId": "bandage",
+          "quantity": 1,
+          "chance": 0.5
+        }
+      ],
+      "baseStats": {
+        "maxHp": 22,
+        "maxMp": 0,
+        "attack": 8,
+        "defense": 5,
+        "speed": 6
+      }
     }
   ],
   "battleGroups": [
@@ -89,6 +137,13 @@
       "name": "Field Wolves",
       "enemyIds": [
         "brown-wolf"
+      ]
+    },
+    {
+      "id": "river-bandits",
+      "name": "River Bandits",
+      "enemyIds": [
+        "river-bandit"
       ]
     }
   ]

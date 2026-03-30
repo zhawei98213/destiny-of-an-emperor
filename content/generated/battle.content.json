@@ -14,6 +14,13 @@
       ],
       "id": "field-wolves",
       "name": "Field Wolves"
+    },
+    {
+      "enemyIds": [
+        "river-bandit"
+      ],
+      "id": "river-bandits",
+      "name": "River Bandits"
     }
   ],
   "dialogueLines": [],
@@ -57,6 +64,30 @@
       "name": "Brown Wolf",
       "rewardExperience": 5,
       "rewardGold": 7,
+      "skills": [
+        "slash"
+      ]
+    },
+    {
+      "baseStats": {
+        "attack": 8,
+        "defense": 5,
+        "maxHp": 22,
+        "maxMp": 0,
+        "speed": 6
+      },
+      "dropItems": [
+        {
+          "chance": 0.5,
+          "itemId": "bandage",
+          "quantity": 1
+        }
+      ],
+      "id": "river-bandit",
+      "level": 3,
+      "name": "River Bandit",
+      "rewardExperience": 8,
+      "rewardGold": 11,
       "skills": [
         "slash"
       ]

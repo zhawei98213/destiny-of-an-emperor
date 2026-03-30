@@ -1,19 +1,23 @@
 {
   "battleGroupIds": [
     "training-slimes",
-    "field-wolves"
+    "field-wolves",
+    "river-bandits"
   ],
   "enemyIds": [
     "green-slime",
-    "brown-wolf"
+    "brown-wolf",
+    "river-bandit"
   ],
   "generatedAt": "stable",
   "importer": "game-data",
   "itemIds": [
     "herb",
+    "bandage",
     "bronze-sword"
   ],
   "shopIds": [
-    "starter-shop"
+    "starter-shop",
+    "ford-camp-shop"
   ]
 }
