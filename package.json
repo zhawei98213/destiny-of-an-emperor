@@ -18,6 +18,7 @@
     "format:events": "vite-node tools/event-json.ts --write content/manual/story.content.json",
     "check:npc-placement": "vite-node tools/check-npc-placement.ts",
     "check:chapter-completeness": "vite-node tools/check-chapter-completeness.ts",
+    "asset-check": "vite-node tools/asset-check.ts",
     "parity-score": "vite-node tools/parity-score.ts",
     "battle-parity": "vite-node tools/battle-parity.ts",
     "discrepancy-triage": "vite-node tools/discrepancy-triage.ts",

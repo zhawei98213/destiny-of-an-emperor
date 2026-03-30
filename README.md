@@ -51,6 +51,8 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - `npm run check:npc-placement`：校验 manual NPC 坐标不会与阻挡格、portal、spawn 点或其他 NPC 重叠。
 - `npm run check:chapter-completeness`: compare chapter metadata with currently reachable maps, NPCs, events, shops, and enemy groups.
 - `npm run check:chapter-completeness`：把章节元数据与当前可达地图、NPC、事件、商店和敌群做对照。
+- `npm run asset-check`: generate the current chapter asset parity report and identify placeholder asset categories.
+- `npm run asset-check`：生成当前章节资产一致性报告，并识别占位资产分类。
 - Regression reports are written to `reports/regression/latest/`.
 - 回归报告会写入 `reports/regression/latest/`。
 - Battle parity reports are written to `reports/battle-parity/latest/`.

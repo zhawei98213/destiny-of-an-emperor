@@ -71,6 +71,8 @@ Follow it before making code, content, tooling, or documentation changes.
 - `npm run check:npc-placement`：校验 manual NPC 坐标与碰撞层和地图锚点的关系。
 - `npm run check:chapter-completeness`: compare chapter metadata ownership against currently reachable content.
 - `npm run check:chapter-completeness`：把章节元数据归属与当前可达内容做对照。
+- `npm run asset-check`: generate the current asset parity report for imported chapters.
+- `npm run asset-check`：为已导入章节生成当前资产一致性报告。
 
 ## Hard Rules
 ## 强制规则

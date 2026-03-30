@@ -9,6 +9,8 @@ export interface ManualStoryContent {
     speakerName?: string;
     speakerNpcId?: string;
     text?: string;
+    portraitId?: string;
+    soundId?: string;
   }>;
   events: Array<{
     id: string;
@@ -56,6 +58,7 @@ export interface ManualWorldContent {
       name: string;
       x: number;
       y: number;
+      sprite?: string;
       facing: string;
       eventId?: string;
       shopId?: string;

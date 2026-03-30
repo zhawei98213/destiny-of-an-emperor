@@ -25,6 +25,8 @@ Current first-pass tooling:
 - `tools/check-npc-placement.ts`：检查 NPC 摆位是否撞上阻挡格、portal、spawn 点或其他 NPC。
 - `tools/check-chapter-completeness.ts`: compares chapter metadata against reachable maps, NPCs, events, shops, and enemy groups.
 - `tools/check-chapter-completeness.ts`：把章节元数据与当前可达地图、NPC、事件、商店和敌群做对照。
+- `tools/asset-check.ts`: generates an asset parity report for current chapters, including missing resources, unreferenced resources, broken references, and sprite metadata integrity.
+- `tools/asset-check.ts`：为当前章节生成资产一致性报告，覆盖缺失资源、未引用资源、失效引用以及 sprite metadata 完整性。
 
 ## Import Rules
 ## 导入规范
@@ -65,6 +67,10 @@ Current first-pass tooling:
   Compares chapter metadata ownership against currently reachable chapter content and reports missing or cross-chapter entries.
 - `npm run check:chapter-completeness`
   把章节元数据归属与当前可达章节内容做比对，并报告缺失项或跨章节归属项。
+- `npm run asset-check`
+  Generates `reports/asset-parity/latest/` and classifies current chapter assets as placeholder/imported/validated.
+- `npm run asset-check`
+  生成 `reports/asset-parity/latest/`，并把当前章节资产分类为 placeholder/imported/validated。
 
 ## Recommended Import Flow
 ## 推荐导入流程
