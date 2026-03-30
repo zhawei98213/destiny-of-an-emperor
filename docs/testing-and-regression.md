@@ -18,6 +18,8 @@
 - `npm run discrepancy-triage`：把最新 parity 和 regression 证据转成带优先级的修复待办
 - `npm run battle-parity`: generate a dedicated parity calibration report for the real battle slices currently used by imported content
 - `npm run battle-parity`：为当前真实内容已使用的战斗切片生成专项一致性校准报告
+- `npm run performance-baseline`: generate the current startup, map-transition, battle-entry, and save/load timing baseline
+- `npm run performance-baseline`：生成当前启动、地图切换、战斗进入和存档读写的耗时基线
 
 ## Current Smoke Scope
 ## 当前 Smoke 范围
@@ -86,6 +88,17 @@ It also writes readable and machine-readable artifacts into `reports/regression/
 - `report.json`: machine-readable repair backlog with source, scope, repair targets, and dependencies
 - `report.json`：包含来源、影响范围、建议修复位置和依赖关系的结构化修复待办
 
+## Performance Baseline Output
+## 性能基线输出
+
+`npm run performance-baseline` writes timing artifacts into `reports/performance/latest/`.
+`npm run performance-baseline` 会把耗时产物写入 `reports/performance/latest/`。
+
+- `summary.md`: human-readable baseline table with startup, map-transition, battle-entry, and save/load metrics
+- `summary.md`：适合人工审查的基线表，包含启动、地图切换、战斗进入和存档读写指标
+- `report.json`: machine-readable metrics, bottlenecks, and issue-bucket findings
+- `report.json`：供工具读取的结构化指标、瓶颈和问题分类结论
+
 ## Expectations For New Work
 ## 新改动要求
 
@@ -113,6 +126,8 @@ It also writes readable and machine-readable artifacts into `reports/regression/
 4. 在合并较大跨模块改动前执行 `npm run regression-smoke`
 5. `npm run battle-parity` after battle runtime, reward, encounter-table, or battle-related real content changes
 5. 在修改 battle runtime、奖励、遭遇表或真实战斗相关内容后执行 `npm run battle-parity`
+6. `npm run performance-baseline` after startup, save, battle-entry, map-switch, or large content-volume changes
+6. 在修改启动、存档、战斗进入、地图切换或大体量内容后执行 `npm run performance-baseline`
 
 ## CI Coverage
 ## CI 覆盖范围

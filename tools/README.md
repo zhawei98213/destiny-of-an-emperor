@@ -29,6 +29,8 @@ Current first-pass tooling:
 - `tools/asset-check.ts`：为当前章节生成资产一致性报告，覆盖缺失资源、未引用资源、失效引用以及 sprite metadata 完整性。
 - `tools/text-check.ts`: generates a structured text integrity report, covering empty text, duplicate dialogue keys, missing metadata, broken event references, chapter coverage, and demo-versus-real text ratio.
 - `tools/text-check.ts`：生成结构化文本完整性报告，覆盖空文本、重复对白 key、缺失元数据、失效事件引用、章节覆盖率以及 demo/真实文本占比。
+- `tools/performance-baseline.ts`: samples startup, map-transition, battle-entry, and save/load costs, then writes a comparable runtime baseline report.
+- `tools/performance-baseline.ts`：采样启动、地图切换、战斗进入和存档读写成本，并输出可比较的运行时基线报告。
 
 ## Import Rules
 ## 导入规范
@@ -77,6 +79,10 @@ Current first-pass tooling:
   Generates `reports/text-integrity/latest/` and reports chapter-level dialogue coverage plus text metadata gaps.
 - `npm run text-check`
   生成 `reports/text-integrity/latest/`，并报告章节级对白覆盖和文本元数据缺口。
+- `npm run performance-baseline`
+  Generates `reports/performance/latest/` and classifies the most obvious timing hotspots into runtime, resource, and import buckets.
+- `npm run performance-baseline`
+  生成 `reports/performance/latest/`，并把最明显的耗时热点分类到 runtime、resource 和 import 三类。
 
 ## Recommended Import Flow
 ## 推荐导入流程
