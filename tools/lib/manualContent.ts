@@ -11,6 +11,9 @@ export interface ManualStoryContent {
     text?: string;
     portraitId?: string;
     soundId?: string;
+    styleId?: string;
+    locale?: string;
+    revisionTag?: string;
   }>;
   events: Array<{
     id: string;
