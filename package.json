@@ -28,6 +28,10 @@
     "parity-score": "vite-node tools/parity-score.ts",
     "battle-parity": "vite-node tools/battle-parity.ts",
     "discrepancy-triage": "vite-node tools/discrepancy-triage.ts",
+    "save-migration-check": "vitest run tests/runtime/saveMigration.test.ts tests/runtime/saveManager.test.ts",
+    "pre-release-check": "vite-node tools/pre-release-check.ts",
+    "pre-release-check:light": "vite-node tools/pre-release-check.ts --mode light",
+    "pre-release-check:full": "vite-node tools/pre-release-check.ts --mode full",
     "test": "vitest run",
     "regression-smoke": "npm run import-all && npm run validate-content && vite-node tests/regression/runGoldenRegression.ts",
     "test:watch": "vitest"
