@@ -53,6 +53,8 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - `npm run check:chapter-completeness`：把章节元数据与当前可达地图、NPC、事件、商店和敌群做对照。
 - `npm run asset-check`: generate the current chapter asset parity report and identify placeholder asset categories.
 - `npm run asset-check`：生成当前章节资产一致性报告，并识别占位资产分类。
+- `npm run text-check`: generate the current text integrity report, including chapter coverage and demo-versus-real text ratio.
+- `npm run text-check`：生成当前文本完整性报告，包括章节覆盖和 demo/真实文本占比。
 - Regression reports are written to `reports/regression/latest/`.
 - 回归报告会写入 `reports/regression/latest/`。
 - Battle parity reports are written to `reports/battle-parity/latest/`.

@@ -73,6 +73,8 @@ Follow it before making code, content, tooling, or documentation changes.
 - `npm run check:chapter-completeness`：把章节元数据归属与当前可达内容做对照。
 - `npm run asset-check`: generate the current asset parity report for imported chapters.
 - `npm run asset-check`：为已导入章节生成当前资产一致性报告。
+- `npm run text-check`: generate the current text integrity report for imported chapters.
+- `npm run text-check`：为已导入章节生成当前文本完整性报告。
 
 ## Hard Rules
 ## 强制规则

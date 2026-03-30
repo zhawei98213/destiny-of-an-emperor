@@ -27,6 +27,8 @@ Current first-pass tooling:
 - `tools/check-chapter-completeness.ts`：把章节元数据与当前可达地图、NPC、事件、商店和敌群做对照。
 - `tools/asset-check.ts`: generates an asset parity report for current chapters, including missing resources, unreferenced resources, broken references, and sprite metadata integrity.
 - `tools/asset-check.ts`：为当前章节生成资产一致性报告，覆盖缺失资源、未引用资源、失效引用以及 sprite metadata 完整性。
+- `tools/text-check.ts`: generates a structured text integrity report, covering empty text, duplicate dialogue keys, missing metadata, broken event references, chapter coverage, and demo-versus-real text ratio.
+- `tools/text-check.ts`：生成结构化文本完整性报告，覆盖空文本、重复对白 key、缺失元数据、失效事件引用、章节覆盖率以及 demo/真实文本占比。
 
 ## Import Rules
 ## 导入规范
@@ -71,6 +73,10 @@ Current first-pass tooling:
   Generates `reports/asset-parity/latest/` and classifies current chapter assets as placeholder/imported/validated.
 - `npm run asset-check`
   生成 `reports/asset-parity/latest/`，并把当前章节资产分类为 placeholder/imported/validated。
+- `npm run text-check`
+  Generates `reports/text-integrity/latest/` and reports chapter-level dialogue coverage plus text metadata gaps.
+- `npm run text-check`
+  生成 `reports/text-integrity/latest/`，并报告章节级对白覆盖和文本元数据缺口。
 
 ## Recommended Import Flow
 ## 推荐导入流程
