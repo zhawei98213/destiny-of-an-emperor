@@ -15,6 +15,7 @@ describe("chapter metadata", () => {
       "chapter-01-lou-sang",
       "chapter-02-east-road-relay",
       "chapter-03-river-ford",
+      "chapter-04-ridgeway-camp",
       "chapter-template",
     ]);
     expect(chapters.find((entry) => entry.chapterId === "chapter-01-lou-sang")?.maps).toEqual([
@@ -30,6 +31,7 @@ describe("chapter metadata", () => {
       "river-ford",
       "ford-camp",
     ]);
+    expect(chapters.find((entry) => entry.chapterId === "chapter-04-ridgeway-camp")?.status).toBe("planned");
   });
 
   it("rejects unsupported chapter status values with exact field errors", () => {

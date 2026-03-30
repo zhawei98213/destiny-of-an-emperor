@@ -170,6 +170,14 @@ export async function buildTextIntegrityReport(): Promise<TextIntegrityReport> {
   ]);
 
   const issues: TextIntegrityIssue[] = [];
+  const importedChapters = chapters.filter((chapter) => (
+    chapter.maps.length > 0
+    || chapter.npcs.length > 0
+    || chapter.events.length > 0
+    || chapter.shops.length > 0
+    || chapter.enemyGroups.length > 0
+    || chapter.regressionCases.length > 0
+  ));
   const manualLineIds = new Set(story.dialogueLines.map((line) => line.id));
 
   const parsedStory = JSON.parse(rawStoryText) as Record<string, unknown>;
@@ -240,7 +248,7 @@ export async function buildTextIntegrityReport(): Promise<TextIntegrityReport> {
   });
 
   const eventIndex = new Map(story.events.map((event) => [event.id, event]));
-  const chapterCoverage: ChapterTextCoverage[] = chapters.map((chapter) => {
+  const chapterCoverage: ChapterTextCoverage[] = importedChapters.map((chapter) => {
     const lineIds = new Set<string>();
     chapter.events.forEach((eventId) => {
       const event = eventIndex.get(eventId);
@@ -310,4 +318,3 @@ export async function writeTextIntegrityArtifacts(report: TextIntegrityReport): 
   await writeFile(summaryPath, createSummary(report), "utf8");
   return report;
 }
-

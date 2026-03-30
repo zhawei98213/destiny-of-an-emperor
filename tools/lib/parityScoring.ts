@@ -130,7 +130,17 @@ function createIssue(severity: ParityIssueSeverity, message: string): ParityIssu
 }
 
 function getRealChapters(chapters: ChapterMetadata[]): ChapterMetadata[] {
-  return chapters.filter((chapter) => chapter.chapterId !== "chapter-template");
+  return chapters.filter((chapter) => (
+    chapter.chapterId !== "chapter-template"
+    && (
+      chapter.maps.length > 0
+      || chapter.npcs.length > 0
+      || chapter.events.length > 0
+      || chapter.shops.length > 0
+      || chapter.enemyGroups.length > 0
+      || chapter.regressionCases.length > 0
+    )
+  ));
 }
 
 function getChapterCases(

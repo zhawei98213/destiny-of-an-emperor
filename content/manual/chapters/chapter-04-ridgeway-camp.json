@@ -1,0 +1,26 @@
+{
+  "areaLabel": "Ridgeway Camp Slice",
+  "chapterId": "chapter-04-ridgeway-camp",
+  "enemyGroups": [],
+  "events": [],
+  "format": "chapter-metadata-v1",
+  "maps": [],
+  "notes": "Planned scaffold created by chapter bootstrap for chapter-04-ridgeway-camp. chapter-04-ridgeway-camp 的计划骨架由 chapter bootstrap 自动创建。 Replace placeholder notes with real import scope before moving beyond planned status. 在脱离 planned 状态前，请把这些占位说明替换成真实导入范围。 Current working title: Ridgeway Camp Advance. 当前工作标题：Ridgeway Camp Advance。",
+  "npcs": [],
+  "paritySummary": {
+    "battles": "planned",
+    "collision": "planned",
+    "dialogue": "planned",
+    "events": "planned",
+    "flags": "planned",
+    "items": "planned",
+    "mapLayout": "planned",
+    "npcPlacement": "planned",
+    "shops": "planned",
+    "transitions": "planned"
+  },
+  "regressionCases": [],
+  "shops": [],
+  "status": "planned",
+  "title": "Ridgeway Camp Advance"
+}
