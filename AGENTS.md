@@ -71,6 +71,12 @@ Follow it before making code, content, tooling, or documentation changes.
 - `npm run check:npc-placement`：校验 manual NPC 坐标与碰撞层和地图锚点的关系。
 - `npm run check:chapter-completeness`: compare chapter metadata ownership against currently reachable content.
 - `npm run check:chapter-completeness`：把章节元数据归属与当前可达内容做对照。
+- `npm run chapter-bootstrap -- --id <chapter-id> --title "<title>" --area "<area>"`: create a new chapter scaffold from the repository templates.
+- `npm run chapter-bootstrap -- --id <chapter-id> --title "<title>" --area "<area>"`：基于仓库模板创建新的章节骨架。
+- `npm run chapter-status-report`: summarize chapter import status from metadata, completeness, parity, regression, and UI parity evidence.
+- `npm run chapter-status-report`：基于元数据、completeness、parity、regression 和 UI parity 证据汇总章节导入状态。
+- `npm run chapter-lock-checklist -- --id <chapter-id>`: generate a chapter lock checklist for review.
+- `npm run chapter-lock-checklist -- --id <chapter-id>`：生成供审查使用的章节锁定清单。
 - `npm run asset-check`: generate the current asset parity report for imported chapters.
 - `npm run asset-check`：为已导入章节生成当前资产一致性报告。
 - `npm run text-check`: generate the current text integrity report for imported chapters.

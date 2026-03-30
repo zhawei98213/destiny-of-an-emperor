@@ -26,6 +26,18 @@ This directory tracks chapter-level planning documents for real remake slices.
 - [chapter-factory-template.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapter-factory-template.md): execution workflow reference
 - [chapter-factory-template.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapter-factory-template.md)：执行工艺参考
 
+## Workflow Commands
+## 工作流命令
+
+- `npm run chapter-bootstrap -- --id <chapter-id> --title "<title>" --area "<area>"`
+- `npm run chapter-bootstrap -- --id <chapter-id> --title "<title>" --area "<area>"`
+- `npm run check:chapter-completeness`
+- `npm run check:chapter-completeness`
+- `npm run chapter-status-report`
+- `npm run chapter-status-report`
+- `npm run chapter-lock-checklist -- --id <chapter-id>`
+- `npm run chapter-lock-checklist -- --id <chapter-id>`
+
 ## Current Chapter Records
 ## 当前章节记录
 
@@ -35,6 +47,8 @@ This directory tracks chapter-level planning documents for real remake slices.
 - `chapter-02-east-road-relay`：第二段真实切片，当前状态为 `validating`
 - `chapter-03-river-ford`: third real slice, currently `validating`
 - `chapter-03-river-ford`：第三段真实切片，当前状态为 `validating`
+- `chapter-04-ridgeway-camp`: bootstrap-created fourth chapter scaffold, currently `planned`
+- `chapter-04-ridgeway-camp`：通过 bootstrap 创建的第四章节骨架，当前状态为 `planned`
 
 ## Working Files
 ## 工作文件
@@ -47,6 +61,10 @@ This directory tracks chapter-level planning documents for real remake slices.
 - [chapter-03-river-ford-plan.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-03-river-ford-plan.md)：第三段真实切片的执行计划
 - [chapter-03-river-ford-lock-report.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-03-river-ford-lock-report.md): current lock and divergence report for the third real slice
 - [chapter-03-river-ford-lock-report.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-03-river-ford-lock-report.md)：第三段真实切片当前的锁定与差异报告
+- [chapter-04-ridgeway-camp-plan.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-04-ridgeway-camp-plan.md): bootstrap-created plan scaffold for the fourth chapter
+- [chapter-04-ridgeway-camp-plan.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-04-ridgeway-camp-plan.md)：通过 bootstrap 创建的第四章节计划骨架
+- [chapter-04-ridgeway-camp-lock-report.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-04-ridgeway-camp-lock-report.md): bootstrap-created lock report scaffold for the fourth chapter
+- [chapter-04-ridgeway-camp-lock-report.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-04-ridgeway-camp-lock-report.md)：通过 bootstrap 创建的第四章节锁定报告骨架
 
 The matching chapter metadata lives in `content/manual/chapters/`.
 对应的章节元数据位于 `content/manual/chapters/`。

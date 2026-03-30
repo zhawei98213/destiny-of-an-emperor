@@ -25,6 +25,12 @@ Current first-pass tooling:
 - `tools/check-npc-placement.ts`：检查 NPC 摆位是否撞上阻挡格、portal、spawn 点或其他 NPC。
 - `tools/check-chapter-completeness.ts`: compares chapter metadata against reachable maps, NPCs, events, shops, and enemy groups.
 - `tools/check-chapter-completeness.ts`：把章节元数据与当前可达地图、NPC、事件、商店和敌群做对照。
+- `tools/chapter-bootstrap.ts`: creates a chapter metadata file plus matching plan and lock-report scaffolds from the repository templates.
+- `tools/chapter-bootstrap.ts`：基于仓库模板创建章节元数据文件，以及对应的计划和锁定报告骨架。
+- `tools/chapter-status-report.ts`: aggregates chapter metadata, completeness, parity, regression, and UI parity into one chapter import status summary.
+- `tools/chapter-status-report.ts`：把章节元数据、completeness、parity、regression 和 UI parity 聚合成一份章节导入状态摘要。
+- `tools/chapter-lock-checklist.ts`: generates a review checklist for deciding whether a chapter is ready to lock.
+- `tools/chapter-lock-checklist.ts`：生成用于判断章节是否可锁定的审查清单。
 - `tools/asset-check.ts`: generates an asset parity report for current chapters, including missing resources, unreferenced resources, broken references, and sprite metadata integrity.
 - `tools/asset-check.ts`：为当前章节生成资产一致性报告，覆盖缺失资源、未引用资源、失效引用以及 sprite metadata 完整性。
 - `tools/text-check.ts`: generates a structured text integrity report, covering empty text, duplicate dialogue keys, missing metadata, broken event references, chapter coverage, and demo-versus-real text ratio.
@@ -73,6 +79,18 @@ Current first-pass tooling:
   Compares chapter metadata ownership against currently reachable chapter content and reports missing or cross-chapter entries.
 - `npm run check:chapter-completeness`
   把章节元数据归属与当前可达章节内容做比对，并报告缺失项或跨章节归属项。
+- `npm run chapter-bootstrap -- --id <chapter-id> --title "<title>" --area "<area>"`
+  Creates a new chapter scaffold from the current templates with much less manual copy/paste work.
+- `npm run chapter-bootstrap -- --id <chapter-id> --title "<title>" --area "<area>"`
+  基于当前模板创建新的章节骨架，显著减少手工复制样板的工作量。
+- `npm run chapter-status-report`
+  Generates `reports/chapters/latest/status-report.*` from current chapter metadata and evidence reports.
+- `npm run chapter-status-report`
+  基于当前章节元数据和证据报告生成 `reports/chapters/latest/status-report.*`。
+- `npm run chapter-lock-checklist -- --id <chapter-id>`
+  Generates `reports/chapters/latest/lock-checklists/<chapter-id>.md` for lock review.
+- `npm run chapter-lock-checklist -- --id <chapter-id>`
+  生成 `reports/chapters/latest/lock-checklists/<chapter-id>.md`，用于锁定审核。
 - `npm run asset-check`
   Generates `reports/asset-parity/latest/` and classifies current chapter assets as placeholder/imported/validated.
 - `npm run asset-check`

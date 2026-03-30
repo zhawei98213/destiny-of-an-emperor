@@ -51,6 +51,12 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - `npm run check:npc-placement`：校验 manual NPC 坐标不会与阻挡格、portal、spawn 点或其他 NPC 重叠。
 - `npm run check:chapter-completeness`: compare chapter metadata with currently reachable maps, NPCs, events, shops, and enemy groups.
 - `npm run check:chapter-completeness`：把章节元数据与当前可达地图、NPC、事件、商店和敌群做对照。
+- `npm run chapter-bootstrap -- --id <chapter-id> --title "<title>" --area "<area>"`: create chapter metadata, plan, and lock-report scaffolds from the existing templates.
+- `npm run chapter-bootstrap -- --id <chapter-id> --title "<title>" --area "<area>"`：基于现有模板创建章节元数据、计划和锁定报告骨架。
+- `npm run chapter-status-report`: generate one chapter-level status summary aligned with completeness, parity, regression, and UI parity.
+- `npm run chapter-status-report`：生成与 completeness、parity、regression 和 UI parity 对齐的章节级状态摘要。
+- `npm run chapter-lock-checklist -- --id <chapter-id>`: generate a lock checklist for one chapter.
+- `npm run chapter-lock-checklist -- --id <chapter-id>`：为单个章节生成锁定检查清单。
 - `npm run asset-check`: generate the current chapter asset parity report and identify placeholder asset categories.
 - `npm run asset-check`：生成当前章节资产一致性报告，并识别占位资产分类。
 - `npm run text-check`: generate the current text integrity report, including chapter coverage and demo-versus-real text ratio.
@@ -67,6 +73,8 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - 性能基线报告会写入 `reports/performance/latest/`。
 - UI parity reports are written to `reports/ui-parity/latest/`.
 - UI 一致性报告会写入 `reports/ui-parity/latest/`。
+- Chapter workflow reports are written to `reports/chapters/latest/`.
+- 章节工作流报告会写入 `reports/chapters/latest/`。
 - `npm run build`: type-check and create a production build in `dist/`.
 - `npm run build`：执行类型检查并在 `dist/` 目录生成生产构建。
 - GitHub Actions now runs `validate-content`, `test`, `build`, `regression-smoke`, and `parity-score` on push and pull request.
