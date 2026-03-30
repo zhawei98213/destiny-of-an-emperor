@@ -61,6 +61,14 @@ Follow it before making code, content, tooling, or documentation changes.
 - `npm run regression-smoke`：执行导入、校验和最小回归测试链路。
 - `npm run battle-parity`: generate the current real-battle parity calibration report.
 - `npm run battle-parity`：生成当前真实战斗一致性校准报告。
+- `npm run event-json`: lint event JSON structure and report formatting drift.
+- `npm run event-json`：检查事件 JSON 结构并报告格式化漂移。
+- `npm run format:events`: rewrite `content/manual/story.content.json` into stable formatting.
+- `npm run format:events`：把 `content/manual/story.content.json` 重写成稳定格式。
+- `npm run check:npc-placement`: verify manual NPC coordinates against collision and map landmarks.
+- `npm run check:npc-placement`：校验 manual NPC 坐标与碰撞层和地图锚点的关系。
+- `npm run check:chapter-completeness`: compare chapter metadata ownership against currently reachable content.
+- `npm run check:chapter-completeness`：把章节元数据归属与当前可达内容做对照。
 
 ## Hard Rules
 ## 强制规则

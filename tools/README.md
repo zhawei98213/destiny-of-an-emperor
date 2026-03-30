@@ -19,6 +19,12 @@ Current first-pass tooling:
 - `tools/importers/importGameData.ts`：导入敌人、物品、商店原始表，并生成运行时战斗内容包和一个 staging report。
 - `tools/validate-content.ts`: verifies source-derived generated files are up to date and then validates the final runtime content database.
 - `tools/validate-content.ts`：先检查 generated 文件是否与 source 推导结果一致，再校验最终运行时内容数据库。
+- `tools/event-json.ts`: lints event JSON structure and can rewrite `story.content.json` into stable formatter output.
+- `tools/event-json.ts`：检查事件 JSON 结构，并可把 `story.content.json` 重写为稳定格式化输出。
+- `tools/check-npc-placement.ts`: checks whether NPC placement collides with blocked tiles, portals, spawns, or other NPCs.
+- `tools/check-npc-placement.ts`：检查 NPC 摆位是否撞上阻挡格、portal、spawn 点或其他 NPC。
+- `tools/check-chapter-completeness.ts`: compares chapter metadata against reachable maps, NPCs, events, shops, and enemy groups.
+- `tools/check-chapter-completeness.ts`：把章节元数据与当前可达地图、NPC、事件、商店和敌群做对照。
 
 ## Import Rules
 ## 导入规范
@@ -37,6 +43,28 @@ Current first-pass tooling:
 - 导入器输出顺序必须保持稳定，这样 diff 才可审查。
 - Failure messages should point to a concrete file and field whenever possible.
 - 出错信息应尽量定位到具体文件和字段。
+- Editor helpers should focus on import-time friction and chapter maintenance, not duplicate the final runtime guarantees already enforced by `validate-content`.
+- 编辑辅助工具应聚焦导入阶段摩擦和章节维护，不要重复 `validate-content` 已经承担的最终运行时保证。
+
+## Editor Helpers
+## 录入辅助工具
+
+- `npm run event-json`
+  Checks event JSON shape and reports formatting drift in `content/manual/story.content.json`.
+- `npm run event-json`
+  检查 `content/manual/story.content.json` 的事件 JSON 结构，并报告格式化漂移。
+- `npm run format:events`
+  Rewrites `content/manual/story.content.json` into stable key order and formatting.
+- `npm run format:events`
+  把 `content/manual/story.content.json` 重写成稳定 key 顺序和格式。
+- `npm run check:npc-placement`
+  Validates that current manual NPC coordinates do not overlap blocked tiles, portals, spawn points, or other NPCs.
+- `npm run check:npc-placement`
+  校验当前 manual NPC 坐标不会与阻挡格、portal、spawn 点或其他 NPC 重叠。
+- `npm run check:chapter-completeness`
+  Compares chapter metadata ownership against currently reachable chapter content and reports missing or cross-chapter entries.
+- `npm run check:chapter-completeness`
+  把章节元数据归属与当前可达章节内容做比对，并报告缺失项或跨章节归属项。
 
 ## Recommended Import Flow
 ## 推荐导入流程

@@ -43,6 +43,14 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - `npm run regression-smoke`：用一条命令执行导入、校验和最小回归测试。
 - `npm run battle-parity`: generate the current battle parity calibration report for real battle slices.
 - `npm run battle-parity`：为当前真实战斗切片生成战斗一致性校准报告。
+- `npm run event-json`: lint event JSON structure and show formatting drift in `content/manual/story.content.json`.
+- `npm run event-json`：检查 `content/manual/story.content.json` 的事件 JSON 结构并提示格式化漂移。
+- `npm run format:events`: rewrite `content/manual/story.content.json` into stable formatting for reviewable diffs.
+- `npm run format:events`：把 `content/manual/story.content.json` 重写成稳定格式，便于审查 diff。
+- `npm run check:npc-placement`: verify that manual NPC coordinates do not overlap blocked tiles, portals, spawn points, or other NPCs.
+- `npm run check:npc-placement`：校验 manual NPC 坐标不会与阻挡格、portal、spawn 点或其他 NPC 重叠。
+- `npm run check:chapter-completeness`: compare chapter metadata with currently reachable maps, NPCs, events, shops, and enemy groups.
+- `npm run check:chapter-completeness`：把章节元数据与当前可达地图、NPC、事件、商店和敌群做对照。
 - Regression reports are written to `reports/regression/latest/`.
 - 回归报告会写入 `reports/regression/latest/`。
 - Battle parity reports are written to `reports/battle-parity/latest/`.
