@@ -20,6 +20,8 @@
 - `npm run battle-parity`：为当前真实内容已使用的战斗切片生成专项一致性校准报告
 - `npm run performance-baseline`: generate the current startup, map-transition, battle-entry, and save/load timing baseline
 - `npm run performance-baseline`：生成当前启动、地图切换、战斗进入和存档读写的耗时基线
+- `npm run ui-parity`: generate the current UI behavior parity report for dialogue, menu, shop, battle, and save flows
+- `npm run ui-parity`：为对话、菜单、商店、战斗和存档流程生成当前 UI 行为一致性报告
 
 ## Current Smoke Scope
 ## 当前 Smoke 范围
@@ -99,6 +101,17 @@ It also writes readable and machine-readable artifacts into `reports/regression/
 - `report.json`: machine-readable metrics, bottlenecks, and issue-bucket findings
 - `report.json`：供工具读取的结构化指标、瓶颈和问题分类结论
 
+## UI Parity Output
+## UI 一致性输出
+
+`npm run ui-parity` writes behavior artifacts into `reports/ui-parity/latest/`.
+`npm run ui-parity` 会把行为对照产物写入 `reports/ui-parity/latest/`。
+
+- `summary.md`: human-readable scene-based UI parity report with expected, actual, and difference sections
+- `summary.md`：适合人工审查的场景级 UI 一致性报告，包含预期、实际和差异小节
+- `report.json`: machine-readable UI parity report that can be consumed by discrepancy triage
+- `report.json`：可被 discrepancy triage 读取的结构化 UI 一致性报告
+
 ## Expectations For New Work
 ## 新改动要求
 
@@ -128,6 +141,8 @@ It also writes readable and machine-readable artifacts into `reports/regression/
 5. 在修改 battle runtime、奖励、遭遇表或真实战斗相关内容后执行 `npm run battle-parity`
 6. `npm run performance-baseline` after startup, save, battle-entry, map-switch, or large content-volume changes
 6. 在修改启动、存档、战斗进入、地图切换或大体量内容后执行 `npm run performance-baseline`
+7. `npm run ui-parity` after dialogue, menu, shop, battle UI, or save-entry changes
+7. 在修改对话、菜单、商店、战斗 UI 或存档入口后执行 `npm run ui-parity`
 
 ## CI Coverage
 ## CI 覆盖范围

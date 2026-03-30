@@ -57,12 +57,16 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - `npm run text-check`：生成当前文本完整性报告，包括章节覆盖和 demo/真实文本占比。
 - `npm run performance-baseline`: generate the current runtime performance baseline report and hotspot summary.
 - `npm run performance-baseline`：生成当前运行时性能基线报告和热点摘要。
+- `npm run ui-parity`: generate the current UI behavior parity report for real chapter scenes.
+- `npm run ui-parity`：为真实章节场景生成当前 UI 行为一致性报告。
 - Regression reports are written to `reports/regression/latest/`.
 - 回归报告会写入 `reports/regression/latest/`。
 - Battle parity reports are written to `reports/battle-parity/latest/`.
 - 战斗一致性校准报告会写入 `reports/battle-parity/latest/`。
 - Performance baseline reports are written to `reports/performance/latest/`.
 - 性能基线报告会写入 `reports/performance/latest/`。
+- UI parity reports are written to `reports/ui-parity/latest/`.
+- UI 一致性报告会写入 `reports/ui-parity/latest/`。
 - `npm run build`: type-check and create a production build in `dist/`.
 - `npm run build`：执行类型检查并在 `dist/` 目录生成生产构建。
 - GitHub Actions now runs `validate-content`, `test`, `build`, `regression-smoke`, and `parity-score` on push and pull request.

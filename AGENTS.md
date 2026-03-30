@@ -77,6 +77,8 @@ Follow it before making code, content, tooling, or documentation changes.
 - `npm run text-check`：为已导入章节生成当前文本完整性报告。
 - `npm run performance-baseline`: generate the current runtime performance baseline report.
 - `npm run performance-baseline`：生成当前运行时性能基线报告。
+- `npm run ui-parity`: generate the current UI parity report for imported chapter scenes.
+- `npm run ui-parity`：为已导入章节场景生成当前 UI 一致性报告。
 
 ## Hard Rules
 ## 强制规则
@@ -116,6 +118,8 @@ After a meaningful change, run at least the commands that match the risk:
 - 可能影响构建的改动：`npm run build`
 - Performance-sensitive change: `npm run performance-baseline`
 - 涉及性能敏感路径的改动：`npm run performance-baseline`
+- UI-flow or player-facing overlay change: `npm run ui-parity`
+- 涉及 UI 流程或玩家可见 overlay 的改动：`npm run ui-parity`
 - CI should stay aligned with these same checks instead of inventing a separate heavier path.
 - CI 应保持与这些相同的校验链路一致，不要额外发明一条更重的独立流程。
 

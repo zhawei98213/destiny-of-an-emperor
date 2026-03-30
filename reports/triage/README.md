@@ -4,6 +4,9 @@
 `reports/triage/latest/` is the generated output directory for discrepancy triage.
 `reports/triage/latest/` 是差异分级工具的生成输出目录。
 
+The triage tool reads parity, regression, and UI parity evidence when available.
+分级工具会在可用时读取 parity、regression 和 UI parity 证据。
+
 The triage tool writes:
 分级工具会写出：
 

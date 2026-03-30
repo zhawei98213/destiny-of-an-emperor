@@ -31,6 +31,8 @@ Current first-pass tooling:
 - `tools/text-check.ts`：生成结构化文本完整性报告，覆盖空文本、重复对白 key、缺失元数据、失效事件引用、章节覆盖率以及 demo/真实文本占比。
 - `tools/performance-baseline.ts`: samples startup, map-transition, battle-entry, and save/load costs, then writes a comparable runtime baseline report.
 - `tools/performance-baseline.ts`：采样启动、地图切换、战斗进入和存档读写成本，并输出可比较的运行时基线报告。
+- `tools/ui-parity.ts`: audits chapter-scoped UI behavior for dialogue, menu, shop, battle, and save flows, then writes a structured parity report.
+- `tools/ui-parity.ts`：审计章节范围内的对话、菜单、商店、战斗和存档 UI 行为，并输出结构化一致性报告。
 
 ## Import Rules
 ## 导入规范
@@ -83,6 +85,10 @@ Current first-pass tooling:
   Generates `reports/performance/latest/` and classifies the most obvious timing hotspots into runtime, resource, and import buckets.
 - `npm run performance-baseline`
   生成 `reports/performance/latest/`，并把最明显的耗时热点分类到 runtime、resource 和 import 三类。
+- `npm run ui-parity`
+  Generates `reports/ui-parity/latest/` and records matched versus diverged UI behavior for real chapter scenes.
+- `npm run ui-parity`
+  生成 `reports/ui-parity/latest/`，并记录真实章节场景中的 UI 行为匹配项与偏差项。
 
 ## Recommended Import Flow
 ## 推荐导入流程
