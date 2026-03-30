@@ -14,6 +14,7 @@ describe("chapter metadata", () => {
     expect(chapters.map((entry) => entry.chapterId)).toEqual([
       "chapter-01-lou-sang",
       "chapter-02-east-road-relay",
+      "chapter-03-river-ford",
       "chapter-template",
     ]);
     expect(chapters.find((entry) => entry.chapterId === "chapter-01-lou-sang")?.maps).toEqual([
@@ -23,6 +24,11 @@ describe("chapter metadata", () => {
     expect(chapters.find((entry) => entry.chapterId === "chapter-02-east-road-relay")?.maps).toEqual([
       "east-road",
       "relay-post",
+    ]);
+    expect(chapters.find((entry) => entry.chapterId === "chapter-03-river-ford")?.maps).toEqual([
+      "relay-east-pass",
+      "river-ford",
+      "ford-camp",
     ]);
   });
 

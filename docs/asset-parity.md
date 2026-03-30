@@ -92,8 +92,8 @@ The current parity scope uses these categories:
 Run `npm run asset-check` to regenerate the latest structured report under `reports/asset-parity/latest/`.
 执行 `npm run asset-check` 可在 `reports/asset-parity/latest/` 重新生成最新结构化报告。
 
-At the current repository stage, both imported real chapters still read as mostly `placeholder` on the asset side.
-在当前仓库阶段，两个已导入真实章节在资产侧仍然大多处于 `placeholder`。
+At the current repository stage, all three imported real chapters still read as mostly `placeholder` on the asset side.
+在当前仓库阶段，三个已导入真实章节在资产侧仍然大多处于 `placeholder`。
 
 Main reasons:
 主要原因：
@@ -108,6 +108,8 @@ Main reasons:
 - UI 面板与图标仍是代码绘制或尚未建立
 - audio ids exist in content, but no audio registry or files exist
 - 音频 id 已进入内容层，但还没有音频注册层和实际文件
+- the new third chapter reuses the same symbolic NPC, UI, and audio ids, so it increases coverage breadth without changing the underlying asset registry maturity
+- 第三个真实章节继续复用同一批符号化的 NPC、UI 和音频 id，因此扩大的主要是覆盖范围，而不是底层资产注册层的成熟度
 
 ## Validation Commands
 ## 校验命令
@@ -168,3 +170,6 @@ An asset category for a chapter should not move to `locked` until:
 
 4. Add an audio registry only when real audio files or real reference ids are ready.
 4. 只有当真实音频文件或真实参考 id 准备好之后，再建立音频注册层。
+
+5. Add chapter-03 NPC and map-facing sprite families only through the shared metadata and asset registry path, not through scene-local overrides.
+5. 第 03 章新增的 NPC 和地图可见资源也必须继续走共享 metadata 与资产注册层，不能回退到 scene 本地特判。

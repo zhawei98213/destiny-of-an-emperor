@@ -14,6 +14,7 @@ describe("import tools", () => {
       "demo-maps.source.json",
       "east-road-relay.source.json",
       "lou-sang-village.source.json",
+      "river-ford-camp.source.json",
     ]);
     expect(firstReport.maps).toEqual(expect.arrayContaining([
       expect.objectContaining({
@@ -28,6 +29,14 @@ describe("import tools", () => {
       expect.objectContaining({
         id: "field",
         sourceFile: "demo-maps.source.json",
+      }),
+      expect.objectContaining({
+        id: "river-ford",
+        sourceFile: "river-ford-camp.source.json",
+        npcCount: 3,
+        portalCount: 1,
+        spawnPointCount: 2,
+        triggerCount: 4,
       }),
     ]));
   });

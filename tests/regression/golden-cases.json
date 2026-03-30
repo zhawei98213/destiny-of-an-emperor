@@ -858,6 +858,449 @@
         "dialogueLineIds": [],
         "battleOutcome": "victory"
       }
+    },
+    {
+      "id": "relay-post-east-warp",
+      "name": "Relay post east warp / 驿站东口切入东行山道",
+      "initialState": {
+        "world": {
+          "mapId": "relay-post",
+          "spawnPointId": "relay-west-gate",
+          "playerX": 16,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "tile",
+        "mapId": "relay-post",
+        "x": 16,
+        "y": 6
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "relay-east-pass",
+          "currentSpawnId": "from-relay-post-east",
+          "playerX": 2,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["relay-post-east-line"]
+      }
+    },
+    {
+      "id": "ford-clerk-issues-seal",
+      "name": "Ford clerk issues permit / 渡口文吏发放文符",
+      "initialState": {
+        "world": {
+          "mapId": "river-ford",
+          "spawnPointId": "from-west-pass",
+          "playerX": 6,
+          "playerY": 7,
+          "facing": "up"
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "river-ford",
+        "npcId": "ford-clerk"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "river-ford",
+          "currentSpawnId": "from-west-pass",
+          "playerX": 6,
+          "playerY": 7,
+          "facing": "up"
+        },
+        "flags": {
+          "ford-seal-issued": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": [
+            {
+              "itemId": "ford-seal",
+              "quantity": 1
+            }
+          ]
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["ford-clerk-line-issue"]
+      }
+    },
+    {
+      "id": "ford-guard-opens-crossing",
+      "name": "Ford guard opens crossing / 渡口守兵放行木桥",
+      "initialState": {
+        "world": {
+          "mapId": "river-ford",
+          "spawnPointId": "from-west-pass",
+          "playerX": 15,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 0,
+          "items": [
+            {
+              "itemId": "ford-seal",
+              "quantity": 1
+            }
+          ]
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "river-ford",
+        "npcId": "ford-guard"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "river-ford",
+          "currentSpawnId": "from-west-pass",
+          "playerX": 15,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "river-ford-gate-open": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": [
+            {
+              "itemId": "ford-seal",
+              "quantity": 1
+            }
+          ]
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["ford-guard-line-open"]
+      }
+    },
+    {
+      "id": "ford-east-crossing-warps",
+      "name": "Ford east crossing warp / 渡口东桥切入前营",
+      "initialState": {
+        "world": {
+          "mapId": "river-ford",
+          "spawnPointId": "from-west-pass",
+          "playerX": 18,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "river-ford-gate-open": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "tile",
+        "mapId": "river-ford",
+        "x": 18,
+        "y": 7
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "ford-camp",
+          "currentSpawnId": "from-river-crossing",
+          "playerX": 2,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "river-ford-gate-open": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": []
+      }
+    },
+    {
+      "id": "camp-quartermaster-opens-shop",
+      "name": "Camp quartermaster opens shop / 营地军需官打开商店",
+      "initialState": {
+        "world": {
+          "mapId": "ford-camp",
+          "spawnPointId": "from-river-crossing",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 24,
+          "items": []
+        },
+        "shopStates": {
+          "ford-camp-shop": {
+            "visited": false
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "ford-camp",
+        "npcId": "camp-quartermaster"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "ford-camp",
+          "currentSpawnId": "from-river-crossing",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 24,
+          "items": []
+        },
+        "shopStates": {
+          "ford-camp-shop": {
+            "visited": true
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["camp-quartermaster-line"],
+        "shopId": "ford-camp-shop",
+        "shopItemLines": [
+          "1. Herb - 10G",
+          "2. Bandage - 16G",
+          "3. Bronze Sword - 42G"
+        ]
+      }
+    },
+    {
+      "id": "ford-camp-cache-first-open",
+      "name": "Ford camp cache first open / 前营木箱首次开启",
+      "initialState": {
+        "world": {
+          "mapId": "ford-camp",
+          "spawnPointId": "from-river-crossing",
+          "playerX": 3,
+          "playerY": 9,
+          "facing": "down"
+        },
+        "flags": {
+          "ford-camp-cache-opened": false
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "tile",
+        "mapId": "ford-camp",
+        "x": 3,
+        "y": 9
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "ford-camp",
+          "currentSpawnId": "from-river-crossing",
+          "playerX": 3,
+          "playerY": 9,
+          "facing": "down"
+        },
+        "flags": {
+          "ford-camp-cache-opened": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": [
+            {
+              "itemId": "bandage",
+              "quantity": 2
+            }
+          ]
+        },
+        "consumedTriggerIds": ["ford-camp-cache-trigger"]
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["ford-camp-cache-line-open"]
+      }
+    },
+    {
+      "id": "relay-east-pass-battle-roundtrip",
+      "name": "Relay east pass battle roundtrip / 东行山道遭遇战并返回地图",
+      "initialState": {
+        "world": {
+          "mapId": "relay-east-pass",
+          "spawnPointId": "from-relay-post-east",
+          "playerX": 10,
+          "playerY": 6,
+          "facing": "right",
+          "stepCount": 6
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 0,
+            "currentHp": 24,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "region",
+        "mapId": "relay-east-pass",
+        "x": 10,
+        "y": 6
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "relay-east-pass",
+          "currentSpawnId": "from-relay-post-east",
+          "playerX": 10,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 7,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 5,
+            "currentHp": 12,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene", "BattleScene", "WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": [],
+        "battleOutcome": "victory"
+      }
+    },
+    {
+      "id": "river-ford-battle-roundtrip",
+      "name": "River ford battle roundtrip / 渡口流匪遭遇战并返回地图",
+      "initialState": {
+        "world": {
+          "mapId": "river-ford",
+          "spawnPointId": "from-west-pass",
+          "playerX": 10,
+          "playerY": 5,
+          "facing": "right",
+          "stepCount": 4
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 0,
+            "currentHp": 24,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "region",
+        "mapId": "river-ford",
+        "x": 10,
+        "y": 5
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "river-ford",
+          "currentSpawnId": "from-west-pass",
+          "playerX": 10,
+          "playerY": 5,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 11,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 8,
+            "currentHp": 4,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene", "BattleScene", "WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": [],
+        "battleOutcome": "victory"
+      }
     }
   ]
 }
