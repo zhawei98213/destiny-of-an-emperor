@@ -92,8 +92,8 @@ The current parity scope uses these categories:
 Run `npm run asset-check` to regenerate the latest structured report under `reports/asset-parity/latest/`.
 执行 `npm run asset-check` 可在 `reports/asset-parity/latest/` 重新生成最新结构化报告。
 
-At the current repository stage, all three imported real chapters still read as mostly `placeholder` on the asset side.
-在当前仓库阶段，三个已导入真实章节在资产侧仍然大多处于 `placeholder`。
+At the current repository stage, all four imported real chapters still read as mostly `placeholder` on the asset side.
+在当前仓库阶段，四个已导入真实章节在资产侧仍然大多处于 `placeholder`。
 
 Main reasons:
 主要原因：
@@ -108,8 +108,8 @@ Main reasons:
 - UI 面板与图标仍是代码绘制或尚未建立
 - audio ids exist in content, but no audio registry or files exist
 - 音频 id 已进入内容层，但还没有音频注册层和实际文件
-- the new third chapter reuses the same symbolic NPC, UI, and audio ids, so it increases coverage breadth without changing the underlying asset registry maturity
-- 第三个真实章节继续复用同一批符号化的 NPC、UI 和音频 id，因此扩大的主要是覆盖范围，而不是底层资产注册层的成熟度
+- the new third and fourth chapters continue reusing the same symbolic NPC, UI, and audio ids, so the recent gain is broader chapter coverage rather than a more mature asset registry
+- 第三个和第四个真实章节继续复用同一批符号化的 NPC、UI 和音频 id，因此最近的提升主要体现在章节覆盖范围，而不是底层资产注册层成熟度
 
 ## Validation Commands
 ## 校验命令
