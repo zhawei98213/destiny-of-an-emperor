@@ -39,6 +39,8 @@ Current first-pass tooling:
 - `tools/performance-baseline.ts`：采样启动、地图切换、战斗进入和存档读写成本，并输出可比较的运行时基线报告。
 - `tools/ui-parity.ts`: audits chapter-scoped UI behavior for dialogue, menu, shop, battle, and save flows, then writes a structured parity report.
 - `tools/ui-parity.ts`：审计章节范围内的对话、菜单、商店、战斗和存档 UI 行为，并输出结构化一致性报告。
+- `tools/pre-release-check.ts`: runs the current release-facing command chain in `light` or `full` mode and writes one summary verdict for importing readiness versus beta-test readiness.
+- `tools/pre-release-check.ts`：以 `light` 或 `full` 模式执行当前发布前命令链，并输出“适合继续导入 / 适合发布测试版”的统一结论。
 
 ## Import Rules
 ## 导入规范
@@ -107,6 +109,14 @@ Current first-pass tooling:
   Generates `reports/ui-parity/latest/` and records matched versus diverged UI behavior for real chapter scenes.
 - `npm run ui-parity`
   生成 `reports/ui-parity/latest/`，并记录真实章节场景中的 UI 行为匹配项与偏差项。
+- `npm run save-migration-check`
+  Runs the focused save compatibility regression tests without rerunning the whole suite.
+- `npm run save-migration-check`
+  在不重跑整套测试的情况下执行聚焦存档兼容性的回归测试。
+- `npm run pre-release-check -- --mode light|full`
+  Generates `reports/pre-release/latest/` and summarizes whether the repository is fit for continued importing or beta-test release.
+- `npm run pre-release-check -- --mode light|full`
+  生成 `reports/pre-release/latest/`，并汇总当前仓库是否适合继续导入或发布测试版。
 
 ## Recommended Import Flow
 ## 推荐导入流程

@@ -22,6 +22,10 @@
 - `npm run performance-baseline`：生成当前启动、地图切换、战斗进入和存档读写的耗时基线
 - `npm run ui-parity`: generate the current UI behavior parity report for dialogue, menu, shop, battle, and save flows
 - `npm run ui-parity`：为对话、菜单、商店、战斗和存档流程生成当前 UI 行为一致性报告
+- `npm run save-migration-check`: run the focused save compatibility and migration regression tests
+- `npm run save-migration-check`：执行聚焦存档兼容性与迁移的回归测试
+- `npm run pre-release-check -- --mode light|full`: run the aggregated release-facing gate with a concise suitability verdict
+- `npm run pre-release-check -- --mode light|full`：执行聚合后的发布前门禁，并输出简洁的适用性结论
 
 ## Current Smoke Scope
 ## 当前 Smoke 范围
@@ -112,6 +116,37 @@ It also writes readable and machine-readable artifacts into `reports/regression/
 - `report.json`: machine-readable UI parity report that can be consumed by discrepancy triage
 - `report.json`：可被 discrepancy triage 读取的结构化 UI 一致性报告
 
+## Pre-Release Output
+## 发布前检查输出
+
+`npm run pre-release-check -- --mode light|full` writes release-gate artifacts into `reports/pre-release/latest/`.
+`npm run pre-release-check -- --mode light|full` 会把发布前门禁产物写入 `reports/pre-release/latest/`。
+
+- `summary.md`: concise command overview plus verdicts for continued importing and beta-test readiness
+- `summary.md`：简洁的命令总览，以及“是否适合继续导入 / 是否适合发布测试版”的结论
+- `report.json`: machine-readable command results, metrics, failures, and notes
+- `report.json`：包含命令结果、指标、失败项和备注的结构化报告
+
+`light` mode focuses on core completion checks:
+`light` 模式聚焦核心完成定义检查：
+
+- `validate-content`
+- `save-migration-check`
+- `test`
+- `build`
+
+`full` mode extends that chain with release-facing reports:
+`full` 模式会在此基础上补充面向发布的报告链路：
+
+- `regression-smoke`
+- `parity-score`
+- `check:chapter-completeness`
+- `asset-check`
+- `text-check`
+
+The command is intentionally sequential. Report readers that depend on `reports/regression/latest` should not run in parallel with `regression-smoke`.
+该命令刻意按顺序执行。依赖 `reports/regression/latest` 的报告读取步骤不应与 `regression-smoke` 并行运行。
+
 ## Expectations For New Work
 ## 新改动要求
 
@@ -143,6 +178,8 @@ It also writes readable and machine-readable artifacts into `reports/regression/
 6. 在修改启动、存档、战斗进入、地图切换或大体量内容后执行 `npm run performance-baseline`
 7. `npm run ui-parity` after dialogue, menu, shop, battle UI, or save-entry changes
 7. 在修改对话、菜单、商店、战斗 UI 或存档入口后执行 `npm run ui-parity`
+8. `npm run pre-release-check -- --mode full` before any beta-test handoff or release-style checkpoint
+8. 在任何测试版移交或接近发布的检查点之前执行 `npm run pre-release-check -- --mode full`
 
 ## CI Coverage
 ## CI 覆盖范围

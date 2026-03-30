@@ -85,6 +85,10 @@ Follow it before making code, content, tooling, or documentation changes.
 - `npm run performance-baseline`：生成当前运行时性能基线报告。
 - `npm run ui-parity`: generate the current UI parity report for imported chapter scenes.
 - `npm run ui-parity`：为已导入章节场景生成当前 UI 一致性报告。
+- `npm run save-migration-check`: run the dedicated save compatibility and migration regression tests.
+- `npm run save-migration-check`：执行专门的存档兼容性与迁移回归测试。
+- `npm run pre-release-check -- --mode light|full`: run one release-facing command that summarizes whether the repo is fit for continued importing or beta-test release.
+- `npm run pre-release-check -- --mode light|full`：执行统一的发布前检查命令，并汇总仓库当前是否适合继续导入或发布测试版。
 
 ## Hard Rules
 ## 强制规则
@@ -118,6 +122,8 @@ After a meaningful change, run at least the commands that match the risk:
 - 运行时或 scene 改动：`npm run test`
 - Cross-cutting or release-shaping change: `npm run regression-smoke`
 - 跨模块或接近发布的改动：`npm run regression-smoke`
+- SaveData or compatibility change: `npm run save-migration-check`
+- SaveData 或兼容性改动：`npm run save-migration-check`
 - Battle tuning or battle-facing content change: `npm run battle-parity`
 - 战斗调参或战斗相关内容改动：`npm run battle-parity`
 - Build-affecting change: `npm run build`
@@ -126,6 +132,8 @@ After a meaningful change, run at least the commands that match the risk:
 - 涉及性能敏感路径的改动：`npm run performance-baseline`
 - UI-flow or player-facing overlay change: `npm run ui-parity`
 - 涉及 UI 流程或玩家可见 overlay 的改动：`npm run ui-parity`
+- Before a beta-test handoff or any release-style checkpoint: `npm run pre-release-check -- --mode full`
+- 在测试版移交或任何接近发布的检查点之前：执行 `npm run pre-release-check -- --mode full`
 - CI should stay aligned with these same checks instead of inventing a separate heavier path.
 - CI 应保持与这些相同的校验链路一致，不要额外发明一条更重的独立流程。
 

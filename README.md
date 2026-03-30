@@ -65,6 +65,10 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - `npm run performance-baseline`：生成当前运行时性能基线报告和热点摘要。
 - `npm run ui-parity`: generate the current UI behavior parity report for real chapter scenes.
 - `npm run ui-parity`：为真实章节场景生成当前 UI 行为一致性报告。
+- `npm run save-migration-check`: run the dedicated save compatibility regression tests.
+- `npm run save-migration-check`：执行专门的存档兼容性回归测试。
+- `npm run pre-release-check -- --mode light|full`: run the aggregated pre-release gate and print one verdict for continued importing versus beta-test readiness.
+- `npm run pre-release-check -- --mode light|full`：执行聚合后的发布前检查，并输出“是否适合继续导入 / 是否适合发布测试版”的统一结论。
 - Regression reports are written to `reports/regression/latest/`.
 - 回归报告会写入 `reports/regression/latest/`。
 - Battle parity reports are written to `reports/battle-parity/latest/`.
@@ -75,6 +79,8 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - UI 一致性报告会写入 `reports/ui-parity/latest/`。
 - Chapter workflow reports are written to `reports/chapters/latest/`.
 - 章节工作流报告会写入 `reports/chapters/latest/`。
+- Pre-release reports are written to `reports/pre-release/latest/`.
+- 发布前检查报告会写入 `reports/pre-release/latest/`。
 - `npm run build`: type-check and create a production build in `dist/`.
 - `npm run build`：执行类型检查并在 `dist/` 目录生成生产构建。
 - GitHub Actions now runs `validate-content`, `test`, `build`, `regression-smoke`, and `parity-score` on push and pull request.
