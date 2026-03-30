@@ -15,6 +15,7 @@
     "import:text": "vite-node tools/run-import-text.ts",
     "import:data": "vite-node tools/run-import-data.ts",
     "parity-score": "vite-node tools/parity-score.ts",
+    "discrepancy-triage": "vite-node tools/discrepancy-triage.ts",
     "test": "vitest run",
     "regression-smoke": "npm run import-all && npm run validate-content && vite-node tests/regression/runGoldenRegression.ts",
     "test:watch": "vitest"

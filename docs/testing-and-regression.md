@@ -14,6 +14,8 @@
 - `npm run regression-smoke`：执行最小导入、校验和回归检查链路
 - `npm run parity-score`: score chapter parity from chapter metadata, parity state, and regression evidence
 - `npm run parity-score`：基于章节元数据、parity 状态和回归证据计算章节一致性评分
+- `npm run discrepancy-triage`: turn the latest parity and regression evidence into a prioritized repair backlog
+- `npm run discrepancy-triage`：把最新 parity 和 regression 证据转成带优先级的修复待办
 
 ## Current Smoke Scope
 ## 当前 Smoke 范围
@@ -59,6 +61,17 @@ It also writes readable and machine-readable artifacts into `reports/regression/
 - `summary.md`：每个章节的总分、子分、阻塞项和次要偏差
 - `report.json`: structured score report for future repair loops
 - `report.json`：供后续修补流程读取的结构化评分报告
+
+## Discrepancy Triage Output
+## 差异分级输出
+
+`npm run discrepancy-triage` reads `reports/parity/latest/report.json` and `reports/regression/latest/report.json`, then writes a repair backlog into `reports/triage/latest/`.
+`npm run discrepancy-triage` 会读取 `reports/parity/latest/report.json` 和 `reports/regression/latest/report.json`，再把修复待办写入 `reports/triage/latest/`。
+
+- `summary.md`: grouped P0/P1/P2/P3 backlog for human review
+- `summary.md`：按 P0/P1/P2/P3 分组的人工审查待办
+- `report.json`: machine-readable repair backlog with source, scope, repair targets, and dependencies
+- `report.json`：包含来源、影响范围、建议修复位置和依赖关系的结构化修复待办
 
 ## Expectations For New Work
 ## 新改动要求
