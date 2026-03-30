@@ -16,6 +16,8 @@
 - `npm run parity-score`：基于章节元数据、parity 状态和回归证据计算章节一致性评分
 - `npm run discrepancy-triage`: turn the latest parity and regression evidence into a prioritized repair backlog
 - `npm run discrepancy-triage`：把最新 parity 和 regression 证据转成带优先级的修复待办
+- `npm run battle-parity`: generate a dedicated parity calibration report for the real battle slices currently used by imported content
+- `npm run battle-parity`：为当前真实内容已使用的战斗切片生成专项一致性校准报告
 
 ## Current Smoke Scope
 ## 当前 Smoke 范围
@@ -62,6 +64,17 @@ It also writes readable and machine-readable artifacts into `reports/regression/
 - `report.json`: structured score report for future repair loops
 - `report.json`：供后续修补流程读取的结构化评分报告
 
+## Battle Parity Output
+## 战斗一致性校准输出
+
+`npm run battle-parity` writes battle calibration artifacts into `reports/battle-parity/latest/`.
+`npm run battle-parity` 会把战斗校准产物写入 `reports/battle-parity/latest/`。
+
+- `summary.md`: one section per real battle case, with enemy composition, turn order, damage, rewards, trigger, and world-return comparisons
+- `summary.md`：每个真实战斗案例单独成节，包含敌群组成、出手顺序、伤害、奖励、触发链路和返回 world 状态的对照
+- `report.json`: machine-readable structured evidence for future battle repair loops
+- `report.json`：供后续战斗修补流程读取的结构化证据
+
 ## Discrepancy Triage Output
 ## 差异分级输出
 
@@ -98,3 +111,5 @@ It also writes readable and machine-readable artifacts into `reports/regression/
 3. `npm run test`
 4. `npm run regression-smoke` before merging large cross-cutting changes
 4. 在合并较大跨模块改动前执行 `npm run regression-smoke`
+5. `npm run battle-parity` after battle runtime, reward, encounter-table, or battle-related real content changes
+5. 在修改 battle runtime、奖励、遭遇表或真实战斗相关内容后执行 `npm run battle-parity`

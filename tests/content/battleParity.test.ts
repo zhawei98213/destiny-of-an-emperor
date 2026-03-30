@@ -1,0 +1,22 @@
+import path from "node:path";
+import { describe, expect, it } from "vitest";
+import { buildBattleParityReport } from "../../tools/lib/battleParity";
+
+describe("battle parity", () => {
+  it("calibrates the current real battle slices against regression-backed baselines", async () => {
+    const report = await buildBattleParityReport({
+      regressionReportPath: path.resolve(process.cwd(), "reports/regression/latest/report.json"),
+    });
+
+    expect(report.totals.totalCases).toBe(2);
+    expect(report.totals.failedCases).toBe(0);
+
+    const louSang = report.cases.find((entry) => entry.id === "lou-sang-field-training");
+    const eastRoad = report.cases.find((entry) => entry.id === "east-road-wolf-skirmish");
+
+    expect(louSang?.calibrated).toBe(true);
+    expect(louSang?.dimensions.find((entry) => entry.id === "turn-order")?.status).toBe("pass");
+    expect(eastRoad?.calibrated).toBe(true);
+    expect(eastRoad?.dimensions.find((entry) => entry.id === "world-return")?.status).toBe("pass");
+  });
+});

@@ -41,8 +41,12 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - `npm test`：运行一次 Vitest 测试套件。
 - `npm run regression-smoke`: run import, validation, and the minimum regression suite in one command.
 - `npm run regression-smoke`：用一条命令执行导入、校验和最小回归测试。
+- `npm run battle-parity`: generate the current battle parity calibration report for real battle slices.
+- `npm run battle-parity`：为当前真实战斗切片生成战斗一致性校准报告。
 - Regression reports are written to `reports/regression/latest/`.
 - 回归报告会写入 `reports/regression/latest/`。
+- Battle parity reports are written to `reports/battle-parity/latest/`.
+- 战斗一致性校准报告会写入 `reports/battle-parity/latest/`。
 - `npm run build`: type-check and create a production build in `dist/`.
 - `npm run build`：执行类型检查并在 `dist/` 目录生成生产构建。
 
@@ -122,6 +126,8 @@ The current test suite covers:
 - 战斗运行时中的胜负判定、奖励发放和返回世界流程
 - golden regression cases for guard gating, chest rewards, battle roundtrip, and save/load restoration
 - 针对门卫放行、宝箱奖励、战斗往返以及存档恢复的黄金回归样例
+- battle parity calibration for the first two real battle slices, covering enemy composition, turn order, damage, rewards, and world return consistency
+- 针对前两个真实战斗切片的战斗一致性校准，覆盖敌群组成、出手顺序、伤害、奖励和返回 world 状态一致性
 - scene registry wiring and boot-first startup order
 - 场景注册表接线和以 Boot 开始的启动顺序
 
