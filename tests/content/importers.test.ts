@@ -14,6 +14,7 @@ describe("import tools", () => {
       "demo-maps.source.json",
       "east-road-relay.source.json",
       "lou-sang-village.source.json",
+      "ridgeway-camp.source.json",
       "river-ford-camp.source.json",
     ]);
     expect(firstReport.maps).toEqual(expect.arrayContaining([
@@ -37,6 +38,14 @@ describe("import tools", () => {
         portalCount: 1,
         spawnPointCount: 2,
         triggerCount: 4,
+      }),
+      expect.objectContaining({
+        id: "ridgeway-camp",
+        sourceFile: "ridgeway-camp.source.json",
+        npcCount: 2,
+        portalCount: 1,
+        spawnPointCount: 1,
+        triggerCount: 2,
       }),
     ]));
   });

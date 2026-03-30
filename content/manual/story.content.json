@@ -151,6 +151,66 @@
       "speakerName": "系统",
       "text": "你在前营堆放补给的木箱里找到了一卷绷带。",
       "soundId": "sfx-chest"
+    },
+    {
+      "id": "ridge-runner-line-issue",
+      "speakerName": "前营文书",
+      "speakerNpcId": "ridge-runner",
+      "text": "山脊岗那边已经接到命令了。这枚山道符牌你拿好，到了岗亭再交给守兵验看。",
+      "portraitId": "guide-default",
+      "soundId": "voice-guide"
+    },
+    {
+      "id": "ridge-runner-line-repeat",
+      "speakerName": "前营文书",
+      "speakerNpcId": "ridge-runner",
+      "text": "山道符牌已经在你手里了。过岗时别忘了先让守兵验牌。",
+      "portraitId": "guide-default",
+      "soundId": "voice-guide"
+    },
+    {
+      "id": "watch-clerk-line",
+      "speakerName": "岗亭文吏",
+      "speakerNpcId": "watch-clerk",
+      "text": "山脊口外面就是前线营寨。牌符验过以后，你就能继续向东去整补。",
+      "portraitId": "guide-default",
+      "soundId": "voice-guide"
+    },
+    {
+      "id": "watch-guard-line-blocked",
+      "speakerName": "山口守兵",
+      "speakerNpcId": "watch-guard",
+      "text": "站住。没有山道符牌，任何人都不得通过岗亭东门。",
+      "portraitId": "guard-default",
+      "soundId": "voice-guard"
+    },
+    {
+      "id": "watch-guard-line-open",
+      "speakerName": "山口守兵",
+      "speakerNpcId": "watch-guard",
+      "text": "牌符无误。我这就放你过去，东边的山营已经给你留了位置。",
+      "portraitId": "guard-default",
+      "soundId": "voice-guard"
+    },
+    {
+      "id": "ridgeway-gate-line-blocked",
+      "speakerName": "系统",
+      "text": "岗亭东门还没有放行，暂时不能继续前进。",
+      "soundId": "sfx-blocked"
+    },
+    {
+      "id": "ridge-quartermaster-line",
+      "speakerName": "山营军需官",
+      "speakerNpcId": "ridge-quartermaster",
+      "text": "山营的干粮和伤药都在这里。路越往东越难走，先把包袱整齐了再说。",
+      "portraitId": "merchant-default",
+      "soundId": "voice-merchant"
+    },
+    {
+      "id": "ridgeway-cache-line-open",
+      "speakerName": "系统",
+      "text": "你在山营角落的补给箱里找到了一包行军口粮。",
+      "soundId": "sfx-chest"
     }
   ],
   "events": [
@@ -388,6 +448,94 @@
         { "type": "playSfx", "sfxId": "sfx-chest" },
         { "type": "end" }
       ]
+    },
+    {
+      "id": "ridge-runner-event",
+      "name": "Ridge Runner Event",
+      "steps": [
+        {
+          "type": "ifHasItem",
+          "itemId": "ridge-token",
+          "steps": [
+            { "type": "dialogue", "lineId": "ridge-runner-line-repeat" },
+            { "type": "end" }
+          ]
+        },
+        { "type": "dialogue", "lineId": "ridge-runner-line-issue" },
+        { "type": "giveItem", "itemId": "ridge-token", "quantity": 1 },
+        { "type": "setFlag", "flagId": "ridge-token-issued" },
+        { "type": "end" }
+      ]
+    },
+    {
+      "id": "watch-clerk-event",
+      "name": "Watch Clerk Event",
+      "steps": [
+        { "type": "dialogue", "lineId": "watch-clerk-line" },
+        { "type": "end" }
+      ]
+    },
+    {
+      "id": "watch-guard-event",
+      "name": "Watch Guard Event",
+      "steps": [
+        {
+          "type": "ifHasItem",
+          "itemId": "ridge-token",
+          "steps": [
+            { "type": "dialogue", "lineId": "watch-guard-line-open" },
+            { "type": "setFlag", "flagId": "ridgeway-east-gate-open" },
+            { "type": "playSfx", "sfxId": "sfx-gate-open" },
+            { "type": "end" }
+          ]
+        },
+        { "type": "dialogue", "lineId": "watch-guard-line-blocked" },
+        { "type": "end" }
+      ]
+    },
+    {
+      "id": "ridgeway-east-gate-event",
+      "name": "Ridgeway East Gate Event",
+      "steps": [
+        {
+          "type": "ifNotFlag",
+          "flagId": "ridgeway-east-gate-open",
+          "steps": [
+            { "type": "dialogue", "lineId": "ridgeway-gate-line-blocked" },
+            { "type": "end" }
+          ]
+        },
+        {
+          "type": "ifFlag",
+          "flagId": "ridgeway-east-gate-open",
+          "steps": [
+            { "type": "warp", "targetMapId": "ridgeway-camp", "targetSpawnId": "from-watch-gate" },
+            { "type": "end" }
+          ]
+        },
+        { "type": "end" }
+      ]
+    },
+    {
+      "id": "ridge-quartermaster-event",
+      "name": "Ridge Quartermaster Event",
+      "steps": [
+        { "type": "dialogue", "lineId": "ridge-quartermaster-line" },
+        { "type": "openShop", "shopId": "ridgeway-camp-shop" },
+        { "type": "playSfx", "sfxId": "sfx-shop-open" },
+        { "type": "end" }
+      ]
+    },
+    {
+      "id": "ridgeway-cache-event",
+      "name": "Ridgeway Cache Event",
+      "steps": [
+        { "type": "dialogue", "lineId": "ridgeway-cache-line-open" },
+        { "type": "giveItem", "itemId": "travel-ration", "quantity": 2 },
+        { "type": "setFlag", "flagId": "ridgeway-cache-opened" },
+        { "type": "playSfx", "sfxId": "sfx-chest" },
+        { "type": "end" }
+      ]
     }
   ],
   "shops": [
@@ -418,6 +566,27 @@
         {
           "itemId": "bronze-sword",
           "price": 42
+        }
+      ]
+    },
+    {
+      "id": "ridgeway-camp-shop",
+      "name": "Ridgeway Camp Store",
+      "inventory": [
+        {
+          "itemId": "herb"
+        },
+        {
+          "itemId": "bandage",
+          "price": 18
+        },
+        {
+          "itemId": "travel-ration",
+          "price": 20
+        },
+        {
+          "itemId": "bronze-sword",
+          "price": 44
         }
       ]
     }

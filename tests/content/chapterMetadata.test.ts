@@ -31,7 +31,7 @@ describe("chapter metadata", () => {
       "river-ford",
       "ford-camp",
     ]);
-    expect(chapters.find((entry) => entry.chapterId === "chapter-04-ridgeway-camp")?.status).toBe("planned");
+    expect(chapters.find((entry) => entry.chapterId === "chapter-04-ridgeway-camp")?.status).toBe("validating");
   });
 
   it("rejects unsupported chapter status values with exact field errors", () => {

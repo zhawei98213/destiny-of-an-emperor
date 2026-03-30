@@ -1,26 +1,58 @@
 {
-  "areaLabel": "Ridgeway Camp Slice",
+  "areaLabel": "Ridgeway West Pass, Ridgeway Watch, and Ridgeway Camp Slice",
   "chapterId": "chapter-04-ridgeway-camp",
-  "enemyGroups": [],
-  "events": [],
+  "enemyGroups": [
+    "ridgeway-raiders"
+  ],
+  "events": [
+    "ridge-runner-event",
+    "watch-clerk-event",
+    "watch-guard-event",
+    "ridgeway-east-gate-event",
+    "ridge-quartermaster-event",
+    "ridgeway-cache-event"
+  ],
   "format": "chapter-metadata-v1",
-  "maps": [],
-  "notes": "Planned scaffold created by chapter bootstrap for chapter-04-ridgeway-camp. chapter-04-ridgeway-camp 的计划骨架由 chapter bootstrap 自动创建。 Replace placeholder notes with real import scope before moving beyond planned status. 在脱离 planned 状态前，请把这些占位说明替换成真实导入范围。 Current working title: Ridgeway Camp Advance. 当前工作标题：Ridgeway Camp Advance。",
-  "npcs": [],
+  "maps": [
+    "ridgeway-west-pass",
+    "ridgeway-watch",
+    "ridgeway-camp"
+  ],
+  "notes": "Fourth real slice extends east from Ford Camp into a ridgeway pass, a watch gate, and a resupply camp. It reuses the chapter bootstrap scaffold, completeness checker, lock checklist, shared event DSL, encounter runtime, and shop overlay without scene-specific branches. Dialogue, reward values, and exact shop contents remain curated until original references are available. / 第四段真实切片从前营继续向东扩展到山脊道、岗亭和山营补给点。它复用了 chapter bootstrap 骨架、completeness checker、lock checklist、共享事件 DSL、遭遇 runtime 和商店 overlay，没有为新区域加入 scene 特判。对白、奖励数值和商店货品目前仍是人工整理版，待原始参考资料就位后再继续收口。",
+  "npcs": [
+    "ridge-runner",
+    "pass-sentry",
+    "watch-clerk",
+    "watch-guard",
+    "watch-lookout",
+    "ridge-quartermaster",
+    "ridge-veteran"
+  ],
   "paritySummary": {
-    "battles": "planned",
-    "collision": "planned",
-    "dialogue": "planned",
-    "events": "planned",
-    "flags": "planned",
-    "items": "planned",
-    "mapLayout": "planned",
-    "npcPlacement": "planned",
-    "shops": "planned",
-    "transitions": "planned"
+    "battles": "validating",
+    "collision": "validating",
+    "dialogue": "parity-review",
+    "events": "validating",
+    "flags": "validating",
+    "items": "parity-review",
+    "mapLayout": "validating",
+    "npcPlacement": "validating",
+    "shops": "parity-review",
+    "transitions": "validating"
   },
-  "regressionCases": [],
-  "shops": [],
-  "status": "planned",
+  "regressionCases": [
+    "ridge-runner-issues-token",
+    "watch-clerk-dialogue",
+    "watch-guard-opens-gate",
+    "ridgeway-east-gate-warps",
+    "ridge-quartermaster-opens-shop",
+    "ridgeway-cache-first-open",
+    "ridgeway-west-pass-battle-roundtrip",
+    "ridgeway-watch-battle-roundtrip"
+  ],
+  "shops": [
+    "ridgeway-camp-shop"
+  ],
+  "status": "validating",
   "title": "Ridgeway Camp Advance"
 }

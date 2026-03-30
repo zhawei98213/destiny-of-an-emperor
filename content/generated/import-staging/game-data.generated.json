@@ -2,22 +2,27 @@
   "battleGroupIds": [
     "training-slimes",
     "field-wolves",
-    "river-bandits"
+    "river-bandits",
+    "ridgeway-raiders"
   ],
   "enemyIds": [
     "green-slime",
     "brown-wolf",
-    "river-bandit"
+    "river-bandit",
+    "ridge-raider"
   ],
   "generatedAt": "stable",
   "importer": "game-data",
   "itemIds": [
     "herb",
     "bandage",
-    "bronze-sword"
+    "bronze-sword",
+    "travel-ration",
+    "ridge-token"
   ],
   "shopIds": [
     "starter-shop",
-    "ford-camp-shop"
+    "ford-camp-shop",
+    "ridgeway-camp-shop"
   ]
 }

@@ -2,8 +2,8 @@
   "format": "map-source-v1",
   "maps": [
     {
-      "id": "relay-east-pass",
-      "name": "Relay East Pass",
+      "id": "ridgeway-west-pass",
+      "name": "Ridgeway West Pass",
       "width": 24,
       "height": 14,
       "tileWidth": 16,
@@ -58,55 +58,81 @@
       ],
       "portals": [
         {
-          "id": "relay-east-pass-to-relay-post",
+          "id": "ridgeway-west-pass-to-ford-camp",
           "x": 1,
           "y": 7,
           "width": 1,
           "height": 1,
-          "targetMapId": "relay-post",
-          "targetSpawnId": "from-east-pass"
+          "targetMapId": "ford-camp",
+          "targetSpawnId": "from-ridgeway-west"
         },
         {
-          "id": "relay-east-pass-to-river-ford",
+          "id": "ridgeway-west-pass-to-ridgeway-watch",
           "x": 22,
           "y": 7,
           "width": 1,
           "height": 1,
-          "targetMapId": "river-ford",
+          "targetMapId": "ridgeway-watch",
           "targetSpawnId": "from-west-pass"
         }
       ],
       "spawnPoints": [
         {
-          "id": "from-relay-post-east",
+          "id": "from-ford-camp-west",
           "x": 2,
           "y": 7,
           "facing": "right"
         },
         {
-          "id": "from-river-ford",
+          "id": "from-ridgeway-watch",
           "x": 20,
           "y": 7,
           "facing": "left"
         }
       ],
-      "npcs": [],
+      "npcs": [
+        {
+          "id": "ridge-runner",
+          "name": "前营文书",
+          "x": 6,
+          "y": 6,
+          "sprite": "guide",
+          "facing": "down",
+          "behavior": "idle"
+        },
+        {
+          "id": "pass-sentry",
+          "name": "山脊哨兵",
+          "x": 15,
+          "y": 8,
+          "sprite": "guard",
+          "facing": "left",
+          "behavior": "idle"
+        }
+      ],
       "triggers": [
         {
-          "id": "relay-east-pass-battle-trigger",
+          "id": "ridge-runner-trigger",
+          "kind": "npcInteraction",
+          "npcId": "ridge-runner",
+          "eventId": "ridge-runner-event",
+          "once": false
+        },
+        {
+          "id": "ridgeway-west-battle-trigger",
           "kind": "region",
           "x": 10,
-          "y": 6,
+          "y": 5,
           "width": 4,
           "height": 3,
-          "encounterTableId": "relay-east-wolves",
+          "encounterTableId": "ridgeway-west-raiders",
           "once": false
         }
       ]
     },
     {
-      "id": "river-ford",
-      "name": "River Ford",
+      "id": "ridgeway-watch",
+      "name": "Ridgeway Watch",
       "width": 24,
       "height": 14,
       "tileWidth": 16,
@@ -161,13 +187,13 @@
       ],
       "portals": [
         {
-          "id": "river-ford-to-relay-east-pass",
+          "id": "ridgeway-watch-to-ridgeway-west-pass",
           "x": 1,
           "y": 7,
           "width": 1,
           "height": 1,
-          "targetMapId": "relay-east-pass",
-          "targetSpawnId": "from-river-ford"
+          "targetMapId": "ridgeway-west-pass",
+          "targetSpawnId": "from-ridgeway-watch"
         }
       ],
       "spawnPoints": [
@@ -178,7 +204,7 @@
           "facing": "right"
         },
         {
-          "id": "from-ford-camp",
+          "id": "from-ridgeway-camp",
           "x": 20,
           "y": 7,
           "facing": "left"
@@ -186,8 +212,8 @@
       ],
       "npcs": [
         {
-          "id": "ford-clerk",
-          "name": "渡口文吏",
+          "id": "watch-clerk",
+          "name": "岗亭文吏",
           "x": 6,
           "y": 6,
           "sprite": "guide",
@@ -195,8 +221,8 @@
           "behavior": "idle"
         },
         {
-          "id": "ford-guard",
-          "name": "渡口守兵",
+          "id": "watch-guard",
+          "name": "山口守兵",
           "x": 16,
           "y": 7,
           "sprite": "guard",
@@ -204,8 +230,8 @@
           "behavior": "idle"
         },
         {
-          "id": "river-sentry",
-          "name": "河岸哨兵",
+          "id": "watch-lookout",
+          "name": "岗楼望手",
           "x": 10,
           "y": 8,
           "sprite": "guard",
@@ -215,44 +241,44 @@
       ],
       "triggers": [
         {
-          "id": "ford-clerk-trigger",
+          "id": "watch-clerk-trigger",
           "kind": "npcInteraction",
-          "npcId": "ford-clerk",
-          "eventId": "ford-clerk-event",
+          "npcId": "watch-clerk",
+          "eventId": "watch-clerk-event",
           "once": false
         },
         {
-          "id": "ford-guard-trigger",
+          "id": "watch-guard-trigger",
           "kind": "npcInteraction",
-          "npcId": "ford-guard",
-          "eventId": "ford-guard-event",
+          "npcId": "watch-guard",
+          "eventId": "watch-guard-event",
           "once": false
         },
         {
-          "id": "ford-east-crossing-trigger",
+          "id": "ridgeway-east-gate-trigger",
           "kind": "tile",
           "x": 18,
           "y": 7,
           "width": 1,
           "height": 1,
-          "eventId": "ford-east-crossing-event",
+          "eventId": "ridgeway-east-gate-event",
           "once": false
         },
         {
-          "id": "river-ford-battle-trigger",
+          "id": "ridgeway-watch-battle-trigger",
           "kind": "region",
           "x": 10,
           "y": 5,
           "width": 4,
           "height": 3,
-          "encounterTableId": "river-ford-bandits",
+          "encounterTableId": "ridgeway-watch-raiders",
           "once": false
         }
       ]
     },
     {
-      "id": "ford-camp",
-      "name": "Ford Camp",
+      "id": "ridgeway-camp",
+      "name": "Ridgeway Camp",
       "width": 20,
       "height": 12,
       "tileWidth": 16,
@@ -303,84 +329,60 @@
       ],
       "portals": [
         {
-          "id": "ford-camp-to-river-ford",
+          "id": "ridgeway-camp-to-ridgeway-watch",
           "x": 1,
           "y": 6,
           "width": 1,
           "height": 1,
-          "targetMapId": "river-ford",
-          "targetSpawnId": "from-ford-camp"
-        },
-        {
-          "id": "ford-camp-to-ridgeway-west-pass",
-          "x": 18,
-          "y": 6,
-          "width": 1,
-          "height": 1,
-          "targetMapId": "ridgeway-west-pass",
-          "targetSpawnId": "from-ford-camp-west"
+          "targetMapId": "ridgeway-watch",
+          "targetSpawnId": "from-ridgeway-camp"
         }
       ],
       "spawnPoints": [
         {
-          "id": "from-river-crossing",
+          "id": "from-watch-gate",
           "x": 2,
           "y": 6,
           "facing": "right"
-        },
-        {
-          "id": "from-ridgeway-west",
-          "x": 17,
-          "y": 6,
-          "facing": "left"
         }
       ],
       "npcs": [
         {
-          "id": "camp-quartermaster",
-          "name": "营地军需官",
+          "id": "ridge-quartermaster",
+          "name": "山营军需官",
           "x": 9,
           "y": 6,
           "sprite": "merchant",
           "facing": "left",
           "behavior": "idle",
-          "shopId": "ford-camp-shop"
+          "shopId": "ridgeway-camp-shop"
         },
         {
-          "id": "camp-veteran",
-          "name": "宿营老兵",
+          "id": "ridge-veteran",
+          "name": "山营老卒",
           "x": 12,
           "y": 7,
           "sprite": "guide",
           "facing": "down",
           "behavior": "idle"
-        },
-        {
-          "id": "camp-lookout",
-          "name": "营门望卒",
-          "x": 15,
-          "y": 5,
-          "sprite": "guard",
-          "facing": "left",
-          "behavior": "idle"
         }
       ],
       "triggers": [
         {
-          "id": "camp-quartermaster-trigger",
+          "id": "ridge-quartermaster-trigger",
           "kind": "npcInteraction",
-          "npcId": "camp-quartermaster",
-          "eventId": "camp-quartermaster-event",
+          "npcId": "ridge-quartermaster",
+          "eventId": "ridge-quartermaster-event",
           "once": false
         },
         {
-          "id": "ford-camp-cache-trigger",
+          "id": "ridgeway-cache-trigger",
           "kind": "tile",
           "x": 3,
           "y": 9,
           "width": 1,
           "height": 1,
-          "eventId": "ford-camp-cache-event",
+          "eventId": "ridgeway-cache-event",
           "once": true
         }
       ]

@@ -21,6 +21,20 @@
       "description": "A basic weapon for early recruits.",
       "kind": "equipment",
       "price": 45
+    },
+    {
+      "id": "travel-ration",
+      "name": "Travel Ration",
+      "description": "A dry ration bundle packed for ridgeway patrol duty.",
+      "kind": "consumable",
+      "price": 22
+    },
+    {
+      "id": "ridge-token",
+      "name": "Ridgeway Token",
+      "description": "A stamped token used to pass the ridgeway watch.",
+      "kind": "key",
+      "price": 0
     }
   ],
   "shops": [
@@ -51,6 +65,27 @@
         {
           "itemId": "bronze-sword",
           "price": 42
+        }
+      ]
+    },
+    {
+      "id": "ridgeway-camp-shop",
+      "name": "Ridgeway Camp Store",
+      "inventory": [
+        {
+          "itemId": "herb"
+        },
+        {
+          "itemId": "bandage",
+          "price": 18
+        },
+        {
+          "itemId": "travel-ration",
+          "price": 20
+        },
+        {
+          "itemId": "bronze-sword",
+          "price": 44
         }
       ]
     }
@@ -121,6 +156,30 @@
         "defense": 5,
         "speed": 6
       }
+    },
+    {
+      "id": "ridge-raider",
+      "name": "Ridge Raider",
+      "level": 4,
+      "skills": [
+        "slash"
+      ],
+      "rewardGold": 13,
+      "rewardExperience": 7,
+      "dropItems": [
+        {
+          "itemId": "travel-ration",
+          "quantity": 1,
+          "chance": 0.5
+        }
+      ],
+      "baseStats": {
+        "maxHp": 20,
+        "maxMp": 0,
+        "attack": 7,
+        "defense": 4,
+        "speed": 4
+      }
     }
   ],
   "battleGroups": [
@@ -144,6 +203,13 @@
       "name": "River Bandits",
       "enemyIds": [
         "river-bandit"
+      ]
+    },
+    {
+      "id": "ridgeway-raiders",
+      "name": "Ridgeway Raiders",
+      "enemyIds": [
+        "ridge-raider"
       ]
     }
   ]

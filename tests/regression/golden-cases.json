@@ -1301,6 +1301,447 @@
         "dialogueLineIds": [],
         "battleOutcome": "victory"
       }
+    },
+    {
+      "id": "ridge-runner-issues-token",
+      "name": "Ridge runner issues token / 前营文书发放山道符牌",
+      "initialState": {
+        "world": {
+          "mapId": "ridgeway-west-pass",
+          "spawnPointId": "from-ford-camp-west",
+          "playerX": 5,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "ridge-token-issued": false
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "ridgeway-west-pass",
+        "npcId": "ridge-runner"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "ridgeway-west-pass",
+          "currentSpawnId": "from-ford-camp-west",
+          "playerX": 5,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "ridge-token-issued": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": [
+            {
+              "itemId": "ridge-token",
+              "quantity": 1
+            }
+          ]
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["ridge-runner-line-issue"]
+      }
+    },
+    {
+      "id": "watch-clerk-dialogue",
+      "name": "Watch clerk dialogue / 岗亭文吏对白",
+      "initialState": {
+        "world": {
+          "mapId": "ridgeway-watch",
+          "spawnPointId": "from-west-pass",
+          "playerX": 5,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "ridgeway-watch",
+        "npcId": "watch-clerk"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "ridgeway-watch",
+          "currentSpawnId": "from-west-pass",
+          "playerX": 5,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["watch-clerk-line"]
+      }
+    },
+    {
+      "id": "watch-guard-opens-gate",
+      "name": "Watch guard opens gate / 山口守兵放行",
+      "initialState": {
+        "world": {
+          "mapId": "ridgeway-watch",
+          "spawnPointId": "from-west-pass",
+          "playerX": 15,
+          "playerY": 7,
+          "facing": "left"
+        },
+        "inventory": {
+          "gold": 0,
+          "items": [
+            {
+              "itemId": "ridge-token",
+              "quantity": 1
+            }
+          ]
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "ridgeway-watch",
+        "npcId": "watch-guard"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "ridgeway-watch",
+          "currentSpawnId": "from-west-pass",
+          "playerX": 15,
+          "playerY": 7,
+          "facing": "left"
+        },
+        "flags": {
+          "ridgeway-east-gate-open": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": [
+            {
+              "itemId": "ridge-token",
+              "quantity": 1
+            }
+          ]
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["watch-guard-line-open"]
+      }
+    },
+    {
+      "id": "ridgeway-east-gate-warps",
+      "name": "Ridgeway east gate warps / 岗亭东门切图",
+      "initialState": {
+        "world": {
+          "mapId": "ridgeway-watch",
+          "spawnPointId": "from-west-pass",
+          "playerX": 18,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "ridgeway-east-gate-open": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "tile",
+        "mapId": "ridgeway-watch",
+        "x": 18,
+        "y": 7
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "ridgeway-camp",
+          "currentSpawnId": "from-watch-gate",
+          "playerX": 2,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "ridgeway-east-gate-open": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": []
+      }
+    },
+    {
+      "id": "ridge-quartermaster-opens-shop",
+      "name": "Ridge quartermaster opens shop / 山营军需官开启商店",
+      "initialState": {
+        "world": {
+          "mapId": "ridgeway-camp",
+          "spawnPointId": "from-watch-gate",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "left"
+        },
+        "inventory": {
+          "gold": 25,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "ridgeway-camp",
+        "npcId": "ridge-quartermaster"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "ridgeway-camp",
+          "currentSpawnId": "from-watch-gate",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "left"
+        },
+        "inventory": {
+          "gold": 25,
+          "items": []
+        },
+        "shopStates": {
+          "ridgeway-camp-shop": {
+            "visited": true
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["ridge-quartermaster-line"],
+        "shopId": "ridgeway-camp-shop",
+        "shopItemLines": [
+          "1. Herb - 10G",
+          "2. Bandage - 18G",
+          "3. 行军口粮 - 20G",
+          "4. Bronze Sword - 44G"
+        ]
+      }
+    },
+    {
+      "id": "ridgeway-cache-first-open",
+      "name": "Ridgeway cache first open / 山营补给箱首次开启",
+      "initialState": {
+        "world": {
+          "mapId": "ridgeway-camp",
+          "spawnPointId": "from-watch-gate",
+          "playerX": 3,
+          "playerY": 9,
+          "facing": "down"
+        },
+        "flags": {
+          "ridgeway-cache-opened": false
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "tile",
+        "mapId": "ridgeway-camp",
+        "x": 3,
+        "y": 9
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "ridgeway-camp",
+          "currentSpawnId": "from-watch-gate",
+          "playerX": 3,
+          "playerY": 9,
+          "facing": "down"
+        },
+        "flags": {
+          "ridgeway-cache-opened": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": [
+            {
+              "itemId": "travel-ration",
+              "quantity": 2
+            }
+          ]
+        },
+        "consumedTriggerIds": ["ridgeway-cache-trigger"]
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["ridgeway-cache-line-open"]
+      }
+    },
+    {
+      "id": "ridgeway-west-pass-battle-roundtrip",
+      "name": "Ridgeway west pass battle roundtrip / 山脊西段遭遇战并返回地图",
+      "initialState": {
+        "world": {
+          "mapId": "ridgeway-west-pass",
+          "spawnPointId": "from-ford-camp-west",
+          "playerX": 13,
+          "playerY": 7,
+          "facing": "right",
+          "stepCount": 6
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 0,
+            "currentHp": 24,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "region",
+        "mapId": "ridgeway-west-pass",
+        "x": 13,
+        "y": 7
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "ridgeway-west-pass",
+          "currentSpawnId": "from-ford-camp-west",
+          "playerX": 13,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 13,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 7,
+            "currentHp": 16,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene", "BattleScene", "WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": [],
+        "battleOutcome": "victory"
+      }
+    },
+    {
+      "id": "ridgeway-watch-battle-roundtrip",
+      "name": "Ridgeway watch battle roundtrip / 岗亭山道遭遇战并返回地图",
+      "initialState": {
+        "world": {
+          "mapId": "ridgeway-watch",
+          "spawnPointId": "from-west-pass",
+          "playerX": 13,
+          "playerY": 7,
+          "facing": "right",
+          "stepCount": 4
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 0,
+            "currentHp": 24,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "region",
+        "mapId": "ridgeway-watch",
+        "x": 13,
+        "y": 7
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "ridgeway-watch",
+          "currentSpawnId": "from-west-pass",
+          "playerX": 13,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 13,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 7,
+            "currentHp": 16,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene", "BattleScene", "WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": [],
+        "battleOutcome": "victory"
+      }
     }
   ]
 }

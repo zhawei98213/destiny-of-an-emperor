@@ -820,6 +820,15 @@
           "height": 1,
           "targetMapId": "river-ford",
           "targetSpawnId": "from-ford-camp"
+        },
+        {
+          "id": "ford-camp-to-ridgeway-west-pass",
+          "x": 18,
+          "y": 6,
+          "width": 1,
+          "height": 1,
+          "targetMapId": "ridgeway-west-pass",
+          "targetSpawnId": "from-ford-camp-west"
         }
       ],
       "spawnPoints": [
@@ -828,6 +837,12 @@
           "x": 2,
           "y": 6,
           "facing": "right"
+        },
+        {
+          "id": "from-ridgeway-west",
+          "x": 17,
+          "y": 6,
+          "facing": "left"
         }
       ],
       "npcs": [
@@ -879,6 +894,392 @@
           "once": true
         }
       ]
+    },
+    {
+      "id": "ridgeway-west-pass",
+      "name": "Ridgeway West Pass",
+      "width": 24,
+      "height": 14,
+      "tileWidth": 16,
+      "tileHeight": 16,
+      "tileLayers": [
+        {
+          "id": "ground",
+          "name": "Ground",
+          "width": 24,
+          "height": 14,
+          "tiles": [
+            3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,4,4,4,4,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,4,4,4,4,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,4,4,4,4,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
+          ]
+        }
+      ],
+      "collisionLayers": [
+        {
+          "id": "collision",
+          "name": "Collision",
+          "width": 24,
+          "height": 14,
+          "blocked": [
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+          ]
+        }
+      ],
+      "portals": [
+        {
+          "id": "ridgeway-west-pass-to-ford-camp",
+          "x": 1,
+          "y": 7,
+          "width": 1,
+          "height": 1,
+          "targetMapId": "ford-camp",
+          "targetSpawnId": "from-ridgeway-west"
+        },
+        {
+          "id": "ridgeway-west-pass-to-ridgeway-watch",
+          "x": 22,
+          "y": 7,
+          "width": 1,
+          "height": 1,
+          "targetMapId": "ridgeway-watch",
+          "targetSpawnId": "from-west-pass"
+        }
+      ],
+      "spawnPoints": [
+        {
+          "id": "from-ford-camp-west",
+          "x": 2,
+          "y": 7,
+          "facing": "right"
+        },
+        {
+          "id": "from-ridgeway-watch",
+          "x": 20,
+          "y": 7,
+          "facing": "left"
+        }
+      ],
+      "npcs": [
+        {
+          "id": "ridge-runner",
+          "name": "前营文书",
+          "x": 6,
+          "y": 6,
+          "sprite": "guide",
+          "facing": "down",
+          "behavior": "idle"
+        },
+        {
+          "id": "pass-sentry",
+          "name": "山脊哨兵",
+          "x": 15,
+          "y": 8,
+          "sprite": "guard",
+          "facing": "left",
+          "behavior": "idle"
+        }
+      ],
+      "triggers": [
+        {
+          "id": "ridge-runner-trigger",
+          "kind": "npcInteraction",
+          "npcId": "ridge-runner",
+          "eventId": "ridge-runner-event",
+          "once": false
+        },
+        {
+          "id": "ridgeway-west-battle-trigger",
+          "kind": "region",
+          "x": 10,
+          "y": 5,
+          "width": 4,
+          "height": 3,
+          "encounterTableId": "ridgeway-west-raiders",
+          "once": false
+        }
+      ]
+    },
+    {
+      "id": "ridgeway-watch",
+      "name": "Ridgeway Watch",
+      "width": 24,
+      "height": 14,
+      "tileWidth": 16,
+      "tileHeight": 16,
+      "tileLayers": [
+        {
+          "id": "ground",
+          "name": "Ground",
+          "width": 24,
+          "height": 14,
+          "tiles": [
+            3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,4,4,4,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,4,4,4,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,4,4,4,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,4,4,4,1,1,1,1,1,1,1,1,3,
+            3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,4,4,4,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,4,4,4,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,4,4,4,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
+          ]
+        }
+      ],
+      "collisionLayers": [
+        {
+          "id": "collision",
+          "name": "Collision",
+          "width": 24,
+          "height": 14,
+          "blocked": [
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+          ]
+        }
+      ],
+      "portals": [
+        {
+          "id": "ridgeway-watch-to-ridgeway-west-pass",
+          "x": 1,
+          "y": 7,
+          "width": 1,
+          "height": 1,
+          "targetMapId": "ridgeway-west-pass",
+          "targetSpawnId": "from-ridgeway-watch"
+        }
+      ],
+      "spawnPoints": [
+        {
+          "id": "from-west-pass",
+          "x": 2,
+          "y": 7,
+          "facing": "right"
+        },
+        {
+          "id": "from-ridgeway-camp",
+          "x": 20,
+          "y": 7,
+          "facing": "left"
+        }
+      ],
+      "npcs": [
+        {
+          "id": "watch-clerk",
+          "name": "岗亭文吏",
+          "x": 6,
+          "y": 6,
+          "sprite": "guide",
+          "facing": "down",
+          "behavior": "idle"
+        },
+        {
+          "id": "watch-guard",
+          "name": "山口守兵",
+          "x": 16,
+          "y": 7,
+          "sprite": "guard",
+          "facing": "left",
+          "behavior": "idle"
+        },
+        {
+          "id": "watch-lookout",
+          "name": "岗楼望手",
+          "x": 10,
+          "y": 8,
+          "sprite": "guard",
+          "facing": "up",
+          "behavior": "idle"
+        }
+      ],
+      "triggers": [
+        {
+          "id": "watch-clerk-trigger",
+          "kind": "npcInteraction",
+          "npcId": "watch-clerk",
+          "eventId": "watch-clerk-event",
+          "once": false
+        },
+        {
+          "id": "watch-guard-trigger",
+          "kind": "npcInteraction",
+          "npcId": "watch-guard",
+          "eventId": "watch-guard-event",
+          "once": false
+        },
+        {
+          "id": "ridgeway-east-gate-trigger",
+          "kind": "tile",
+          "x": 18,
+          "y": 7,
+          "width": 1,
+          "height": 1,
+          "eventId": "ridgeway-east-gate-event",
+          "once": false
+        },
+        {
+          "id": "ridgeway-watch-battle-trigger",
+          "kind": "region",
+          "x": 10,
+          "y": 5,
+          "width": 4,
+          "height": 3,
+          "encounterTableId": "ridgeway-watch-raiders",
+          "once": false
+        }
+      ]
+    },
+    {
+      "id": "ridgeway-camp",
+      "name": "Ridgeway Camp",
+      "width": 20,
+      "height": 12,
+      "tileWidth": 16,
+      "tileHeight": 16,
+      "tileLayers": [
+        {
+          "id": "ground",
+          "name": "Ground",
+          "width": 20,
+          "height": 12,
+          "tiles": [
+            3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,3,3,3,1,1,1,1,3,3,3,1,1,1,1,1,3,
+            3,1,1,1,3,3,3,1,1,1,1,3,3,3,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,3,3,1,1,1,1,1,1,3,3,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
+          ]
+        }
+      ],
+      "collisionLayers": [
+        {
+          "id": "collision",
+          "name": "Collision",
+          "width": 20,
+          "height": 12,
+          "blocked": [
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,1,1,1,0,0,0,0,1,1,1,0,0,0,0,0,1,
+            1,0,0,0,1,1,1,0,0,0,0,1,1,1,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+          ]
+        }
+      ],
+      "portals": [
+        {
+          "id": "ridgeway-camp-to-ridgeway-watch",
+          "x": 1,
+          "y": 6,
+          "width": 1,
+          "height": 1,
+          "targetMapId": "ridgeway-watch",
+          "targetSpawnId": "from-ridgeway-camp"
+        }
+      ],
+      "spawnPoints": [
+        {
+          "id": "from-watch-gate",
+          "x": 2,
+          "y": 6,
+          "facing": "right"
+        }
+      ],
+      "npcs": [
+        {
+          "id": "ridge-quartermaster",
+          "name": "山营军需官",
+          "x": 9,
+          "y": 6,
+          "sprite": "merchant",
+          "facing": "left",
+          "behavior": "idle",
+          "shopId": "ridgeway-camp-shop"
+        },
+        {
+          "id": "ridge-veteran",
+          "name": "山营老卒",
+          "x": 12,
+          "y": 7,
+          "sprite": "guide",
+          "facing": "down",
+          "behavior": "idle"
+        }
+      ],
+      "triggers": [
+        {
+          "id": "ridge-quartermaster-trigger",
+          "kind": "npcInteraction",
+          "npcId": "ridge-quartermaster",
+          "eventId": "ridge-quartermaster-event",
+          "once": false
+        },
+        {
+          "id": "ridgeway-cache-trigger",
+          "kind": "tile",
+          "x": 3,
+          "y": 9,
+          "width": 1,
+          "height": 1,
+          "eventId": "ridgeway-cache-event",
+          "once": true
+        }
+      ]
     }
   ],
   "items": [
@@ -914,6 +1315,20 @@
       "id": "ford-seal",
       "name": "渡口文符",
       "description": "渡口文吏发出的通行文符，守兵验过后才会放行。",
+      "kind": "key",
+      "price": 0
+    },
+    {
+      "id": "travel-ration",
+      "name": "行军口粮",
+      "description": "山道行军时发下来的干粮包，能在长途推进前补充体力。",
+      "kind": "consumable",
+      "price": 22
+    },
+    {
+      "id": "ridge-token",
+      "name": "山道符牌",
+      "description": "前营文书盖印的山道符牌，山口守兵验过后才会放行。",
       "kind": "key",
       "price": 0
     }
@@ -988,6 +1403,18 @@
     {
       "id": "ford-camp-cache-opened",
       "defaultValue": false
+    },
+    {
+      "id": "ridge-token-issued",
+      "defaultValue": false
+    },
+    {
+      "id": "ridgeway-east-gate-open",
+      "defaultValue": false
+    },
+    {
+      "id": "ridgeway-cache-opened",
+      "defaultValue": false
     }
   ],
   "questStates": [
@@ -1046,6 +1473,32 @@
         {
           "id": "river-ford-bandit-entry",
           "battleGroupId": "river-bandits",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "id": "ridgeway-west-raiders",
+      "name": "山脊西段流兵",
+      "stepInterval": 3,
+      "chance": 1,
+      "entries": [
+        {
+          "id": "ridgeway-west-raider-entry",
+          "battleGroupId": "ridgeway-raiders",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "id": "ridgeway-watch-raiders",
+      "name": "岗亭山道乱兵",
+      "stepInterval": 2,
+      "chance": 1,
+      "entries": [
+        {
+          "id": "ridgeway-watch-raider-entry",
+          "battleGroupId": "ridgeway-raiders",
           "weight": 1
         }
       ]
