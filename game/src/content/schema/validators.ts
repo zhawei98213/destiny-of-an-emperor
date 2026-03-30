@@ -504,6 +504,7 @@ export function validateSaveData(value: unknown, path = "saveData"): SaveData {
   const questStatesRecord = ensureRecord(record.questStates, `${path}.questStates`);
   const worldRecord = ensureRecord(record.world, `${path}.world`);
   const shopStatesRecord = ensureRecord(record.shopStates ?? {}, `${path}.shopStates`);
+  const saveMetaRecord = ensureRecord(record.saveMeta, `${path}.saveMeta`);
 
   const flags = Object.fromEntries(
     Object.entries(flagsRecord).map(([key, entry]) => [
@@ -532,7 +533,7 @@ export function validateSaveData(value: unknown, path = "saveData"): SaveData {
   );
 
   const version = ensureNumber(record.version, `${path}.version`);
-  if (version !== 1 && version !== 2) {
+  if (version !== 3) {
     failSchema(`${path}.version`, `unsupported save version "${version}"`);
   }
 
@@ -563,6 +564,11 @@ export function validateSaveData(value: unknown, path = "saveData"): SaveData {
     chapterId: ensureOptionalString(record.chapterId, `${path}.chapterId`),
     shopStates,
     consumedTriggerIds: ensureStringArray(record.consumedTriggerIds ?? [], `${path}.consumedTriggerIds`),
+    saveMeta: {
+      createdByVersion: ensureNumber(saveMetaRecord.createdByVersion, `${path}.saveMeta.createdByVersion`),
+      migratedFromVersion: ensureOptionalNumber(saveMetaRecord.migratedFromVersion, `${path}.saveMeta.migratedFromVersion`),
+      migrationCount: ensureNumber(saveMetaRecord.migrationCount, `${path}.saveMeta.migrationCount`),
+    },
   };
 }
 

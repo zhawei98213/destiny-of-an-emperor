@@ -1,4 +1,4 @@
-import { SAVE_DATA_VERSION } from "@/systems/saveManager";
+import { SAVE_DATA_VERSION } from "@/systems/saveMigration";
 import type { EventRuntime } from "@/systems/eventInterpreter";
 import type {
   BattleResult,
@@ -188,6 +188,10 @@ export class GameStateRuntime {
         Object.entries(this.shopStates).map(([shopId, shopState]) => [shopId, { ...shopState }]),
       ),
       consumedTriggerIds: [...this.consumedTriggerIds],
+      saveMeta: {
+        createdByVersion: SAVE_DATA_VERSION,
+        migrationCount: 0,
+      },
     };
   }
 

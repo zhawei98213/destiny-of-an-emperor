@@ -1,9 +1,8 @@
 import { validateSaveData, validateSaveDataReferences } from "@/content/schema";
+import { runSaveDataMigrations } from "@/systems/saveMigration";
 import type { ContentDatabase, SaveData } from "@/types/content";
 
 export const DEFAULT_SAVE_SLOT = "slot-1";
-
-export const SAVE_DATA_VERSION = 2;
 
 export interface SaveStorage {
   getItem(key: string): string | null;
@@ -57,7 +56,7 @@ export class SaveManager {
       return null;
     }
 
-    const saveData = validateSaveData(JSON.parse(raw) as unknown);
+    const saveData = runSaveDataMigrations(JSON.parse(raw) as unknown);
     return validateSaveDataReferences(saveData, this.database);
   }
 }

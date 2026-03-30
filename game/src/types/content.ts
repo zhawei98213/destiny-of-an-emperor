@@ -334,6 +334,12 @@ export interface SaveWorldState {
   stepCount: number;
 }
 
+export interface SaveMetaState {
+  createdByVersion: number;
+  migratedFromVersion?: number;
+  migrationCount: number;
+}
+
 export interface SaveData {
   version: number;
   slot: string;
@@ -346,6 +352,7 @@ export interface SaveData {
   chapterId?: string;
   shopStates: ShopStateMap;
   consumedTriggerIds: string[];
+  saveMeta: SaveMetaState;
 }
 
 export interface ContentPackMeta {

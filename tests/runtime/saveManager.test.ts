@@ -64,7 +64,7 @@ describe("save manager", () => {
     saveManager.save(saveData);
     const loaded = saveManager.load(DEFAULT_SAVE_SLOT);
 
-    expect(loaded?.version).toBe(2);
+    expect(loaded?.version).toBe(3);
     expect(loaded?.world).toEqual({
       mapId: "town",
       spawnPointId: "town-start",
@@ -77,5 +77,9 @@ describe("save manager", () => {
     expect(loaded?.partyStates.hero?.memberId).toBe("hero");
     expect(loaded?.consumedTriggerIds).toEqual(["chest-trigger"]);
     expect(loaded?.shopStates["shop-1"]).toEqual({ visited: true });
+    expect(loaded?.saveMeta).toEqual({
+      createdByVersion: 3,
+      migrationCount: 0,
+    });
   });
 });
