@@ -17,6 +17,8 @@ export class MenuController {
 
   private message = "Ready.\n菜单已就绪。";
 
+  private cursorGlyph = "▶";
+
   constructor(
     private readonly overlay: MenuOverlayPort,
     private readonly database: ContentDatabase,
@@ -29,7 +31,10 @@ export class MenuController {
     return this.isOpen;
   }
 
-  toggle(style?: PanelStyleAssetResource): void {
+  toggle(style?: PanelStyleAssetResource, cursorGlyph?: string): void {
+    if (cursorGlyph) {
+      this.cursorGlyph = cursorGlyph;
+    }
     this.isOpen = !this.isOpen;
     if (this.isOpen) {
       this.render(style);
@@ -39,21 +44,30 @@ export class MenuController {
     this.overlay.hide();
   }
 
-  nextTab(style?: PanelStyleAssetResource): void {
+  nextTab(style?: PanelStyleAssetResource, cursorGlyph?: string): void {
+    if (cursorGlyph) {
+      this.cursorGlyph = cursorGlyph;
+    }
     this.activeTab = MENU_TABS[(MENU_TABS.indexOf(this.activeTab) + 1) % MENU_TABS.length] ?? "status";
     this.render(style);
   }
 
-  previousTab(style?: PanelStyleAssetResource): void {
+  previousTab(style?: PanelStyleAssetResource, cursorGlyph?: string): void {
+    if (cursorGlyph) {
+      this.cursorGlyph = cursorGlyph;
+    }
     this.activeTab = MENU_TABS[(MENU_TABS.indexOf(this.activeTab) + MENU_TABS.length - 1) % MENU_TABS.length] ?? "status";
     this.render(style);
   }
 
-  refresh(style?: PanelStyleAssetResource): void {
+  refresh(style?: PanelStyleAssetResource, cursorGlyph?: string): void {
     if (!this.isOpen) {
       return;
     }
 
+    if (cursorGlyph) {
+      this.cursorGlyph = cursorGlyph;
+    }
     this.render(style);
   }
 
@@ -90,6 +104,6 @@ export class MenuController {
       this.gameStateRuntime.getSnapshot(),
       this.activeTab,
       this.message,
-    ), style);
+    ), style, this.cursorGlyph);
   }
 }

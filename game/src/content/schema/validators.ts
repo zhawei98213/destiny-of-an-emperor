@@ -51,7 +51,7 @@ function validateAssetResource(value: unknown, path: string): AssetResource {
   const record = ensureRecord(value, path);
   const kind = ensureLiteral(
     record.kind,
-    ["world-placeholder", "panel-style", "tileset-palette", "portrait-placeholder", "sprite-frame", "audio-ref"],
+    ["world-placeholder", "panel-style", "tileset-palette", "portrait-placeholder", "sprite-frame", "audio-ref", "icon-glyph"],
     `${path}.kind`,
   );
 
@@ -71,6 +71,19 @@ function validateAssetResource(value: unknown, path: string): AssetResource {
         titleColor: ensureString(record.titleColor, `${path}.titleColor`),
         bodyColor: ensureString(record.bodyColor, `${path}.bodyColor`),
         accentColor: ensureString(record.accentColor, `${path}.accentColor`),
+        frameMode: record.frameMode === undefined
+          ? undefined
+          : ensureLiteral(record.frameMode, ["solid", "nine-slice-css"] as const, `${path}.frameMode`),
+        borderThickness: ensureOptionalNumber(record.borderThickness, `${path}.borderThickness`),
+        cornerSize: ensureOptionalNumber(record.cornerSize, `${path}.cornerSize`),
+        paddingX: ensureOptionalNumber(record.paddingX, `${path}.paddingX`),
+        paddingY: ensureOptionalNumber(record.paddingY, `${path}.paddingY`),
+        lineHeight: ensureOptionalNumber(record.lineHeight, `${path}.lineHeight`),
+        pointerAssetKey: ensureOptionalString(record.pointerAssetKey, `${path}.pointerAssetKey`),
+        pointerGlyph: ensureOptionalString(record.pointerGlyph, `${path}.pointerGlyph`),
+        selectedPrefix: ensureOptionalString(record.selectedPrefix, `${path}.selectedPrefix`),
+        selectedSuffix: ensureOptionalString(record.selectedSuffix, `${path}.selectedSuffix`),
+        sourceManifestId: ensureOptionalString(record.sourceManifestId, `${path}.sourceManifestId`),
       };
     case "tileset-palette": {
       const tileColorsRecord = ensureRecord(record.tileColors, `${path}.tileColors`);
@@ -102,6 +115,14 @@ function validateAssetResource(value: unknown, path: string): AssetResource {
       return {
         kind,
         path: ensureOptionalString(record.path, `${path}.path`),
+      };
+    case "icon-glyph":
+      return {
+        kind,
+        glyph: ensureString(record.glyph, `${path}.glyph`),
+        color: ensureString(record.color, `${path}.color`),
+        selectedColor: ensureOptionalString(record.selectedColor, `${path}.selectedColor`),
+        sourceManifestId: ensureOptionalString(record.sourceManifestId, `${path}.sourceManifestId`),
       };
   }
 }

@@ -14,7 +14,7 @@ export interface MenuViewModel {
 }
 
 export interface MenuOverlayPort {
-  render(viewModel: MenuViewModel, style?: PanelStyleAssetResource): void;
+  render(viewModel: MenuViewModel, style?: PanelStyleAssetResource, cursorGlyph?: string): void;
   hide(): void;
   destroy(): void;
 }
@@ -84,7 +84,7 @@ export class MenuOverlay implements MenuOverlayPort {
     document.body.appendChild(this.overlay);
   }
 
-  render(viewModel: MenuViewModel, style?: PanelStyleAssetResource): void {
+  render(viewModel: MenuViewModel, style?: PanelStyleAssetResource, cursorGlyph?: string): void {
     if (!this.overlay || !this.headerText || !this.tabText || !this.bodyText) {
       return;
     }
@@ -92,15 +92,27 @@ export class MenuOverlay implements MenuOverlayPort {
     this.overlay.style.display = "block";
     if (style && this.titleText) {
       this.overlay.style.background = style.backgroundColor;
-      this.overlay.style.border = `2px solid ${style.borderColor}`;
+      this.overlay.style.border = `${style.borderThickness ?? 2}px solid ${style.borderColor}`;
+      this.overlay.style.borderRadius = `${style.cornerSize ?? 10}px`;
+      this.overlay.style.padding = `${style.paddingY ?? 16}px ${style.paddingX ?? 16}px`;
       this.overlay.style.color = style.bodyColor;
       this.titleText.style.color = style.titleColor;
       this.headerText.style.color = style.accentColor;
       this.tabText.style.color = style.accentColor;
       this.bodyText.style.color = style.bodyColor;
+      this.bodyText.style.lineHeight = String(style.lineHeight ?? 1.45);
     }
     this.headerText.textContent = `${viewModel.goldText} | ${viewModel.locationText}`;
-    this.tabText.textContent = "Status / 状态 | Inventory / 背包 | Party / 队伍 | System / 系统";
+    const prefix = style?.selectedPrefix ?? (cursorGlyph ? `${cursorGlyph} ` : "");
+    const suffix = style?.selectedSuffix ?? "";
+    const tabLabels: Array<{ id: MenuTabId; label: string }> = [
+      { id: "status", label: "Status / 状态" },
+      { id: "inventory", label: "Inventory / 背包" },
+      { id: "party", label: "Party / 队伍" },
+      { id: "system", label: "System / 系统" },
+    ];
+    this.tabText.textContent = tabLabels.map((tab) =>
+      tab.id === viewModel.activeTab ? `${prefix}${tab.label}${suffix}` : tab.label).join(" | ");
 
     switch (viewModel.activeTab) {
       case "status":

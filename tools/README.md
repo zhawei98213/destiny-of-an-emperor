@@ -39,6 +39,8 @@ Current first-pass tooling:
 - `tools/tileset-reconstruct.ts`：校验 tileset candidate manifest、palette 一致性、图块尺寸、collision review 协助结果以及 asset-registry 接线状态。
 - `tools/character-sprite-reconstruct.ts`: validates character sprite candidates, generates frame metadata, and reports facing-slot coverage plus anchor/pivot consistency.
 - `tools/character-sprite-reconstruct.ts`：校验角色精灵 candidate，生成帧 metadata，并报告朝向槽位覆盖和 anchor/pivot 一致性。
+- `tools/ui-asset-reconstruct.ts`: validates reconstructed UI asset manifests, panel rules, cursor/icon attachment, and writes one UI reconstruction report.
+- `tools/ui-asset-reconstruct.ts`：校验重建 UI 资产清单、面板规则、光标/图标接线状态，并输出一份 UI 重建报告。
 - `tools/reference-validate.ts`: validates the reference manifest, reports missing subject ids or malformed metadata, and writes one reference report.
 - `tools/reference-validate.ts`：校验 reference manifest，报告缺失 subject id 或错误 metadata，并生成一份 reference 报告。
 - `tools/reference-query.ts`: queries indexed references by chapter, map, or subject so Codex and human editors can inspect one target quickly.
@@ -121,6 +123,10 @@ Current first-pass tooling:
   Generates `content/generated/character-sprite-metadata.generated.json` and `reports/character-sprite-reconstruction/latest/`.
 - `npm run character-sprite-reconstruct`
   生成 `content/generated/character-sprite-metadata.generated.json` 和 `reports/character-sprite-reconstruction/latest/`。
+- `npm run ui-asset-reconstruct`
+  Generates `reports/ui-asset-reconstruction/latest/` and summarizes reconstructed panel, cursor, and icon attachment through the shared asset registry.
+- `npm run ui-asset-reconstruct`
+  生成 `reports/ui-asset-reconstruction/latest/`，并汇总通过共享 asset registry 接入的重建面板、光标和图标状态。
 - `npm run reference-validate`
   Generates `reports/reference/latest/` and reports manifest errors such as missing subject ids, duplicate keys, and malformed metadata.
 - `npm run reference-validate`

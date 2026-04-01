@@ -63,11 +63,17 @@ describe("asset registry", () => {
             resource: { kind: "panel-style", backgroundColor: "#000000", borderColor: "#ffffff", titleColor: "#ffffff", bodyColor: "#dddddd", accentColor: "#00ffff" },
           },
           {
+            key: "icon.default",
+            category: "icon",
+            state: "placeholder",
+            resource: { kind: "icon-glyph", glyph: ">", color: "#ffffff", selectedColor: "#ffffff" },
+          },
+          {
             key: "ui.dialogue-box",
             category: "ui-panel",
             state: "placeholder",
             fallbackKey: "ui.panel.default",
-            resource: { kind: "panel-style", backgroundColor: "#010101", borderColor: "#ffffff", titleColor: "#ffffff", bodyColor: "#dddddd", accentColor: "#00ffff" },
+            resource: { kind: "panel-style", backgroundColor: "#010101", borderColor: "#ffffff", titleColor: "#ffffff", bodyColor: "#dddddd", accentColor: "#00ffff", pointerAssetKey: "icon.dialogue-pointer" },
           },
         ],
         assetOverrides: [
@@ -100,7 +106,14 @@ describe("asset registry", () => {
                 category: "ui-panel",
                 state: "locked",
                 fallbackKey: "ui.panel.default",
-                resource: { kind: "panel-style", backgroundColor: "#111122", borderColor: "#ffcc00", titleColor: "#ffee88", bodyColor: "#ffffff", accentColor: "#66ccff" },
+                resource: { kind: "panel-style", backgroundColor: "#111122", borderColor: "#ffcc00", titleColor: "#ffee88", bodyColor: "#ffffff", accentColor: "#66ccff", pointerAssetKey: "icon.dialogue-pointer" },
+              },
+              {
+                key: "icon.dialogue-pointer",
+                category: "icon",
+                state: "imported",
+                fallbackKey: "icon.default",
+                resource: { kind: "icon-glyph", glyph: "▷", color: "#66ccff", selectedColor: "#ffffff" },
               },
             ],
           },
@@ -162,5 +175,6 @@ describe("asset registry", () => {
     expect(registry.resolveTilesetPalette("tileset.field", { mapId: "field" }).tileColors["0"]).toBe("#111111");
     expect(registry.getBindingState("ui.dialogue-box", { mapId: "town" })).toBe("locked");
     expect(registry.resolvePanelStyle("ui.dialogue-box", { mapId: "town" }).borderColor).toBe("#ffcc00");
+    expect(registry.resolveIconGlyph("icon.dialogue-pointer", { mapId: "town" }).glyph).toBe("▷");
   });
 });

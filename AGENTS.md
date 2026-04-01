@@ -49,6 +49,8 @@ Follow it before making code, content, tooling, or documentation changes.
 - 重建 tileset 必须通过 `content/reference/tiles/tileset-candidates.json` 和共享 asset registry 接入，不能在 scene 里临时改地图颜色。
 - Reconstructed character sprites must go through `content/reference/sprites/character-sprite-candidates.json` and shared `sprite-frame` attachment, not scene-local per-NPC styling branches.
 - 重建角色精灵必须通过 `content/reference/sprites/character-sprite-candidates.json` 和共享 `sprite-frame` 接入，不能在 scene 中为单个 NPC 写特判样式分支。
+- Reconstructed UI panels, cursors, and icons must go through `content/reference/ui/ui-asset-manifest.json` plus shared asset-registry attachment, not scene-local overlay styling or file paths.
+- 重建后的 UI 面板、光标和图标必须通过 `content/reference/ui/ui-asset-manifest.json` 和共享 asset-registry 接入，不能在 scene 中写本地 overlay 样式或文件路径。
 - `game/` must read only final consumable content from manifest-listed manual/generated packs.
 - `game/` 只能读取 manifest 列出的 manual/generated 最终可消费内容。
 - Do not use `content/reference/` as runtime assets or scene-local shortcuts.
@@ -95,6 +97,8 @@ Follow it before making code, content, tooling, or documentation changes.
 - `npm run tileset-reconstruct`：校验重建 tileset candidate、palette 一致性、尺寸、collision review 协助结果和 runtime 接线状态。
 - `npm run character-sprite-reconstruct`: validate character sprite candidates, generate metadata, and report facing/slot coverage.
 - `npm run character-sprite-reconstruct`：校验角色精灵 candidate、生成 metadata，并报告朝向/槽位覆盖情况。
+- `npm run ui-asset-reconstruct`: validate reconstructed UI asset manifests, check runtime attachment, and write the current UI asset reconstruction report.
+- `npm run ui-asset-reconstruct`：校验重建 UI 资产清单、检查运行时接线，并生成当前 UI 资产重建报告。
 - `npm run reference-validate`: validate the reference manifest and write the current reference report.
 - `npm run reference-validate`：校验参考资料 manifest，并输出当前 reference 报告。
 - `npm run reference-query -- --subject-type <type> --subject-id <id>`: query indexed references for one map, NPC, UI element, shop, enemy, or battle subject.

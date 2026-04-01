@@ -136,11 +136,12 @@ export class WorldScene extends Phaser.Scene {
 
     const currentMapId = this.worldRuntime.getCurrentMap().id;
     const assetRegistry = this.assetRegistry;
+    const menuCursorGlyph = assetRegistry.resolveIconGlyph("icon.menu-cursor", { mapId: currentMapId }).glyph;
 
     if (this.menuKey && Phaser.Input.Keyboard.JustDown(this.menuKey)) {
       this.menuController?.toggle(assetRegistry.resolvePanelStyle("ui.menu-overlay", {
         mapId: currentMapId,
-      }));
+      }), menuCursorGlyph);
       return;
     }
 
@@ -148,7 +149,7 @@ export class WorldScene extends Phaser.Scene {
       this.handleMenuInput();
       this.menuController.refresh(assetRegistry.resolvePanelStyle("ui.menu-overlay", {
         mapId: currentMapId,
-      }));
+      }), menuCursorGlyph);
       return;
     }
 
@@ -379,9 +380,14 @@ export class WorldScene extends Phaser.Scene {
     const effectiveDelta = Number.isFinite(delta) && delta > 0 ? delta : 16;
     const currentMapId = this.worldRuntime.getCurrentMap().id;
     const assetRegistry = this.assetRegistry;
+    const dialoguePointerGlyph = assetRegistry.resolveIconGlyph("icon.dialogue-pointer", { mapId: currentMapId }).glyph;
     const view = this.dialogueSession.update(effectiveDelta, accelerated);
     if (view) {
-      this.dialogueBox?.show(view, assetRegistry.resolvePanelStyle("ui.dialogue-box", { mapId: currentMapId }));
+      this.dialogueBox?.show(
+        view,
+        assetRegistry.resolvePanelStyle("ui.dialogue-box", { mapId: currentMapId }),
+        dialoguePointerGlyph,
+      );
     }
 
     if (this.interactKey && Phaser.Input.Keyboard.JustDown(this.interactKey)) {
@@ -391,7 +397,11 @@ export class WorldScene extends Phaser.Scene {
         this.dialogueSession = undefined;
         this.applyPendingEventEffects();
       } else if (nextView) {
-        this.dialogueBox?.show(nextView, assetRegistry.resolvePanelStyle("ui.dialogue-box", { mapId: currentMapId }));
+        this.dialogueBox?.show(
+          nextView,
+          assetRegistry.resolvePanelStyle("ui.dialogue-box", { mapId: currentMapId }),
+          dialoguePointerGlyph,
+        );
       }
     }
 
@@ -507,6 +517,7 @@ export class WorldScene extends Phaser.Scene {
         this.dialogueBox?.show(
           initialView,
           assetRegistry.resolvePanelStyle("ui.dialogue-box", { mapId: map.id }),
+          assetRegistry.resolveIconGlyph("icon.dialogue-pointer", { mapId: map.id }).glyph,
         );
       }
       return;
@@ -541,7 +552,7 @@ export class WorldScene extends Phaser.Scene {
         this.contentDatabase,
         this.gameStateRuntime.getSnapshot(),
         this.pendingShopId,
-      ), this.assetRegistry.resolvePanelStyle("ui.shop-overlay", { mapId: currentMapId }));
+      ), this.assetRegistry.resolvePanelStyle("ui.shop-overlay", { mapId: currentMapId }), this.assetRegistry.resolveIconGlyph("icon.shop-pointer", { mapId: currentMapId }).glyph);
       this.pendingShopId = undefined;
     }
   }
@@ -561,12 +572,18 @@ export class WorldScene extends Phaser.Scene {
     const currentMapId = this.worldRuntime?.getCurrentMap().id;
 
     if (this.menuNextKey && Phaser.Input.Keyboard.JustDown(this.menuNextKey)) {
-      this.menuController.nextTab(this.assetRegistry.resolvePanelStyle("ui.menu-overlay", { mapId: currentMapId }));
+      this.menuController.nextTab(
+        this.assetRegistry.resolvePanelStyle("ui.menu-overlay", { mapId: currentMapId }),
+        this.assetRegistry.resolveIconGlyph("icon.menu-cursor", { mapId: currentMapId }).glyph,
+      );
       return;
     }
 
     if (this.menuPreviousKey && Phaser.Input.Keyboard.JustDown(this.menuPreviousKey)) {
-      this.menuController.previousTab(this.assetRegistry.resolvePanelStyle("ui.menu-overlay", { mapId: currentMapId }));
+      this.menuController.previousTab(
+        this.assetRegistry.resolvePanelStyle("ui.menu-overlay", { mapId: currentMapId }),
+        this.assetRegistry.resolveIconGlyph("icon.menu-cursor", { mapId: currentMapId }).glyph,
+      );
       return;
     }
 

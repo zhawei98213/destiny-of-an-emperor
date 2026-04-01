@@ -68,22 +68,30 @@ export class DialogueBox {
     }
   }
 
-  show(view: DialogueSessionView, style?: PanelStyleAssetResource): void {
+  show(view: DialogueSessionView, style?: PanelStyleAssetResource, pointerGlyph?: string): void {
     const fallbackText = view.cue.text;
     const visibleText = view.visibleText.length > 0 ? view.visibleText : fallbackText;
 
     if (this.overlay && this.speakerText && this.bodyText && this.promptText) {
       if (style) {
         this.overlay.style.background = style.backgroundColor;
-        this.overlay.style.border = `2px solid ${style.borderColor}`;
+        this.overlay.style.border = `${style.borderThickness ?? 2}px solid ${style.borderColor}`;
+        this.overlay.style.borderRadius = `${style.cornerSize ?? 8}px`;
+        this.overlay.style.padding = `${style.paddingY ?? 10}px ${style.paddingX ?? 18}px`;
         this.speakerText.style.color = style.titleColor;
         this.bodyText.style.color = style.bodyColor;
+        this.bodyText.style.lineHeight = String(style.lineHeight ?? 1.45);
         this.promptText.style.color = style.accentColor;
+        this.promptText.style.right = `${style.paddingX ?? 18}px`;
+        this.promptText.style.bottom = `${style.paddingY ?? 12}px`;
       }
 
       this.speakerText.textContent = view.cue.speakerName;
       this.bodyText.textContent = visibleText;
-      this.promptText.textContent = view.isLineComplete ? "Enter" : "Skip";
+      const resolvedGlyph = pointerGlyph ?? style?.pointerGlyph ?? "▷";
+      this.promptText.textContent = view.isLineComplete
+        ? `${resolvedGlyph} Enter / 确认`
+        : `${resolvedGlyph} Skip / 跳过`;
       this.overlay.style.display = "block";
     }
   }

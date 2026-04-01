@@ -10,7 +10,7 @@ export interface ShopViewModel {
 }
 
 export interface ShopOverlayPort {
-  render(viewModel: ShopViewModel, style?: PanelStyleAssetResource): void;
+  render(viewModel: ShopViewModel, style?: PanelStyleAssetResource, pointerGlyph?: string): void;
   hide(): void;
   destroy(): void;
 }
@@ -69,7 +69,7 @@ export class ShopOverlay implements ShopOverlayPort {
     document.body.appendChild(this.overlay);
   }
 
-  render(viewModel: ShopViewModel, style?: PanelStyleAssetResource): void {
+  render(viewModel: ShopViewModel, style?: PanelStyleAssetResource, pointerGlyph?: string): void {
     if (!this.overlay || !this.titleText || !this.subtitleText || !this.bodyText) {
       return;
     }
@@ -77,15 +77,25 @@ export class ShopOverlay implements ShopOverlayPort {
     this.overlay.style.display = "block";
     if (style) {
       this.overlay.style.background = style.backgroundColor;
-      this.overlay.style.border = `2px solid ${style.borderColor}`;
+      this.overlay.style.border = `${style.borderThickness ?? 2}px solid ${style.borderColor}`;
+      this.overlay.style.borderRadius = `${style.cornerSize ?? 10}px`;
+      this.overlay.style.padding = `${style.paddingY ?? 16}px ${style.paddingX ?? 16}px`;
       this.overlay.style.color = style.bodyColor;
       this.titleText.style.color = style.titleColor;
       this.subtitleText.style.color = style.accentColor;
       this.bodyText.style.color = style.bodyColor;
+      this.bodyText.style.lineHeight = String(style.lineHeight ?? 1.45);
     }
     this.titleText.textContent = viewModel.titleText;
     this.subtitleText.textContent = viewModel.subtitleText;
-    this.bodyText.textContent = viewModel.bodyText;
+    const prefix = pointerGlyph ? `${pointerGlyph} ` : "";
+    this.bodyText.textContent = [
+      viewModel.itemLines.length > 0
+        ? viewModel.itemLines.map((line) => `${prefix}${line}`).join("\n")
+        : "No goods.\n当前没有商品。",
+      "",
+      `${prefix || ""}Space / Esc: Close / 关闭`,
+    ].join("\n");
   }
 
   hide(): void {

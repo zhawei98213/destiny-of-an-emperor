@@ -129,7 +129,13 @@
         "borderColor": "#f8fafc",
         "titleColor": "#f8fafc",
         "bodyColor": "#e2e8f0",
-        "accentColor": "#93c5fd"
+        "accentColor": "#93c5fd",
+        "frameMode": "solid",
+        "borderThickness": 2,
+        "cornerSize": 8,
+        "paddingX": 16,
+        "paddingY": 10,
+        "lineHeight": 1.45
       }
     },
     {
@@ -143,7 +149,14 @@
         "borderColor": "#eab308",
         "titleColor": "#fde68a",
         "bodyColor": "#f8fafc",
-        "accentColor": "#93c5fd"
+        "accentColor": "#93c5fd",
+        "frameMode": "solid",
+        "borderThickness": 2,
+        "cornerSize": 8,
+        "paddingX": 18,
+        "paddingY": 10,
+        "lineHeight": 1.45,
+        "pointerAssetKey": "icon.dialogue-pointer"
       }
     },
     {
@@ -157,7 +170,15 @@
         "borderColor": "#38bdf8",
         "titleColor": "#f8fafc",
         "bodyColor": "#e2e8f0",
-        "accentColor": "#7dd3fc"
+        "accentColor": "#7dd3fc",
+        "frameMode": "solid",
+        "borderThickness": 2,
+        "cornerSize": 10,
+        "paddingX": 16,
+        "paddingY": 16,
+        "lineHeight": 1.45,
+        "pointerAssetKey": "icon.menu-cursor",
+        "selectedPrefix": "> "
       }
     },
     {
@@ -171,7 +192,14 @@
         "borderColor": "#f59e0b",
         "titleColor": "#f8fafc",
         "bodyColor": "#f8fafc",
-        "accentColor": "#fde68a"
+        "accentColor": "#fde68a",
+        "frameMode": "solid",
+        "borderThickness": 2,
+        "cornerSize": 10,
+        "paddingX": 16,
+        "paddingY": 16,
+        "lineHeight": 1.45,
+        "pointerAssetKey": "icon.shop-pointer"
       }
     },
     {
@@ -185,7 +213,97 @@
         "borderColor": "#f59e0b",
         "titleColor": "#f8fafc",
         "bodyColor": "#e5e7eb",
-        "accentColor": "#fef3c7"
+        "accentColor": "#fef3c7",
+        "frameMode": "solid",
+        "borderThickness": 2,
+        "cornerSize": 8,
+        "paddingX": 14,
+        "paddingY": 12,
+        "lineHeight": 1.35,
+        "pointerAssetKey": "icon.battle-cursor"
+      }
+    },
+    {
+      "key": "icon.default",
+      "category": "icon",
+      "state": "placeholder",
+      "resource": {
+        "kind": "icon-glyph",
+        "glyph": "▶",
+        "color": "#f8fafc",
+        "selectedColor": "#f8fafc"
+      }
+    },
+    {
+      "key": "icon.dialogue-pointer",
+      "category": "icon",
+      "state": "placeholder",
+      "fallbackKey": "icon.default",
+      "resource": {
+        "kind": "icon-glyph",
+        "glyph": "▷",
+        "color": "#93c5fd",
+        "selectedColor": "#f8fafc"
+      }
+    },
+    {
+      "key": "icon.menu-cursor",
+      "category": "icon",
+      "state": "placeholder",
+      "fallbackKey": "icon.default",
+      "resource": {
+        "kind": "icon-glyph",
+        "glyph": "▶",
+        "color": "#7dd3fc",
+        "selectedColor": "#f8fafc"
+      }
+    },
+    {
+      "key": "icon.shop-pointer",
+      "category": "icon",
+      "state": "placeholder",
+      "fallbackKey": "icon.default",
+      "resource": {
+        "kind": "icon-glyph",
+        "glyph": "▸",
+        "color": "#fdba74",
+        "selectedColor": "#fef3c7"
+      }
+    },
+    {
+      "key": "icon.battle-cursor",
+      "category": "icon",
+      "state": "placeholder",
+      "fallbackKey": "icon.default",
+      "resource": {
+        "kind": "icon-glyph",
+        "glyph": "▶",
+        "color": "#fde68a",
+        "selectedColor": "#f8fafc"
+      }
+    },
+    {
+      "key": "icon.item-basic",
+      "category": "icon",
+      "state": "placeholder",
+      "fallbackKey": "icon.default",
+      "resource": {
+        "kind": "icon-glyph",
+        "glyph": "◆",
+        "color": "#facc15",
+        "selectedColor": "#fde68a"
+      }
+    },
+    {
+      "key": "icon.system-save",
+      "category": "icon",
+      "state": "placeholder",
+      "fallbackKey": "icon.default",
+      "resource": {
+        "kind": "icon-glyph",
+        "glyph": "■",
+        "color": "#93c5fd",
+        "selectedColor": "#f8fafc"
       }
     },
     {
@@ -350,7 +468,15 @@
             "borderColor": "#facc15",
             "titleColor": "#fde68a",
             "bodyColor": "#f8fafc",
-            "accentColor": "#93c5fd"
+            "accentColor": "#93c5fd",
+            "frameMode": "nine-slice-css",
+            "borderThickness": 3,
+            "cornerSize": 10,
+            "paddingX": 18,
+            "paddingY": 12,
+            "lineHeight": 1.4,
+            "pointerAssetKey": "icon.dialogue-pointer",
+            "sourceManifestId": "chapter-01-lou-sang-dialogue-box-recon"
           }
         },
         {
@@ -364,7 +490,16 @@
             "borderColor": "#38bdf8",
             "titleColor": "#f8fafc",
             "bodyColor": "#e2e8f0",
-            "accentColor": "#7dd3fc"
+            "accentColor": "#7dd3fc",
+            "frameMode": "nine-slice-css",
+            "borderThickness": 3,
+            "cornerSize": 10,
+            "paddingX": 16,
+            "paddingY": 14,
+            "lineHeight": 1.4,
+            "pointerAssetKey": "icon.menu-cursor",
+            "selectedPrefix": "▶ ",
+            "sourceManifestId": "chapter-01-lou-sang-menu-overlay-recon"
           }
         },
         {
@@ -378,7 +513,15 @@
             "borderColor": "#fb923c",
             "titleColor": "#f8fafc",
             "bodyColor": "#fef3c7",
-            "accentColor": "#fdba74"
+            "accentColor": "#fdba74",
+            "frameMode": "nine-slice-css",
+            "borderThickness": 3,
+            "cornerSize": 10,
+            "paddingX": 16,
+            "paddingY": 14,
+            "lineHeight": 1.4,
+            "pointerAssetKey": "icon.shop-pointer",
+            "sourceManifestId": "chapter-01-lou-sang-shop-overlay-recon"
           }
         },
         {
@@ -392,7 +535,93 @@
             "borderColor": "#f59e0b",
             "titleColor": "#f8fafc",
             "bodyColor": "#e5e7eb",
-            "accentColor": "#fde68a"
+            "accentColor": "#fde68a",
+            "frameMode": "nine-slice-css",
+            "borderThickness": 3,
+            "cornerSize": 8,
+            "paddingX": 14,
+            "paddingY": 12,
+            "lineHeight": 1.35,
+            "pointerAssetKey": "icon.battle-cursor",
+            "sourceManifestId": "chapter-01-lou-sang-battle-panel-recon"
+          }
+        },
+        {
+          "key": "icon.dialogue-pointer",
+          "category": "icon",
+          "state": "imported",
+          "fallbackKey": "icon.default",
+          "resource": {
+            "kind": "icon-glyph",
+            "glyph": "▷",
+            "color": "#93c5fd",
+            "selectedColor": "#f8fafc",
+            "sourceManifestId": "chapter-01-lou-sang-dialogue-pointer"
+          }
+        },
+        {
+          "key": "icon.menu-cursor",
+          "category": "icon",
+          "state": "imported",
+          "fallbackKey": "icon.default",
+          "resource": {
+            "kind": "icon-glyph",
+            "glyph": "▶",
+            "color": "#7dd3fc",
+            "selectedColor": "#f8fafc",
+            "sourceManifestId": "chapter-01-lou-sang-menu-cursor"
+          }
+        },
+        {
+          "key": "icon.shop-pointer",
+          "category": "icon",
+          "state": "imported",
+          "fallbackKey": "icon.default",
+          "resource": {
+            "kind": "icon-glyph",
+            "glyph": "▸",
+            "color": "#fdba74",
+            "selectedColor": "#fef3c7",
+            "sourceManifestId": "chapter-01-lou-sang-shop-pointer"
+          }
+        },
+        {
+          "key": "icon.battle-cursor",
+          "category": "icon",
+          "state": "imported",
+          "fallbackKey": "icon.default",
+          "resource": {
+            "kind": "icon-glyph",
+            "glyph": "▶",
+            "color": "#fde68a",
+            "selectedColor": "#f8fafc",
+            "sourceManifestId": "chapter-01-lou-sang-battle-cursor"
+          }
+        },
+        {
+          "key": "icon.item-basic",
+          "category": "icon",
+          "state": "imported",
+          "fallbackKey": "icon.default",
+          "resource": {
+            "kind": "icon-glyph",
+            "glyph": "◆",
+            "color": "#facc15",
+            "selectedColor": "#fde68a",
+            "sourceManifestId": "chapter-01-lou-sang-bag-icon"
+          }
+        },
+        {
+          "key": "icon.system-save",
+          "category": "icon",
+          "state": "imported",
+          "fallbackKey": "icon.default",
+          "resource": {
+            "kind": "icon-glyph",
+            "glyph": "■",
+            "color": "#93c5fd",
+            "selectedColor": "#f8fafc",
+            "sourceManifestId": "chapter-01-lou-sang-save-icon"
           }
         }
       ]

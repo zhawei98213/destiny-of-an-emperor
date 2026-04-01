@@ -5,6 +5,7 @@ import type {
   AssetResource,
   AssetState,
   ContentDatabase,
+  IconGlyphAssetResource,
   PanelStyleAssetResource,
   TilesetPaletteAssetResource,
   WorldPlaceholderAssetResource,
@@ -78,6 +79,20 @@ export class AssetRegistry {
       titleColor: "#f8fafc",
       bodyColor: "#e2e8f0",
       accentColor: "#93c5fd",
+    };
+  }
+
+  resolveIconGlyph(iconKey: string, context: AssetContext = {}): IconGlyphAssetResource {
+    const resolved = this.resolve(iconKey, "icon.default", context);
+    if (resolved.resource.kind === "icon-glyph") {
+      return resolved.resource;
+    }
+
+    return {
+      kind: "icon-glyph",
+      glyph: "▶",
+      color: "#f8fafc",
+      selectedColor: "#f8fafc",
     };
   }
 
@@ -189,6 +204,10 @@ export class AssetRegistry {
       return "audio";
     }
 
+    if (key.startsWith("icon.")) {
+      return "icon";
+    }
+
     if (key.startsWith("ui.")) {
       return "ui-panel";
     }
@@ -206,6 +225,8 @@ export class AssetRegistry {
         return "portrait.default";
       case "audio":
         return "audio.default";
+      case "icon":
+        return "icon.default";
       case "ui-panel":
         return "ui.panel.default";
       default:

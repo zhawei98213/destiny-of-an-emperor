@@ -36,6 +36,8 @@ export class BattleScene extends Phaser.Scene {
 
   private logText?: Phaser.GameObjects.Text;
 
+  private commandCursorGlyph = "▶";
+
   constructor() {
     super(SceneKey.Battle);
   }
@@ -58,6 +60,7 @@ export class BattleScene extends Phaser.Scene {
     this.attackKey = this.input.keyboard?.addKey("A");
     this.advanceKey = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     const panelStyle = this.assetRegistry?.resolvePanelStyle("ui.battle-panel", { mapId: request.originMapId });
+    this.commandCursorGlyph = this.assetRegistry?.resolveIconGlyph("icon.battle-cursor", { mapId: request.originMapId }).glyph ?? "▶";
     this.cameras.main.setBackgroundColor(panelStyle?.backgroundColor ?? "#1f2937");
 
     this.add.text(24, 20, "Battle / 战斗", {
@@ -167,7 +170,7 @@ export class BattleScene extends Phaser.Scene {
       const actor = getCurrentActor(this.battleState);
       this.promptText.setText(
         actor?.side === "ally"
-          ? `A: Attack / A 普通攻击\nTurn / 当前行动: ${actor.name}`
+          ? `${this.commandCursorGlyph} A: Attack / A 普通攻击\nTurn / 当前行动: ${actor.name}`
           : `Enemy turn... / 敌方行动中...\nTurn / 当前行动: ${actor?.name ?? ""}`,
       );
     }

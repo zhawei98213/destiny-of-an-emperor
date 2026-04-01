@@ -33,6 +33,17 @@ export interface PanelStyleAssetResource {
   titleColor: string;
   bodyColor: string;
   accentColor: string;
+  frameMode?: "solid" | "nine-slice-css";
+  borderThickness?: number;
+  cornerSize?: number;
+  paddingX?: number;
+  paddingY?: number;
+  lineHeight?: number;
+  pointerAssetKey?: string;
+  pointerGlyph?: string;
+  selectedPrefix?: string;
+  selectedSuffix?: string;
+  sourceManifestId?: string;
 }
 
 export interface TilesetPaletteAssetResource {
@@ -62,13 +73,22 @@ export interface AudioRefAssetResource {
   path?: string;
 }
 
+export interface IconGlyphAssetResource {
+  kind: "icon-glyph";
+  glyph: string;
+  color: string;
+  selectedColor?: string;
+  sourceManifestId?: string;
+}
+
 export type AssetResource =
   | WorldPlaceholderAssetResource
   | PanelStyleAssetResource
   | TilesetPaletteAssetResource
   | PortraitPlaceholderAssetResource
   | SpriteFrameAssetResource
-  | AudioRefAssetResource;
+  | AudioRefAssetResource
+  | IconGlyphAssetResource;
 
 export interface AssetBindingDefinition {
   key: string;
