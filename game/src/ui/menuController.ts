@@ -1,5 +1,5 @@
 import { DEFAULT_SAVE_SLOT, SaveManager } from "@/systems/saveManager";
-import type { ContentDatabase } from "@/types/content";
+import type { ContentDatabase, PanelStyleAssetResource } from "@/types/content";
 import { GameStateRuntime } from "@/systems/gameStateRuntime";
 import { buildMenuViewModel, type MenuOverlayPort, type MenuTabId } from "@/ui/menuOverlay";
 import { WorldRuntime } from "@/world/worldRuntime";
@@ -29,32 +29,32 @@ export class MenuController {
     return this.isOpen;
   }
 
-  toggle(): void {
+  toggle(style?: PanelStyleAssetResource): void {
     this.isOpen = !this.isOpen;
     if (this.isOpen) {
-      this.render();
+      this.render(style);
       return;
     }
 
     this.overlay.hide();
   }
 
-  nextTab(): void {
+  nextTab(style?: PanelStyleAssetResource): void {
     this.activeTab = MENU_TABS[(MENU_TABS.indexOf(this.activeTab) + 1) % MENU_TABS.length] ?? "status";
-    this.render();
+    this.render(style);
   }
 
-  previousTab(): void {
+  previousTab(style?: PanelStyleAssetResource): void {
     this.activeTab = MENU_TABS[(MENU_TABS.indexOf(this.activeTab) + MENU_TABS.length - 1) % MENU_TABS.length] ?? "status";
-    this.render();
+    this.render(style);
   }
 
-  refresh(): void {
+  refresh(style?: PanelStyleAssetResource): void {
     if (!this.isOpen) {
       return;
     }
 
-    this.render();
+    this.render(style);
   }
 
   save(): MenuActionResult {
@@ -84,12 +84,12 @@ export class MenuController {
     this.overlay.destroy();
   }
 
-  private render(): void {
+  private render(style?: PanelStyleAssetResource): void {
     this.overlay.render(buildMenuViewModel(
       this.database,
       this.gameStateRuntime.getSnapshot(),
       this.activeTab,
       this.message,
-    ));
+    ), style);
   }
 }

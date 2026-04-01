@@ -1,6 +1,8 @@
 import Phaser from "phaser";
+import { AssetRegistry } from "@/assets/assetRegistry";
 import { getCurrentActor, runAttackTurn, type BattleState, createBattleState } from "@/battle/battleRuntime";
 import {
+  ASSET_REGISTRY_KEY,
   BATTLE_REQUEST_REGISTRY_KEY,
   CONTENT_REGISTRY_KEY,
   GAME_STATE_REGISTRY_KEY,
@@ -17,6 +19,8 @@ export class BattleScene extends Phaser.Scene {
   private gameStateRuntime?: GameStateRuntime;
 
   private battleState?: BattleState;
+
+  private assetRegistry?: AssetRegistry;
 
   private attackKey?: Phaser.Input.Keyboard.Key;
 
@@ -39,6 +43,7 @@ export class BattleScene extends Phaser.Scene {
   create(): void {
     this.contentDatabase = this.registry.get(CONTENT_REGISTRY_KEY) as ContentDatabase | undefined;
     this.gameStateRuntime = this.registry.get(GAME_STATE_REGISTRY_KEY) as GameStateRuntime | undefined;
+    this.assetRegistry = this.registry.get(ASSET_REGISTRY_KEY) as AssetRegistry | undefined;
     const request = this.registry.get(BATTLE_REQUEST_REGISTRY_KEY) as BattleRequest | undefined;
     if (!this.contentDatabase || !this.gameStateRuntime || !request) {
       this.scene.start(SceneKey.World);
@@ -52,30 +57,31 @@ export class BattleScene extends Phaser.Scene {
     );
     this.attackKey = this.input.keyboard?.addKey("A");
     this.advanceKey = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
-    this.cameras.main.setBackgroundColor("#1f2937");
+    const panelStyle = this.assetRegistry?.resolvePanelStyle("ui.battle-panel", { mapId: request.originMapId });
+    this.cameras.main.setBackgroundColor(panelStyle?.backgroundColor ?? "#1f2937");
 
     this.add.text(24, 20, "Battle / 战斗", {
-      color: "#f8fafc",
+      color: panelStyle?.titleColor ?? "#f8fafc",
       fontFamily: "monospace",
       fontSize: "20px",
     });
     this.allyText = this.add.text(24, 70, "", {
-      color: "#bfdbfe",
+      color: panelStyle?.bodyColor ?? "#bfdbfe",
       fontFamily: "monospace",
       fontSize: "13px",
     });
     this.enemyText = this.add.text(360, 70, "", {
-      color: "#fecaca",
+      color: panelStyle?.bodyColor ?? "#fecaca",
       fontFamily: "monospace",
       fontSize: "13px",
     });
     this.promptText = this.add.text(24, 280, "", {
-      color: "#fef3c7",
+      color: panelStyle?.accentColor ?? "#fef3c7",
       fontFamily: "monospace",
       fontSize: "13px",
     });
     this.logText = this.add.text(24, 310, "", {
-      color: "#e5e7eb",
+      color: panelStyle?.bodyColor ?? "#e5e7eb",
       fontFamily: "monospace",
       fontSize: "12px",
       wordWrap: { width: 592 },

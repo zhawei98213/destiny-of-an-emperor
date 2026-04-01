@@ -26,12 +26,18 @@ This document defines:
 - 不要把字面量资源路径散落到 scene 中。
 - Asset ids should live in content data or in a dedicated resource registry layer.
 - 资源 id 应该统一收敛到内容数据层或专门的资源注册层。
+- Runtime-facing logical asset keys now live in `content/manual/asset-registry.content.json`.
+- 面向运行时的逻辑资源 key 现在统一放在 `content/manual/asset-registry.content.json`。
+- Chapter- or map-specific swaps should go through `assetOverrides`, not scene-local path branches.
+- 章节级或地图级资源替换应通过 `assetOverrides` 完成，不能回退到 scene 本地路径分支。
 - Current accepted reference points are:
 - 当前允许的引用入口有：
   - `content/manual/world.content.json` for NPC sprite ids
   - `content/manual/world.content.json`：NPC sprite id
   - `content/manual/story.content.json` for `portraitId`, `soundId`, and `playSfx.sfxId`
   - `content/manual/story.content.json`：`portraitId`、`soundId` 和 `playSfx.sfxId`
+  - `content/manual/asset-registry.content.json` for logical asset bindings, fallback keys, and chapter overrides
+  - `content/manual/asset-registry.content.json`：逻辑资源绑定、fallback key 和章节覆盖
   - `content/generated/sprite-metadata.generated.json` as the current generated sprite registry seed
   - `content/generated/sprite-metadata.generated.json`：当前生成式精灵注册种子
 - Future real assets should extend these layers instead of introducing scene-local file paths.
@@ -100,6 +106,8 @@ Main reasons:
 
 - no checked-in sprite sheet image exists at `/assets/sprites/world-demo.png`
 - 仓库里还没有真正存在的 `/assets/sprites/world-demo.png` 精灵图
+- the asset registry is now in place, but only chapter-01 currently overrides UI panel bindings, so most chapter categories still resolve to shared placeholders
+- 资产注册层已经建立，但目前只有 chapter-01 对 UI 面板绑定做了章节覆盖，因此大多章节分类仍解析到共享占位资源
 - NPC sprite references are symbolic, but only part of the family list exists in generated metadata
 - NPC sprite 引用已经符号化，但 generated metadata 只覆盖了其中一部分 family
 - enemy sprites have no registry yet
@@ -136,6 +144,8 @@ The current asset checker reports:
 - 未被引用的生成精灵 family
 - content references that point to non-existent assets
 - 指向不存在资产的内容引用
+- asset registry keys that fall back to placeholders
+- 回退到占位资源的 asset registry key
 - sprite metadata completeness against sprite source metadata
 - sprite metadata 相对 sprite source metadata 的完整性
 - literal asset path leakage into scenes
@@ -165,8 +175,8 @@ An asset category for a chapter should not move to `locked` until:
 2. Add explicit registry coverage for NPC sprite families such as `guide`.
 2. 为 `guide` 等 NPC 精灵 family 补齐明确注册覆盖。
 
-3. Decide whether UI panels and icons remain intentionally code-drawn for the current stage or move into imported assets.
-3. 决定当前阶段的 UI 面板与图标是否继续保持代码绘制，还是开始转入导入资产。
+3. Expand chapter-level `assetOverrides` beyond chapter-01 so later real slices can swap a batch of UI or NPC visuals without touching scene code.
+3. 把章节级 `assetOverrides` 扩展到 chapter-01 之外，让后续真实切片能够在不改 scene 的前提下成批替换 UI 或 NPC 表现。
 
 4. Add an audio registry only when real audio files or real reference ids are ready.
 4. 只有当真实音频文件或真实参考 id 准备好之后，再建立音频注册层。

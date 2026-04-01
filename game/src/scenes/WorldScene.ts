@@ -1,5 +1,7 @@
 import Phaser from "phaser";
+import { AssetRegistry } from "@/assets/assetRegistry";
 import {
+  ASSET_REGISTRY_KEY,
   BATTLE_REQUEST_REGISTRY_KEY,
   CONTENT_REGISTRY_KEY,
   GAME_STATE_REGISTRY_KEY,
@@ -32,8 +34,6 @@ export class WorldScene extends Phaser.Scene {
 
   private static readonly CameraZoom = 2;
 
-  private static readonly NpcBodyColor = 0xf59e0b;
-
   private hero?: Phaser.GameObjects.Rectangle;
 
   private facingMarker?: Phaser.GameObjects.Rectangle;
@@ -63,6 +63,8 @@ export class WorldScene extends Phaser.Scene {
   private gameStateRuntime?: GameStateRuntime;
 
   private saveManager?: SaveManager;
+
+  private assetRegistry?: AssetRegistry;
 
   private dialogueBox?: DialogueBox;
 
@@ -95,7 +97,8 @@ export class WorldScene extends Phaser.Scene {
     this.gameStateRuntime = this.registry.get(GAME_STATE_REGISTRY_KEY) as GameStateRuntime | undefined;
     this.saveManager = this.registry.get(SAVE_MANAGER_REGISTRY_KEY) as SaveManager | undefined;
     this.worldRuntime = this.registry.get(WORLD_RUNTIME_REGISTRY_KEY) as WorldRuntime | undefined;
-    if (!this.contentDatabase || !this.gameStateRuntime || !this.saveManager || !this.worldRuntime) {
+    this.assetRegistry = this.registry.get(ASSET_REGISTRY_KEY) as AssetRegistry | undefined;
+    if (!this.contentDatabase || !this.gameStateRuntime || !this.saveManager || !this.worldRuntime || !this.assetRegistry) {
       throw new Error("WorldScene requires bootstrapped content and world runtime.");
     }
 
@@ -127,18 +130,25 @@ export class WorldScene extends Phaser.Scene {
   }
 
   update(time: number, delta: number): void {
-    if (!this.hero || !this.worldRuntime) {
+    if (!this.hero || !this.worldRuntime || !this.assetRegistry) {
       return;
     }
 
+    const currentMapId = this.worldRuntime.getCurrentMap().id;
+    const assetRegistry = this.assetRegistry;
+
     if (this.menuKey && Phaser.Input.Keyboard.JustDown(this.menuKey)) {
-      this.menuController?.toggle();
+      this.menuController?.toggle(assetRegistry.resolvePanelStyle("ui.menu-overlay", {
+        mapId: currentMapId,
+      }));
       return;
     }
 
     if (this.menuController?.isMenuOpen()) {
       this.handleMenuInput();
-      this.menuController.refresh();
+      this.menuController.refresh(assetRegistry.resolvePanelStyle("ui.menu-overlay", {
+        mapId: currentMapId,
+      }));
       return;
     }
 
@@ -274,12 +284,14 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private renderNpcs(): void {
-    if (!this.worldRuntime) {
+    if (!this.worldRuntime || !this.assetRegistry) {
       return;
     }
 
+    const assetRegistry = this.assetRegistry;
     const map = this.worldRuntime.getCurrentMap();
     map.npcs.forEach((npc) => {
+      const npcStyle = assetRegistry.resolveNpcVisual(npc.sprite, { mapId: map.id });
       const centerX = (npc.x * map.tileWidth) + (map.tileWidth / 2);
       const centerY = (npc.y * map.tileHeight) + (map.tileHeight / 2);
       const npcSprite = this.add.rectangle(
@@ -287,14 +299,21 @@ export class WorldScene extends Phaser.Scene {
         centerY,
         map.tileWidth - 4,
         map.tileHeight - 4,
-        WorldScene.NpcBodyColor,
+        Phaser.Display.Color.HexStringToColor(npcStyle.fillColor).color,
         1,
       );
-      npcSprite.setStrokeStyle(2, 0x451a03);
+      npcSprite.setStrokeStyle(2, Phaser.Display.Color.HexStringToColor(npcStyle.strokeColor).color);
 
       const facingOffsetX = npc.facing === "left" ? -4 : npc.facing === "right" ? 4 : 0;
       const facingOffsetY = npc.facing === "up" ? -4 : npc.facing === "down" ? 4 : 0;
-      this.add.rectangle(centerX + facingOffsetX, centerY + facingOffsetY, 4, 4, 0x1d4ed8, 1);
+      this.add.rectangle(
+        centerX + facingOffsetX,
+        centerY + facingOffsetY,
+        4,
+        4,
+        Phaser.Display.Color.HexStringToColor(npcStyle.accentColor).color,
+        1,
+      );
     });
   }
 
@@ -319,15 +338,17 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private updateDialogue(delta: number): boolean {
-    if (!this.dialogueSession) {
+    if (!this.dialogueSession || !this.worldRuntime || !this.assetRegistry) {
       return false;
     }
 
     const accelerated = this.fastDialogueKey?.isDown ?? false;
     const effectiveDelta = Number.isFinite(delta) && delta > 0 ? delta : 16;
+    const currentMapId = this.worldRuntime.getCurrentMap().id;
+    const assetRegistry = this.assetRegistry;
     const view = this.dialogueSession.update(effectiveDelta, accelerated);
     if (view) {
-      this.dialogueBox?.show(view);
+      this.dialogueBox?.show(view, assetRegistry.resolvePanelStyle("ui.dialogue-box", { mapId: currentMapId }));
     }
 
     if (this.interactKey && Phaser.Input.Keyboard.JustDown(this.interactKey)) {
@@ -337,7 +358,7 @@ export class WorldScene extends Phaser.Scene {
         this.dialogueSession = undefined;
         this.applyPendingEventEffects();
       } else if (nextView) {
-        this.dialogueBox?.show(nextView);
+        this.dialogueBox?.show(nextView, assetRegistry.resolvePanelStyle("ui.dialogue-box", { mapId: currentMapId }));
       }
     }
 
@@ -366,7 +387,7 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private tryStartRegionEncounter(): void {
-    if (!this.worldRuntime || !this.contentDatabase || !this.gameStateRuntime) {
+    if (!this.worldRuntime || !this.contentDatabase || !this.gameStateRuntime || !this.assetRegistry) {
       return;
     }
 
@@ -399,11 +420,12 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private executeTrigger(triggerId: string): void {
-    if (!this.worldRuntime || !this.contentDatabase || !this.gameStateRuntime) {
+    if (!this.worldRuntime || !this.contentDatabase || !this.gameStateRuntime || !this.assetRegistry) {
       return;
     }
 
     const map = this.worldRuntime.getCurrentMap();
+    const assetRegistry = this.assetRegistry;
     const trigger = map.triggers.find((entry) => entry.id === triggerId);
     if (!trigger) {
       throw new Error(`WorldScene could not find trigger "${triggerId}" on map "${map.id}".`);
@@ -449,7 +471,10 @@ export class WorldScene extends Phaser.Scene {
       this.dialogueSession = new DialogueSession(runtime.dialogueLog);
       const initialView = this.dialogueSession.getView();
       if (initialView) {
-        this.dialogueBox?.show(initialView);
+        this.dialogueBox?.show(
+          initialView,
+          assetRegistry.resolvePanelStyle("ui.dialogue-box", { mapId: map.id }),
+        );
       }
       return;
     }
@@ -476,13 +501,14 @@ export class WorldScene extends Phaser.Scene {
       return;
     }
 
-    if (this.pendingShopId && this.contentDatabase && this.gameStateRuntime) {
+    if (this.pendingShopId && this.contentDatabase && this.gameStateRuntime && this.assetRegistry) {
+      const currentMapId = this.worldRuntime?.getCurrentMap().id;
       this.activeShopId = this.pendingShopId;
       this.shopOverlay?.render(buildShopViewModel(
         this.contentDatabase,
         this.gameStateRuntime.getSnapshot(),
         this.pendingShopId,
-      ));
+      ), this.assetRegistry.resolvePanelStyle("ui.shop-overlay", { mapId: currentMapId }));
       this.pendingShopId = undefined;
     }
   }
@@ -495,17 +521,19 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private handleMenuInput(): void {
-    if (!this.menuController) {
+    if (!this.menuController || !this.assetRegistry) {
       return;
     }
 
+    const currentMapId = this.worldRuntime?.getCurrentMap().id;
+
     if (this.menuNextKey && Phaser.Input.Keyboard.JustDown(this.menuNextKey)) {
-      this.menuController.nextTab();
+      this.menuController.nextTab(this.assetRegistry.resolvePanelStyle("ui.menu-overlay", { mapId: currentMapId }));
       return;
     }
 
     if (this.menuPreviousKey && Phaser.Input.Keyboard.JustDown(this.menuPreviousKey)) {
-      this.menuController.previousTab();
+      this.menuController.previousTab(this.assetRegistry.resolvePanelStyle("ui.menu-overlay", { mapId: currentMapId }));
       return;
     }
 

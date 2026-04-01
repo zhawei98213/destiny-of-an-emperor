@@ -12,6 +12,9 @@ import {
   failSchema,
 } from "@/content/schema/primitives";
 import type {
+  AssetBindingDefinition,
+  AssetOverrideDefinition,
+  AssetResource,
   BattleGroupDefinition,
   CollisionLayerDefinition,
   ContentDatabase,
@@ -43,6 +46,79 @@ import type {
   TriggerDefinition,
   UnitStats,
 } from "@/types/content";
+
+function validateAssetResource(value: unknown, path: string): AssetResource {
+  const record = ensureRecord(value, path);
+  const kind = ensureLiteral(
+    record.kind,
+    ["world-placeholder", "panel-style", "portrait-placeholder", "sprite-frame", "audio-ref"],
+    `${path}.kind`,
+  );
+
+  switch (kind) {
+    case "world-placeholder":
+      return {
+        kind,
+        fillColor: ensureString(record.fillColor, `${path}.fillColor`),
+        strokeColor: ensureString(record.strokeColor, `${path}.strokeColor`),
+        accentColor: ensureString(record.accentColor, `${path}.accentColor`),
+      };
+    case "panel-style":
+      return {
+        kind,
+        backgroundColor: ensureString(record.backgroundColor, `${path}.backgroundColor`),
+        borderColor: ensureString(record.borderColor, `${path}.borderColor`),
+        titleColor: ensureString(record.titleColor, `${path}.titleColor`),
+        bodyColor: ensureString(record.bodyColor, `${path}.bodyColor`),
+        accentColor: ensureString(record.accentColor, `${path}.accentColor`),
+      };
+    case "portrait-placeholder":
+      return {
+        kind,
+        backgroundColor: ensureString(record.backgroundColor, `${path}.backgroundColor`),
+        borderColor: ensureString(record.borderColor, `${path}.borderColor`),
+        textColor: ensureString(record.textColor, `${path}.textColor`),
+      };
+    case "sprite-frame":
+      return {
+        kind,
+        sheetId: ensureString(record.sheetId, `${path}.sheetId`),
+        frameId: ensureString(record.frameId, `${path}.frameId`),
+        imagePath: ensureOptionalString(record.imagePath, `${path}.imagePath`),
+      };
+    case "audio-ref":
+      return {
+        kind,
+        path: ensureOptionalString(record.path, `${path}.path`),
+      };
+  }
+}
+
+function validateAssetBindingDefinition(value: unknown, path: string): AssetBindingDefinition {
+  const record = ensureRecord(value, path);
+  return {
+    key: ensureString(record.key, `${path}.key`),
+    category: ensureLiteral(
+      record.category,
+      ["tileset", "character-sprite", "npc-sprite", "enemy-sprite", "ui-panel", "portrait", "icon", "audio"],
+      `${path}.category`,
+    ),
+    state: ensureLiteral(record.state, ["placeholder", "imported", "locked"], `${path}.state`),
+    fallbackKey: ensureOptionalString(record.fallbackKey, `${path}.fallbackKey`),
+    resource: validateAssetResource(record.resource, `${path}.resource`),
+  };
+}
+
+function validateAssetOverrideDefinition(value: unknown, path: string): AssetOverrideDefinition {
+  const record = ensureRecord(value, path);
+  return {
+    chapterId: ensureString(record.chapterId, `${path}.chapterId`),
+    mapIds: ensureStringArray(record.mapIds, `${path}.mapIds`),
+    assetBindings: ensureArray(record.assetBindings, `${path}.assetBindings`).map((entry, index) =>
+      validateAssetBindingDefinition(entry, `${path}.assetBindings[${index}]`),
+    ),
+  };
+}
 
 function validateUnitStats(value: unknown, path: string): UnitStats {
   const record = ensureRecord(value, path);
@@ -628,6 +704,12 @@ export function validateContentPack(value: unknown, path: string): ContentPack {
     encounterTables: ensureArray(record.encounterTables ?? [], `${path}.encounterTables`).map(
       (entry, index) => validateEncounterTableDefinition(entry, `${path}.encounterTables[${index}]`),
     ),
+    assetBindings: ensureArray(record.assetBindings ?? [], `${path}.assetBindings`).map(
+      (entry, index) => validateAssetBindingDefinition(entry, `${path}.assetBindings[${index}]`),
+    ),
+    assetOverrides: ensureArray(record.assetOverrides ?? [], `${path}.assetOverrides`).map(
+      (entry, index) => validateAssetOverrideDefinition(entry, `${path}.assetOverrides[${index}]`),
+    ),
   };
 }
 
@@ -646,5 +728,7 @@ export function createEmptyContentDatabase(): ContentDatabase {
     flags: [],
     questStates: [],
     encounterTables: [],
+    assetBindings: [],
+    assetOverrides: [],
   };
 }

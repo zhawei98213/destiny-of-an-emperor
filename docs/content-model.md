@@ -37,6 +37,8 @@ The merged runtime content database currently contains:
 - 技能
 - flags and quest states
 - flags 与任务状态
+- asset bindings and chapter-level asset overrides
+- 资源绑定与章节级资源覆盖
 
 ## Current Event DSL
 ## 当前事件 DSL
@@ -92,6 +94,23 @@ The first-pass import pipeline currently generates:
 - `sprite-metadata.generated.json`：稳定的精灵表元数据
 - `import-staging/*.generated.json`: inspection-only importer reports for maps, text, and game data
 - `import-staging/*.generated.json`：仅用于检查的地图、文本和游戏数据导入报告
+
+## Asset Registry Layer
+## 资产注册层
+
+Runtime-facing asset selection now goes through a logical registry instead of scene-local file paths.
+当前运行时的资源选择已经改为走逻辑注册层，而不是 scene 本地文件路径。
+
+- `content/manual/asset-registry.content.json` defines base `assetBindings`
+- `content/manual/asset-registry.content.json` 定义基础 `assetBindings`
+- `assetOverrides` allow chapter- or map-scoped replacement of the same logical key
+- `assetOverrides` 允许按章节或地图范围替换同一个逻辑 key
+- supported states are `placeholder`, `imported`, and `locked`
+- 当前支持的状态有 `placeholder`、`imported` 和 `locked`
+- runtime content should reference logical ids such as `npc.guard`, `portrait.guard-default`, and `ui.dialogue-box`
+- 运行时内容应引用 `npc.guard`、`portrait.guard-default`、`ui.dialogue-box` 这类逻辑 id
+- scenes should ask the shared asset registry for resolved visuals and fallback behavior
+- scene 应通过共享 asset registry 获取实际表现和统一回退行为
 
 ## Rules
 ## 规则

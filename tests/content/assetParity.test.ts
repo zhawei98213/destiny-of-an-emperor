@@ -10,9 +10,8 @@ describe("asset parity", () => {
 
     const chapterOne = report.chapters.find((entry) => entry.chapterId === "chapter-01-lou-sang");
     expect(chapterOne).toBeTruthy();
-    expect(chapterOne?.categories.find((entry) => entry.id === "npc-sprites")?.status).toBe("placeholder");
+    expect(chapterOne?.categories.find((entry) => entry.id === "ui-panels")?.status).toBe("imported");
     expect(chapterOne?.categories.find((entry) => entry.id === "audio")?.status).toBe("placeholder");
-
-    expect(report.issues.some((issue) => issue.type === "missing-resource")).toBe(true);
+    expect(report.issues.some((issue) => issue.type === "broken-reference")).toBe(true);
   });
 });

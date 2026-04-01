@@ -1,4 +1,4 @@
-import type { ContentDatabase } from "@/types/content";
+import type { ContentDatabase, PanelStyleAssetResource } from "@/types/content";
 import type { GameStateSnapshot } from "@/systems/gameStateRuntime";
 
 export type MenuTabId = "status" | "inventory" | "party" | "system";
@@ -14,7 +14,7 @@ export interface MenuViewModel {
 }
 
 export interface MenuOverlayPort {
-  render(viewModel: MenuViewModel): void;
+  render(viewModel: MenuViewModel, style?: PanelStyleAssetResource): void;
   hide(): void;
   destroy(): void;
 }
@@ -84,12 +84,21 @@ export class MenuOverlay implements MenuOverlayPort {
     document.body.appendChild(this.overlay);
   }
 
-  render(viewModel: MenuViewModel): void {
+  render(viewModel: MenuViewModel, style?: PanelStyleAssetResource): void {
     if (!this.overlay || !this.headerText || !this.tabText || !this.bodyText) {
       return;
     }
 
     this.overlay.style.display = "block";
+    if (style && this.titleText) {
+      this.overlay.style.background = style.backgroundColor;
+      this.overlay.style.border = `2px solid ${style.borderColor}`;
+      this.overlay.style.color = style.bodyColor;
+      this.titleText.style.color = style.titleColor;
+      this.headerText.style.color = style.accentColor;
+      this.tabText.style.color = style.accentColor;
+      this.bodyText.style.color = style.bodyColor;
+    }
     this.headerText.textContent = `${viewModel.goldText} | ${viewModel.locationText}`;
     this.tabText.textContent = "Status / 状态 | Inventory / 背包 | Party / 队伍 | System / 系统";
 

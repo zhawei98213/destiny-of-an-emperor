@@ -1,0 +1,362 @@
+{
+  "meta": {
+    "id": "manual-asset-registry",
+    "kind": "manual",
+    "version": 1,
+    "description": "Logical asset registry, chapter overrides, and fallback-ready placeholder mappings."
+  },
+  "assetBindings": [
+    {
+      "key": "npc.default",
+      "category": "npc-sprite",
+      "state": "placeholder",
+      "resource": {
+        "kind": "world-placeholder",
+        "fillColor": "#94a3b8",
+        "strokeColor": "#0f172a",
+        "accentColor": "#2563eb"
+      }
+    },
+    {
+      "key": "npc.guard",
+      "category": "npc-sprite",
+      "state": "placeholder",
+      "fallbackKey": "npc.default",
+      "resource": {
+        "kind": "world-placeholder",
+        "fillColor": "#f59e0b",
+        "strokeColor": "#451a03",
+        "accentColor": "#1d4ed8"
+      }
+    },
+    {
+      "key": "npc.merchant",
+      "category": "npc-sprite",
+      "state": "placeholder",
+      "fallbackKey": "npc.default",
+      "resource": {
+        "kind": "world-placeholder",
+        "fillColor": "#f97316",
+        "strokeColor": "#7c2d12",
+        "accentColor": "#0f766e"
+      }
+    },
+    {
+      "key": "npc.guide",
+      "category": "npc-sprite",
+      "state": "placeholder",
+      "fallbackKey": "npc.default",
+      "resource": {
+        "kind": "world-placeholder",
+        "fillColor": "#22c55e",
+        "strokeColor": "#14532d",
+        "accentColor": "#0f766e"
+      }
+    },
+    {
+      "key": "portrait.default",
+      "category": "portrait",
+      "state": "placeholder",
+      "resource": {
+        "kind": "portrait-placeholder",
+        "backgroundColor": "#1e293b",
+        "borderColor": "#f8fafc",
+        "textColor": "#f8fafc"
+      }
+    },
+    {
+      "key": "portrait.guard-default",
+      "category": "portrait",
+      "state": "placeholder",
+      "fallbackKey": "portrait.default",
+      "resource": {
+        "kind": "portrait-placeholder",
+        "backgroundColor": "#1f2937",
+        "borderColor": "#f59e0b",
+        "textColor": "#f8fafc"
+      }
+    },
+    {
+      "key": "portrait.merchant-default",
+      "category": "portrait",
+      "state": "placeholder",
+      "fallbackKey": "portrait.default",
+      "resource": {
+        "kind": "portrait-placeholder",
+        "backgroundColor": "#082f49",
+        "borderColor": "#f59e0b",
+        "textColor": "#f8fafc"
+      }
+    },
+    {
+      "key": "portrait.guide-default",
+      "category": "portrait",
+      "state": "placeholder",
+      "fallbackKey": "portrait.default",
+      "resource": {
+        "kind": "portrait-placeholder",
+        "backgroundColor": "#14532d",
+        "borderColor": "#fde68a",
+        "textColor": "#f8fafc"
+      }
+    },
+    {
+      "key": "ui.panel.default",
+      "category": "ui-panel",
+      "state": "placeholder",
+      "resource": {
+        "kind": "panel-style",
+        "backgroundColor": "rgba(15, 23, 42, 0.94)",
+        "borderColor": "#f8fafc",
+        "titleColor": "#f8fafc",
+        "bodyColor": "#e2e8f0",
+        "accentColor": "#93c5fd"
+      }
+    },
+    {
+      "key": "ui.dialogue-box",
+      "category": "ui-panel",
+      "state": "placeholder",
+      "fallbackKey": "ui.panel.default",
+      "resource": {
+        "kind": "panel-style",
+        "backgroundColor": "rgba(15, 23, 42, 0.94)",
+        "borderColor": "#eab308",
+        "titleColor": "#fde68a",
+        "bodyColor": "#f8fafc",
+        "accentColor": "#93c5fd"
+      }
+    },
+    {
+      "key": "ui.menu-overlay",
+      "category": "ui-panel",
+      "state": "placeholder",
+      "fallbackKey": "ui.panel.default",
+      "resource": {
+        "kind": "panel-style",
+        "backgroundColor": "rgba(15, 23, 42, 0.96)",
+        "borderColor": "#38bdf8",
+        "titleColor": "#f8fafc",
+        "bodyColor": "#e2e8f0",
+        "accentColor": "#7dd3fc"
+      }
+    },
+    {
+      "key": "ui.shop-overlay",
+      "category": "ui-panel",
+      "state": "placeholder",
+      "fallbackKey": "ui.panel.default",
+      "resource": {
+        "kind": "panel-style",
+        "backgroundColor": "rgba(8, 47, 73, 0.96)",
+        "borderColor": "#f59e0b",
+        "titleColor": "#f8fafc",
+        "bodyColor": "#f8fafc",
+        "accentColor": "#fde68a"
+      }
+    },
+    {
+      "key": "ui.battle-panel",
+      "category": "ui-panel",
+      "state": "placeholder",
+      "fallbackKey": "ui.panel.default",
+      "resource": {
+        "kind": "panel-style",
+        "backgroundColor": "#1f2937",
+        "borderColor": "#f59e0b",
+        "titleColor": "#f8fafc",
+        "bodyColor": "#e5e7eb",
+        "accentColor": "#fef3c7"
+      }
+    },
+    {
+      "key": "audio.default",
+      "category": "audio",
+      "state": "placeholder",
+      "resource": {
+        "kind": "audio-ref"
+      }
+    },
+    {
+      "key": "audio.voice-guide",
+      "category": "audio",
+      "state": "placeholder",
+      "fallbackKey": "audio.default",
+      "resource": {
+        "kind": "audio-ref"
+      }
+    },
+    {
+      "key": "audio.voice-merchant",
+      "category": "audio",
+      "state": "placeholder",
+      "fallbackKey": "audio.default",
+      "resource": {
+        "kind": "audio-ref"
+      }
+    },
+    {
+      "key": "audio.voice-guard",
+      "category": "audio",
+      "state": "placeholder",
+      "fallbackKey": "audio.default",
+      "resource": {
+        "kind": "audio-ref"
+      }
+    },
+    {
+      "key": "audio.sfx-blocked",
+      "category": "audio",
+      "state": "placeholder",
+      "fallbackKey": "audio.default",
+      "resource": {
+        "kind": "audio-ref"
+      }
+    },
+    {
+      "key": "audio.sfx-chest",
+      "category": "audio",
+      "state": "placeholder",
+      "fallbackKey": "audio.default",
+      "resource": {
+        "kind": "audio-ref"
+      }
+    },
+    {
+      "key": "audio.sfx-step",
+      "category": "audio",
+      "state": "placeholder",
+      "fallbackKey": "audio.default",
+      "resource": {
+        "kind": "audio-ref"
+      }
+    },
+    {
+      "key": "audio.sfx-shop-open",
+      "category": "audio",
+      "state": "placeholder",
+      "fallbackKey": "audio.default",
+      "resource": {
+        "kind": "audio-ref"
+      }
+    },
+    {
+      "key": "audio.sfx-gate-open",
+      "category": "audio",
+      "state": "placeholder",
+      "fallbackKey": "audio.default",
+      "resource": {
+        "kind": "audio-ref"
+      }
+    },
+    {
+      "key": "audio.sfx-rest",
+      "category": "audio",
+      "state": "placeholder",
+      "fallbackKey": "audio.default",
+      "resource": {
+        "kind": "audio-ref"
+      }
+    }
+  ],
+  "assetOverrides": [
+    {
+      "chapterId": "chapter-01-lou-sang",
+      "mapIds": ["town", "field"],
+      "assetBindings": [
+        {
+          "key": "npc.guard",
+          "category": "npc-sprite",
+          "state": "imported",
+          "fallbackKey": "npc.default",
+          "resource": {
+            "kind": "world-placeholder",
+            "fillColor": "#d97706",
+            "strokeColor": "#78350f",
+            "accentColor": "#1d4ed8"
+          }
+        },
+        {
+          "key": "npc.merchant",
+          "category": "npc-sprite",
+          "state": "imported",
+          "fallbackKey": "npc.default",
+          "resource": {
+            "kind": "world-placeholder",
+            "fillColor": "#fb923c",
+            "strokeColor": "#7c2d12",
+            "accentColor": "#0f766e"
+          }
+        },
+        {
+          "key": "npc.guide",
+          "category": "npc-sprite",
+          "state": "imported",
+          "fallbackKey": "npc.default",
+          "resource": {
+            "kind": "world-placeholder",
+            "fillColor": "#4ade80",
+            "strokeColor": "#166534",
+            "accentColor": "#0f766e"
+          }
+        },
+        {
+          "key": "ui.dialogue-box",
+          "category": "ui-panel",
+          "state": "imported",
+          "fallbackKey": "ui.panel.default",
+          "resource": {
+            "kind": "panel-style",
+            "backgroundColor": "rgba(24, 24, 27, 0.94)",
+            "borderColor": "#facc15",
+            "titleColor": "#fde68a",
+            "bodyColor": "#f8fafc",
+            "accentColor": "#93c5fd"
+          }
+        },
+        {
+          "key": "ui.menu-overlay",
+          "category": "ui-panel",
+          "state": "imported",
+          "fallbackKey": "ui.panel.default",
+          "resource": {
+            "kind": "panel-style",
+            "backgroundColor": "rgba(23, 37, 84, 0.96)",
+            "borderColor": "#38bdf8",
+            "titleColor": "#f8fafc",
+            "bodyColor": "#e2e8f0",
+            "accentColor": "#7dd3fc"
+          }
+        },
+        {
+          "key": "ui.shop-overlay",
+          "category": "ui-panel",
+          "state": "imported",
+          "fallbackKey": "ui.panel.default",
+          "resource": {
+            "kind": "panel-style",
+            "backgroundColor": "rgba(67, 20, 7, 0.96)",
+            "borderColor": "#fb923c",
+            "titleColor": "#f8fafc",
+            "bodyColor": "#fef3c7",
+            "accentColor": "#fdba74"
+          }
+        },
+        {
+          "key": "ui.battle-panel",
+          "category": "ui-panel",
+          "state": "imported",
+          "fallbackKey": "ui.panel.default",
+          "resource": {
+            "kind": "panel-style",
+            "backgroundColor": "#172554",
+            "borderColor": "#f59e0b",
+            "titleColor": "#f8fafc",
+            "bodyColor": "#e5e7eb",
+            "accentColor": "#fde68a"
+          }
+        }
+      ]
+    }
+  ]
+}

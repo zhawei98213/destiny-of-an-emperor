@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import type { PanelStyleAssetResource } from "@/types/content";
 import type { DialogueSessionView } from "@/ui/dialogueSession";
 
 export class DialogueBox {
@@ -67,11 +68,19 @@ export class DialogueBox {
     }
   }
 
-  show(view: DialogueSessionView): void {
+  show(view: DialogueSessionView, style?: PanelStyleAssetResource): void {
     const fallbackText = view.cue.text;
     const visibleText = view.visibleText.length > 0 ? view.visibleText : fallbackText;
 
     if (this.overlay && this.speakerText && this.bodyText && this.promptText) {
+      if (style) {
+        this.overlay.style.background = style.backgroundColor;
+        this.overlay.style.border = `2px solid ${style.borderColor}`;
+        this.speakerText.style.color = style.titleColor;
+        this.bodyText.style.color = style.bodyColor;
+        this.promptText.style.color = style.accentColor;
+      }
+
       this.speakerText.textContent = view.cue.speakerName;
       this.bodyText.textContent = visibleText;
       this.promptText.textContent = view.isLineComplete ? "Enter" : "Skip";

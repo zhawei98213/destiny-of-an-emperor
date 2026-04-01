@@ -30,6 +30,27 @@ export interface ManualStoryContent {
   }>;
 }
 
+export interface ManualAssetRegistryContent {
+  assetBindings: Array<{
+    key: string;
+    category: string;
+    state: string;
+    fallbackKey?: string;
+    resource: Record<string, unknown>;
+  }>;
+  assetOverrides: Array<{
+    chapterId: string;
+    mapIds: string[];
+    assetBindings: Array<{
+      key: string;
+      category: string;
+      state: string;
+      fallbackKey?: string;
+      resource: Record<string, unknown>;
+    }>;
+  }>;
+}
+
 export interface ManualWorldContent {
   maps: Array<{
     id: string;
@@ -97,6 +118,7 @@ export interface ManualWorldContent {
 
 export const manualStoryPath = path.join(repoRoot, "content", "manual", "story.content.json");
 export const manualWorldPath = path.join(repoRoot, "content", "manual", "world.content.json");
+export const manualAssetRegistryPath = path.join(repoRoot, "content", "manual", "asset-registry.content.json");
 export const manualChapterDir = path.join(repoRoot, "content", "manual", "chapters");
 
 export async function loadManualStoryContent(): Promise<ManualStoryContent> {
@@ -105,6 +127,10 @@ export async function loadManualStoryContent(): Promise<ManualStoryContent> {
 
 export async function loadManualWorldContent(): Promise<ManualWorldContent> {
   return readJsonFile<ManualWorldContent>(manualWorldPath);
+}
+
+export async function loadManualAssetRegistryContent(): Promise<ManualAssetRegistryContent> {
+  return readJsonFile<ManualAssetRegistryContent>(manualAssetRegistryPath);
 }
 
 export async function loadRealChapterMetadata(): Promise<ChapterMetadata[]> {

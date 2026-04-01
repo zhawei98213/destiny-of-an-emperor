@@ -43,6 +43,8 @@ Follow it before making code, content, tooling, or documentation changes.
 - 不要手工修改 `content/generated/`。
 - Put hand fixes and editorial overrides in `content/manual/`.
 - 人工修正和编辑性覆盖内容放在 `content/manual/`。
+- Runtime-facing asset selection should go through `content/manual/asset-registry.content.json` and the shared asset registry, not scene-local file paths.
+- 面向运行时的资源选择应通过 `content/manual/asset-registry.content.json` 和共享 asset registry 完成，不能写成 scene 本地文件路径。
 - `game/` must read only final consumable content from manifest-listed manual/generated packs.
 - `game/` 只能读取 manifest 列出的 manual/generated 最终可消费内容。
 - Do not use `content/reference/` as runtime assets or scene-local shortcuts.

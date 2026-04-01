@@ -1,5 +1,6 @@
 import { failSchema } from "@/content/schema/primitives";
 import type {
+  AssetBindingDefinition,
   ContentDatabase,
   DialogueLineDefinition,
   EncounterTableDefinition,
@@ -20,6 +21,23 @@ function buildIndex<T extends { id: string }>(
     }
 
     index.set(entry.id, entry);
+  }
+
+  return index;
+}
+
+function buildAssetKeyIndex(
+  entries: AssetBindingDefinition[],
+  collectionName: string,
+): Map<string, AssetBindingDefinition> {
+  const index = new Map<string, AssetBindingDefinition>();
+
+  for (const entry of entries) {
+    if (index.has(entry.key)) {
+      failSchema(collectionName, `duplicate key "${entry.key}"`);
+    }
+
+    index.set(entry.key, entry);
   }
 
   return index;
@@ -131,6 +149,7 @@ function validateEventReferences(
   spawnIndex: Map<string, Set<string>>,
   itemIds: Set<string>,
   partyMemberIds: Set<string>,
+  assetKeys: Set<string>,
 ): void {
   function validateStep(step: EventDefinition["steps"][number], path: string): void {
     switch (step.type) {
@@ -207,6 +226,10 @@ function validateEventReferences(
         }
         break;
       case "playSfx":
+        if (!assetKeys.has(`audio.${step.sfxId}`)) {
+          failSchema(`${path}.sfxId`, `references missing audio asset "audio.${step.sfxId}"`);
+        }
+        break;
       case "end":
         break;
     }
@@ -217,6 +240,28 @@ function validateEventReferences(
       validateStep(step, `events.${event.id}.steps[${index}]`);
     });
   });
+}
+
+function validateAssetBindings(
+  assetBindings: AssetBindingDefinition[],
+  assetOverrideBindings: AssetBindingDefinition[],
+): Set<string> {
+  const allBindings = [...assetBindings, ...assetOverrideBindings];
+  const keySet = new Set(allBindings.map((entry) => entry.key));
+
+  assetBindings.forEach((binding) => {
+    if (binding.fallbackKey && !keySet.has(binding.fallbackKey)) {
+      failSchema(`assetBindings.${binding.key}.fallbackKey`, `references missing asset key "${binding.fallbackKey}"`);
+    }
+  });
+
+  assetOverrideBindings.forEach((binding) => {
+    if (binding.fallbackKey && !keySet.has(binding.fallbackKey)) {
+      failSchema(`assetOverrides.${binding.key}.fallbackKey`, `references missing asset key "${binding.fallbackKey}"`);
+    }
+  });
+
+  return keySet;
 }
 
 function validateEncounterTables(
@@ -279,8 +324,13 @@ export function validateContentReferences(database: ContentDatabase): ContentDat
   const flagIndex = buildIndex(database.flags, "flags");
   buildIndex(database.questStates, "questStates");
   const encounterTableIndex = buildIndex(database.encounterTables, "encounterTables");
+  const assetBindingIndex = buildAssetKeyIndex(database.assetBindings ?? [], "assetBindings");
   const npcIds = buildMapNpcIndex(database.maps);
   const spawnIndex = buildMapSpawnIndex(database.maps);
+  const assetKeys = validateAssetBindings(
+    [...assetBindingIndex.values()],
+    (database.assetOverrides ?? []).flatMap((entry) => entry.assetBindings),
+  );
 
   database.maps.forEach((map) => {
     validateLayerDimensions(map);
@@ -321,6 +371,10 @@ export function validateContentReferences(database: ContentDatabase): ContentDat
     });
 
     map.npcs.forEach((npc, index) => {
+      if (!assetKeys.has(`npc.${npc.sprite}`)) {
+        failSchema(`maps.${map.id}.npcs[${index}].sprite`, `references missing npc asset "npc.${npc.sprite}"`);
+      }
+
       if (npc.eventId && !eventIndex.has(npc.eventId)) {
         failSchema(`maps.${map.id}.npcs[${index}].eventId`, `references missing event "${npc.eventId}"`);
       }
@@ -394,7 +448,18 @@ export function validateContentReferences(database: ContentDatabase): ContentDat
     spawnIndex,
     new Set(itemIndex.keys()),
     new Set(database.partyMembers.map((member) => member.id)),
+    assetKeys,
   );
+
+  database.dialogueLines.forEach((line) => {
+    if (line.portraitId && !assetKeys.has(`portrait.${line.portraitId}`)) {
+      failSchema(`dialogueLines.${line.id}.portraitId`, `references missing portrait asset "portrait.${line.portraitId}"`);
+    }
+
+    if (line.soundId && !assetKeys.has(`audio.${line.soundId}`)) {
+      failSchema(`dialogueLines.${line.id}.soundId`, `references missing audio asset "audio.${line.soundId}"`);
+    }
+  });
 
   database.shops.forEach((shop) => {
     shop.inventory.forEach((entry, index) => {

@@ -19,6 +19,8 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - `content/generated/`：工具生成的运行时内容产物。
 - `content/manual/`: hand-authored JSON content and placeholder data.
 - `content/manual/`：手工编写的 JSON 内容和占位数据。
+- `content/manual/asset-registry.content.json`: logical asset registry and chapter-level asset overrides used by the runtime.
+- `content/manual/asset-registry.content.json`：运行时使用的逻辑资源注册层和章节级资源覆盖。
 - `content/reference/`: traceable screenshots, crops, and other non-runtime reference inputs for parity and future asset reconstruction.
 - `content/reference/`：用于一致性核对和未来资产重建的可追溯截图、裁切图等非运行时参考输入。
 - `tests/`: automated tests for content, runtime systems, and scene wiring.
@@ -137,6 +139,8 @@ The first extension points are intentionally typed and data-driven:
 - `gameStateRuntime` + `worldTriggerResolver`：把持久化 flags、inventory、party 成员和一次性 trigger 消费状态从 scene 中分离出来，并负责把 NPC、tile、region trigger 映射到事件。
 - `gameStateRuntime`: now acts as the unified state container for flags, inventory, party, money, world position, quest states, chapter progress, and shop state so SaveData stays versioned and extendable.
 - `gameStateRuntime`：现在也作为 flags、背包、队伍、金钱、世界坐标、任务状态、章节进度和商店状态的统一状态容器，使 SaveData 保持可版本化且可扩展。
+- `assetRegistry`: resolves logical asset keys such as NPC visuals and UI panels into concrete placeholder/imported bindings, with chapter-level overrides and unified fallback behavior.
+- `assetRegistry`：把 NPC 表现、UI 面板等逻辑资源 key 解析为具体的 placeholder/imported 绑定，并支持章节级覆盖与统一回退策略。
 - `dialogueSession` + `dialogueBox`: keep dialogue presentation and typewriter flow separate from event execution so portraits, audio, and choices can be extended later.
 - `dialogueSession` + `dialogueBox`：将对话展示与逐字播放流程从事件执行中分离，为后续头像、音效和选项扩展预留接口。
 

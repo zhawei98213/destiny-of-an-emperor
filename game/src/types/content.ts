@@ -4,10 +4,76 @@ export type SkillTarget = "ally" | "enemy" | "self" | "all-enemies";
 export type ContentPackKind = "manual" | "generated";
 export type NpcBehavior = "idle";
 export type TriggerKind = "npcInteraction" | "tile" | "region";
+export type AssetState = "placeholder" | "imported" | "locked";
+export type AssetCategory =
+  | "tileset"
+  | "character-sprite"
+  | "npc-sprite"
+  | "enemy-sprite"
+  | "ui-panel"
+  | "portrait"
+  | "icon"
+  | "audio";
 export type FlagStateMap = Record<string, boolean>;
 export type QuestStateMap = Record<string, string>;
 export type ShopStateMap = Record<string, { visited: boolean }>;
 export type PartyStateMap = Record<string, PartyMemberState>;
+
+export interface WorldPlaceholderAssetResource {
+  kind: "world-placeholder";
+  fillColor: string;
+  strokeColor: string;
+  accentColor: string;
+}
+
+export interface PanelStyleAssetResource {
+  kind: "panel-style";
+  backgroundColor: string;
+  borderColor: string;
+  titleColor: string;
+  bodyColor: string;
+  accentColor: string;
+}
+
+export interface PortraitPlaceholderAssetResource {
+  kind: "portrait-placeholder";
+  backgroundColor: string;
+  borderColor: string;
+  textColor: string;
+}
+
+export interface SpriteFrameAssetResource {
+  kind: "sprite-frame";
+  sheetId: string;
+  frameId: string;
+  imagePath?: string;
+}
+
+export interface AudioRefAssetResource {
+  kind: "audio-ref";
+  path?: string;
+}
+
+export type AssetResource =
+  | WorldPlaceholderAssetResource
+  | PanelStyleAssetResource
+  | PortraitPlaceholderAssetResource
+  | SpriteFrameAssetResource
+  | AudioRefAssetResource;
+
+export interface AssetBindingDefinition {
+  key: string;
+  category: AssetCategory;
+  state: AssetState;
+  fallbackKey?: string;
+  resource: AssetResource;
+}
+
+export interface AssetOverrideDefinition {
+  chapterId: string;
+  mapIds: string[];
+  assetBindings: AssetBindingDefinition[];
+}
 
 export interface TileLayerDefinition {
   id: string;
@@ -376,6 +442,8 @@ export interface ContentPack {
   flags: FlagDefinition[];
   questStates: QuestStateDefinition[];
   encounterTables: EncounterTableDefinition[];
+  assetBindings?: AssetBindingDefinition[];
+  assetOverrides?: AssetOverrideDefinition[];
 }
 
 export interface ContentManifest {
@@ -398,6 +466,8 @@ export interface ContentDatabase {
   flags: FlagDefinition[];
   questStates: QuestStateDefinition[];
   encounterTables: EncounterTableDefinition[];
+  assetBindings?: AssetBindingDefinition[];
+  assetOverrides?: AssetOverrideDefinition[];
 }
 
 export interface BattleRequest {

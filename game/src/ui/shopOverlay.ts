@@ -1,5 +1,5 @@
 import type { GameStateSnapshot } from "@/systems/gameStateRuntime";
-import type { ContentDatabase } from "@/types/content";
+import type { ContentDatabase, PanelStyleAssetResource } from "@/types/content";
 
 export interface ShopViewModel {
   shopId: string;
@@ -10,7 +10,7 @@ export interface ShopViewModel {
 }
 
 export interface ShopOverlayPort {
-  render(viewModel: ShopViewModel): void;
+  render(viewModel: ShopViewModel, style?: PanelStyleAssetResource): void;
   hide(): void;
   destroy(): void;
 }
@@ -69,12 +69,20 @@ export class ShopOverlay implements ShopOverlayPort {
     document.body.appendChild(this.overlay);
   }
 
-  render(viewModel: ShopViewModel): void {
+  render(viewModel: ShopViewModel, style?: PanelStyleAssetResource): void {
     if (!this.overlay || !this.titleText || !this.subtitleText || !this.bodyText) {
       return;
     }
 
     this.overlay.style.display = "block";
+    if (style) {
+      this.overlay.style.background = style.backgroundColor;
+      this.overlay.style.border = `2px solid ${style.borderColor}`;
+      this.overlay.style.color = style.bodyColor;
+      this.titleText.style.color = style.titleColor;
+      this.subtitleText.style.color = style.accentColor;
+      this.bodyText.style.color = style.bodyColor;
+    }
     this.titleText.textContent = viewModel.titleText;
     this.subtitleText.textContent = viewModel.subtitleText;
     this.bodyText.textContent = viewModel.bodyText;

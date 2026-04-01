@@ -2,6 +2,7 @@
   "root": "/content/manual",
   "kind": "manual",
   "files": [
+    "asset-registry.content.json",
     "world.content.json",
     "story.content.json"
   ]

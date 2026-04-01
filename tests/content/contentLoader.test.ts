@@ -24,12 +24,54 @@ describe("content loader", () => {
       "/content/manual/index.json": JSON.stringify({
         root: "/content/manual",
         kind: "manual",
-        files: ["world.content.json", "story.content.json"],
+        files: ["asset-registry.content.json", "world.content.json", "story.content.json"],
       }),
       "/content/generated/index.json": JSON.stringify({
         root: "/content/generated",
         kind: "generated",
         files: ["battle.content.json"],
+      }),
+      "/content/manual/asset-registry.content.json": JSON.stringify({
+        meta: {
+          id: "assets-manual",
+          kind: "manual",
+          version: 1,
+          description: "manual asset registry",
+        },
+        assetBindings: [
+          {
+            key: "npc.default",
+            category: "npc-sprite",
+            state: "placeholder",
+            resource: { kind: "world-placeholder", fillColor: "#aaaaaa", strokeColor: "#111111", accentColor: "#222222" },
+          },
+          {
+            key: "npc.hero",
+            category: "npc-sprite",
+            state: "placeholder",
+            fallbackKey: "npc.default",
+            resource: { kind: "world-placeholder", fillColor: "#bbbbbb", strokeColor: "#111111", accentColor: "#222222" },
+          },
+          {
+            key: "portrait.hero-default",
+            category: "portrait",
+            state: "placeholder",
+            resource: { kind: "portrait-placeholder", backgroundColor: "#111111", borderColor: "#eeeeee", textColor: "#ffffff" },
+          },
+          {
+            key: "audio.voice-hero",
+            category: "audio",
+            state: "placeholder",
+            resource: { kind: "audio-ref" },
+          },
+          {
+            key: "audio.sfx-shop-open",
+            category: "audio",
+            state: "placeholder",
+            resource: { kind: "audio-ref" },
+          },
+        ],
+        assetOverrides: [],
       }),
       "/content/manual/world.content.json": JSON.stringify({
         meta: {
@@ -117,5 +159,6 @@ describe("content loader", () => {
     expect(content.maps[0]?.id).toBe("starter-plains");
     expect(content.events[0]?.steps).toHaveLength(5);
     expect(content.battleGroups[0]?.enemyIds[0]).toBe("slime");
+    expect((content.assetBindings ?? []).some((entry) => entry.key === "npc.hero")).toBe(true);
   });
 });

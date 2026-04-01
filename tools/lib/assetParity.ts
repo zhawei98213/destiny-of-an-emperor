@@ -1,6 +1,7 @@
 import path from "node:path";
 import { readFile } from "node:fs/promises";
 import {
+  loadManualAssetRegistryContent,
   loadManualStoryContent,
   loadManualWorldContent,
   loadRealChapterMetadata,
@@ -10,8 +11,6 @@ import { readJsonFile, repoRoot, stableStringify } from "./importerCore";
 export type AssetParityStatus =
   | "placeholder"
   | "imported"
-  | "validated"
-  | "parity-review"
   | "locked";
 
 export type AssetCategoryId =
@@ -180,11 +179,11 @@ function statusFromCategory(category: AssetCategoryReport): AssetParityStatus {
     return "placeholder";
   }
 
-  if (category.unreferencedIds.length > 0) {
-    return "imported";
+  if (category.notes.some((note) => note.includes("state:locked"))) {
+    return "locked";
   }
 
-  return "validated";
+  return "imported";
 }
 
 function buildCategory(
@@ -217,10 +216,11 @@ function buildCategory(
 }
 
 export async function buildAssetParityReport(): Promise<AssetParityReport> {
-  const [chapters, world, story, spriteMetadata, spriteSource, battleContent] = await Promise.all([
+  const [chapters, world, story, assetRegistry, spriteMetadata, spriteSource, battleContent] = await Promise.all([
     loadRealChapterMetadata(),
     loadManualWorldContent(),
     loadManualStoryContent(),
+    loadManualAssetRegistryContent(),
     readJsonFile<SpriteMetadataDocument>(SPRITE_METADATA_PATH),
     readJsonFile<SpriteSourceDocument>(SPRITE_SOURCE_PATH),
     readJsonFile<GeneratedBattleContent>(GENERATED_BATTLE_PATH),
@@ -231,6 +231,7 @@ export async function buildAssetParityReport(): Promise<AssetParityReport> {
   const sourceFrameIds = sortStrings(spriteSource.frames.map((frame) => frame.id));
   const metadataFrameIds = sortStrings(spriteMetadata.frames.map((frame) => frame.id));
   const metadataFamilies = unique(spriteMetadata.frames.map((frame) => familyFromFrameId(frame.id)));
+  const baseAssetMap = new Map(assetRegistry.assetBindings.map((entry) => [entry.key, entry]));
 
   if (!spriteImageExists) {
     issues.push({
@@ -304,6 +305,18 @@ export async function buildAssetParityReport(): Promise<AssetParityReport> {
       }),
     ]);
 
+    const chapterOverrideMap = new Map(
+      assetRegistry.assetOverrides
+        .filter((override) => chapter.maps.some((mapId) => override.mapIds.includes(mapId)))
+        .flatMap((override) => override.assetBindings)
+        .map((binding) => [binding.key, binding]),
+    );
+
+    const collectStateNotes = (keys: string[]): string[] => {
+      const states = unique(keys.map((key) => chapterOverrideMap.get(key)?.state ?? baseAssetMap.get(key)?.state ?? "placeholder"));
+      return states.map((state) => `state:${state}`);
+    };
+
     const categories: AssetCategoryReport[] = [
       buildCategory(
         "tilesets",
@@ -322,25 +335,29 @@ export async function buildAssetParityReport(): Promise<AssetParityReport> {
       buildCategory(
         "npc-sprites",
         "NPC Sprites / NPC 精灵",
-        [...npcSprites, ...portraitIds],
-        metadataFamilies,
-        spriteImageExists ? [] : [`sprite image "${spriteMetadata.imagePath}" is still missing / 精灵图 "${spriteMetadata.imagePath}" 目前仍不存在`],
+        [...npcSprites.map((id) => `npc.${id}`), ...portraitIds.map((id) => `portrait.${id}`)],
+        unique([...baseAssetMap.keys(), ...chapterOverrideMap.keys()]).filter((key) => key.startsWith("npc.") || key.startsWith("portrait.")),
+        [
+          ...collectStateNotes([...npcSprites.map((id) => `npc.${id}`), ...portraitIds.map((id) => `portrait.${id}`)]),
+          ...(spriteImageExists ? [] : [`sprite image "${spriteMetadata.imagePath}" is still missing / 精灵图 "${spriteMetadata.imagePath}" 目前仍不存在`]),
+        ],
       ),
       buildCategory(
         "enemy-sprites",
         "Enemy Sprites / 敌方精灵",
-        unique(
-          chapter.enemyGroups.flatMap((battleGroupId) => battleGroupIndex.get(battleGroupId)?.enemyIds ?? []),
-        ),
+        unique(chapter.enemyGroups.flatMap((battleGroupId) => battleGroupIndex.get(battleGroupId)?.enemyIds ?? []).map((id) => `enemy.${id}`)),
         [],
         chapter.enemyGroups.length > 0 ? ["enemy sprite registry does not exist yet / 目前还没有敌方精灵注册层"] : [],
       ),
       buildCategory(
         "ui-panels",
         "UI Panels / UI 面板",
-        ["dialogue-box", "menu-overlay", "shop-overlay", "battle-panel"],
-        [],
-        ["UI currently uses code-drawn panels and DOM overlay, not imported panel assets / 当前 UI 仍主要使用代码绘制面板和 DOM overlay，而不是导入面板资源"],
+        ["ui.dialogue-box", "ui.menu-overlay", "ui.shop-overlay", "ui.battle-panel"],
+        unique([...baseAssetMap.keys(), ...chapterOverrideMap.keys()]).filter((key) => key.startsWith("ui.")),
+        [
+          ...collectStateNotes(["ui.dialogue-box", "ui.menu-overlay", "ui.shop-overlay", "ui.battle-panel"]),
+          "UI currently uses code-drawn panels and DOM overlay, not imported panel assets / 当前 UI 仍主要使用代码绘制面板和 DOM overlay，而不是导入面板资源",
+        ],
       ),
       buildCategory(
         "icons",
@@ -352,9 +369,14 @@ export async function buildAssetParityReport(): Promise<AssetParityReport> {
       buildCategory(
         "audio",
         "SFX And BGM References / 音效与音乐引用",
-        soundIds,
-        [],
-        soundIds.length > 0 ? ["audio references already live in content, but no audio registry or files are present yet / 音频引用已进入内容层，但还没有音频注册层和实际文件"] : [],
+        soundIds.map((id) => `audio.${id}`),
+        unique([...baseAssetMap.keys(), ...chapterOverrideMap.keys()]).filter((key) => key.startsWith("audio.")),
+        soundIds.length > 0
+          ? [
+            ...collectStateNotes(soundIds.map((id) => `audio.${id}`)),
+            "audio references already live in content, but no audio registry or files are present yet / 音频引用已进入内容层，但还没有音频注册层和实际文件",
+          ]
+          : [],
       ),
     ];
 

@@ -51,6 +51,22 @@ function createBaseDatabase(): ContentDatabase {
     flags: [{ id: "flag-1", defaultValue: false }],
     questStates: [{ id: "quest-1", stages: ["idle", "done"], initialStage: "idle" }],
     encounterTables: [],
+    assetBindings: [
+      {
+        key: "npc.default",
+        category: "npc-sprite",
+        state: "placeholder",
+        resource: { kind: "world-placeholder", fillColor: "#94a3b8", strokeColor: "#0f172a", accentColor: "#f8fafc" },
+      },
+      {
+        key: "npc.guide",
+        category: "npc-sprite",
+        state: "placeholder",
+        fallbackKey: "npc.default",
+        resource: { kind: "world-placeholder", fillColor: "#38bdf8", strokeColor: "#0f172a", accentColor: "#f8fafc" },
+      },
+    ],
+    assetOverrides: [],
   };
 }
 

@@ -1,6 +1,8 @@
 import Phaser from "phaser";
+import { AssetRegistry } from "@/assets/assetRegistry";
 import { BrowserContentReader, loadContentDatabase } from "@/content/contentLoader";
 import {
+  ASSET_REGISTRY_KEY,
   CONTENT_REGISTRY_KEY,
   DEFAULT_CONTENT_MANIFESTS,
   GAME_STATE_REGISTRY_KEY,
@@ -31,6 +33,8 @@ export class BootScene extends Phaser.Scene {
       const saveData = saveManager.load(DEFAULT_SAVE_SLOT);
       const gameStateRuntime = new GameStateRuntime(database, saveData ?? undefined);
       const worldRuntime = new WorldRuntime(database, gameStateRuntime.getWorldState());
+      const assetRegistry = new AssetRegistry(database);
+      this.registry.set(ASSET_REGISTRY_KEY, assetRegistry);
       this.registry.set(CONTENT_REGISTRY_KEY, database);
       this.registry.set(GAME_STATE_REGISTRY_KEY, gameStateRuntime);
       this.registry.set(SAVE_MANAGER_REGISTRY_KEY, saveManager);

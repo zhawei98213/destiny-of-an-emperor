@@ -44,6 +44,8 @@ function mergeContentPack(database: ContentDatabase, pack: ContentPack): Content
   database.flags.push(...pack.flags);
   database.questStates.push(...pack.questStates);
   database.encounterTables.push(...pack.encounterTables);
+  (database.assetBindings ??= []).push(...(pack.assetBindings ?? []));
+  (database.assetOverrides ??= []).push(...(pack.assetOverrides ?? []));
   return database;
 }
 
