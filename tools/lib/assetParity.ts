@@ -94,6 +94,14 @@ interface SpriteSourceDocument {
   }>;
 }
 
+interface CharacterSpriteMetadataDocument {
+  entries: Array<{
+    logicalAssetKey: string;
+    status: string;
+    frameId: string;
+  }>;
+}
+
 interface GeneratedBattleContent {
   enemies: Array<{
     id: string;
@@ -105,6 +113,7 @@ interface GeneratedBattleContent {
 }
 
 const SPRITE_METADATA_PATH = path.join(repoRoot, "content", "generated", "sprite-metadata.generated.json");
+const CHARACTER_SPRITE_METADATA_PATH = path.join(repoRoot, "content", "generated", "character-sprite-metadata.generated.json");
 const SPRITE_SOURCE_PATH = path.join(repoRoot, "content", "source", "sprites", "demo-sheet.source.json");
 const GENERATED_BATTLE_PATH = path.join(repoRoot, "content", "generated", "battle.content.json");
 
@@ -216,12 +225,13 @@ function buildCategory(
 }
 
 export async function buildAssetParityReport(): Promise<AssetParityReport> {
-  const [chapters, world, story, assetRegistry, spriteMetadata, spriteSource, battleContent] = await Promise.all([
+  const [chapters, world, story, assetRegistry, spriteMetadata, characterSpriteMetadata, spriteSource, battleContent] = await Promise.all([
     loadRealChapterMetadata(),
     loadManualWorldContent(),
     loadManualStoryContent(),
     loadManualAssetRegistryContent(),
     readJsonFile<SpriteMetadataDocument>(SPRITE_METADATA_PATH),
+    readJsonFile<CharacterSpriteMetadataDocument>(CHARACTER_SPRITE_METADATA_PATH),
     readJsonFile<SpriteSourceDocument>(SPRITE_SOURCE_PATH),
     readJsonFile<GeneratedBattleContent>(GENERATED_BATTLE_PATH),
   ]);
@@ -231,6 +241,11 @@ export async function buildAssetParityReport(): Promise<AssetParityReport> {
   const sourceFrameIds = sortStrings(spriteSource.frames.map((frame) => frame.id));
   const metadataFrameIds = sortStrings(spriteMetadata.frames.map((frame) => frame.id));
   const metadataFamilies = unique(spriteMetadata.frames.map((frame) => familyFromFrameId(frame.id)));
+  const reconstructedNpcKeys = unique(
+    characterSpriteMetadata.entries
+      .filter((entry) => entry.status !== "placeholder")
+      .map((entry) => entry.logicalAssetKey),
+  );
   const baseAssetMap = new Map(assetRegistry.assetBindings.map((entry) => [entry.key, entry]));
 
   if (!spriteImageExists) {
@@ -352,10 +367,16 @@ export async function buildAssetParityReport(): Promise<AssetParityReport> {
         "npc-sprites",
         "NPC Sprites / NPC 精灵",
         [...npcSprites.map((id) => `npc.${id}`), ...portraitIds.map((id) => `portrait.${id}`)],
-        unique([...baseAssetMap.keys(), ...chapterOverrideMap.keys()]).filter((key) => key.startsWith("npc.") || key.startsWith("portrait.")),
+        unique([...baseAssetMap.keys(), ...chapterOverrideMap.keys(), ...reconstructedNpcKeys])
+          .filter((key) => key.startsWith("npc.") || key.startsWith("portrait.")),
         [
           ...collectStateNotes([...npcSprites.map((id) => `npc.${id}`), ...portraitIds.map((id) => `portrait.${id}`)]),
-          ...(spriteImageExists ? [] : [`sprite image "${spriteMetadata.imagePath}" is still missing / 精灵图 "${spriteMetadata.imagePath}" 目前仍不存在`]),
+          ...([...npcSprites.map((id) => `npc.${id}`)].every((key) => reconstructedNpcKeys.includes(key)) || spriteImageExists
+            ? []
+            : [`sprite image "${spriteMetadata.imagePath}" is still missing / 精灵图 "${spriteMetadata.imagePath}" 目前仍不存在`]),
+          ...(reconstructedNpcKeys.length > 0
+            ? [`reconstructed npc sprite metadata is available for ${reconstructedNpcKeys.join(", ")} / 已有重建 NPC 精灵元数据：${reconstructedNpcKeys.join(", ")}`]
+            : []),
         ],
       ),
       buildCategory(

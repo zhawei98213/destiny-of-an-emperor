@@ -242,6 +242,8 @@ Each section includes:
 - 检查 [world.content.json](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/content/manual/world.content.json) 中的角色与 NPC 朝向使用。
 - Verify current base frames in [sprite-metadata.generated.json](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/content/generated/sprite-metadata.generated.json).
 - 检查 [sprite-metadata.generated.json](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/content/generated/sprite-metadata.generated.json) 中的当前基础帧。
+- Run `npm run character-sprite-reconstruct` to validate facing classification, frame slots, and anchor/pivot consistency against the current reconstruction workflow.
+- 执行 `npm run character-sprite-reconstruct`，校验当前重建流程中的朝向分类、帧槽位以及 anchor/pivot 一致性。
 - Add directional reference crops before locking animation counts.
 - 在锁定动画帧数前，先补对应朝向的 reference 裁切。
 

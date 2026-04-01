@@ -37,6 +37,8 @@ Current first-pass tooling:
 - `tools/tileset-crop-normalize.ts`：根据 reference candidate 生成当前 tileset 裁切与归一化任务计划，并写入 generated staging 输出。
 - `tools/tileset-reconstruct.ts`: validates tileset candidate manifests, palette consistency, tile dimensions, collision review assistance, and asset-registry attachment.
 - `tools/tileset-reconstruct.ts`：校验 tileset candidate manifest、palette 一致性、图块尺寸、collision review 协助结果以及 asset-registry 接线状态。
+- `tools/character-sprite-reconstruct.ts`: validates character sprite candidates, generates frame metadata, and reports facing-slot coverage plus anchor/pivot consistency.
+- `tools/character-sprite-reconstruct.ts`：校验角色精灵 candidate，生成帧 metadata，并报告朝向槽位覆盖和 anchor/pivot 一致性。
 - `tools/reference-validate.ts`: validates the reference manifest, reports missing subject ids or malformed metadata, and writes one reference report.
 - `tools/reference-validate.ts`：校验 reference manifest，报告缺失 subject id 或错误 metadata，并生成一份 reference 报告。
 - `tools/reference-query.ts`: queries indexed references by chapter, map, or subject so Codex and human editors can inspect one target quickly.
@@ -115,6 +117,10 @@ Current first-pass tooling:
   Generates `reports/tileset-reconstruction/latest/` and summarizes candidate attachment, palette issues, dimension issues, and collision review hints.
 - `npm run tileset-reconstruct`
   生成 `reports/tileset-reconstruction/latest/`，并汇总 candidate 接线状态、palette 问题、尺寸问题和 collision review 提示。
+- `npm run character-sprite-reconstruct`
+  Generates `content/generated/character-sprite-metadata.generated.json` and `reports/character-sprite-reconstruction/latest/`.
+- `npm run character-sprite-reconstruct`
+  生成 `content/generated/character-sprite-metadata.generated.json` 和 `reports/character-sprite-reconstruction/latest/`。
 - `npm run reference-validate`
   Generates `reports/reference/latest/` and reports manifest errors such as missing subject ids, duplicate keys, and malformed metadata.
 - `npm run reference-validate`

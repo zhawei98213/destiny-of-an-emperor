@@ -309,10 +309,10 @@
           "state": "imported",
           "fallbackKey": "npc.default",
           "resource": {
-            "kind": "world-placeholder",
-            "fillColor": "#d97706",
-            "strokeColor": "#78350f",
-            "accentColor": "#1d4ed8"
+            "kind": "sprite-frame",
+            "sheetId": "chapter-01-lou-sang-character-recon",
+            "frameId": "guard-left-stand",
+            "imagePath": "/assets/sprites/chapter-01-lou-sang-character-recon.png"
           }
         },
         {
@@ -321,10 +321,10 @@
           "state": "imported",
           "fallbackKey": "npc.default",
           "resource": {
-            "kind": "world-placeholder",
-            "fillColor": "#fb923c",
-            "strokeColor": "#7c2d12",
-            "accentColor": "#0f766e"
+            "kind": "sprite-frame",
+            "sheetId": "chapter-01-lou-sang-character-recon",
+            "frameId": "merchant-left-stand",
+            "imagePath": "/assets/sprites/chapter-01-lou-sang-character-recon.png"
           }
         },
         {
@@ -333,10 +333,10 @@
           "state": "imported",
           "fallbackKey": "npc.default",
           "resource": {
-            "kind": "world-placeholder",
-            "fillColor": "#4ade80",
-            "strokeColor": "#166534",
-            "accentColor": "#0f766e"
+            "kind": "sprite-frame",
+            "sheetId": "chapter-01-lou-sang-character-recon",
+            "frameId": "guide-down-stand",
+            "imagePath": "/assets/sprites/chapter-01-lou-sang-character-recon.png"
           }
         },
         {

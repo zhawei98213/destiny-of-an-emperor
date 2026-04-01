@@ -47,8 +47,12 @@ export class AssetRegistry {
     return this.resolve(key, this.fallbackKeyForCategory(this.categoryFromKey(key) ?? "ui-panel"), context).state;
   }
 
+  resolveNpcBinding(spriteId: string, context: AssetContext = {}): ResolvedAssetBinding {
+    return this.resolve(`npc.${spriteId}`, "npc.default", context);
+  }
+
   resolveNpcVisual(spriteId: string, context: AssetContext = {}): WorldPlaceholderAssetResource {
-    const resolved = this.resolve(`npc.${spriteId}`, "npc.default", context);
+    const resolved = this.resolveNpcBinding(spriteId, context);
     if (resolved.resource.kind === "world-placeholder") {
       return resolved.resource;
     }

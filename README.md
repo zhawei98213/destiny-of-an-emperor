@@ -67,6 +67,8 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - `npm run tileset-crop-normalize`：根据 reference candidate 生成当前 tileset 裁切/归一化任务计划。
 - `npm run tileset-reconstruct`: validate tileset candidates, palette consistency, dimensions, collision review hints, and runtime attachment.
 - `npm run tileset-reconstruct`：校验 tileset candidate、palette 一致性、尺寸、collision review 辅助信息和 runtime 接线状态。
+- `npm run character-sprite-reconstruct`: validate character sprite candidates, generate character sprite metadata, and write the current reconstruction report.
+- `npm run character-sprite-reconstruct`：校验角色精灵 candidate，生成角色精灵 metadata，并输出当前重建报告。
 - `npm run reference-validate`: validate `content/reference/manifest.json` and write the current reference pipeline report.
 - `npm run reference-validate`：校验 `content/reference/manifest.json`，并生成当前 reference pipeline 报告。
 - `npm run reference-query -- --subject-type <type> --subject-id <id>`: query indexed references for one subject such as a map, NPC, or UI element.
@@ -147,6 +149,8 @@ The first extension points are intentionally typed and data-driven:
 - `assetRegistry`：把 NPC 表现、UI 面板等逻辑资源 key 解析为具体的 placeholder/imported 绑定，并支持章节级覆盖与统一回退策略。
 - `tileset reconstruction workflow`: keeps tileset candidate manifests, normalization plans, and runtime palette attachment outside scenes so reconstructed map visuals can be replaced in batches.
 - `tileset reconstruction workflow`：把 tileset candidate manifest、归一化计划和 runtime palette 接线放在 scene 之外，便于后续成批替换重建后的地图视觉资源。
+- `character sprite reconstruction workflow`: keeps facing references, animation slots, anchor/pivot metadata, and sprite-frame attachment outside scenes so chapter NPC visuals can be upgraded without gameplay rewrites.
+- `character sprite reconstruction workflow`：把朝向参考、动画槽位、anchor/pivot 元数据和 sprite-frame 接线放在 scene 之外，便于后续升级章节 NPC 视觉而不改 gameplay。
 - `dialogueSession` + `dialogueBox`: keep dialogue presentation and typewriter flow separate from event execution so portraits, audio, and choices can be extended later.
 - `dialogueSession` + `dialogueBox`：将对话展示与逐字播放流程从事件执行中分离，为后续头像、音效和选项扩展预留接口。
 

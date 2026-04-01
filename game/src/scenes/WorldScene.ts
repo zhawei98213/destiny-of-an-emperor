@@ -292,30 +292,62 @@ export class WorldScene extends Phaser.Scene {
     const assetRegistry = this.assetRegistry;
     const map = this.worldRuntime.getCurrentMap();
     map.npcs.forEach((npc) => {
-      const npcStyle = assetRegistry.resolveNpcVisual(npc.sprite, { mapId: map.id });
+      const npcBinding = assetRegistry.resolveNpcBinding(npc.sprite, { mapId: map.id });
       const centerX = (npc.x * map.tileWidth) + (map.tileWidth / 2);
       const centerY = (npc.y * map.tileHeight) + (map.tileHeight / 2);
-      const npcSprite = this.add.rectangle(
-        centerX,
-        centerY,
-        map.tileWidth - 4,
-        map.tileHeight - 4,
-        Phaser.Display.Color.HexStringToColor(npcStyle.fillColor).color,
-        1,
-      );
-      npcSprite.setStrokeStyle(2, Phaser.Display.Color.HexStringToColor(npcStyle.strokeColor).color);
+      if (npcBinding.resource.kind === "sprite-frame") {
+        const frameTone = this.previewFrameTone(npcBinding.resource.frameId);
+        const npcSprite = this.add.rectangle(
+          centerX,
+          centerY,
+          map.tileWidth - 6,
+          map.tileHeight - 4,
+          frameTone.fill,
+          1,
+        );
+        npcSprite.setStrokeStyle(2, frameTone.stroke);
+        this.add.rectangle(centerX, centerY + 4, map.tileWidth - 10, 3, frameTone.shadow, 0.85);
+        this.add.rectangle(centerX, centerY - 5, map.tileWidth - 10, 3, frameTone.accent, 1);
+      } else {
+        const npcStyle = assetRegistry.resolveNpcVisual(npc.sprite, { mapId: map.id });
+        const npcSprite = this.add.rectangle(
+          centerX,
+          centerY,
+          map.tileWidth - 4,
+          map.tileHeight - 4,
+          Phaser.Display.Color.HexStringToColor(npcStyle.fillColor).color,
+          1,
+        );
+        npcSprite.setStrokeStyle(2, Phaser.Display.Color.HexStringToColor(npcStyle.strokeColor).color);
 
-      const facingOffsetX = npc.facing === "left" ? -4 : npc.facing === "right" ? 4 : 0;
-      const facingOffsetY = npc.facing === "up" ? -4 : npc.facing === "down" ? 4 : 0;
-      this.add.rectangle(
-        centerX + facingOffsetX,
-        centerY + facingOffsetY,
-        4,
-        4,
-        Phaser.Display.Color.HexStringToColor(npcStyle.accentColor).color,
-        1,
-      );
+        const facingOffsetX = npc.facing === "left" ? -4 : npc.facing === "right" ? 4 : 0;
+        const facingOffsetY = npc.facing === "up" ? -4 : npc.facing === "down" ? 4 : 0;
+        this.add.rectangle(
+          centerX + facingOffsetX,
+          centerY + facingOffsetY,
+          4,
+          4,
+          Phaser.Display.Color.HexStringToColor(npcStyle.accentColor).color,
+          1,
+        );
+      }
     });
+  }
+
+  private previewFrameTone(frameId: string): { fill: number; stroke: number; accent: number; shadow: number } {
+    if (frameId.startsWith("guard-")) {
+      return { fill: 0xd97706, stroke: 0x78350f, accent: 0x1d4ed8, shadow: 0x451a03 };
+    }
+
+    if (frameId.startsWith("merchant-")) {
+      return { fill: 0xfb923c, stroke: 0x7c2d12, accent: 0x0f766e, shadow: 0x431407 };
+    }
+
+    if (frameId.startsWith("guide-")) {
+      return { fill: 0x4ade80, stroke: 0x166534, accent: 0x0f766e, shadow: 0x14532d };
+    }
+
+    return { fill: 0xcbd5e1, stroke: 0x0f172a, accent: 0xef4444, shadow: 0x334155 };
   }
 
   private tryStartNpcInteraction(): void {

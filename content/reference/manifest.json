@@ -47,6 +47,54 @@
       "notes": "Reference crop for guard placement and facing. / 用于守卫摆位和朝向的参考裁切图。"
     },
     {
+      "id": "chapter-01-lou-sang-town-guard-left-stand-shot",
+      "source_name": "lou-sang-guard-left-stand",
+      "source_type": "manual-crop",
+      "chapter": "chapter-01-lou-sang",
+      "map_id": "town",
+      "subject_type": "sprite",
+      "subject_id": "guard-left-stand",
+      "confidence": "medium",
+      "asset_path": "sprites/chapter-01/guard-left-stand.png",
+      "metadata": {
+        "crop": { "x": 40, "y": 16, "width": 16, "height": 16 },
+        "tags": ["sprite", "guard", "left", "stand"]
+      },
+      "notes": "Guard left-facing standing frame crop for character sprite reconstruction. / 用于角色精灵重建的守卫左向站立帧裁切。"
+    },
+    {
+      "id": "chapter-01-lou-sang-merchant-left-stand-shot",
+      "source_name": "lou-sang-merchant-left-stand",
+      "source_type": "manual-crop",
+      "chapter": "chapter-01-lou-sang",
+      "map_id": "town",
+      "subject_type": "sprite",
+      "subject_id": "merchant-left-stand",
+      "confidence": "medium",
+      "asset_path": "sprites/chapter-01/merchant-left-stand.png",
+      "metadata": {
+        "crop": { "x": 56, "y": 16, "width": 16, "height": 16 },
+        "tags": ["sprite", "merchant", "left", "stand"]
+      },
+      "notes": "Merchant left-facing standing frame crop for character sprite reconstruction. / 用于角色精灵重建的商人左向站立帧裁切。"
+    },
+    {
+      "id": "chapter-01-lou-sang-guide-down-stand-shot",
+      "source_name": "lou-sang-guide-down-stand",
+      "source_type": "manual-crop",
+      "chapter": "chapter-01-lou-sang",
+      "map_id": "town",
+      "subject_type": "sprite",
+      "subject_id": "guide-down-stand",
+      "confidence": "medium",
+      "asset_path": "sprites/chapter-01/guide-down-stand.png",
+      "metadata": {
+        "crop": { "x": 72, "y": 16, "width": 16, "height": 16 },
+        "tags": ["sprite", "guide", "down", "stand"]
+      },
+      "notes": "Guide down-facing standing frame crop for character sprite reconstruction. / 用于角色精灵重建的向导下向站立帧裁切。"
+    },
+    {
       "id": "chapter-01-lou-sang-dialogue-box-ui-shot",
       "source_name": "lou-sang-dialogue-box",
       "source_type": "screenshot",

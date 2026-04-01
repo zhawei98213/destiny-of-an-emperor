@@ -24,6 +24,7 @@
     "asset-check": "vite-node tools/asset-check.ts",
     "tileset-reconstruct": "vite-node tools/tileset-reconstruct.ts",
     "tileset-crop-normalize": "vite-node tools/tileset-crop-normalize.ts",
+    "character-sprite-reconstruct": "vite-node tools/character-sprite-reconstruct.ts",
     "reference-validate": "vite-node tools/reference-validate.ts",
     "reference-query": "vite-node tools/reference-query.ts",
     "text-check": "vite-node tools/text-check.ts",
