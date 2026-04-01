@@ -3,13 +3,15 @@
     "training-slimes",
     "field-wolves",
     "river-bandits",
-    "ridgeway-raiders"
+    "ridgeway-raiders",
+    "highland-outlaws"
   ],
   "enemyIds": [
     "green-slime",
     "brown-wolf",
     "river-bandit",
-    "ridge-raider"
+    "ridge-raider",
+    "highland-outlaw"
   ],
   "generatedAt": "stable",
   "importer": "game-data",
@@ -18,11 +20,13 @@
     "bandage",
     "bronze-sword",
     "travel-ration",
-    "ridge-token"
+    "ridge-token",
+    "waystation-badge"
   ],
   "shopIds": [
     "starter-shop",
     "ford-camp-shop",
-    "ridgeway-camp-shop"
+    "ridgeway-camp-shop",
+    "waystation-supply-shop"
   ]
 }

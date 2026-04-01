@@ -46,6 +46,48 @@
     },
     {
       "collisionLayerCount": 1,
+      "id": "highland-pass",
+      "name": "Highland Pass",
+      "npcCount": 2,
+      "portalCount": 2,
+      "size": {
+        "height": 14,
+        "width": 24
+      },
+      "sourceFile": "highland-waystation.source.json",
+      "spawnPointCount": 2,
+      "triggerCount": 3
+    },
+    {
+      "collisionLayerCount": 1,
+      "id": "waystation-gate",
+      "name": "Waystation Gate",
+      "npcCount": 1,
+      "portalCount": 1,
+      "size": {
+        "height": 14,
+        "width": 24
+      },
+      "sourceFile": "highland-waystation.source.json",
+      "spawnPointCount": 2,
+      "triggerCount": 3
+    },
+    {
+      "collisionLayerCount": 1,
+      "id": "supply-court",
+      "name": "Supply Court",
+      "npcCount": 2,
+      "portalCount": 1,
+      "size": {
+        "height": 12,
+        "width": 20
+      },
+      "sourceFile": "highland-waystation.source.json",
+      "spawnPointCount": 1,
+      "triggerCount": 2
+    },
+    {
+      "collisionLayerCount": 1,
       "id": "town",
       "name": "Lou Sang Village",
       "npcCount": 3,
@@ -91,13 +133,13 @@
       "id": "ridgeway-camp",
       "name": "Ridgeway Camp",
       "npcCount": 2,
-      "portalCount": 1,
+      "portalCount": 2,
       "size": {
         "height": 12,
         "width": 20
       },
       "sourceFile": "ridgeway-camp.source.json",
-      "spawnPointCount": 1,
+      "spawnPointCount": 2,
       "triggerCount": 2
     },
     {
@@ -146,6 +188,7 @@
   "sourceFiles": [
     "demo-maps.source.json",
     "east-road-relay.source.json",
+    "highland-waystation.source.json",
     "lou-sang-village.source.json",
     "ridgeway-camp.source.json",
     "river-ford-camp.source.json"

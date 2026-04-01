@@ -49,6 +49,8 @@ This directory tracks chapter-level planning documents for real remake slices.
 - `chapter-03-river-ford`：第三段真实切片，当前状态为 `validating`
 - `chapter-04-ridgeway-camp`: fourth real slice, currently `validating`
 - `chapter-04-ridgeway-camp`：第四段真实切片，当前状态为 `validating`
+- `chapter-05-highland-waystation`: fifth real slice, currently `validating`
+- `chapter-05-highland-waystation`：第五段真实切片，当前状态为 `validating`
 
 ## Working Files
 ## 工作文件
@@ -65,6 +67,12 @@ This directory tracks chapter-level planning documents for real remake slices.
 - [chapter-04-ridgeway-camp-plan.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-04-ridgeway-camp-plan.md)：第四段真实切片的执行计划，内含工具收益记录
 - [chapter-04-ridgeway-camp-lock-report.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-04-ridgeway-camp-lock-report.md): current lock, divergence, and tool-stability report for the fourth real slice
 - [chapter-04-ridgeway-camp-lock-report.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-04-ridgeway-camp-lock-report.md)：第四段真实切片当前的锁定、差异与工具稳定性报告
+- [chapter-05-highland-waystation-plan.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-05-highland-waystation-plan.md): execution plan for the fifth real slice, including dual-track notes
+- [chapter-05-highland-waystation-plan.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-05-highland-waystation-plan.md)：第五段真实切片的执行计划，内含双轨模式说明
+- [chapter-05-highland-waystation-lock-report.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-05-highland-waystation-lock-report.md): current lock, divergence, and dual-track report for the fifth real slice
+- [chapter-05-highland-waystation-lock-report.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-05-highland-waystation-lock-report.md)：第五段真实切片当前的锁定、偏差与双轨报告
+- `chapter-05-highland-waystation-visual-replacement-backlog.md`: chapter-local visual replacement backlog for placeholder-managed assets
+- `chapter-05-highland-waystation-visual-replacement-backlog.md`：按章节维护的视觉替换 backlog，用于管理 placeholder 资产
 
 The matching chapter metadata lives in `content/manual/chapters/`.
 对应的章节元数据位于 `content/manual/chapters/`。

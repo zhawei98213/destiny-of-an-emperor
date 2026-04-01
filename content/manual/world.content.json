@@ -1230,6 +1230,15 @@
           "height": 1,
           "targetMapId": "ridgeway-watch",
           "targetSpawnId": "from-ridgeway-camp"
+        },
+        {
+          "id": "ridgeway-camp-to-highland-pass",
+          "x": 18,
+          "y": 6,
+          "width": 1,
+          "height": 1,
+          "targetMapId": "highland-pass",
+          "targetSpawnId": "from-ridgeway-camp-west"
         }
       ],
       "spawnPoints": [
@@ -1238,6 +1247,12 @@
           "x": 2,
           "y": 6,
           "facing": "right"
+        },
+        {
+          "id": "from-highland-pass",
+          "x": 17,
+          "y": 6,
+          "facing": "left"
         }
       ],
       "npcs": [
@@ -1277,6 +1292,374 @@
           "width": 1,
           "height": 1,
           "eventId": "ridgeway-cache-event",
+          "once": true
+        }
+      ]
+    },
+    {
+      "id": "highland-pass",
+      "name": "Highland Pass",
+      "width": 24,
+      "height": 14,
+      "tileWidth": 16,
+      "tileHeight": 16,
+      "tileLayers": [
+        {
+          "id": "ground",
+          "name": "Ground",
+          "width": 24,
+          "height": 14,
+          "tiles": [
+            3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,4,4,4,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,4,4,4,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,4,4,4,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
+          ]
+        }
+      ],
+      "collisionLayers": [
+        {
+          "id": "collision",
+          "name": "Collision",
+          "width": 24,
+          "height": 14,
+          "blocked": [
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+          ]
+        }
+      ],
+      "portals": [
+        {
+          "id": "highland-pass-to-ridgeway-camp",
+          "x": 1,
+          "y": 7,
+          "width": 1,
+          "height": 1,
+          "targetMapId": "ridgeway-camp",
+          "targetSpawnId": "from-highland-pass"
+        },
+        {
+          "id": "highland-pass-to-waystation-gate",
+          "x": 22,
+          "y": 7,
+          "width": 1,
+          "height": 1,
+          "targetMapId": "waystation-gate",
+          "targetSpawnId": "from-highland-pass"
+        }
+      ],
+      "spawnPoints": [
+        {
+          "id": "from-ridgeway-camp-west",
+          "x": 2,
+          "y": 7,
+          "facing": "right"
+        },
+        {
+          "id": "from-waystation-gate",
+          "x": 20,
+          "y": 7,
+          "facing": "left"
+        }
+      ],
+      "npcs": [
+        {
+          "id": "pass-courier",
+          "name": "山道传令兵",
+          "x": 6,
+          "y": 6,
+          "sprite": "guide",
+          "facing": "down",
+          "behavior": "idle"
+        },
+        {
+          "id": "pass-scout",
+          "name": "高坡斥候",
+          "x": 15,
+          "y": 8,
+          "sprite": "guard",
+          "facing": "left",
+          "behavior": "idle"
+        }
+      ],
+      "triggers": [
+        {
+          "id": "pass-courier-trigger",
+          "kind": "npcInteraction",
+          "npcId": "pass-courier",
+          "eventId": "pass-courier-event",
+          "once": false
+        },
+        {
+          "id": "pass-scout-trigger",
+          "kind": "npcInteraction",
+          "npcId": "pass-scout",
+          "eventId": "pass-scout-event",
+          "once": false
+        },
+        {
+          "id": "highland-pass-battle-trigger",
+          "kind": "region",
+          "x": 10,
+          "y": 5,
+          "width": 4,
+          "height": 3,
+          "encounterTableId": "highland-pass-outlaws",
+          "once": false
+        }
+      ]
+    },
+    {
+      "id": "waystation-gate",
+      "name": "Waystation Gate",
+      "width": 24,
+      "height": 14,
+      "tileWidth": 16,
+      "tileHeight": 16,
+      "tileLayers": [
+        {
+          "id": "ground",
+          "name": "Ground",
+          "width": 24,
+          "height": 14,
+          "tiles": [
+            3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,4,4,4,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,4,4,4,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,4,4,4,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,4,4,4,1,1,1,1,1,1,1,1,3,
+            3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,4,4,4,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,4,4,4,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,4,4,4,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
+          ]
+        }
+      ],
+      "collisionLayers": [
+        {
+          "id": "collision",
+          "name": "Collision",
+          "width": 24,
+          "height": 14,
+          "blocked": [
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+          ]
+        }
+      ],
+      "portals": [
+        {
+          "id": "waystation-gate-to-highland-pass",
+          "x": 1,
+          "y": 7,
+          "width": 1,
+          "height": 1,
+          "targetMapId": "highland-pass",
+          "targetSpawnId": "from-waystation-gate"
+        }
+      ],
+      "spawnPoints": [
+        {
+          "id": "from-highland-pass",
+          "x": 2,
+          "y": 7,
+          "facing": "right"
+        },
+        {
+          "id": "from-supply-court",
+          "x": 20,
+          "y": 7,
+          "facing": "left"
+        }
+      ],
+      "npcs": [
+        {
+          "id": "gate-captain",
+          "name": "驿门守将",
+          "x": 16,
+          "y": 7,
+          "sprite": "guard",
+          "facing": "left",
+          "behavior": "idle"
+        }
+      ],
+      "triggers": [
+        {
+          "id": "gate-captain-trigger",
+          "kind": "npcInteraction",
+          "npcId": "gate-captain",
+          "eventId": "gate-captain-event",
+          "once": false
+        },
+        {
+          "id": "highland-east-gate-trigger",
+          "kind": "tile",
+          "x": 18,
+          "y": 7,
+          "width": 1,
+          "height": 1,
+          "eventId": "highland-east-gate-event",
+          "once": false
+        },
+        {
+          "id": "waystation-gate-battle-trigger",
+          "kind": "region",
+          "x": 9,
+          "y": 6,
+          "width": 4,
+          "height": 3,
+          "encounterTableId": "waystation-gate-outlaws",
+          "once": false
+        }
+      ]
+    },
+    {
+      "id": "supply-court",
+      "name": "Supply Court",
+      "width": 20,
+      "height": 12,
+      "tileWidth": 16,
+      "tileHeight": 16,
+      "tileLayers": [
+        {
+          "id": "ground",
+          "name": "Ground",
+          "width": 20,
+          "height": 12,
+          "tiles": [
+            3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,3,3,3,1,1,1,1,3,3,3,1,1,1,1,1,3,
+            3,1,1,1,3,3,3,1,1,1,1,3,3,3,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,3,3,1,1,1,1,1,1,3,3,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
+          ]
+        }
+      ],
+      "collisionLayers": [
+        {
+          "id": "collision",
+          "name": "Collision",
+          "width": 20,
+          "height": 12,
+          "blocked": [
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,1,1,1,0,0,0,0,1,1,1,0,0,0,0,0,1,
+            1,0,0,0,1,1,1,0,0,0,0,1,1,1,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+          ]
+        }
+      ],
+      "portals": [
+        {
+          "id": "supply-court-to-waystation-gate",
+          "x": 1,
+          "y": 6,
+          "width": 1,
+          "height": 1,
+          "targetMapId": "waystation-gate",
+          "targetSpawnId": "from-supply-court"
+        }
+      ],
+      "spawnPoints": [
+        {
+          "id": "from-waystation-gate",
+          "x": 2,
+          "y": 6,
+          "facing": "right"
+        }
+      ],
+      "npcs": [
+        {
+          "id": "supply-steward",
+          "name": "转运军需官",
+          "x": 9,
+          "y": 6,
+          "sprite": "merchant",
+          "facing": "left",
+          "behavior": "idle",
+          "shopId": "waystation-supply-shop"
+        },
+        {
+          "id": "court-veteran",
+          "name": "驿院老卒",
+          "x": 12,
+          "y": 7,
+          "sprite": "guide",
+          "facing": "down",
+          "behavior": "idle"
+        }
+      ],
+      "triggers": [
+        {
+          "id": "supply-steward-trigger",
+          "kind": "npcInteraction",
+          "npcId": "supply-steward",
+          "eventId": "supply-steward-event",
+          "once": false
+        },
+        {
+          "id": "supply-cache-trigger",
+          "kind": "tile",
+          "x": 3,
+          "y": 9,
+          "width": 1,
+          "height": 1,
+          "eventId": "supply-cache-event",
           "once": true
         }
       ]
@@ -1329,6 +1712,13 @@
       "id": "ridge-token",
       "name": "山道符牌",
       "description": "前营文书盖印的山道符牌，山口守兵验过后才会放行。",
+      "kind": "key",
+      "price": 0
+    },
+    {
+      "id": "waystation-badge",
+      "name": "驿路铜牌",
+      "description": "山道传令兵发出的铜牌，驿门守将验过后才会放行。",
       "kind": "key",
       "price": 0
     }
@@ -1415,6 +1805,18 @@
     {
       "id": "ridgeway-cache-opened",
       "defaultValue": false
+    },
+    {
+      "id": "waystation-badge-issued",
+      "defaultValue": false
+    },
+    {
+      "id": "highland-east-gate-open",
+      "defaultValue": false
+    },
+    {
+      "id": "supply-cache-opened",
+      "defaultValue": false
     }
   ],
   "questStates": [
@@ -1499,6 +1901,32 @@
         {
           "id": "ridgeway-watch-raider-entry",
           "battleGroupId": "ridgeway-raiders",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "id": "highland-pass-outlaws",
+      "name": "高坡乱兵",
+      "stepInterval": 3,
+      "chance": 1,
+      "entries": [
+        {
+          "id": "highland-pass-outlaw-entry",
+          "battleGroupId": "highland-outlaws",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "id": "waystation-gate-outlaws",
+      "name": "驿门乱兵",
+      "stepInterval": 2,
+      "chance": 1,
+      "entries": [
+        {
+          "id": "waystation-gate-outlaw-entry",
+          "battleGroupId": "highland-outlaws",
           "weight": 1
         }
       ]

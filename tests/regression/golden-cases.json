@@ -1742,6 +1742,583 @@
         "dialogueLineIds": [],
         "battleOutcome": "victory"
       }
+    },
+    {
+      "id": "pass-courier-issues-badge",
+      "name": "Pass courier issues badge / 山道传令兵发放铜牌",
+      "initialState": {
+        "world": {
+          "mapId": "highland-pass",
+          "spawnPointId": "from-ridgeway-camp-west",
+          "playerX": 5,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "waystation-badge-issued": false
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "highland-pass",
+        "npcId": "pass-courier"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "highland-pass",
+          "currentSpawnId": "from-ridgeway-camp-west",
+          "playerX": 5,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "waystation-badge-issued": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": [
+            {
+              "itemId": "waystation-badge",
+              "quantity": 1
+            }
+          ]
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["pass-courier-line-issue"]
+      }
+    },
+    {
+      "id": "pass-scout-dialogue",
+      "name": "Pass scout dialogue / 高坡斥候对白",
+      "initialState": {
+        "world": {
+          "mapId": "highland-pass",
+          "spawnPointId": "from-ridgeway-camp-west",
+          "playerX": 14,
+          "playerY": 8,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "highland-pass",
+        "npcId": "pass-scout"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "highland-pass",
+          "currentSpawnId": "from-ridgeway-camp-west",
+          "playerX": 14,
+          "playerY": 8,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["pass-scout-line"]
+      }
+    },
+    {
+      "id": "gate-captain-opens-east-gate",
+      "name": "Gate captain opens east gate / 驿门守将放行",
+      "initialState": {
+        "world": {
+          "mapId": "waystation-gate",
+          "spawnPointId": "from-highland-pass",
+          "playerX": 15,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 0,
+          "items": [
+            {
+              "itemId": "waystation-badge",
+              "quantity": 1
+            }
+          ]
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "waystation-gate",
+        "npcId": "gate-captain"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "waystation-gate",
+          "currentSpawnId": "from-highland-pass",
+          "playerX": 15,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "highland-east-gate-open": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": [
+            {
+              "itemId": "waystation-badge",
+              "quantity": 1
+            }
+          ]
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["gate-captain-line-open"]
+      }
+    },
+    {
+      "id": "highland-east-gate-warps",
+      "name": "Highland east gate warps / 驿门东口切图",
+      "initialState": {
+        "world": {
+          "mapId": "waystation-gate",
+          "spawnPointId": "from-highland-pass",
+          "playerX": 18,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "highland-east-gate-open": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "tile",
+        "mapId": "waystation-gate",
+        "x": 18,
+        "y": 7
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "supply-court",
+          "currentSpawnId": "from-waystation-gate",
+          "playerX": 2,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "highland-east-gate-open": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": []
+      }
+    },
+    {
+      "id": "supply-steward-opens-shop",
+      "name": "Supply steward opens shop / 转运军需官开启商店",
+      "initialState": {
+        "world": {
+          "mapId": "supply-court",
+          "spawnPointId": "from-waystation-gate",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 28,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "supply-court",
+        "npcId": "supply-steward"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "supply-court",
+          "currentSpawnId": "from-waystation-gate",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 28,
+          "items": []
+        },
+        "shopStates": {
+          "waystation-supply-shop": {
+            "visited": true
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["supply-steward-line"],
+        "shopId": "waystation-supply-shop",
+        "shopItemLines": [
+          "1. Herb - 10G",
+          "2. Bandage - 19G",
+          "3. 行军口粮 - 22G",
+          "4. Bronze Sword - 46G"
+        ]
+      }
+    },
+    {
+      "id": "supply-cache-first-open",
+      "name": "Supply cache first open / 驿院补给箱首次开启",
+      "initialState": {
+        "world": {
+          "mapId": "supply-court",
+          "spawnPointId": "from-waystation-gate",
+          "playerX": 3,
+          "playerY": 9,
+          "facing": "down"
+        },
+        "flags": {
+          "supply-cache-opened": false
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "tile",
+        "mapId": "supply-court",
+        "x": 3,
+        "y": 9
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "supply-court",
+          "currentSpawnId": "from-waystation-gate",
+          "playerX": 3,
+          "playerY": 9,
+          "facing": "down"
+        },
+        "flags": {
+          "supply-cache-opened": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": [
+            {
+              "itemId": "bandage",
+              "quantity": 2
+            }
+          ]
+        },
+        "consumedTriggerIds": ["supply-cache-trigger"]
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["supply-cache-line-open"]
+      }
+    },
+    {
+      "id": "highland-pass-battle-roundtrip",
+      "name": "Highland pass battle roundtrip / 高坡山道遭遇战并返回地图",
+      "initialState": {
+        "world": {
+          "mapId": "highland-pass",
+          "spawnPointId": "from-ridgeway-camp-west",
+          "playerX": 13,
+          "playerY": 7,
+          "facing": "right",
+          "stepCount": 6
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 0,
+            "currentHp": 24,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "region",
+        "mapId": "highland-pass",
+        "x": 13,
+        "y": 7
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "highland-pass",
+          "currentSpawnId": "from-ridgeway-camp-west",
+          "playerX": 13,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 16,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 9,
+            "currentHp": 16,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene", "BattleScene", "WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": [],
+        "battleOutcome": "victory"
+      }
+    },
+    {
+      "id": "waystation-gate-battle-roundtrip",
+      "name": "Waystation gate battle roundtrip / 驿门山道遭遇战并返回地图",
+      "initialState": {
+        "world": {
+          "mapId": "waystation-gate",
+          "spawnPointId": "from-highland-pass",
+          "playerX": 12,
+          "playerY": 7,
+          "facing": "right",
+          "stepCount": 4
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 0,
+            "currentHp": 24,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "region",
+        "mapId": "waystation-gate",
+        "x": 12,
+        "y": 7
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "waystation-gate",
+          "currentSpawnId": "from-highland-pass",
+          "playerX": 12,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 16,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 9,
+            "currentHp": 16,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene", "BattleScene", "WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": [],
+        "battleOutcome": "victory"
+      }
+    },
+    {
+      "id": "highland-save-load-restores-runtime",
+      "name": "Highland save load restores runtime / 高坡驿路存档读档恢复运行时状态",
+      "initialState": {
+        "world": {
+          "mapId": "supply-court",
+          "spawnPointId": "from-waystation-gate",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "waystation-badge-issued": true,
+          "highland-east-gate-open": true,
+          "supply-cache-opened": true
+        },
+        "inventory": {
+          "gold": 21,
+          "items": [
+            {
+              "itemId": "bandage",
+              "quantity": 2
+            },
+            {
+              "itemId": "waystation-badge",
+              "quantity": 1
+            }
+          ]
+        },
+        "shopStates": {
+          "waystation-supply-shop": {
+            "visited": true
+          }
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 9,
+            "currentHp": 18,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": ["supply-cache-trigger"]
+      },
+      "trigger": {
+        "kind": "saveLoadRoundTrip",
+        "slot": "golden-slot",
+        "postSaveMutation": {
+          "world": {
+            "mapId": "ridgeway-camp",
+            "spawnPointId": "from-watch-gate",
+            "playerX": 2,
+            "playerY": 6,
+            "facing": "left"
+          },
+          "flags": {
+            "waystation-badge-issued": false,
+            "highland-east-gate-open": false,
+            "supply-cache-opened": false
+          },
+          "inventory": {
+            "gold": 0,
+            "items": []
+          },
+          "shopStates": {
+            "waystation-supply-shop": {
+              "visited": false
+            }
+          },
+          "partyStates": {
+            "liu-bei": {
+              "memberId": "liu-bei",
+              "level": 1,
+              "experience": 0,
+              "currentHp": 1,
+              "currentMp": 0,
+              "statusIds": [],
+              "formationSlot": 0
+            }
+          },
+          "consumedTriggerIds": []
+        }
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "supply-court",
+          "currentSpawnId": "from-waystation-gate",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "waystation-badge-issued": true,
+          "highland-east-gate-open": true,
+          "supply-cache-opened": true
+        },
+        "inventory": {
+          "gold": 21,
+          "items": [
+            {
+              "itemId": "bandage",
+              "quantity": 2
+            },
+            {
+              "itemId": "waystation-badge",
+              "quantity": 1
+            }
+          ]
+        },
+        "shopStates": {
+          "waystation-supply-shop": {
+            "visited": true
+          }
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 9,
+            "currentHp": 18,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": ["supply-cache-trigger"]
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": []
+      }
     }
   ]
 }

@@ -30,6 +30,13 @@
       ],
       "id": "ridgeway-raiders",
       "name": "Ridgeway Raiders"
+    },
+    {
+      "enemyIds": [
+        "highland-outlaw"
+      ],
+      "id": "highland-outlaws",
+      "name": "Highland Outlaws"
     }
   ],
   "dialogueLines": [],
@@ -121,6 +128,30 @@
       "name": "Ridge Raider",
       "rewardExperience": 7,
       "rewardGold": 13,
+      "skills": [
+        "slash"
+      ]
+    },
+    {
+      "baseStats": {
+        "attack": 7,
+        "defense": 4,
+        "maxHp": 20,
+        "maxMp": 0,
+        "speed": 4
+      },
+      "dropItems": [
+        {
+          "chance": 0.5,
+          "itemId": "bandage",
+          "quantity": 1
+        }
+      ],
+      "id": "highland-outlaw",
+      "level": 5,
+      "name": "Highland Outlaw",
+      "rewardExperience": 9,
+      "rewardGold": 16,
       "skills": [
         "slash"
       ]

@@ -1,0 +1,57 @@
+{
+  "areaLabel": "Highland Pass, Waystation Gate, and Supply Court Slice",
+  "chapterId": "chapter-05-highland-waystation",
+  "enemyGroups": [
+    "highland-outlaws"
+  ],
+  "format": "chapter-metadata-v1",
+  "events": [
+    "pass-courier-event",
+    "pass-scout-event",
+    "gate-captain-event",
+    "highland-east-gate-event",
+    "supply-steward-event",
+    "supply-cache-event"
+  ],
+  "maps": [
+    "highland-pass",
+    "waystation-gate",
+    "supply-court"
+  ],
+  "notes": "Fifth real slice extends east from Ridgeway Camp into a highland pass, a guarded waystation gate, and an eastern supply court. Gameplay/content now closes a reusable courier-token -> gate check -> east warp -> supply shop loop, while visual parity remains on a separate replacement backlog so placeholders do not block chapter closure. / 第五段真实切片从山营继续向东扩展到高坡山道、驿门关口和东侧补给院。当前 gameplay/content 已经收口出一条可复用的“传令兵发牌 -> 守将验牌 -> 东门放行 -> 补给商店”闭环，而 visual parity 则单独进入替换 backlog，避免 placeholder 反向阻塞章节闭环。",
+  "npcs": [
+    "pass-courier",
+    "pass-scout",
+    "gate-captain",
+    "supply-steward",
+    "court-veteran"
+  ],
+  "paritySummary": {
+    "battles": "validating",
+    "collision": "validating",
+    "dialogue": "parity-review",
+    "events": "validating",
+    "flags": "validating",
+    "items": "parity-review",
+    "mapLayout": "validating",
+    "npcPlacement": "validating",
+    "shops": "parity-review",
+    "transitions": "validating"
+  },
+  "regressionCases": [
+    "pass-courier-issues-badge",
+    "pass-scout-dialogue",
+    "gate-captain-opens-east-gate",
+    "highland-east-gate-warps",
+    "supply-steward-opens-shop",
+    "supply-cache-first-open",
+    "highland-pass-battle-roundtrip",
+    "waystation-gate-battle-roundtrip",
+    "highland-save-load-restores-runtime"
+  ],
+  "shops": [
+    "waystation-supply-shop"
+  ],
+  "status": "validating",
+  "title": "Highland Waystation Approach"
+}

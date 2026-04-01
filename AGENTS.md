@@ -119,6 +119,8 @@ Follow it before making code, content, tooling, or documentation changes.
 
 - Do not hardcode story logic in scenes.
 - 不得把剧情逻辑写死在 scene。
+- Real chapter importing now runs in dual-track mode: gameplay/content must close the chapter loop first, while visual parity work must stay traceable through chapter-local visual replacement backlog files.
+- 真实章节导入现在采用双轨模式：先由 gameplay/content 完成章节闭环，而 visual parity 必须通过章节级 visual replacement backlog 保持可追溯。
 - Story and dialogue content should default to Simplified Chinese unless a task explicitly requires another language.
 - 剧情和对话内容默认使用简体中文，除非任务明确要求使用其他语言。
 - Do not hand-edit generated content.
@@ -133,6 +135,8 @@ Follow it before making code, content, tooling, or documentation changes.
 - 如果修改存档结构，必须在同一次改动里说明兼容策略。
 - If content-facing UI behavior changes, extend regression `expectedUi` instead of validating only state.
 - 如果面向内容核对的 UI 行为发生变化，应扩展回归里的 `expectedUi`，不要只校验状态字段。
+- Placeholder visuals may remain during gameplay closure, but every placeholder used by a real chapter must be managed through the shared asset registry and listed in a chapter-local visual replacement backlog.
+- 在 gameplay 闭环阶段允许保留 placeholder 视觉资源，但真实章节使用到的每个 placeholder 都必须通过共享 asset registry 管理，并写入章节级 visual replacement backlog。
 
 ## Definition Of Done
 ## 完成定义

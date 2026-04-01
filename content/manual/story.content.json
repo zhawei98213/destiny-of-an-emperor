@@ -211,6 +211,66 @@
       "speakerName": "系统",
       "text": "你在山营角落的补给箱里找到了一包行军口粮。",
       "soundId": "sfx-chest"
+    },
+    {
+      "id": "pass-courier-line-issue",
+      "speakerName": "山道传令兵",
+      "speakerNpcId": "pass-courier",
+      "text": "前头驿门正在盘查往来兵卒。这枚驿路铜牌你先拿着，见了守将再给他验看。",
+      "portraitId": "guide-default",
+      "soundId": "voice-guide"
+    },
+    {
+      "id": "pass-courier-line-repeat",
+      "speakerName": "山道传令兵",
+      "speakerNpcId": "pass-courier",
+      "text": "铜牌已经在你手里了。到了驿门别急着闯，先让守将验牌。",
+      "portraitId": "guide-default",
+      "soundId": "voice-guide"
+    },
+    {
+      "id": "pass-scout-line",
+      "speakerName": "高坡斥候",
+      "speakerNpcId": "pass-scout",
+      "text": "这段高坡白天也不安稳。乱兵就躲在坡背后，往前走时别把阵脚散了。",
+      "portraitId": "guard-default",
+      "soundId": "voice-guard"
+    },
+    {
+      "id": "gate-captain-line-blocked",
+      "speakerName": "驿门守将",
+      "speakerNpcId": "gate-captain",
+      "text": "没有驿路铜牌，谁也不能从这道门往东走。",
+      "portraitId": "guard-default",
+      "soundId": "voice-guard"
+    },
+    {
+      "id": "gate-captain-line-open",
+      "speakerName": "驿门守将",
+      "speakerNpcId": "gate-captain",
+      "text": "铜牌无误。我把东边驿院的门路给你放开，补给院那边已经在等你了。",
+      "portraitId": "guard-default",
+      "soundId": "voice-guard"
+    },
+    {
+      "id": "highland-gate-line-blocked",
+      "speakerName": "系统",
+      "text": "驿门守将还没有放行，暂时不能继续向东。",
+      "soundId": "sfx-blocked"
+    },
+    {
+      "id": "supply-steward-line",
+      "speakerName": "转运军需官",
+      "speakerNpcId": "supply-steward",
+      "text": "驿院的伤药和口粮都在这儿。再往前就是长线补给路，先把包袱扎紧了再上路。",
+      "portraitId": "merchant-default",
+      "soundId": "voice-merchant"
+    },
+    {
+      "id": "supply-cache-line-open",
+      "speakerName": "系统",
+      "text": "你在驿院角落的补给箱里翻出了一卷绷带。",
+      "soundId": "sfx-chest"
     }
   ],
   "events": [
@@ -536,6 +596,94 @@
         { "type": "playSfx", "sfxId": "sfx-chest" },
         { "type": "end" }
       ]
+    },
+    {
+      "id": "pass-courier-event",
+      "name": "Pass Courier Event",
+      "steps": [
+        {
+          "type": "ifHasItem",
+          "itemId": "waystation-badge",
+          "steps": [
+            { "type": "dialogue", "lineId": "pass-courier-line-repeat" },
+            { "type": "end" }
+          ]
+        },
+        { "type": "dialogue", "lineId": "pass-courier-line-issue" },
+        { "type": "giveItem", "itemId": "waystation-badge", "quantity": 1 },
+        { "type": "setFlag", "flagId": "waystation-badge-issued" },
+        { "type": "end" }
+      ]
+    },
+    {
+      "id": "pass-scout-event",
+      "name": "Pass Scout Event",
+      "steps": [
+        { "type": "dialogue", "lineId": "pass-scout-line" },
+        { "type": "end" }
+      ]
+    },
+    {
+      "id": "gate-captain-event",
+      "name": "Gate Captain Event",
+      "steps": [
+        {
+          "type": "ifHasItem",
+          "itemId": "waystation-badge",
+          "steps": [
+            { "type": "dialogue", "lineId": "gate-captain-line-open" },
+            { "type": "setFlag", "flagId": "highland-east-gate-open" },
+            { "type": "playSfx", "sfxId": "sfx-gate-open" },
+            { "type": "end" }
+          ]
+        },
+        { "type": "dialogue", "lineId": "gate-captain-line-blocked" },
+        { "type": "end" }
+      ]
+    },
+    {
+      "id": "highland-east-gate-event",
+      "name": "Highland East Gate Event",
+      "steps": [
+        {
+          "type": "ifNotFlag",
+          "flagId": "highland-east-gate-open",
+          "steps": [
+            { "type": "dialogue", "lineId": "highland-gate-line-blocked" },
+            { "type": "end" }
+          ]
+        },
+        {
+          "type": "ifFlag",
+          "flagId": "highland-east-gate-open",
+          "steps": [
+            { "type": "warp", "targetMapId": "supply-court", "targetSpawnId": "from-waystation-gate" },
+            { "type": "end" }
+          ]
+        },
+        { "type": "end" }
+      ]
+    },
+    {
+      "id": "supply-steward-event",
+      "name": "Supply Steward Event",
+      "steps": [
+        { "type": "dialogue", "lineId": "supply-steward-line" },
+        { "type": "openShop", "shopId": "waystation-supply-shop" },
+        { "type": "playSfx", "sfxId": "sfx-shop-open" },
+        { "type": "end" }
+      ]
+    },
+    {
+      "id": "supply-cache-event",
+      "name": "Supply Cache Event",
+      "steps": [
+        { "type": "dialogue", "lineId": "supply-cache-line-open" },
+        { "type": "giveItem", "itemId": "bandage", "quantity": 2 },
+        { "type": "setFlag", "flagId": "supply-cache-opened" },
+        { "type": "playSfx", "sfxId": "sfx-chest" },
+        { "type": "end" }
+      ]
     }
   ],
   "shops": [
@@ -587,6 +735,27 @@
         {
           "itemId": "bronze-sword",
           "price": 44
+        }
+      ]
+    },
+    {
+      "id": "waystation-supply-shop",
+      "name": "Highland Waystation Store",
+      "inventory": [
+        {
+          "itemId": "herb"
+        },
+        {
+          "itemId": "bandage",
+          "price": 19
+        },
+        {
+          "itemId": "travel-ration",
+          "price": 22
+        },
+        {
+          "itemId": "bronze-sword",
+          "price": 46
         }
       ]
     }

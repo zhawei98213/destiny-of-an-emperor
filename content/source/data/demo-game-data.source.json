@@ -35,6 +35,13 @@
       "description": "A stamped token used to pass the ridgeway watch.",
       "kind": "key",
       "price": 0
+    },
+    {
+      "id": "waystation-badge",
+      "name": "Waystation Badge",
+      "description": "A brass badge issued at the ridge supply line so the next gate will let trusted couriers pass.",
+      "kind": "key",
+      "price": 0
     }
   ],
   "shops": [
@@ -86,6 +93,27 @@
         {
           "itemId": "bronze-sword",
           "price": 44
+        }
+      ]
+    },
+    {
+      "id": "waystation-supply-shop",
+      "name": "Waystation Supply Court",
+      "inventory": [
+        {
+          "itemId": "herb"
+        },
+        {
+          "itemId": "bandage",
+          "price": 19
+        },
+        {
+          "itemId": "travel-ration",
+          "price": 22
+        },
+        {
+          "itemId": "bronze-sword",
+          "price": 46
         }
       ]
     }
@@ -180,6 +208,30 @@
         "defense": 4,
         "speed": 4
       }
+    },
+    {
+      "id": "highland-outlaw",
+      "name": "Highland Outlaw",
+      "level": 5,
+      "skills": [
+        "slash"
+      ],
+      "rewardGold": 16,
+      "rewardExperience": 9,
+      "dropItems": [
+        {
+          "itemId": "bandage",
+          "quantity": 1,
+          "chance": 0.5
+        }
+      ],
+      "baseStats": {
+        "maxHp": 20,
+        "maxMp": 0,
+        "attack": 7,
+        "defense": 4,
+        "speed": 4
+      }
     }
   ],
   "battleGroups": [
@@ -210,6 +262,13 @@
       "name": "Ridgeway Raiders",
       "enemyIds": [
         "ridge-raider"
+      ]
+    },
+    {
+      "id": "highland-outlaws",
+      "name": "Highland Outlaws",
+      "enemyIds": [
+        "highland-outlaw"
       ]
     }
   ]
