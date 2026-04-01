@@ -86,6 +86,8 @@ Each entry records:
 - `chapter`：所属章节 id
 - `map_id`: optional map scope
 - `map_id`：可选的地图范围
+- `scene_type`: optional scene bucket such as `dialogue`, `menu`, `shop`, or `battle`
+- `scene_type`：可选的场景类型，例如 `dialogue`、`menu`、`shop` 或 `battle`
 - `subject_type`: `map | npc | ui | sprite | tile | enemy | shop | battle`
 - `subject_type`：`map | npc | ui | sprite | tile | enemy | shop | battle`
 - `subject_id`: concrete target id used for querying
@@ -102,9 +104,49 @@ Optional fields:
 - `asset_path`: relative path inside `content/reference/`
 - `asset_path`：`content/reference/` 内的相对路径
 - `metadata.timestamp`
+- `metadata.source_locator`
+- `metadata.approximate_source`
 - `metadata.crop.{x,y,width,height}`
 - `metadata.variant`
 - `metadata.tags[]`
+
+## Reference Frame Extraction
+## 参考关键帧提取
+
+Reference frame extraction adds one more ingestion path on top of the base manifest:
+参考关键帧提取在基础 manifest 之上新增了一条输入路径：
+
+- `content/reference/frame-packs/*.json`
+
+Each frame pack describes:
+每个关键帧包描述：
+
+- one video or screenshot-sequence source
+- 一个视频或截图序列来源
+- a curated list of keyframes
+- 一组人工整理的关键帧
+- chapter ownership
+- 章节归属
+- `map_id`
+- `scene_type`
+- `subject_type`
+- `subject_id`
+- approximate timestamp or frame source reference
+- 近似时间戳或源帧定位信息
+
+Command:
+命令：
+
+- `npm run reference-frame-extract`
+
+This command validates frame packs and writes:
+该命令会校验关键帧包，并输出：
+
+- `reports/reference-frame-extract/latest/report.json`
+- `reports/reference-frame-extract/latest/summary.md`
+
+Frame-pack-derived entries are merged into the normal reference query path, so `reference-query` can discover them without a separate database.
+由关键帧包派生出来的条目会并入常规 reference 查询路径，因此 `reference-query` 无需额外数据库就能查到这些帧。
 
 ## Reference Validator
 ## 参考资料校验器
@@ -143,6 +185,7 @@ Command examples:
 - `npm run reference-query -- --subject-type npc --subject-id town-guard`
 - `npm run reference-query -- --subject-type map --subject-id town`
 - `npm run reference-query -- --subject-type ui --subject-id dialogue-box --chapter chapter-01-lou-sang`
+- `npm run reference-query -- --scene-type dialogue --subject-type ui --subject-id dialogue-box --chapter chapter-01-lou-sang`
 
 The query tool is intended for Codex and human editors to answer:
 
@@ -183,3 +226,8 @@ The first wired chapter is `chapter-01-lou-sang`.
 That means the reference pipeline is now available for map layout, NPC facing, dialogue UI,
 and shop counter references in the first real slice.
 这意味着第一真实区域已经可以对地图布局、NPC 朝向、对话框 UI 和商店柜台参考资料进行索引和查询。
+
+It now also owns the first structured frame pack:
+它现在还拥有第一个结构化关键帧包：
+
+- `content/reference/frame-packs/chapter-01-lou-sang-ui-pack.json`

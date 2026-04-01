@@ -29,6 +29,7 @@
     "character-sprite-reconstruct": "vite-node tools/character-sprite-reconstruct.ts",
     "ui-asset-reconstruct": "vite-node tools/ui-asset-reconstruct.ts",
     "reference-validate": "vite-node tools/reference-validate.ts",
+    "reference-frame-extract": "vite-node tools/reference-frame-extract.ts",
     "reference-query": "vite-node tools/reference-query.ts",
     "text-check": "vite-node tools/text-check.ts",
     "performance-baseline": "vite-node tools/performance-baseline.ts",

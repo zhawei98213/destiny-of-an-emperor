@@ -2,6 +2,12 @@ import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { loadRealChapterMetadata } from "./manualContent";
 import { formatError, readJsonFile, repoRoot, stableStringify } from "./importerCore";
+import {
+  buildReferenceFramePackReport,
+  framePackToReferenceEntries,
+  loadReferenceFramePacks,
+  type ReferenceSceneType,
+} from "./referenceFrameExtract";
 
 export type ReferenceSourceType = "screenshot" | "video" | "manual-crop";
 export type ReferenceSubjectType =
@@ -22,6 +28,8 @@ export type ReferenceIssueType =
 
 export interface ReferenceEntryMetadata {
   timestamp?: string;
+  source_locator?: string;
+  approximate_source?: string;
   crop?: {
     x: number;
     y: number;
@@ -38,6 +46,7 @@ export interface ReferenceEntry {
   source_type: ReferenceSourceType;
   chapter: string;
   map_id?: string;
+  scene_type?: ReferenceSceneType;
   subject_type: ReferenceSubjectType;
   subject_id: string;
   confidence: ReferenceConfidence;
@@ -81,6 +90,7 @@ export interface ReferenceReport {
 export interface ReferenceQuery {
   chapter?: string;
   mapId?: string;
+  sceneType?: ReferenceSceneType;
   subjectType?: ReferenceSubjectType;
   subjectId?: string;
 }
@@ -184,6 +194,8 @@ function validateMetadata(
 
   return {
     timestamp: expectOptionalString(record.timestamp, filePath, `${fieldPath}.timestamp`),
+    source_locator: expectOptionalString(record.source_locator, filePath, `${fieldPath}.source_locator`),
+    approximate_source: expectOptionalString(record.approximate_source, filePath, `${fieldPath}.approximate_source`),
     crop,
     variant: expectOptionalString(record.variant, filePath, `${fieldPath}.variant`),
     tags,
@@ -198,6 +210,9 @@ function validateEntry(value: unknown, filePath: string, fieldPath: string): Ref
     source_type: expectEnumValue(record.source_type, validSourceTypes, filePath, `${fieldPath}.source_type`),
     chapter: expectString(record.chapter, filePath, `${fieldPath}.chapter`),
     map_id: expectOptionalString(record.map_id, filePath, `${fieldPath}.map_id`),
+    scene_type: record.scene_type === undefined
+      ? undefined
+      : expectEnumValue(record.scene_type, ["world", "dialogue", "menu", "shop", "battle", "cutscene", "other"] as const, filePath, `${fieldPath}.scene_type`),
     subject_type: expectEnumValue(record.subject_type, validSubjectTypes, filePath, `${fieldPath}.subject_type`),
     subject_id: expectString(record.subject_id, filePath, `${fieldPath}.subject_id`),
     confidence: expectEnumValue(record.confidence, validConfidenceValues, filePath, `${fieldPath}.confidence`),
@@ -229,7 +244,15 @@ export function validateReferenceManifest(
 export async function loadReferenceManifest(): Promise<ReferenceManifest> {
   const document = await readJsonFile<unknown>(manifestPath);
   const relativePath = path.relative(repoRoot, manifestPath);
-  return validateReferenceManifest(document, relativePath);
+  const baseManifest = validateReferenceManifest(document, relativePath);
+  const framePacks = await loadReferenceFramePacks();
+  return {
+    format: "reference-manifest-v1",
+    entries: [
+      ...baseManifest.entries,
+      ...framePacks.flatMap((pack) => framePackToReferenceEntries(pack)),
+    ],
+  };
 }
 
 function createSubjectKey(subjectType: ReferenceSubjectType, subjectId: string): string {
@@ -265,6 +288,10 @@ export function queryReferenceEntries(index: ReferenceIndex, query: ReferenceQue
     }
 
     if (query.mapId && entry.map_id !== query.mapId) {
+      return false;
+    }
+
+    if (query.sceneType && entry.scene_type !== query.sceneType) {
       return false;
     }
 
@@ -314,6 +341,7 @@ function createSummary(report: ReferenceReport): string {
 
 export async function buildReferenceReport(): Promise<ReferenceReport> {
   const rawDocument = await readJsonFile<unknown>(manifestPath);
+  const framePackReport = await buildReferenceFramePackReport();
   const issues: ReferenceIssue[] = [];
   const rawRecord = expectRecord(rawDocument, "content/reference/manifest.json", "root");
 
@@ -389,7 +417,7 @@ export async function buildReferenceReport(): Promise<ReferenceReport> {
       warningCount: issues.filter((issue) => issue.severity === "warning").length,
     },
     chapterCoverage,
-    issues,
+    issues: [...issues, ...framePackReport.issues],
     entries: manifest.entries,
   };
 }

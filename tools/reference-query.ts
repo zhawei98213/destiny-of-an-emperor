@@ -4,6 +4,7 @@ import { runCli, stableStringify } from "./lib/importerCore";
 interface ParsedArgs {
   chapter?: string;
   mapId?: string;
+  sceneType?: string;
   subjectType?: string;
   subjectId?: string;
 }
@@ -24,6 +25,9 @@ function parseArgs(argv: string[]): ParsedArgs {
     } else if (current === "--map-id") {
       parsed.mapId = next;
       index += 1;
+    } else if (current === "--scene-type") {
+      parsed.sceneType = next;
+      index += 1;
     } else if (current === "--subject-type") {
       parsed.subjectType = next;
       index += 1;
@@ -38,17 +42,18 @@ function parseArgs(argv: string[]): ParsedArgs {
 
 await runCli(async () => {
   const args = parseArgs(process.argv.slice(2));
-  if (!args.subjectType && !args.subjectId && !args.chapter && !args.mapId) {
-    throw new Error("[reference-query] provide at least one filter such as --subject-type, --subject-id, --chapter, or --map-id");
+  if (!args.subjectType && !args.subjectId && !args.chapter && !args.mapId && !args.sceneType) {
+    throw new Error("[reference-query] provide at least one filter such as --subject-type, --subject-id, --chapter, --map-id, or --scene-type");
   }
 
   const index = buildReferenceIndex(await loadReferenceManifest());
   const entries = queryReferenceEntries(index, {
-    chapter: args.chapter,
-    mapId: args.mapId,
-    subjectType: args.subjectType as never,
-    subjectId: args.subjectId,
-  });
+      chapter: args.chapter,
+      mapId: args.mapId,
+      sceneType: args.sceneType as never,
+      subjectType: args.subjectType as never,
+      subjectId: args.subjectId,
+    });
 
   console.log("Reference Query Result / 参考资料查询结果");
   console.log(`Match Count / 命中数量: ${entries.length}`);

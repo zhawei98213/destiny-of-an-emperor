@@ -43,6 +43,8 @@ Current first-pass tooling:
 - `tools/ui-asset-reconstruct.ts`：校验重建 UI 资产清单、面板规则、光标/图标接线状态，并输出一份 UI 重建报告。
 - `tools/reference-validate.ts`: validates the reference manifest, reports missing subject ids or malformed metadata, and writes one reference report.
 - `tools/reference-validate.ts`：校验 reference manifest，报告缺失 subject id 或错误 metadata，并生成一份 reference 报告。
+- `tools/reference-frame-extract.ts`: validates curated frame packs from videos or screenshot sequences and writes one frame extraction report.
+- `tools/reference-frame-extract.ts`：校验来自视频或截图序列的人工关键帧包，并输出一份关键帧提取报告。
 - `tools/reference-query.ts`: queries indexed references by chapter, map, or subject so Codex and human editors can inspect one target quickly.
 - `tools/reference-query.ts`：按章节、地图或对象查询已索引的参考资料，方便 Codex 与人工快速检查目标对象。
 - `tools/text-check.ts`: generates a structured text integrity report, covering empty text, duplicate dialogue keys, missing metadata, broken event references, chapter coverage, and demo-versus-real text ratio.
@@ -143,6 +145,10 @@ Current first-pass tooling:
   Prints the currently indexed references for one map, NPC, UI element, enemy, shop, or battle subject.
 - `npm run reference-query -- --subject-type <type> --subject-id <id>`
   输出某个地图、NPC、UI 元素、敌人、商店或战斗对象当前已索引的参考资料。
+- `npm run reference-frame-extract`
+  Generates `reports/reference-frame-extract/latest/` and validates frame packs stored under `content/reference/frame-packs/`.
+- `npm run reference-frame-extract`
+  生成 `reports/reference-frame-extract/latest/`，并校验存放在 `content/reference/frame-packs/` 下的关键帧包。
 - `npm run text-check`
   Generates `reports/text-integrity/latest/` and reports chapter-level dialogue coverage plus text metadata gaps.
 - `npm run text-check`

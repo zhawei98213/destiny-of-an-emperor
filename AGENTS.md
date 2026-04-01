@@ -105,6 +105,8 @@ Follow it before making code, content, tooling, or documentation changes.
 - `npm run ui-asset-reconstruct`：校验重建 UI 资产清单、检查运行时接线，并生成当前 UI 资产重建报告。
 - `npm run reference-validate`: validate the reference manifest and write the current reference report.
 - `npm run reference-validate`：校验参考资料 manifest，并输出当前 reference 报告。
+- `npm run reference-frame-extract`: validate curated frame packs from videos or screenshot sequences and write the current frame extraction report.
+- `npm run reference-frame-extract`：校验来自视频或截图序列的人工关键帧包，并输出当前关键帧提取报告。
 - `npm run reference-query -- --subject-type <type> --subject-id <id>`: query indexed references for one map, NPC, UI element, shop, enemy, or battle subject.
 - `npm run reference-query -- --subject-type <type> --subject-id <id>`：按地图、NPC、UI 元素、商店、敌人或战斗对象查询已索引的参考资料。
 - `npm run text-check`: generate the current text integrity report for imported chapters.

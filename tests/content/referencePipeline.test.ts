@@ -5,6 +5,7 @@ import {
   loadReferenceManifest,
   queryReferenceEntries,
 } from "../../tools/lib/referencePipeline";
+import { buildReferenceFramePackReport } from "../../tools/lib/referenceFrameExtract";
 
 describe("reference pipeline", () => {
   it("loads and validates the current reference manifest", async () => {
@@ -31,5 +32,21 @@ describe("reference pipeline", () => {
     expect(report.chapterCoverage.some((chapter) => (
       chapter.chapterId === "chapter-01-lou-sang" && chapter.referenceCount > 0
     ))).toBe(true);
+  });
+
+  it("loads chapter-01 frame packs and exposes them through the shared reference query path", async () => {
+    const frameReport = await buildReferenceFramePackReport();
+    expect(frameReport.summary.errorCount).toBe(0);
+    expect(frameReport.packs.some((pack) => pack.pack_id === "chapter-01-lou-sang-ui-pack")).toBe(true);
+
+    const index = buildReferenceIndex(await loadReferenceManifest());
+    const entries = queryReferenceEntries(index, {
+      chapter: "chapter-01-lou-sang",
+      sceneType: "dialogue",
+      subjectType: "ui",
+      subjectId: "dialogue-box",
+    });
+
+    expect(entries.some((entry) => entry.id === "chapter-01-lou-sang-dialogue-open-keyframe")).toBe(true);
   });
 });

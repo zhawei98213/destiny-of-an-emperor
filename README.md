@@ -77,6 +77,8 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - `npm run ui-asset-reconstruct`：校验重建 UI 资产清单、面板规则、光标/图标接线状态，并输出当前 UI 重建报告。
 - `npm run reference-validate`: validate `content/reference/manifest.json` and write the current reference pipeline report.
 - `npm run reference-validate`：校验 `content/reference/manifest.json`，并生成当前 reference pipeline 报告。
+- `npm run reference-frame-extract`: validate curated frame packs from videos or screenshot sequences and merge them into the reference query path.
+- `npm run reference-frame-extract`：校验来自视频或截图序列的人工关键帧包，并把它们并入 reference 查询链路。
 - `npm run reference-query -- --subject-type <type> --subject-id <id>`: query indexed references for one subject such as a map, NPC, or UI element.
 - `npm run reference-query -- --subject-type <type> --subject-id <id>`：按对象查询已索引的参考资料，例如地图、NPC 或 UI 元素。
 - `npm run text-check`: generate the current text integrity report, including chapter coverage and demo-versus-real text ratio.

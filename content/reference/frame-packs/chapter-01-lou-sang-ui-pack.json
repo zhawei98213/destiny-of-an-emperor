@@ -1,0 +1,95 @@
+{
+  "format": "reference-frame-pack-v1",
+  "pack_id": "chapter-01-lou-sang-ui-pack",
+  "chapter": "chapter-01-lou-sang",
+  "title": "Lou Sang UI Keyframes",
+  "source": {
+    "source_name": "lou-sang-opening-reference-video",
+    "source_type": "video",
+    "input_path": "video-stills/chapter-01/lou-sang-opening-reference-video.mp4",
+    "approximate_source": "Community reference capture used to reconstruct opening UI framing. / 用于重建开场 UI 框体的社区参考录屏。"
+  },
+  "notes": "First structured frame pack for a locked chapter. These keyframes are used for UI spacing and border reconstruction, not as runtime assets. / 第一个面向已锁定章节的结构化关键帧包。这些关键帧用于 UI 留白和边框重建，不得作为运行时资源直接使用。",
+  "frames": [
+    {
+      "id": "chapter-01-lou-sang-dialogue-open-keyframe",
+      "source_ref": "00:00:42",
+      "scene_type": "dialogue",
+      "map_id": "town",
+      "subject_type": "ui",
+      "subject_id": "dialogue-box",
+      "confidence": "high",
+      "output_asset_path": "video-stills/chapter-01/dialogue-open-keyframe-000042.png",
+      "metadata": {
+        "timestamp": "00:00:42",
+        "variant": "open",
+        "tags": [
+          "dialogue",
+          "ui",
+          "opening"
+        ]
+      },
+      "notes": "Open-state dialogue frame used to verify top border, pointer spacing, and safe text width. / 用于核对对话框上边框、指针间距和安全文本宽度的打开态关键帧。"
+    },
+    {
+      "id": "chapter-01-lou-sang-menu-open-keyframe",
+      "source_ref": "00:01:17",
+      "scene_type": "menu",
+      "map_id": "town",
+      "subject_type": "ui",
+      "subject_id": "menu-overlay",
+      "confidence": "medium",
+      "output_asset_path": "video-stills/chapter-01/menu-open-keyframe-000117.png",
+      "metadata": {
+        "timestamp": "00:01:17",
+        "variant": "menu-open",
+        "tags": [
+          "menu",
+          "ui",
+          "overlay"
+        ]
+      },
+      "notes": "Menu frame used to compare border thickness, padding, and status column width. / 用于比对边框厚度、padding 和状态栏宽度的菜单关键帧。"
+    },
+    {
+      "id": "chapter-01-lou-sang-shop-open-keyframe",
+      "source_ref": "00:02:15",
+      "scene_type": "shop",
+      "map_id": "town",
+      "subject_type": "shop",
+      "subject_id": "starter-shop",
+      "confidence": "medium",
+      "output_asset_path": "video-stills/chapter-01/shop-open-keyframe-000215.png",
+      "metadata": {
+        "timestamp": "00:02:15",
+        "variant": "shop-open",
+        "tags": [
+          "shop",
+          "ui",
+          "inventory"
+        ]
+      },
+      "notes": "Shop keyframe used to verify the store panel border and item line spacing. / 用于核对商店面板边框和商品行距的关键帧。"
+    },
+    {
+      "id": "chapter-01-lou-sang-battle-panel-keyframe",
+      "source_ref": "00:03:04",
+      "scene_type": "battle",
+      "map_id": "field",
+      "subject_type": "battle",
+      "subject_id": "battle-panel",
+      "confidence": "low",
+      "output_asset_path": "video-stills/chapter-01/battle-panel-keyframe-000304.png",
+      "metadata": {
+        "timestamp": "00:03:04",
+        "variant": "command-panel",
+        "tags": [
+          "battle",
+          "ui",
+          "panel"
+        ]
+      },
+      "notes": "Battle command panel keyframe used for border and line-height review only. / 该关键帧仅用于战斗指令框的边框和行高核对。"
+    }
+  ]
+}
