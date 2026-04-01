@@ -4,6 +4,34 @@
   "maps": [
     {
       "collisionLayerCount": 1,
+      "id": "border-road",
+      "name": "Border Road",
+      "npcCount": 2,
+      "portalCount": 1,
+      "size": {
+        "height": 14,
+        "width": 24
+      },
+      "sourceFile": "border-fort.source.json",
+      "spawnPointCount": 2,
+      "triggerCount": 4
+    },
+    {
+      "collisionLayerCount": 1,
+      "id": "border-fort-yard",
+      "name": "Border Fort Yard",
+      "npcCount": 2,
+      "portalCount": 1,
+      "size": {
+        "height": 12,
+        "width": 20
+      },
+      "sourceFile": "border-fort.source.json",
+      "spawnPointCount": 1,
+      "triggerCount": 2
+    },
+    {
+      "collisionLayerCount": 1,
       "id": "field",
       "name": "Field",
       "npcCount": 1,
@@ -77,13 +105,13 @@
       "id": "supply-court",
       "name": "Supply Court",
       "npcCount": 2,
-      "portalCount": 1,
+      "portalCount": 2,
       "size": {
         "height": 12,
         "width": 20
       },
       "sourceFile": "highland-waystation.source.json",
-      "spawnPointCount": 1,
+      "spawnPointCount": 2,
       "triggerCount": 2
     },
     {
@@ -186,6 +214,7 @@
     }
   ],
   "sourceFiles": [
+    "border-fort.source.json",
     "demo-maps.source.json",
     "east-road-relay.source.json",
     "highland-waystation.source.json",

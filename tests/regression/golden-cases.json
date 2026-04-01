@@ -2319,6 +2319,451 @@
         "activeScene": "WorldScene",
         "dialogueLineIds": []
       }
+    },
+    {
+      "id": "border-clerk-issues-orders",
+      "name": "Border clerk issues orders / 边关文吏发放边关文书",
+      "initialState": {
+        "world": {
+          "mapId": "border-road",
+          "spawnPointId": "from-supply-court-west",
+          "playerX": 6,
+          "playerY": 7,
+          "facing": "up"
+        },
+        "flags": {
+          "border-orders-issued": false
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "border-road",
+        "npcId": "border-clerk"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "border-road",
+          "currentSpawnId": "from-supply-court-west",
+          "playerX": 6,
+          "playerY": 7,
+          "facing": "up"
+        },
+        "flags": {
+          "border-orders-issued": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["border-clerk-line-issue"]
+      }
+    },
+    {
+      "id": "border-sentry-opens-gate",
+      "name": "Border sentry opens gate / 边关守兵验文书后放行",
+      "initialState": {
+        "world": {
+          "mapId": "border-road",
+          "spawnPointId": "from-supply-court-west",
+          "playerX": 15,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "border-orders-issued": true,
+          "border-fort-gate-open": false
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "border-road",
+        "npcId": "border-sentry"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "border-road",
+          "currentSpawnId": "from-supply-court-west",
+          "playerX": 15,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "border-orders-issued": true,
+          "border-fort-gate-open": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["border-sentry-line-open"]
+      }
+    },
+    {
+      "id": "border-fort-gate-warps",
+      "name": "Border fort gate warps / 边关军门放行后切入前营",
+      "initialState": {
+        "world": {
+          "mapId": "border-road",
+          "spawnPointId": "from-supply-court-west",
+          "playerX": 22,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "border-fort-gate-open": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "tile",
+        "mapId": "border-road",
+        "x": 22,
+        "y": 7
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "border-fort-yard",
+          "currentSpawnId": "from-border-road",
+          "playerX": 2,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "border-fort-gate-open": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": []
+      }
+    },
+    {
+      "id": "fort-healer-restores-party",
+      "name": "Fort healer restores party / 关营医官恢复队伍",
+      "initialState": {
+        "world": {
+          "mapId": "border-fort-yard",
+          "spawnPointId": "from-border-road",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 0,
+            "currentHp": 8,
+            "currentMp": 1,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "border-fort-yard",
+        "npcId": "fort-healer"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "border-fort-yard",
+          "currentSpawnId": "from-border-road",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 0,
+            "currentHp": 24,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["fort-healer-line"]
+      }
+    },
+    {
+      "id": "fort-cache-first-open",
+      "name": "Fort cache first open / 前营军资箱首次开启",
+      "initialState": {
+        "world": {
+          "mapId": "border-fort-yard",
+          "spawnPointId": "from-border-road",
+          "playerX": 3,
+          "playerY": 9,
+          "facing": "down"
+        },
+        "flags": {
+          "fort-cache-opened": false
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "tile",
+        "mapId": "border-fort-yard",
+        "x": 3,
+        "y": 9
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "border-fort-yard",
+          "currentSpawnId": "from-border-road",
+          "playerX": 3,
+          "playerY": 9,
+          "facing": "down"
+        },
+        "flags": {
+          "fort-cache-opened": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": [
+            {
+              "itemId": "bandage",
+              "quantity": 2
+            }
+          ]
+        },
+        "consumedTriggerIds": ["fort-cache-trigger"]
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["fort-cache-line-open"]
+      }
+    },
+    {
+      "id": "border-road-battle-roundtrip",
+      "name": "Border road battle roundtrip / 边关前路遭遇战并返回地图",
+      "initialState": {
+        "world": {
+          "mapId": "border-road",
+          "spawnPointId": "from-supply-court-west",
+          "playerX": 10,
+          "playerY": 6,
+          "facing": "right",
+          "stepCount": 6
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 0,
+            "currentHp": 24,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "region",
+        "mapId": "border-road",
+        "x": 10,
+        "y": 6
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "border-road",
+          "currentSpawnId": "from-supply-court-west",
+          "playerX": 10,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 16,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 9,
+            "currentHp": 16,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene", "BattleScene", "WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": [],
+        "battleOutcome": "victory"
+      }
+    },
+    {
+      "id": "border-fort-save-load-restores-runtime",
+      "name": "Border fort save load restores runtime / 边关前营存档读档恢复运行时状态",
+      "initialState": {
+        "world": {
+          "mapId": "border-fort-yard",
+          "spawnPointId": "from-border-road",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "border-orders-issued": true,
+          "border-fort-gate-open": true,
+          "fort-cache-opened": true
+        },
+        "inventory": {
+          "gold": 16,
+          "items": [
+            {
+              "itemId": "bandage",
+              "quantity": 2
+            }
+          ]
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 9,
+            "currentHp": 18,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": ["fort-cache-trigger"]
+      },
+      "trigger": {
+        "kind": "saveLoadRoundTrip",
+        "slot": "golden-slot",
+        "postSaveMutation": {
+          "world": {
+            "mapId": "border-road",
+            "spawnPointId": "from-supply-court-west",
+            "playerX": 2,
+            "playerY": 7,
+            "facing": "right"
+          },
+          "flags": {
+            "border-orders-issued": false,
+            "border-fort-gate-open": false,
+            "fort-cache-opened": false
+          },
+          "inventory": {
+            "gold": 0,
+            "items": []
+          },
+          "partyStates": {
+            "liu-bei": {
+              "memberId": "liu-bei",
+              "level": 1,
+              "experience": 0,
+              "currentHp": 1,
+              "currentMp": 0,
+              "statusIds": [],
+              "formationSlot": 0
+            }
+          },
+          "consumedTriggerIds": []
+        }
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "border-fort-yard",
+          "currentSpawnId": "from-border-road",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "border-orders-issued": true,
+          "border-fort-gate-open": true,
+          "fort-cache-opened": true
+        },
+        "inventory": {
+          "gold": 16,
+          "items": [
+            {
+              "itemId": "bandage",
+              "quantity": 2
+            }
+          ]
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 9,
+            "currentHp": 18,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": ["fort-cache-trigger"]
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": []
+      }
     }
   ]
 }

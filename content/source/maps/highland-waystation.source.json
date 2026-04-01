@@ -318,6 +318,15 @@
           "height": 1,
           "targetMapId": "waystation-gate",
           "targetSpawnId": "from-supply-court"
+        },
+        {
+          "id": "supply-court-to-border-road",
+          "x": 18,
+          "y": 6,
+          "width": 1,
+          "height": 1,
+          "targetMapId": "border-road",
+          "targetSpawnId": "from-supply-court-west"
         }
       ],
       "spawnPoints": [
@@ -326,6 +335,12 @@
           "x": 2,
           "y": 6,
           "facing": "right"
+        },
+        {
+          "id": "from-border-road",
+          "x": 17,
+          "y": 6,
+          "facing": "left"
         }
       ],
       "npcs": [
