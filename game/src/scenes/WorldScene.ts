@@ -234,12 +234,13 @@ export class WorldScene extends Phaser.Scene {
   }
 
   private renderCurrentMap(): void {
-    if (!this.worldRuntime) {
+    if (!this.worldRuntime || !this.assetRegistry) {
       return;
     }
 
     const map = this.worldRuntime.getCurrentMap();
-    renderWorldMap(this, map);
+    const tilesetPalette = this.assetRegistry.resolveTilesetPalette(`tileset.${map.id}`, { mapId: map.id });
+    renderWorldMap(this, map, tilesetPalette);
 
     this.hero = this.add.rectangle(0, 0, map.tileWidth - 4, map.tileHeight - 4, 0xf8fafc, 1);
     this.hero.setStrokeStyle(2, 0x0f172a);

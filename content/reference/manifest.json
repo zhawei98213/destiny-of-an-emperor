@@ -84,6 +84,84 @@
         ]
       },
       "notes": "Low-confidence shop counter and inventory layout reference. / 低置信度的商店柜台与商品布局参考。"
+    },
+    {
+      "id": "chapter-01-lou-sang-town-ground-tile",
+      "source_name": "lou-sang-town-ground-tile",
+      "source_type": "manual-crop",
+      "chapter": "chapter-01-lou-sang",
+      "map_id": "town",
+      "subject_type": "tile",
+      "subject_id": "tileset.town:ground",
+      "confidence": "medium",
+      "asset_path": "tiles/chapter-01/town-ground-tile.png",
+      "metadata": {
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "tags": [
+          "tile",
+          "ground",
+          "tileset"
+        ],
+        "variant": "crop"
+      },
+      "notes": "Ground tile crop for Lou Sang reconstructed tileset. / 用于楼桑村重建 tileset 的地面图块裁切。"
+    },
+    {
+      "id": "chapter-01-lou-sang-town-water-tile",
+      "source_name": "lou-sang-town-water-tile",
+      "source_type": "manual-crop",
+      "chapter": "chapter-01-lou-sang",
+      "map_id": "town",
+      "subject_type": "tile",
+      "subject_id": "tileset.town:water",
+      "confidence": "medium",
+      "asset_path": "tiles/chapter-01/town-water-tile.png",
+      "metadata": {
+        "crop": {
+          "x": 16,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "tags": [
+          "tile",
+          "water",
+          "tileset"
+        ],
+        "variant": "crop"
+      },
+      "notes": "Water tile crop for Lou Sang reconstructed tileset. / 用于楼桑村重建 tileset 的水面图块裁切。"
+    },
+    {
+      "id": "chapter-01-lou-sang-town-wall-tile",
+      "source_name": "lou-sang-town-wall-tile",
+      "source_type": "manual-crop",
+      "chapter": "chapter-01-lou-sang",
+      "map_id": "town",
+      "subject_type": "tile",
+      "subject_id": "tileset.town:wall",
+      "confidence": "medium",
+      "asset_path": "tiles/chapter-01/town-wall-tile.png",
+      "metadata": {
+        "crop": {
+          "x": 32,
+          "y": 0,
+          "width": 16,
+          "height": 16
+        },
+        "tags": [
+          "tile",
+          "wall",
+          "collision"
+        ],
+        "variant": "crop"
+      },
+      "notes": "Wall tile crop for Lou Sang reconstructed tileset. / 用于楼桑村重建 tileset 的墙体图块裁切。"
     }
   ]
 }

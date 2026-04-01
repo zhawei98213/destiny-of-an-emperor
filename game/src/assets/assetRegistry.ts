@@ -6,6 +6,7 @@ import type {
   AssetState,
   ContentDatabase,
   PanelStyleAssetResource,
+  TilesetPaletteAssetResource,
   WorldPlaceholderAssetResource,
 } from "@/types/content";
 
@@ -73,6 +74,28 @@ export class AssetRegistry {
       titleColor: "#f8fafc",
       bodyColor: "#e2e8f0",
       accentColor: "#93c5fd",
+    };
+  }
+
+  resolveTilesetPalette(tilesetKey: string, context: AssetContext = {}): TilesetPaletteAssetResource {
+    const resolved = this.resolve(tilesetKey, "tileset.default", context);
+    if (resolved.resource.kind === "tileset-palette") {
+      return resolved.resource;
+    }
+
+    return {
+      kind: "tileset-palette",
+      tileWidth: 16,
+      tileHeight: 16,
+      tileColors: {
+        "0": "#0f172a",
+        "1": "#5f8f3f",
+        "2": "#c8a65a",
+        "3": "#59626d",
+        "4": "#3b82c4",
+        "5": "#31572c",
+      },
+      sourceCandidateIds: [],
     };
   }
 
@@ -150,6 +173,10 @@ export class AssetRegistry {
       return "npc-sprite";
     }
 
+    if (key.startsWith("tileset.")) {
+      return "tileset";
+    }
+
     if (key.startsWith("portrait.")) {
       return "portrait";
     }
@@ -169,6 +196,8 @@ export class AssetRegistry {
     switch (category) {
       case "npc-sprite":
         return "npc.default";
+      case "tileset":
+        return "tileset.default";
       case "portrait":
         return "portrait.default";
       case "audio":

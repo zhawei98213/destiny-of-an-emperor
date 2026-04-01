@@ -57,6 +57,14 @@ export interface ManualWorldContent {
     name: string;
     width: number;
     height: number;
+    tileWidth: number;
+    tileHeight: number;
+    tileLayers: Array<{
+      id: string;
+      tiles: number[];
+      width: number;
+      height: number;
+    }>;
     collisionLayers: Array<{
       id: string;
       blocked: number[];

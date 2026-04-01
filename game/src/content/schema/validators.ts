@@ -51,7 +51,7 @@ function validateAssetResource(value: unknown, path: string): AssetResource {
   const record = ensureRecord(value, path);
   const kind = ensureLiteral(
     record.kind,
-    ["world-placeholder", "panel-style", "portrait-placeholder", "sprite-frame", "audio-ref"],
+    ["world-placeholder", "panel-style", "tileset-palette", "portrait-placeholder", "sprite-frame", "audio-ref"],
     `${path}.kind`,
   );
 
@@ -72,6 +72,18 @@ function validateAssetResource(value: unknown, path: string): AssetResource {
         bodyColor: ensureString(record.bodyColor, `${path}.bodyColor`),
         accentColor: ensureString(record.accentColor, `${path}.accentColor`),
       };
+    case "tileset-palette": {
+      const tileColorsRecord = ensureRecord(record.tileColors, `${path}.tileColors`);
+      return {
+        kind,
+        tileWidth: ensureNumber(record.tileWidth, `${path}.tileWidth`),
+        tileHeight: ensureNumber(record.tileHeight, `${path}.tileHeight`),
+        tileColors: Object.fromEntries(
+          Object.entries(tileColorsRecord).map(([key, entry]) => [key, ensureString(entry, `${path}.tileColors.${key}`)]),
+        ),
+        sourceCandidateIds: ensureStringArray(record.sourceCandidateIds ?? [], `${path}.sourceCandidateIds`),
+      };
+    }
     case "portrait-placeholder":
       return {
         kind,

@@ -321,9 +321,25 @@ export async function buildAssetParityReport(): Promise<AssetParityReport> {
       buildCategory(
         "tilesets",
         "Tilesets / 地图图块集",
-        maps.length > 0 ? ["implicit-map-tileset"] : [],
-        spriteImageExists ? [spriteMetadata.sheetId] : [],
-        maps.length > 0 ? ["placeholder tileset routing: maps still rely on implicit runtime tileset selection / 当前地图仍依赖隐式运行时 tileset 选择，属于占位接线"] : [],
+        maps.map((map) => `tileset.${map.id}`),
+        unique([...baseAssetMap.keys(), ...chapterOverrideMap.keys()]).filter((key) => key.startsWith("tileset.")),
+        [
+          ...collectStateNotes(maps.map((map) => `tileset.${map.id}`)),
+          ...maps
+            .map((map) => {
+              const binding = chapterOverrideMap.get(`tileset.${map.id}`) ?? baseAssetMap.get(`tileset.${map.id}`) ?? baseAssetMap.get("tileset.default");
+              if (!binding || binding.resource.kind !== "tileset-palette") {
+                return `tileset ${map.id} is still missing a palette binding / 地图 ${map.id} 仍缺少 tileset palette 绑定`;
+              }
+
+              const candidateIds = Array.isArray(binding.resource.sourceCandidateIds)
+                ? binding.resource.sourceCandidateIds.filter((entry): entry is string => typeof entry === "string")
+                : [];
+              return candidateIds.length > 0
+                ? `tileset ${map.id} uses candidates ${candidateIds.join(", ")} / 地图 ${map.id} 使用候选集 ${candidateIds.join(", ")}`
+                : `tileset ${map.id} still resolves to fallback palette / 地图 ${map.id} 目前仍回退到默认 palette`;
+            }),
+        ],
       ),
       buildCategory(
         "character-sprites",

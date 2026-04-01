@@ -63,6 +63,10 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - `npm run chapter-lock-checklist -- --id <chapter-id>`：为单个章节生成锁定检查清单。
 - `npm run asset-check`: generate the current chapter asset parity report and identify placeholder asset categories.
 - `npm run asset-check`：生成当前章节资产一致性报告，并识别占位资产分类。
+- `npm run tileset-crop-normalize`: generate the current tileset crop/normalization task plan from reference candidates.
+- `npm run tileset-crop-normalize`：根据 reference candidate 生成当前 tileset 裁切/归一化任务计划。
+- `npm run tileset-reconstruct`: validate tileset candidates, palette consistency, dimensions, collision review hints, and runtime attachment.
+- `npm run tileset-reconstruct`：校验 tileset candidate、palette 一致性、尺寸、collision review 辅助信息和 runtime 接线状态。
 - `npm run reference-validate`: validate `content/reference/manifest.json` and write the current reference pipeline report.
 - `npm run reference-validate`：校验 `content/reference/manifest.json`，并生成当前 reference pipeline 报告。
 - `npm run reference-query -- --subject-type <type> --subject-id <id>`: query indexed references for one subject such as a map, NPC, or UI element.
@@ -141,6 +145,8 @@ The first extension points are intentionally typed and data-driven:
 - `gameStateRuntime`：现在也作为 flags、背包、队伍、金钱、世界坐标、任务状态、章节进度和商店状态的统一状态容器，使 SaveData 保持可版本化且可扩展。
 - `assetRegistry`: resolves logical asset keys such as NPC visuals and UI panels into concrete placeholder/imported bindings, with chapter-level overrides and unified fallback behavior.
 - `assetRegistry`：把 NPC 表现、UI 面板等逻辑资源 key 解析为具体的 placeholder/imported 绑定，并支持章节级覆盖与统一回退策略。
+- `tileset reconstruction workflow`: keeps tileset candidate manifests, normalization plans, and runtime palette attachment outside scenes so reconstructed map visuals can be replaced in batches.
+- `tileset reconstruction workflow`：把 tileset candidate manifest、归一化计划和 runtime palette 接线放在 scene 之外，便于后续成批替换重建后的地图视觉资源。
 - `dialogueSession` + `dialogueBox`: keep dialogue presentation and typewriter flow separate from event execution so portraits, audio, and choices can be extended later.
 - `dialogueSession` + `dialogueBox`：将对话展示与逐字播放流程从事件执行中分离，为后续头像、音效和选项扩展预留接口。
 

@@ -45,6 +45,8 @@ Follow it before making code, content, tooling, or documentation changes.
 - 人工修正和编辑性覆盖内容放在 `content/manual/`。
 - Runtime-facing asset selection should go through `content/manual/asset-registry.content.json` and the shared asset registry, not scene-local file paths.
 - 面向运行时的资源选择应通过 `content/manual/asset-registry.content.json` 和共享 asset registry 完成，不能写成 scene 本地文件路径。
+- Reconstructed tilesets must go through `content/reference/tiles/tileset-candidates.json` and shared asset registry attachment, not ad hoc map color edits in scenes.
+- 重建 tileset 必须通过 `content/reference/tiles/tileset-candidates.json` 和共享 asset registry 接入，不能在 scene 里临时改地图颜色。
 - `game/` must read only final consumable content from manifest-listed manual/generated packs.
 - `game/` 只能读取 manifest 列出的 manual/generated 最终可消费内容。
 - Do not use `content/reference/` as runtime assets or scene-local shortcuts.
@@ -85,6 +87,10 @@ Follow it before making code, content, tooling, or documentation changes.
 - `npm run chapter-lock-checklist -- --id <chapter-id>`：生成供审查使用的章节锁定清单。
 - `npm run asset-check`: generate the current asset parity report for imported chapters.
 - `npm run asset-check`：为已导入章节生成当前资产一致性报告。
+- `npm run tileset-crop-normalize`: generate the current tileset crop and normalization task plan from reference candidates.
+- `npm run tileset-crop-normalize`：根据 reference candidate 生成当前 tileset 裁切与归一化任务计划。
+- `npm run tileset-reconstruct`: validate reconstructed tileset candidates, palette consistency, dimensions, collision review assistance, and runtime attachment.
+- `npm run tileset-reconstruct`：校验重建 tileset candidate、palette 一致性、尺寸、collision review 协助结果和 runtime 接线状态。
 - `npm run reference-validate`: validate the reference manifest and write the current reference report.
 - `npm run reference-validate`：校验参考资料 manifest，并输出当前 reference 报告。
 - `npm run reference-query -- --subject-type <type> --subject-id <id>`: query indexed references for one map, NPC, UI element, shop, enemy, or battle subject.

@@ -35,6 +35,14 @@ export interface PanelStyleAssetResource {
   accentColor: string;
 }
 
+export interface TilesetPaletteAssetResource {
+  kind: "tileset-palette";
+  tileWidth: number;
+  tileHeight: number;
+  tileColors: Record<string, string>;
+  sourceCandidateIds?: string[];
+}
+
 export interface PortraitPlaceholderAssetResource {
   kind: "portrait-placeholder";
   backgroundColor: string;
@@ -57,6 +65,7 @@ export interface AudioRefAssetResource {
 export type AssetResource =
   | WorldPlaceholderAssetResource
   | PanelStyleAssetResource
+  | TilesetPaletteAssetResource
   | PortraitPlaceholderAssetResource
   | SpriteFrameAssetResource
   | AudioRefAssetResource;

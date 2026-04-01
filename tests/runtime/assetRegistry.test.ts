@@ -32,6 +32,18 @@ describe("asset registry", () => {
         meta: { id: "assets", kind: "manual", version: 1, description: "asset registry" },
         assetBindings: [
           {
+            key: "tileset.default",
+            category: "tileset",
+            state: "placeholder",
+            resource: {
+              kind: "tileset-palette",
+              tileWidth: 16,
+              tileHeight: 16,
+              tileColors: { "0": "#111111", "1": "#222222" },
+              sourceCandidateIds: [],
+            },
+          },
+          {
             key: "npc.default",
             category: "npc-sprite",
             state: "placeholder",
@@ -63,6 +75,19 @@ describe("asset registry", () => {
             chapterId: "chapter-01",
             mapIds: ["town"],
             assetBindings: [
+              {
+                key: "tileset.town",
+                category: "tileset",
+                state: "imported",
+                fallbackKey: "tileset.default",
+                resource: {
+                  kind: "tileset-palette",
+                  tileWidth: 16,
+                  tileHeight: 16,
+                  tileColors: { "0": "#333333", "1": "#444444" },
+                  sourceCandidateIds: ["chapter-01-town-main-tileset"],
+                },
+              },
               {
                 key: "npc.guard",
                 category: "npc-sprite",
@@ -133,6 +158,8 @@ describe("asset registry", () => {
 
     expect(registry.resolveNpcVisual("guard", { mapId: "field" }).fillColor).toBe("#bbbbbb");
     expect(registry.resolveNpcVisual("guard", { mapId: "town" }).fillColor).toBe("#cc8800");
+    expect(registry.resolveTilesetPalette("tileset.town", { mapId: "town" }).tileColors["0"]).toBe("#333333");
+    expect(registry.resolveTilesetPalette("tileset.field", { mapId: "field" }).tileColors["0"]).toBe("#111111");
     expect(registry.getBindingState("ui.dialogue-box", { mapId: "town" })).toBe("locked");
     expect(registry.resolvePanelStyle("ui.dialogue-box", { mapId: "town" }).borderColor).toBe("#ffcc00");
   });

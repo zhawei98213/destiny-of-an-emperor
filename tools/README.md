@@ -33,6 +33,10 @@ Current first-pass tooling:
 - `tools/chapter-lock-checklist.ts`：生成用于判断章节是否可锁定的审查清单。
 - `tools/asset-check.ts`: generates an asset parity report for current chapters, including missing resources, unreferenced resources, broken references, and sprite metadata integrity.
 - `tools/asset-check.ts`：为当前章节生成资产一致性报告，覆盖缺失资源、未引用资源、失效引用以及 sprite metadata 完整性。
+- `tools/tileset-crop-normalize.ts`: writes the current tileset crop and normalization task plan from reference candidates into generated staging output.
+- `tools/tileset-crop-normalize.ts`：根据 reference candidate 生成当前 tileset 裁切与归一化任务计划，并写入 generated staging 输出。
+- `tools/tileset-reconstruct.ts`: validates tileset candidate manifests, palette consistency, tile dimensions, collision review assistance, and asset-registry attachment.
+- `tools/tileset-reconstruct.ts`：校验 tileset candidate manifest、palette 一致性、图块尺寸、collision review 协助结果以及 asset-registry 接线状态。
 - `tools/reference-validate.ts`: validates the reference manifest, reports missing subject ids or malformed metadata, and writes one reference report.
 - `tools/reference-validate.ts`：校验 reference manifest，报告缺失 subject id 或错误 metadata，并生成一份 reference 报告。
 - `tools/reference-query.ts`: queries indexed references by chapter, map, or subject so Codex and human editors can inspect one target quickly.
@@ -103,6 +107,14 @@ Current first-pass tooling:
   Generates `reports/asset-parity/latest/` and classifies current chapter assets as placeholder/imported/validated.
 - `npm run asset-check`
   生成 `reports/asset-parity/latest/`，并把当前章节资产分类为 placeholder/imported/validated。
+- `npm run tileset-crop-normalize`
+  Generates `content/generated/import-staging/tileset-crop-plan.generated.json` for current reconstruction candidates.
+- `npm run tileset-crop-normalize`
+  为当前重建 candidate 生成 `content/generated/import-staging/tileset-crop-plan.generated.json`。
+- `npm run tileset-reconstruct`
+  Generates `reports/tileset-reconstruction/latest/` and summarizes candidate attachment, palette issues, dimension issues, and collision review hints.
+- `npm run tileset-reconstruct`
+  生成 `reports/tileset-reconstruction/latest/`，并汇总 candidate 接线状态、palette 问题、尺寸问题和 collision review 提示。
 - `npm run reference-validate`
   Generates `reports/reference/latest/` and reports manifest errors such as missing subject ids, duplicate keys, and malformed metadata.
 - `npm run reference-validate`
