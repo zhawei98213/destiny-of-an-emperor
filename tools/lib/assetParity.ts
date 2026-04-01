@@ -399,9 +399,25 @@ export async function buildAssetParityReport(): Promise<AssetParityReport> {
       buildCategory(
         "icons",
         "Icons / 图标",
-        chapter.shops.length > 0 || itemIds.length > 0 ? ["item-icons"] : [],
-        [],
-        itemIds.length > 0 ? ["item and menu icons are not registered yet / 物品与菜单图标目前尚未建立注册层"] : [],
+        unique([
+          "icon.dialogue-pointer",
+          "icon.menu-cursor",
+          "icon.battle-cursor",
+          ...(chapter.shops.length > 0 ? ["icon.shop-pointer"] : []),
+          ...(itemIds.length > 0 ? ["icon.item-basic"] : []),
+          "icon.system-save",
+        ]),
+        unique([...baseAssetMap.keys(), ...chapterOverrideMap.keys()]).filter((key) => key.startsWith("icon.")),
+        [
+          ...collectStateNotes(unique([
+            "icon.dialogue-pointer",
+            "icon.menu-cursor",
+            "icon.battle-cursor",
+            ...(chapter.shops.length > 0 ? ["icon.shop-pointer"] : []),
+            ...(itemIds.length > 0 ? ["icon.item-basic"] : []),
+            "icon.system-save",
+          ])),
+        ],
       ),
       buildCategory(
         "audio",

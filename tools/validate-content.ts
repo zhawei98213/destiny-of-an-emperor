@@ -13,6 +13,7 @@ import {
   stableStringify,
 } from "./lib/importerCore";
 import { loadAllChapterMetadata } from "./lib/chapterMetadata";
+import { validateVisualBackfillPlans } from "./lib/visualBackfill";
 
 const manualChapterDir = path.join(repoRoot, "content", "manual", "chapters");
 
@@ -54,6 +55,7 @@ export async function validateAllContent(): Promise<void> {
     DEFAULT_CONTENT_MANIFESTS,
   );
   const chapterRecords = await loadAllChapterMetadata(manualChapterDir);
+  const visualBackfillPlans = await validateVisualBackfillPlans();
   console.log(
     [
       "Content validation passed.",
@@ -63,6 +65,7 @@ export async function validateAllContent(): Promise<void> {
       `items=${database.items.length}`,
       `enemies=${database.enemies.length}`,
       `chapters=${chapterRecords.length}`,
+      `visualBackfillPlans=${visualBackfillPlans.length}`,
     ].join(" "),
   );
 }

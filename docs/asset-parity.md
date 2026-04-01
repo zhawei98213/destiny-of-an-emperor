@@ -101,6 +101,9 @@ Run `npm run asset-check` to regenerate the latest structured report under `repo
 At the current repository stage, all five imported real chapters still read as mostly `placeholder` on the asset side.
 在当前仓库阶段，五个已导入真实章节在资产侧仍然大多处于 `placeholder`。
 
+One proven exception now exists: `chapter-01-lou-sang` has a completed UI-panel-and-icon visual backfill batch, and those chapter-local bindings are now treated as `locked`.
+现在有一个已验证例外：`chapter-01-lou-sang` 已完成一轮 UI 面板和图标的视觉回填批次，这些章节局部绑定现在视为 `locked`。
+
 Main reasons:
 主要原因：
 
@@ -118,6 +121,8 @@ Main reasons:
 - 音频 id 已进入内容层，但还没有音频注册层和实际文件
 - the fifth chapter now makes this dual-track policy explicit by keeping a committed visual replacement backlog while gameplay closes first
 - 第五章则把这种双轨策略显式化：在 gameplay 先闭环的同时，另行提交视觉替换 backlog
+- visual backfill now has its own plan/checklist/report workflow, so locked or lock-near chapters can replace placeholder UI assets in batches without touching gameplay code
+- visual backfill 现在已经有独立的 plan/checklist/report 工作流，因此已锁定或接近锁定的章节可以成批替换 placeholder UI 资源，而不需要修改 gameplay 代码
 
 ## Validation Commands
 ## 校验命令
@@ -126,6 +131,16 @@ Main reasons:
   Generates `reports/asset-parity/latest/report.json` and `summary.md`.
 - `npm run asset-check`
   生成 `reports/asset-parity/latest/report.json` 和 `summary.md`。
+
+- `npm run visual-backfill-report -- --id <plan-id>`
+  Generates the before/after comparison report for one visual backfill batch.
+- `npm run visual-backfill-report -- --id <plan-id>`
+  为某个视觉回填批次生成替换前后对比报告。
+
+- `npm run visual-backfill-checklist -- --id <plan-id>`
+  Generates the per-chapter replacement checklist for one visual backfill batch.
+- `npm run visual-backfill-checklist -- --id <plan-id>`
+  为某个视觉回填批次生成章节级替换清单。
 
 - `npm test -- --run tests/content/assetParity.test.ts`
   Verifies that the checker can at least classify current placeholder state for the real chapters.
@@ -183,3 +198,6 @@ An asset category for a chapter should not move to `locked` until:
 
 5. Add chapter-03 NPC and map-facing sprite families only through the shared metadata and asset registry path, not through scene-local overrides.
 5. 第 03 章新增的 NPC 和地图可见资源也必须继续走共享 metadata 与资产注册层，不能回退到 scene 本地特判。
+
+6. Keep future visual backfill batches registry-only, reversible, and report-backed. The current reference implementation is `chapter-01-lou-sang-ui-batch`.
+6. 后续视觉回填批次必须继续保持“只改 registry、可回滚、带报告产物”。当前参考实现是 `chapter-01-lou-sang-ui-batch`。

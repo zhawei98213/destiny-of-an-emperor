@@ -460,7 +460,7 @@
         {
           "key": "ui.dialogue-box",
           "category": "ui-panel",
-          "state": "imported",
+          "state": "locked",
           "fallbackKey": "ui.panel.default",
           "resource": {
             "kind": "panel-style",
@@ -482,7 +482,7 @@
         {
           "key": "ui.menu-overlay",
           "category": "ui-panel",
-          "state": "imported",
+          "state": "locked",
           "fallbackKey": "ui.panel.default",
           "resource": {
             "kind": "panel-style",
@@ -505,7 +505,7 @@
         {
           "key": "ui.shop-overlay",
           "category": "ui-panel",
-          "state": "imported",
+          "state": "locked",
           "fallbackKey": "ui.panel.default",
           "resource": {
             "kind": "panel-style",
@@ -527,7 +527,7 @@
         {
           "key": "ui.battle-panel",
           "category": "ui-panel",
-          "state": "imported",
+          "state": "locked",
           "fallbackKey": "ui.panel.default",
           "resource": {
             "kind": "panel-style",
@@ -549,7 +549,7 @@
         {
           "key": "icon.dialogue-pointer",
           "category": "icon",
-          "state": "imported",
+          "state": "locked",
           "fallbackKey": "icon.default",
           "resource": {
             "kind": "icon-glyph",
@@ -562,7 +562,7 @@
         {
           "key": "icon.menu-cursor",
           "category": "icon",
-          "state": "imported",
+          "state": "locked",
           "fallbackKey": "icon.default",
           "resource": {
             "kind": "icon-glyph",
@@ -575,7 +575,7 @@
         {
           "key": "icon.shop-pointer",
           "category": "icon",
-          "state": "imported",
+          "state": "locked",
           "fallbackKey": "icon.default",
           "resource": {
             "kind": "icon-glyph",
@@ -588,7 +588,7 @@
         {
           "key": "icon.battle-cursor",
           "category": "icon",
-          "state": "imported",
+          "state": "locked",
           "fallbackKey": "icon.default",
           "resource": {
             "kind": "icon-glyph",
@@ -601,7 +601,7 @@
         {
           "key": "icon.item-basic",
           "category": "icon",
-          "state": "imported",
+          "state": "locked",
           "fallbackKey": "icon.default",
           "resource": {
             "kind": "icon-glyph",
@@ -614,7 +614,7 @@
         {
           "key": "icon.system-save",
           "category": "icon",
-          "state": "imported",
+          "state": "locked",
           "fallbackKey": "icon.default",
           "resource": {
             "kind": "icon-glyph",

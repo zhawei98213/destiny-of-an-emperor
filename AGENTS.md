@@ -91,6 +91,10 @@ Follow it before making code, content, tooling, or documentation changes.
 - `npm run chapter-lock-checklist -- --id <chapter-id>`：生成供审查使用的章节锁定清单。
 - `npm run asset-check`: generate the current asset parity report for imported chapters.
 - `npm run asset-check`：为已导入章节生成当前资产一致性报告。
+- `npm run visual-backfill-report -- --id <plan-id>`: generate one visual backfill compare report for a registry-only replacement batch.
+- `npm run visual-backfill-report -- --id <plan-id>`：为某个只通过 registry 执行的替换批次生成视觉回填对比报告。
+- `npm run visual-backfill-checklist -- --id <plan-id>`: generate the corresponding per-batch replacement checklist.
+- `npm run visual-backfill-checklist -- --id <plan-id>`：生成对应的逐批次替换清单。
 - `npm run tileset-crop-normalize`: generate the current tileset crop and normalization task plan from reference candidates.
 - `npm run tileset-crop-normalize`：根据 reference candidate 生成当前 tileset 裁切与归一化任务计划。
 - `npm run tileset-reconstruct`: validate reconstructed tileset candidates, palette consistency, dimensions, collision review assistance, and runtime attachment.

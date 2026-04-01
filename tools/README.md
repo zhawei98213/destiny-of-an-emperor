@@ -111,6 +111,14 @@ Current first-pass tooling:
   Generates `reports/asset-parity/latest/` and classifies current chapter assets as placeholder/imported/validated.
 - `npm run asset-check`
   生成 `reports/asset-parity/latest/`，并把当前章节资产分类为 placeholder/imported/validated。
+- `npm run visual-backfill-report -- --id <plan-id>`
+  Generates `reports/visual-backfill/latest/<plan-id>.report.json` plus a summary of base-versus-chapter registry state.
+- `npm run visual-backfill-report -- --id <plan-id>`
+  生成 `reports/visual-backfill/latest/<plan-id>.report.json`，并汇总基础 registry 状态与章节 override 生效状态的对比结果。
+- `npm run visual-backfill-checklist -- --id <plan-id>`
+  Generates `reports/visual-backfill/latest/<plan-id>.checklist.md` for rollback, gameplay, and UI layout review.
+- `npm run visual-backfill-checklist -- --id <plan-id>`
+  生成 `reports/visual-backfill/latest/<plan-id>.checklist.md`，用于回滚、gameplay 和 UI 布局审核。
 - `npm run tileset-crop-normalize`
   Generates `content/generated/import-staging/tileset-crop-plan.generated.json` for current reconstruction candidates.
 - `npm run tileset-crop-normalize`

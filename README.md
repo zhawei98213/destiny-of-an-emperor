@@ -63,6 +63,10 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - `npm run chapter-lock-checklist -- --id <chapter-id>`：为单个章节生成锁定检查清单。
 - `npm run asset-check`: generate the current chapter asset parity report and identify placeholder asset categories.
 - `npm run asset-check`：生成当前章节资产一致性报告，并识别占位资产分类。
+- `npm run visual-backfill-report -- --id <plan-id>`: generate one visual backfill compare report for a registry-only replacement batch.
+- `npm run visual-backfill-report -- --id <plan-id>`：为某个只通过 registry 执行的替换批次生成视觉回填对比报告。
+- `npm run visual-backfill-checklist -- --id <plan-id>`: generate the corresponding chapter replacement checklist.
+- `npm run visual-backfill-checklist -- --id <plan-id>`：生成对应的章节替换清单。
 - `npm run tileset-crop-normalize`: generate the current tileset crop/normalization task plan from reference candidates.
 - `npm run tileset-crop-normalize`：根据 reference candidate 生成当前 tileset 裁切/归一化任务计划。
 - `npm run tileset-reconstruct`: validate tileset candidates, palette consistency, dimensions, collision review hints, and runtime attachment.
