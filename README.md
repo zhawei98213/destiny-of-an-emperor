@@ -19,6 +19,8 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - `content/generated/`：工具生成的运行时内容产物。
 - `content/manual/`: hand-authored JSON content and placeholder data.
 - `content/manual/`：手工编写的 JSON 内容和占位数据。
+- `content/reference/`: traceable screenshots, crops, and other non-runtime reference inputs for parity and future asset reconstruction.
+- `content/reference/`：用于一致性核对和未来资产重建的可追溯截图、裁切图等非运行时参考输入。
 - `tests/`: automated tests for content, runtime systems, and scene wiring.
 - `tests/`：内容、运行时系统和场景接线的自动化测试。
 - `skills/`: repository-specific agent workflows and reusable instructions.
@@ -59,6 +61,10 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - `npm run chapter-lock-checklist -- --id <chapter-id>`：为单个章节生成锁定检查清单。
 - `npm run asset-check`: generate the current chapter asset parity report and identify placeholder asset categories.
 - `npm run asset-check`：生成当前章节资产一致性报告，并识别占位资产分类。
+- `npm run reference-validate`: validate `content/reference/manifest.json` and write the current reference pipeline report.
+- `npm run reference-validate`：校验 `content/reference/manifest.json`，并生成当前 reference pipeline 报告。
+- `npm run reference-query -- --subject-type <type> --subject-id <id>`: query indexed references for one subject such as a map, NPC, or UI element.
+- `npm run reference-query -- --subject-type <type> --subject-id <id>`：按对象查询已索引的参考资料，例如地图、NPC 或 UI 元素。
 - `npm run text-check`: generate the current text integrity report, including chapter coverage and demo-versus-real text ratio.
 - `npm run text-check`：生成当前文本完整性报告，包括章节覆盖和 demo/真实文本占比。
 - `npm run performance-baseline`: generate the current runtime performance baseline report and hotspot summary.
@@ -77,6 +83,8 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - 性能基线报告会写入 `reports/performance/latest/`。
 - UI parity reports are written to `reports/ui-parity/latest/`.
 - UI 一致性报告会写入 `reports/ui-parity/latest/`。
+- Reference pipeline reports are written to `reports/reference/latest/`.
+- Reference pipeline 报告会写入 `reports/reference/latest/`。
 - Chapter workflow reports are written to `reports/chapters/latest/`.
 - 章节工作流报告会写入 `reports/chapters/latest/`。
 - Pre-release reports are written to `reports/pre-release/latest/`.

@@ -33,6 +33,10 @@ Current first-pass tooling:
 - `tools/chapter-lock-checklist.ts`：生成用于判断章节是否可锁定的审查清单。
 - `tools/asset-check.ts`: generates an asset parity report for current chapters, including missing resources, unreferenced resources, broken references, and sprite metadata integrity.
 - `tools/asset-check.ts`：为当前章节生成资产一致性报告，覆盖缺失资源、未引用资源、失效引用以及 sprite metadata 完整性。
+- `tools/reference-validate.ts`: validates the reference manifest, reports missing subject ids or malformed metadata, and writes one reference report.
+- `tools/reference-validate.ts`：校验 reference manifest，报告缺失 subject id 或错误 metadata，并生成一份 reference 报告。
+- `tools/reference-query.ts`: queries indexed references by chapter, map, or subject so Codex and human editors can inspect one target quickly.
+- `tools/reference-query.ts`：按章节、地图或对象查询已索引的参考资料，方便 Codex 与人工快速检查目标对象。
 - `tools/text-check.ts`: generates a structured text integrity report, covering empty text, duplicate dialogue keys, missing metadata, broken event references, chapter coverage, and demo-versus-real text ratio.
 - `tools/text-check.ts`：生成结构化文本完整性报告，覆盖空文本、重复对白 key、缺失元数据、失效事件引用、章节覆盖率以及 demo/真实文本占比。
 - `tools/performance-baseline.ts`: samples startup, map-transition, battle-entry, and save/load costs, then writes a comparable runtime baseline report.
@@ -61,6 +65,8 @@ Current first-pass tooling:
 - 出错信息应尽量定位到具体文件和字段。
 - Editor helpers should focus on import-time friction and chapter maintenance, not duplicate the final runtime guarantees already enforced by `validate-content`.
 - 编辑辅助工具应聚焦导入阶段摩擦和章节维护，不要重复 `validate-content` 已经承担的最终运行时保证。
+- Reference tools should keep reference inputs traceable and queryable, but must not convert them into runtime assets automatically.
+- reference 工具应保证参考输入可追溯、可查询，但不得自动把它们转成运行时资源。
 
 ## Editor Helpers
 ## 录入辅助工具
@@ -97,6 +103,14 @@ Current first-pass tooling:
   Generates `reports/asset-parity/latest/` and classifies current chapter assets as placeholder/imported/validated.
 - `npm run asset-check`
   生成 `reports/asset-parity/latest/`，并把当前章节资产分类为 placeholder/imported/validated。
+- `npm run reference-validate`
+  Generates `reports/reference/latest/` and reports manifest errors such as missing subject ids, duplicate keys, and malformed metadata.
+- `npm run reference-validate`
+  生成 `reports/reference/latest/`，并报告缺失 subject id、重复 key、metadata 错误等 manifest 问题。
+- `npm run reference-query -- --subject-type <type> --subject-id <id>`
+  Prints the currently indexed references for one map, NPC, UI element, enemy, shop, or battle subject.
+- `npm run reference-query -- --subject-type <type> --subject-id <id>`
+  输出某个地图、NPC、UI 元素、敌人、商店或战斗对象当前已索引的参考资料。
 - `npm run text-check`
   Generates `reports/text-integrity/latest/` and reports chapter-level dialogue coverage plus text metadata gaps.
 - `npm run text-check`

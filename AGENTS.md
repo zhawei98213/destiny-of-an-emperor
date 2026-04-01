@@ -25,6 +25,8 @@ Follow it before making code, content, tooling, or documentation changes.
 - `content/generated/`：工具生成输出。运行时可以读取这里被 manifest 列出的内容包。
 - `content/manual/`: hand-authored or hand-corrected runtime content.
 - `content/manual/`：手工编写或人工修正的运行时内容。
+- `content/reference/`: traceable screenshots, crops, and other non-runtime reference inputs used for parity and asset reconstruction.
+- `content/reference/`：用于一致性核对和资产重建的可追溯截图、裁切图等非运行时参考输入。
 - `tests/`: automated tests for runtime, content, scenes, and tooling behavior.
 - `tests/`：运行时、内容、场景和工具行为的自动化测试。
 - `skills/`: repository-specific Codex workflows and reusable instructions.
@@ -43,6 +45,8 @@ Follow it before making code, content, tooling, or documentation changes.
 - 人工修正和编辑性覆盖内容放在 `content/manual/`。
 - `game/` must read only final consumable content from manifest-listed manual/generated packs.
 - `game/` 只能读取 manifest 列出的 manual/generated 最终可消费内容。
+- Do not use `content/reference/` as runtime assets or scene-local shortcuts.
+- 不得把 `content/reference/` 当成运行时资源或 scene 局部捷径使用。
 
 ## Common Commands
 ## 常用命令
@@ -79,6 +83,10 @@ Follow it before making code, content, tooling, or documentation changes.
 - `npm run chapter-lock-checklist -- --id <chapter-id>`：生成供审查使用的章节锁定清单。
 - `npm run asset-check`: generate the current asset parity report for imported chapters.
 - `npm run asset-check`：为已导入章节生成当前资产一致性报告。
+- `npm run reference-validate`: validate the reference manifest and write the current reference report.
+- `npm run reference-validate`：校验参考资料 manifest，并输出当前 reference 报告。
+- `npm run reference-query -- --subject-type <type> --subject-id <id>`: query indexed references for one map, NPC, UI element, shop, enemy, or battle subject.
+- `npm run reference-query -- --subject-type <type> --subject-id <id>`：按地图、NPC、UI 元素、商店、敌人或战斗对象查询已索引的参考资料。
 - `npm run text-check`: generate the current text integrity report for imported chapters.
 - `npm run text-check`：为已导入章节生成当前文本完整性报告。
 - `npm run performance-baseline`: generate the current runtime performance baseline report.

@@ -22,6 +22,8 @@
     "chapter-status-report": "vite-node tools/chapter-status-report.ts",
     "chapter-lock-checklist": "vite-node tools/chapter-lock-checklist.ts",
     "asset-check": "vite-node tools/asset-check.ts",
+    "reference-validate": "vite-node tools/reference-validate.ts",
+    "reference-query": "vite-node tools/reference-query.ts",
     "text-check": "vite-node tools/text-check.ts",
     "performance-baseline": "vite-node tools/performance-baseline.ts",
     "ui-parity": "vite-node tools/ui-parity.ts",
