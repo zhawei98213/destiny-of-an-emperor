@@ -16,6 +16,7 @@ describe("chapter metadata", () => {
       "chapter-02-east-road-relay",
       "chapter-03-river-ford",
       "chapter-04-ridgeway-camp",
+      "chapter-05-highland-waystation",
       "chapter-template",
     ]);
     expect(chapters.find((entry) => entry.chapterId === "chapter-01-lou-sang")?.maps).toEqual([

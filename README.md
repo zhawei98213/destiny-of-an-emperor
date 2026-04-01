@@ -67,6 +67,8 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - `npm run visual-backfill-report -- --id <plan-id>`：为某个只通过 registry 执行的替换批次生成视觉回填对比报告。
 - `npm run visual-backfill-checklist -- --id <plan-id>`: generate the corresponding chapter replacement checklist.
 - `npm run visual-backfill-checklist -- --id <plan-id>`：生成对应的章节替换清单。
+- `npm run visual-parity-score -- --id <plan-id>`: score one registry-only visual backfill pilot and write a before/after diff report.
+- `npm run visual-parity-score -- --id <plan-id>`：为单个只通过 registry 生效的视觉回填试点打分，并输出替换前后 diff 报告。
 - `npm run tileset-crop-normalize`: generate the current tileset crop/normalization task plan from reference candidates.
 - `npm run tileset-crop-normalize`：根据 reference candidate 生成当前 tileset 裁切/归一化任务计划。
 - `npm run tileset-reconstruct`: validate tileset candidates, palette consistency, dimensions, collision review hints, and runtime attachment.

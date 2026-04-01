@@ -120,7 +120,7 @@ Each chapter batch must produce a checklist with these gates:
 5. collision / portal / interaction loops remain intact
 5. 碰撞 / 切图 / 交互闭环仍然完整
 
-## Current Proven Batch
+## Current Proven Batches
 ## 当前已验证批次
 
 The first proven batch is `chapter-01-lou-sang-ui-batch`.
@@ -140,8 +140,20 @@ Scope:
 - `icon.item-basic`
 - `icon.system-save`
 
-It intentionally avoids tileset and NPC sprite replacement, because those still require deeper reference and runtime parity work.
-这个批次刻意不包含 tileset 和 NPC sprite 替换，因为那两类仍需要更深入的 reference 与 runtime parity 工作。
+The first full visual pilot is `chapter-01-lou-sang-visual-pilot`.
+第一个完整视觉试点是 `chapter-01-lou-sang-visual-pilot`。
+
+Its scope proves one registry-only replacement loop for:
+它证明了一条只通过 registry 生效的完整替换闭环，覆盖：
+
+- `tileset.town`
+- `npc.guard`
+- `npc.merchant`
+- `npc.guide`
+- `ui.dialogue-box`
+
+Use `npm run visual-parity-score -- --id chapter-01-lou-sang-visual-pilot` to capture the before/after score delta for that pilot.
+可通过 `npm run visual-parity-score -- --id chapter-01-lou-sang-visual-pilot` 记录该试点的替换前后评分变化。
 
 ## Done Criteria
 ## 完成标准

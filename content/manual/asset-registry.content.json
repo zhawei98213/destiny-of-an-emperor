@@ -404,7 +404,7 @@
         {
           "key": "tileset.town",
           "category": "tileset",
-          "state": "imported",
+          "state": "locked",
           "fallbackKey": "tileset.default",
           "resource": {
             "kind": "tileset-palette",
@@ -424,7 +424,7 @@
         {
           "key": "npc.guard",
           "category": "npc-sprite",
-          "state": "imported",
+          "state": "locked",
           "fallbackKey": "npc.default",
           "resource": {
             "kind": "sprite-frame",
@@ -436,7 +436,7 @@
         {
           "key": "npc.merchant",
           "category": "npc-sprite",
-          "state": "imported",
+          "state": "locked",
           "fallbackKey": "npc.default",
           "resource": {
             "kind": "sprite-frame",
@@ -448,7 +448,7 @@
         {
           "key": "npc.guide",
           "category": "npc-sprite",
-          "state": "imported",
+          "state": "locked",
           "fallbackKey": "npc.default",
           "resource": {
             "kind": "sprite-frame",

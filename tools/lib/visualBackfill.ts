@@ -128,6 +128,15 @@ export interface VisualBackfillReport {
   checklist: VisualBackfillChecklistItem[];
 }
 
+function resolveBaseBinding(
+  logicalAssetKey: string,
+  baseBindingMap: Map<string, { key: string; state: string }>,
+  chapterOverride?: { fallbackKey?: string; state: string },
+): { key: string; state: string } | undefined {
+  return baseBindingMap.get(logicalAssetKey)
+    ?? (chapterOverride?.fallbackKey ? baseBindingMap.get(chapterOverride.fallbackKey) : undefined);
+}
+
 function getArgValue(args: string[], flag: string): string | undefined {
   const index = args.indexOf(flag);
   if (index === -1) {
@@ -217,11 +226,11 @@ export async function validateVisualBackfillPlans(): Promise<VisualBackfillPlan[
       }
       entryKeys.add(entry.logicalAssetKey);
 
-      const baseBinding = baseBindingMap.get(entry.logicalAssetKey);
       const chapterOverride = overrideMap.get(`${plan.chapterId}:${entry.logicalAssetKey}`);
+      const baseBinding = resolveBaseBinding(entry.logicalAssetKey, baseBindingMap, chapterOverride);
 
       if (!baseBinding) {
-        throw new Error(`${fieldPrefix}.logicalAssetKey "${entry.logicalAssetKey}" does not exist in base asset bindings`);
+        throw new Error(`${fieldPrefix}.logicalAssetKey "${entry.logicalAssetKey}" does not resolve to a base or fallback asset binding`);
       }
       if (!chapterOverride) {
         throw new Error(`${fieldPrefix}.logicalAssetKey "${entry.logicalAssetKey}" does not exist as a chapter override for "${plan.chapterId}"`);
@@ -294,8 +303,8 @@ export async function buildVisualBackfillReport(planId: string): Promise<VisualB
   );
 
   const entries: VisualBackfillReportEntry[] = plan.replacementEntries.map((entry) => {
-    const baseBinding = baseBindingMap.get(entry.logicalAssetKey);
     const overrideBinding = chapterOverrideMap.get(entry.logicalAssetKey);
+    const baseBinding = resolveBaseBinding(entry.logicalAssetKey, baseBindingMap, overrideBinding);
     return {
       logicalAssetKey: entry.logicalAssetKey,
       category: entry.category,

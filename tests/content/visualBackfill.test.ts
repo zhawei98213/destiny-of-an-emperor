@@ -18,4 +18,14 @@ describe("visual backfill workflow", () => {
     expect(report.summary.uiLayoutSafe).toBe(true);
     expect(report.entries.every((entry) => entry.effectiveState === "locked")).toBe(true);
   });
+
+  it("builds a full chapter-01 pilot report for tileset, npc sprites, and dialogue UI", async () => {
+    const report = await buildVisualBackfillReport("chapter-01-lou-sang-visual-pilot");
+
+    expect(report.chapterId).toBe("chapter-01-lou-sang");
+    expect(report.summary.entryCount).toBe(5);
+    expect(report.summary.lockedCount).toBe(5);
+    expect(report.summary.gameplaySafe).toBe(true);
+    expect(report.summary.interactionSafe).toBe(true);
+  });
 });

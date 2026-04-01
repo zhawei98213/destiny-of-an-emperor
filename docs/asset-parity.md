@@ -98,19 +98,33 @@ The current parity scope uses these categories:
 Run `npm run asset-check` to regenerate the latest structured report under `reports/asset-parity/latest/`.
 执行 `npm run asset-check` 可在 `reports/asset-parity/latest/` 重新生成最新结构化报告。
 
-At the current repository stage, all five imported real chapters still read as mostly `placeholder` on the asset side.
-在当前仓库阶段，五个已导入真实章节在资产侧仍然大多处于 `placeholder`。
+At the current repository stage, most imported real chapters still read as mostly `placeholder` on the asset side.
+在当前仓库阶段，大多数已导入真实章节在资产侧仍然大多处于 `placeholder`。
 
-One proven exception now exists: `chapter-01-lou-sang` has a completed UI-panel-and-icon visual backfill batch, and those chapter-local bindings are now treated as `locked`.
-现在有一个已验证例外：`chapter-01-lou-sang` 已完成一轮 UI 面板和图标的视觉回填批次，这些章节局部绑定现在视为 `locked`。
+The first real visual backfill pilot is now complete for the `chapter-01-lou-sang` town-center slice.
+现在 `chapter-01-lou-sang` 的镇中心切片已经完成第一次真实视觉回填试点。
+
+Locked assets for that pilot:
+该试点已经锁定的资产包括：
+
+- `tileset.town`
+- `npc.guard`
+- `npc.merchant`
+- `npc.guide`
+- `ui.dialogue-box`
+- chapter-local dialogue/menu/shop/battle UI panels and icon set from the earlier UI batch
+- 之前 UI 批次里已锁定的章节局部对话/菜单/商店/战斗 UI 面板与图标集
+
+This does not mean the whole chapter is asset-locked. `field`, `field-patrol`, portraits, enemy sprites, and audio still keep chapter-wide asset-parity status in mixed placeholder/imported state.
+这并不意味着整章资产已经锁定。`field`、`field-patrol`、portrait、敌方精灵和音频仍让章节级 asset-parity 维持在 placeholder/imported 混合状态。
 
 Main reasons:
 主要原因：
 
 - no checked-in sprite sheet image exists at `/assets/sprites/world-demo.png`
 - 仓库里还没有真正存在的 `/assets/sprites/world-demo.png` 精灵图
-- the asset registry is now in place, but only chapter-01 currently overrides UI panel bindings, so most chapter categories still resolve to shared placeholders
-- 资产注册层已经建立，但目前只有 chapter-01 对 UI 面板绑定做了章节覆盖，因此大多章节分类仍解析到共享占位资源
+- the asset registry is now in place, but only chapter-01 currently has a town-center tileset + NPC sprite + UI pilot, so most later chapter categories still resolve to shared placeholders
+- 资产注册层已经建立，但目前只有 chapter-01 完成了镇中心 tileset + NPC sprite + UI 的组合试点，因此后续章节的大多分类仍解析到共享占位资源
 - NPC sprite references are symbolic, but only part of the family list exists in generated metadata
 - NPC sprite 引用已经符号化，但 generated metadata 只覆盖了其中一部分 family
 - enemy sprites have no registry yet
@@ -141,6 +155,11 @@ Main reasons:
   Generates the per-chapter replacement checklist for one visual backfill batch.
 - `npm run visual-backfill-checklist -- --id <plan-id>`
   为某个视觉回填批次生成章节级替换清单。
+
+- `npm run visual-parity-score -- --id <plan-id>`
+  Generates one before/after visual parity score report for a registry-only backfill pilot.
+- `npm run visual-parity-score -- --id <plan-id>`
+  为某个只通过 registry 生效的回填试点生成一份替换前后视觉一致性评分报告。
 
 - `npm test -- --run tests/content/assetParity.test.ts`
   Verifies that the checker can at least classify current placeholder state for the real chapters.
@@ -199,5 +218,5 @@ An asset category for a chapter should not move to `locked` until:
 5. Add chapter-03 NPC and map-facing sprite families only through the shared metadata and asset registry path, not through scene-local overrides.
 5. 第 03 章新增的 NPC 和地图可见资源也必须继续走共享 metadata 与资产注册层，不能回退到 scene 本地特判。
 
-6. Keep future visual backfill batches registry-only, reversible, and report-backed. The current reference implementation is `chapter-01-lou-sang-ui-batch`.
-6. 后续视觉回填批次必须继续保持“只改 registry、可回滚、带报告产物”。当前参考实现是 `chapter-01-lou-sang-ui-batch`。
+6. Keep future visual backfill batches registry-only, reversible, and report-backed. The current reference implementations are `chapter-01-lou-sang-ui-batch` and `chapter-01-lou-sang-visual-pilot`.
+6. 后续视觉回填批次必须继续保持“只改 registry、可回滚、带报告产物”。当前参考实现是 `chapter-01-lou-sang-ui-batch` 和 `chapter-01-lou-sang-visual-pilot`。

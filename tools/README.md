@@ -41,6 +41,8 @@ Current first-pass tooling:
 - `tools/character-sprite-reconstruct.ts`：校验角色精灵 candidate，生成帧 metadata，并报告朝向槽位覆盖和 anchor/pivot 一致性。
 - `tools/ui-asset-reconstruct.ts`: validates reconstructed UI asset manifests, panel rules, cursor/icon attachment, and writes one UI reconstruction report.
 - `tools/ui-asset-reconstruct.ts`：校验重建 UI 资产清单、面板规则、光标/图标接线状态，并输出一份 UI 重建报告。
+- `tools/visual-parity-score.ts`: scores one registry-only visual backfill pilot before and after replacement, then writes a diff-friendly parity summary.
+- `tools/visual-parity-score.ts`：为单个只通过 registry 生效的视觉回填试点计算替换前后得分，并输出便于审查 diff 的一致性摘要。
 - `tools/reference-validate.ts`: validates the reference manifest, reports missing subject ids or malformed metadata, and writes one reference report.
 - `tools/reference-validate.ts`：校验 reference manifest，报告缺失 subject id 或错误 metadata，并生成一份 reference 报告。
 - `tools/reference-frame-extract.ts`: validates curated frame packs from videos or screenshot sequences and writes one frame extraction report.
@@ -123,6 +125,10 @@ Current first-pass tooling:
   Generates `reports/visual-backfill/latest/<plan-id>.checklist.md` for rollback, gameplay, and UI layout review.
 - `npm run visual-backfill-checklist -- --id <plan-id>`
   生成 `reports/visual-backfill/latest/<plan-id>.checklist.md`，用于回滚、gameplay 和 UI 布局审核。
+- `npm run visual-parity-score -- --id <plan-id>`
+  Generates `reports/visual-parity/latest/<plan-id>.*` and scores the before/after state of one visual pilot.
+- `npm run visual-parity-score -- --id <plan-id>`
+  生成 `reports/visual-parity/latest/<plan-id>.*`，并为单个视觉试点计算替换前后状态得分。
 - `npm run tileset-crop-normalize`
   Generates `content/generated/import-staging/tileset-crop-plan.generated.json` for current reconstruction candidates.
 - `npm run tileset-crop-normalize`

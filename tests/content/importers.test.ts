@@ -13,6 +13,7 @@ describe("import tools", () => {
     expect(firstReport.sourceFiles).toEqual([
       "demo-maps.source.json",
       "east-road-relay.source.json",
+      "highland-waystation.source.json",
       "lou-sang-village.source.json",
       "ridgeway-camp.source.json",
       "river-ford-camp.source.json",
@@ -43,9 +44,17 @@ describe("import tools", () => {
         id: "ridgeway-camp",
         sourceFile: "ridgeway-camp.source.json",
         npcCount: 2,
-        portalCount: 1,
-        spawnPointCount: 1,
+        portalCount: 2,
+        spawnPointCount: 2,
         triggerCount: 2,
+      }),
+      expect.objectContaining({
+        id: "highland-pass",
+        sourceFile: "highland-waystation.source.json",
+        npcCount: 2,
+        portalCount: 2,
+        spawnPointCount: 2,
+        triggerCount: 3,
       }),
     ]));
   });

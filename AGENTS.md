@@ -95,6 +95,8 @@ Follow it before making code, content, tooling, or documentation changes.
 - `npm run visual-backfill-report -- --id <plan-id>`：为某个只通过 registry 执行的替换批次生成视觉回填对比报告。
 - `npm run visual-backfill-checklist -- --id <plan-id>`: generate the corresponding per-batch replacement checklist.
 - `npm run visual-backfill-checklist -- --id <plan-id>`：生成对应的逐批次替换清单。
+- `npm run visual-parity-score -- --id <plan-id>`: score one registry-only visual backfill pilot and write a before/after diff report.
+- `npm run visual-parity-score -- --id <plan-id>`：为单个只通过 registry 生效的视觉回填试点打分，并输出替换前后 diff 报告。
 - `npm run tileset-crop-normalize`: generate the current tileset crop and normalization task plan from reference candidates.
 - `npm run tileset-crop-normalize`：根据 reference candidate 生成当前 tileset 裁切与归一化任务计划。
 - `npm run tileset-reconstruct`: validate reconstructed tileset candidates, palette consistency, dimensions, collision review assistance, and runtime attachment.
@@ -168,6 +170,8 @@ After a meaningful change, run at least the commands that match the risk:
 - 涉及性能敏感路径的改动：`npm run performance-baseline`
 - UI-flow or player-facing overlay change: `npm run ui-parity`
 - 涉及 UI 流程或玩家可见 overlay 的改动：`npm run ui-parity`
+- Visual backfill or asset-registry replacement change: `npm run visual-backfill-report -- --id <plan-id>` and `npm run visual-parity-score -- --id <plan-id>`
+- 视觉回填或 asset-registry 替换改动：执行 `npm run visual-backfill-report -- --id <plan-id>` 和 `npm run visual-parity-score -- --id <plan-id>`
 - Before a beta-test handoff or any release-style checkpoint: `npm run pre-release-check -- --mode full`
 - 在测试版移交或任何接近发布的检查点之前：执行 `npm run pre-release-check -- --mode full`
 - CI should stay aligned with these same checks instead of inventing a separate heavier path.

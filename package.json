@@ -24,6 +24,7 @@
     "asset-check": "vite-node tools/asset-check.ts",
     "visual-backfill-report": "vite-node tools/visual-backfill-report.ts",
     "visual-backfill-checklist": "vite-node tools/visual-backfill-checklist.ts",
+    "visual-parity-score": "vite-node tools/visual-parity-score.ts",
     "tileset-reconstruct": "vite-node tools/tileset-reconstruct.ts",
     "tileset-crop-normalize": "vite-node tools/tileset-crop-normalize.ts",
     "character-sprite-reconstruct": "vite-node tools/character-sprite-reconstruct.ts",
