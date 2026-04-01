@@ -6,6 +6,7 @@ import {
   queryReferenceEntries,
 } from "../../tools/lib/referencePipeline";
 import { buildReferenceFramePackReport } from "../../tools/lib/referenceFrameExtract";
+import { buildChapterReferenceSummaryReport } from "../../tools/lib/referenceChapterSummary";
 
 describe("reference pipeline", () => {
   it("loads and validates the current reference manifest", async () => {
@@ -48,5 +49,30 @@ describe("reference pipeline", () => {
     });
 
     expect(entries.some((entry) => entry.id === "chapter-01-lou-sang-dialogue-open-keyframe")).toBe(true);
+  });
+
+  it("builds a chapter-level summary for the first four real chapters", async () => {
+    const summary = await buildChapterReferenceSummaryReport();
+
+    expect(summary.chapters).toHaveLength(4);
+    expect(summary.chapters.every((entry) => entry.categories.maps.covered.length >= 1)).toBe(true);
+    expect(summary.chapters.every((entry) => entry.categories.npcs.covered.length >= 1)).toBe(true);
+    expect(summary.chapters.every((entry) => entry.categories.ui.covered.length >= 1)).toBe(true);
+    expect(summary.chapters.every((entry) => entry.categories.battles.covered.length >= 1)).toBe(true);
+  });
+
+  it("keeps the first four real chapters queryable through frame-pack-derived references", async () => {
+    const index = buildReferenceIndex(await loadReferenceManifest());
+    const chapters = [
+      "chapter-01-lou-sang",
+      "chapter-02-east-road-relay",
+      "chapter-03-river-ford",
+      "chapter-04-ridgeway-camp",
+    ];
+
+    chapters.forEach((chapterId) => {
+      const entries = queryReferenceEntries(index, { chapter: chapterId });
+      expect(entries.length).toBeGreaterThan(0);
+    });
   });
 });

@@ -1,0 +1,79 @@
+{
+  "format": "reference-frame-pack-v1",
+  "pack_id": "chapter-02-east-road-relay-pack",
+  "chapter": "chapter-02-east-road-relay",
+  "title": "East Road Relay Reference Pack",
+  "source": {
+    "source_name": "east-road-relay-reference-video",
+    "source_type": "video",
+    "input_path": "video-stills/chapter-02/east-road-relay-reference-video.mp4",
+    "approximate_source": "Curated relay-route reference capture collected for chapter-02 parity review. / 为第 02 章一致性核查整理的驿道路段参考录屏。"
+  },
+  "notes": "Chapter-level keyframe pack for East Road and Relay Post. These frames are reference-only and must not be used as runtime assets. / 第 02 章东路与驿站的章节级关键帧包。这些帧只作为参考资料，不能直接作为运行时资源使用。",
+  "frames": [
+    {
+      "id": "chapter-02-east-road-map-keyframe",
+      "source_ref": "00:00:14",
+      "scene_type": "world",
+      "map_id": "east-road",
+      "subject_type": "map",
+      "subject_id": "east-road",
+      "confidence": "high",
+      "output_asset_path": "video-stills/chapter-02/east-road-map-keyframe-000014.png",
+      "metadata": {
+        "timestamp": "00:00:14",
+        "variant": "map-layout",
+        "tags": ["map", "east-road", "layout"]
+      },
+      "notes": "East Road overview for route width and encounter lane review. / 用于道路宽度和遭遇区域核对的东路总览关键帧。"
+    },
+    {
+      "id": "chapter-02-road-scout-keyframe",
+      "source_ref": "00:00:31",
+      "scene_type": "world",
+      "map_id": "east-road",
+      "subject_type": "npc",
+      "subject_id": "road-scout",
+      "confidence": "medium",
+      "output_asset_path": "video-stills/chapter-02/road-scout-keyframe-000031.png",
+      "metadata": {
+        "timestamp": "00:00:31",
+        "variant": "road-facing",
+        "tags": ["npc", "scout", "road"]
+      },
+      "notes": "Road scout standing keyframe for placement and facing review. / 用于巡路兵摆位和朝向核查的关键帧。"
+    },
+    {
+      "id": "chapter-02-relay-dialogue-keyframe",
+      "source_ref": "00:01:08",
+      "scene_type": "dialogue",
+      "map_id": "relay-post",
+      "subject_type": "ui",
+      "subject_id": "dialogue-box",
+      "confidence": "medium",
+      "output_asset_path": "video-stills/chapter-02/relay-dialogue-keyframe-000108.png",
+      "metadata": {
+        "timestamp": "00:01:08",
+        "variant": "rest-dialogue",
+        "tags": ["ui", "dialogue", "relay-post"]
+      },
+      "notes": "Relay-post dialogue frame for comparing dialogue box placement in the second chapter slice. / 用于第二章切片对话框摆位核查的驿站对话关键帧。"
+    },
+    {
+      "id": "chapter-02-east-road-battle-keyframe",
+      "source_ref": "00:02:02",
+      "scene_type": "battle",
+      "map_id": "east-road",
+      "subject_type": "battle",
+      "subject_id": "field-wolves",
+      "confidence": "medium",
+      "output_asset_path": "video-stills/chapter-02/east-road-battle-keyframe-000202.png",
+      "metadata": {
+        "timestamp": "00:02:02",
+        "variant": "encounter-open",
+        "tags": ["battle", "wolves", "east-road"]
+      },
+      "notes": "Battle opening frame for the East Road wolves encounter. / 用于东路狼群遭遇战开场表现核查的关键帧。"
+    }
+  ]
+}

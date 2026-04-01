@@ -31,6 +31,7 @@
     "reference-validate": "vite-node tools/reference-validate.ts",
     "reference-frame-extract": "vite-node tools/reference-frame-extract.ts",
     "reference-query": "vite-node tools/reference-query.ts",
+    "reference-summary": "vite-node tools/reference-summary.ts",
     "text-check": "vite-node tools/text-check.ts",
     "performance-baseline": "vite-node tools/performance-baseline.ts",
     "ui-parity": "vite-node tools/ui-parity.ts",

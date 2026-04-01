@@ -148,6 +148,35 @@ This command validates frame packs and writes:
 Frame-pack-derived entries are merged into the normal reference query path, so `reference-query` can discover them without a separate database.
 由关键帧包派生出来的条目会并入常规 reference 查询路径，因此 `reference-query` 无需额外数据库就能查到这些帧。
 
+## Chapter Reference Summary
+## 章节参考资料摘要
+
+Command:
+命令：
+
+- `npm run reference-summary`
+
+This command summarizes the first four imported real chapters and writes:
+该命令会汇总前四个已导入真实章节，并输出：
+
+- `reports/reference/latest/chapter-summary.json`
+- `reports/reference/latest/chapter-summary.md`
+
+It tracks four reconstruction-facing buckets:
+它会跟踪四类面向重建的覆盖项：
+
+- map references
+- 地图参考
+- NPC references
+- NPC 参考
+- UI references
+- UI 参考
+- battle references
+- 战斗参考
+
+Missing items become the current reference backlog and should not block gameplay chapter lock.
+缺失项会进入当前 reference backlog，但不应阻塞 gameplay 章节锁定。
+
 ## Reference Validator
 ## 参考资料校验器
 
@@ -231,3 +260,11 @@ It now also owns the first structured frame pack:
 它现在还拥有第一个结构化关键帧包：
 
 - `content/reference/frame-packs/chapter-01-lou-sang-ui-pack.json`
+
+The first four imported chapters now all have chapter-level frame packs:
+前四个已导入章节现在都已经具备章节级关键帧包：
+
+- `chapter-01-lou-sang-ui-pack`
+- `chapter-02-east-road-relay-pack`
+- `chapter-03-river-ford-pack`
+- `chapter-04-ridgeway-camp-pack`
