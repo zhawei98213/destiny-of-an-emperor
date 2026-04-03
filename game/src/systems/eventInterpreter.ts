@@ -194,16 +194,22 @@ export class EventInterpreter {
       case "ifFlag":
         if (runtime.state.flags[command.flagId]) {
           this.executeSteps(command.steps, event, database, runtime);
+        } else if (command.elseSteps) {
+          this.executeSteps(command.elseSteps, event, database, runtime);
         }
         break;
       case "ifNotFlag":
         if (!runtime.state.flags[command.flagId]) {
           this.executeSteps(command.steps, event, database, runtime);
+        } else if (command.elseSteps) {
+          this.executeSteps(command.elseSteps, event, database, runtime);
         }
         break;
       case "ifHasItem":
         if (hasInventoryItem(runtime.state.inventory, command.itemId, command.quantity ?? 1)) {
           this.executeSteps(command.steps, event, database, runtime);
+        } else if (command.elseSteps) {
+          this.executeSteps(command.elseSteps, event, database, runtime);
         }
         break;
       case "warp":

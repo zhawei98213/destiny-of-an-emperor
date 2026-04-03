@@ -393,6 +393,11 @@ function validateEventStep(value: unknown, path: string): EventStep {
         steps: ensureArray(record.steps, `${path}.steps`).map((entry, index) =>
           validateEventStep(entry, `${path}.steps[${index}]`),
         ),
+        elseSteps: record.elseSteps === undefined
+          ? undefined
+          : ensureArray(record.elseSteps, `${path}.elseSteps`).map((entry, index) =>
+            validateEventStep(entry, `${path}.elseSteps[${index}]`),
+          ),
       };
     case "ifNotFlag":
       return {
@@ -401,6 +406,11 @@ function validateEventStep(value: unknown, path: string): EventStep {
         steps: ensureArray(record.steps, `${path}.steps`).map((entry, index) =>
           validateEventStep(entry, `${path}.steps[${index}]`),
         ),
+        elseSteps: record.elseSteps === undefined
+          ? undefined
+          : ensureArray(record.elseSteps, `${path}.elseSteps`).map((entry, index) =>
+            validateEventStep(entry, `${path}.elseSteps[${index}]`),
+          ),
       };
     case "ifHasItem":
       return {
@@ -410,6 +420,11 @@ function validateEventStep(value: unknown, path: string): EventStep {
         steps: ensureArray(record.steps, `${path}.steps`).map((entry, index) =>
           validateEventStep(entry, `${path}.steps[${index}]`),
         ),
+        elseSteps: record.elseSteps === undefined
+          ? undefined
+          : ensureArray(record.elseSteps, `${path}.elseSteps`).map((entry, index) =>
+            validateEventStep(entry, `${path}.elseSteps[${index}]`),
+          ),
       };
     case "warp":
       return {

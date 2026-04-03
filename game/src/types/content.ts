@@ -240,12 +240,14 @@ export interface IfFlagEventStep {
   type: "ifFlag";
   flagId: string;
   steps: EventStep[];
+  elseSteps?: EventStep[];
 }
 
 export interface IfNotFlagEventStep {
   type: "ifNotFlag";
   flagId: string;
   steps: EventStep[];
+  elseSteps?: EventStep[];
 }
 
 export interface IfHasItemEventStep {
@@ -253,6 +255,7 @@ export interface IfHasItemEventStep {
   itemId: string;
   quantity?: number;
   steps: EventStep[];
+  elseSteps?: EventStep[];
 }
 
 export interface WarpEventStep {

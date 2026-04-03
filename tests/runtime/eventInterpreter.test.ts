@@ -229,4 +229,92 @@ describe("event interpreter", () => {
     });
     expect(runtime.ended).toBe(true);
   });
+
+  it("supports elseSteps on shared conditional opcodes without breaking legacy branches", () => {
+    const interpreter = new EventInterpreter();
+    const event: EventDefinition = {
+      id: "conditional-else-event",
+      name: "Conditional Else Event",
+      steps: [
+        {
+          type: "ifHasItem",
+          itemId: "permit",
+          steps: [
+            { type: "setFlag", flagId: "has-permit" },
+          ],
+          elseSteps: [
+            { type: "setFlag", flagId: "missing-permit" },
+          ],
+        },
+        {
+          type: "ifFlag",
+          flagId: "has-permit",
+          steps: [
+            { type: "dialogue", lineId: "line-open" },
+          ],
+          elseSteps: [
+            { type: "dialogue", lineId: "line-blocked" },
+          ],
+        },
+        {
+          type: "ifNotFlag",
+          flagId: "has-permit",
+          steps: [
+            { type: "setFlag", flagId: "fallback-ran" },
+          ],
+          elseSteps: [
+            { type: "setFlag", flagId: "fallback-skipped" },
+          ],
+        },
+        { type: "end" },
+      ],
+    };
+    const database: ContentDatabase = {
+      packs: [],
+      maps: [],
+      dialogueLines: [
+        { id: "line-open", speakerName: "Guard", text: "Open" },
+        { id: "line-blocked", speakerName: "Guard", text: "Blocked" },
+      ],
+      events: [event],
+      items: [
+        { id: "permit", name: "Permit", description: "Permit", kind: "key", price: 0 },
+      ],
+      partyMembers: [],
+      enemies: [],
+      battleGroups: [],
+      shops: [],
+      skills: [],
+      flags: [
+        { id: "has-permit", defaultValue: false },
+        { id: "missing-permit", defaultValue: false },
+        { id: "fallback-ran", defaultValue: false },
+        { id: "fallback-skipped", defaultValue: false },
+      ],
+      questStates: [],
+      encounterTables: [],
+    };
+
+    const withoutPermit = createEventRuntime(database, {
+      inventory: { gold: 0, items: [] },
+    });
+    interpreter.execute(event, database, withoutPermit);
+
+    expect(withoutPermit.state.flags["missing-permit"]).toBe(true);
+    expect(withoutPermit.state.flags["has-permit"]).toBe(false);
+    expect(withoutPermit.state.flags["fallback-ran"]).toBe(true);
+    expect(withoutPermit.state.flags["fallback-skipped"]).toBe(false);
+    expect(withoutPermit.dialogueLog.map((entry) => entry.id)).toEqual(["line-blocked"]);
+
+    const withPermit = createEventRuntime(database, {
+      inventory: { gold: 0, items: [{ itemId: "permit", quantity: 1 }] },
+    });
+    interpreter.execute(event, database, withPermit);
+
+    expect(withPermit.state.flags["has-permit"]).toBe(true);
+    expect(withPermit.state.flags["missing-permit"]).toBe(false);
+    expect(withPermit.state.flags["fallback-ran"]).toBe(false);
+    expect(withPermit.state.flags["fallback-skipped"]).toBe(true);
+    expect(withPermit.dialogueLog.map((entry) => entry.id)).toEqual(["line-open"]);
+  });
 });

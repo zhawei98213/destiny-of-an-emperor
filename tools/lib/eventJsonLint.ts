@@ -86,6 +86,10 @@ function lintEventSteps(
     if ("steps" in entry) {
       lintEventSteps(issues, entry.steps, `${basePath}[${index}].steps`);
     }
+
+    if ("elseSteps" in entry) {
+      lintEventSteps(issues, entry.elseSteps, `${basePath}[${index}].elseSteps`);
+    }
   });
 
   if (steps.length > 0 && endCount === 0) {

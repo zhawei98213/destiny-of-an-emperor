@@ -79,18 +79,20 @@
             {
               "type": "end"
             }
+          ],
+          "elseSteps": [
+            {
+              "type": "dialogue",
+              "lineId": "border-clerk-line-issue"
+            },
+            {
+              "type": "setFlag",
+              "flagId": "border-orders-issued"
+            },
+            {
+              "type": "end"
+            }
           ]
-        },
-        {
-          "type": "dialogue",
-          "lineId": "border-clerk-line-issue"
-        },
-        {
-          "type": "setFlag",
-          "flagId": "border-orders-issued"
-        },
-        {
-          "type": "end"
         }
       ]
     },
@@ -117,14 +119,16 @@
             {
               "type": "end"
             }
+          ],
+          "elseSteps": [
+            {
+              "type": "dialogue",
+              "lineId": "border-sentry-line-blocked"
+            },
+            {
+              "type": "end"
+            }
           ]
-        },
-        {
-          "type": "dialogue",
-          "lineId": "border-sentry-line-blocked"
-        },
-        {
-          "type": "end"
         }
       ]
     },
@@ -132,19 +136,6 @@
       "id": "border-fort-gate-event",
       "name": "Border Fort Gate Event",
       "steps": [
-        {
-          "type": "ifNotFlag",
-          "flagId": "border-fort-gate-open",
-          "steps": [
-            {
-              "type": "dialogue",
-              "lineId": "border-fort-gate-line-blocked"
-            },
-            {
-              "type": "end"
-            }
-          ]
-        },
         {
           "type": "ifFlag",
           "flagId": "border-fort-gate-open",
@@ -157,10 +148,16 @@
             {
               "type": "end"
             }
+          ],
+          "elseSteps": [
+            {
+              "type": "dialogue",
+              "lineId": "border-fort-gate-line-blocked"
+            },
+            {
+              "type": "end"
+            }
           ]
-        },
-        {
-          "type": "end"
         }
       ]
     },

@@ -172,6 +172,9 @@ function validateEventReferences(
         step.steps.forEach((nestedStep, nestedIndex) => {
           validateStep(nestedStep, `${path}.steps[${nestedIndex}]`);
         });
+        step.elseSteps?.forEach((nestedStep, nestedIndex) => {
+          validateStep(nestedStep, `${path}.elseSteps[${nestedIndex}]`);
+        });
         break;
       case "ifHasItem":
         if (!itemIds.has(step.itemId)) {
@@ -182,6 +185,9 @@ function validateEventReferences(
         }
         step.steps.forEach((nestedStep, nestedIndex) => {
           validateStep(nestedStep, `${path}.steps[${nestedIndex}]`);
+        });
+        step.elseSteps?.forEach((nestedStep, nestedIndex) => {
+          validateStep(nestedStep, `${path}.elseSteps[${nestedIndex}]`);
         });
         break;
       case "warp":

@@ -106,6 +106,18 @@ function collectDialogueLineIdsFromSteps(
         chapterId,
       );
     }
+
+    if (Array.isArray(step.elseSteps)) {
+      collectDialogueLineIdsFromSteps(
+        step.elseSteps as Array<Record<string, unknown>>,
+        lineIds,
+        issues,
+        `${stepPath}.elseSteps`,
+        eventId,
+        knownLineIds,
+        chapterId,
+      );
+    }
   });
 }
 

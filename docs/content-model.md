@@ -65,6 +65,15 @@ The shared event interpreter currently supports these opcodes:
 `ifHasItem` is the current minimum chapter-progression extension. Use it when a real slice needs key-item or inventory-gated progression, such as checking a route permit before a guard opens the gate.
 `ifHasItem` 是当前为章节推进补上的最小扩展。当真实切片需要按钥匙道具或背包物品控制推进时使用它，例如守门兵在放行前检查路引。
 
+Conditional steps now support an optional `elseSteps` array on `ifFlag`, `ifNotFlag`, and `ifHasItem`.
+条件分支现在支持在 `ifFlag`、`ifNotFlag` 和 `ifHasItem` 上使用可选的 `elseSteps` 数组。
+
+Use `elseSteps` when the same real event repeatedly expands into "success branch + end, then default path" boilerplate across chapter imports.
+当同一类真实事件在章节导入中反复展开成“成功分支 + end，然后再写默认路径”的样板时，应优先使用 `elseSteps`。
+
+This is an interpreter enhancement, not a new story path. It keeps branching data-driven while reducing repeated event JSON noise.
+这是解释器增强，不是新的剧情写死路径。它的目标是在保持数据驱动分支的同时，减少事件 JSON 的重复噪音。
+
 ## Validation Flow
 ## 校验流程
 

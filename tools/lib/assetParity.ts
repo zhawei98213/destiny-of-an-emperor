@@ -176,6 +176,10 @@ function collectEventLineIds(steps: Array<Record<string, unknown>>, lineIds: Set
     if (Array.isArray(step.steps)) {
       collectEventLineIds(step.steps as Array<Record<string, unknown>>, lineIds);
     }
+
+    if (Array.isArray(step.elseSteps)) {
+      collectEventLineIds(step.elseSteps as Array<Record<string, unknown>>, lineIds);
+    }
   });
 }
 
@@ -312,6 +316,9 @@ export async function buildAssetParityReport(): Promise<AssetParityReport> {
             }
             if (Array.isArray(step.steps)) {
               visit(step.steps as Array<Record<string, unknown>>);
+            }
+            if (Array.isArray(step.elseSteps)) {
+              visit(step.elseSteps as Array<Record<string, unknown>>);
             }
           });
         };

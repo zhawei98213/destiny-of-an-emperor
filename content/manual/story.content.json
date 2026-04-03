@@ -659,12 +659,14 @@
           "steps": [
             { "type": "dialogue", "lineId": "pass-courier-line-repeat" },
             { "type": "end" }
+          ],
+          "elseSteps": [
+            { "type": "dialogue", "lineId": "pass-courier-line-issue" },
+            { "type": "giveItem", "itemId": "waystation-badge", "quantity": 1 },
+            { "type": "setFlag", "flagId": "waystation-badge-issued" },
+            { "type": "end" }
           ]
-        },
-        { "type": "dialogue", "lineId": "pass-courier-line-issue" },
-        { "type": "giveItem", "itemId": "waystation-badge", "quantity": 1 },
-        { "type": "setFlag", "flagId": "waystation-badge-issued" },
-        { "type": "end" }
+        }
       ]
     },
     {
@@ -687,10 +689,12 @@
             { "type": "setFlag", "flagId": "highland-east-gate-open" },
             { "type": "playSfx", "sfxId": "sfx-gate-open" },
             { "type": "end" }
+          ],
+          "elseSteps": [
+            { "type": "dialogue", "lineId": "gate-captain-line-blocked" },
+            { "type": "end" }
           ]
-        },
-        { "type": "dialogue", "lineId": "gate-captain-line-blocked" },
-        { "type": "end" }
+        }
       ]
     },
     {
@@ -698,22 +702,17 @@
       "name": "Highland East Gate Event",
       "steps": [
         {
-          "type": "ifNotFlag",
-          "flagId": "highland-east-gate-open",
-          "steps": [
-            { "type": "dialogue", "lineId": "highland-gate-line-blocked" },
-            { "type": "end" }
-          ]
-        },
-        {
           "type": "ifFlag",
           "flagId": "highland-east-gate-open",
           "steps": [
             { "type": "warp", "targetMapId": "supply-court", "targetSpawnId": "from-waystation-gate" },
             { "type": "end" }
+          ],
+          "elseSteps": [
+            { "type": "dialogue", "lineId": "highland-gate-line-blocked" },
+            { "type": "end" }
           ]
-        },
-        { "type": "end" }
+        }
       ]
     },
     {
@@ -747,11 +746,13 @@
           "steps": [
             { "type": "dialogue", "lineId": "border-clerk-line-repeat" },
             { "type": "end" }
+          ],
+          "elseSteps": [
+            { "type": "dialogue", "lineId": "border-clerk-line-issue" },
+            { "type": "setFlag", "flagId": "border-orders-issued" },
+            { "type": "end" }
           ]
-        },
-        { "type": "dialogue", "lineId": "border-clerk-line-issue" },
-        { "type": "setFlag", "flagId": "border-orders-issued" },
-        { "type": "end" }
+        }
       ]
     },
     {
@@ -766,10 +767,12 @@
             { "type": "setFlag", "flagId": "border-fort-gate-open" },
             { "type": "playSfx", "sfxId": "sfx-gate-open" },
             { "type": "end" }
+          ],
+          "elseSteps": [
+            { "type": "dialogue", "lineId": "border-sentry-line-blocked" },
+            { "type": "end" }
           ]
-        },
-        { "type": "dialogue", "lineId": "border-sentry-line-blocked" },
-        { "type": "end" }
+        }
       ]
     },
     {
@@ -777,22 +780,17 @@
       "name": "Border Fort Gate Event",
       "steps": [
         {
-          "type": "ifNotFlag",
-          "flagId": "border-fort-gate-open",
-          "steps": [
-            { "type": "dialogue", "lineId": "border-fort-gate-line-blocked" },
-            { "type": "end" }
-          ]
-        },
-        {
           "type": "ifFlag",
           "flagId": "border-fort-gate-open",
           "steps": [
             { "type": "warp", "targetMapId": "border-fort-yard", "targetSpawnId": "from-border-road" },
             { "type": "end" }
+          ],
+          "elseSteps": [
+            { "type": "dialogue", "lineId": "border-fort-gate-line-blocked" },
+            { "type": "end" }
           ]
-        },
-        { "type": "end" }
+        }
       ]
     },
     {
