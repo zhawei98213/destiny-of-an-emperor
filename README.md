@@ -71,6 +71,8 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - `npm run chapter-status-report`：生成与 completeness、parity、regression 和 UI parity 对齐的章节级状态摘要。
 - `npm run chapter-lock-checklist -- --id <chapter-id>`: generate a lock checklist for one chapter.
 - `npm run chapter-lock-checklist -- --id <chapter-id>`：为单个章节生成锁定检查清单。
+- `npm run world-connectivity-audit`: generate the current global map graph audit for portals, spawns, and return-path consistency.
+- `npm run world-connectivity-audit`：生成当前全局地图连接图审计，覆盖 portal、spawn 和返回路径一致性。
 - `npm run asset-check`: generate the current chapter asset parity report and identify placeholder asset categories.
 - `npm run asset-check`：生成当前章节资产一致性报告，并识别占位资产分类。
 - `npm run visual-backfill-report -- --id <plan-id>`: generate one visual backfill compare report for a registry-only replacement batch.

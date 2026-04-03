@@ -41,6 +41,8 @@ Current first-pass tooling:
 - `tools/chapter-status-report.ts`：把章节元数据、completeness、parity、regression 和 UI parity 聚合成一份章节导入状态摘要。
 - `tools/chapter-lock-checklist.ts`: generates a review checklist for deciding whether a chapter is ready to lock.
 - `tools/chapter-lock-checklist.ts`：生成用于判断章节是否可锁定的审查清单。
+- `tools/world-connectivity-audit.ts`: generates the current global map connection graph and reports missing return portals, isolated maps, invalid spawns, and bidirectional traversal mismatches.
+- `tools/world-connectivity-audit.ts`：生成当前全局地图连接图，并报告缺失返回 portal、孤立地图、无效 spawn 和双向移动不一致问题。
 - `tools/asset-check.ts`: generates an asset parity report for current chapters, including missing resources, unreferenced resources, broken references, and sprite metadata integrity.
 - `tools/asset-check.ts`：为当前章节生成资产一致性报告，覆盖缺失资源、未引用资源、失效引用以及 sprite metadata 完整性。
 - `tools/tileset-crop-normalize.ts`: writes the current tileset crop and normalization task plan from reference candidates into generated staging output.
@@ -143,6 +145,10 @@ Current first-pass tooling:
   Generates `reports/chapters/latest/lock-checklists/<chapter-id>.md` for lock review.
 - `npm run chapter-lock-checklist -- --id <chapter-id>`
   生成 `reports/chapters/latest/lock-checklists/<chapter-id>.md`，用于锁定审核。
+- `npm run world-connectivity-audit`
+  Generates `reports/world-connectivity/latest/` and audits graph-level map traversal issues such as missing return portals, isolated maps, invalid spawns, and bidirectional traversal mismatches.
+- `npm run world-connectivity-audit`
+  生成 `reports/world-connectivity/latest/`，并审计缺失返回 portal、孤立地图、无效 spawn、双向移动不一致等图结构级问题。
 - `npm run asset-check`
   Generates `reports/asset-parity/latest/` and classifies current chapter assets as placeholder/imported/validated.
 - `npm run asset-check`
