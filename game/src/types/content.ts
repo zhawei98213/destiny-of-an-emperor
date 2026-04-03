@@ -200,6 +200,9 @@ export interface DialogueLineDefinition {
   text: string;
   portraitId?: string;
   soundId?: string;
+  styleId?: string;
+  locale?: string;
+  revisionTag?: string;
 }
 
 export interface DialogueChoiceOption {

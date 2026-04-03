@@ -53,6 +53,16 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - `npm run format:events`：把 `content/manual/story.content.json` 重写成稳定格式，便于审查 diff。
 - `npm run check:npc-placement`: verify that manual NPC coordinates do not overlap blocked tiles, portals, spawn points, or other NPCs.
 - `npm run check:npc-placement`：校验 manual NPC 坐标不会与阻挡格、portal、spawn 点或其他 NPC 重叠。
+- `npm run npc-placement-import -- --chapter <chapter-id>`: compare source map NPC placements against manual world data and emit import-ready chapter rows.
+- `npm run npc-placement-import -- --chapter <chapter-id>`：对比 source 地图 NPC 摆位与 manual world 数据，并输出可直接导入的章节级行项目。
+- `npm run dialogue-table-import -- --chapter <chapter-id>`: compare a chapter text source file against manual story content and show missing or mismatched dialogue/event rows.
+- `npm run dialogue-table-import -- --chapter <chapter-id>`：对比章节文本 source 文件与 manual story 内容，并输出缺失或不一致的对白/事件行。
+- `npm run event-text-linkage-check -- --chapter <chapter-id>`: validate dialogue `lineId` references for one chapter or one source text file.
+- `npm run event-text-linkage-check -- --chapter <chapter-id>`：校验单章或单个 source 文本文件中的对白 `lineId` 引用。
+- `npm run speaker-metadata-check -- --chapter <chapter-id>`: verify speaker name, portrait, style, and chapter-local speaker NPC ownership.
+- `npm run speaker-metadata-check -- --chapter <chapter-id>`：检查说话者名称、头像、样式以及章节内 speaker NPC 归属。
+- `npm run chapter-npc-text-report`: summarize per-chapter NPC source coverage and text-source completeness.
+- `npm run chapter-npc-text-report`：汇总每章 NPC source 覆盖与文本 source 完整性。
 - `npm run check:chapter-completeness`: compare chapter metadata with currently reachable maps, NPCs, events, shops, and enemy groups.
 - `npm run check:chapter-completeness`：把章节元数据与当前可达地图、NPC、事件、商店和敌群做对照。
 - `npm run chapter-bootstrap -- --id <chapter-id> --title "<title>" --area "<area>"`: create chapter metadata, plan, and lock-report scaffolds from the existing templates.

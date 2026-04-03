@@ -81,6 +81,16 @@ Follow it before making code, content, tooling, or documentation changes.
 - `npm run format:events`：把 `content/manual/story.content.json` 重写成稳定格式。
 - `npm run check:npc-placement`: verify manual NPC coordinates against collision and map landmarks.
 - `npm run check:npc-placement`：校验 manual NPC 坐标与碰撞层和地图锚点的关系。
+- `npm run npc-placement-import -- --chapter <chapter-id>`: compare chapter source-map NPC placements against manual world content and emit import-ready rows.
+- `npm run npc-placement-import -- --chapter <chapter-id>`：对比章节 source 地图 NPC 摆位与 manual world 内容，并输出可导入行。
+- `npm run dialogue-table-import -- --chapter <chapter-id>`: compare chapter source text tables against manual story dialogue/event content.
+- `npm run dialogue-table-import -- --chapter <chapter-id>`：对比章节 source 文本表与 manual story 对白/事件内容。
+- `npm run event-text-linkage-check -- --chapter <chapter-id>`: validate dialogue `lineId` linkage for one chapter or one source text file.
+- `npm run event-text-linkage-check -- --chapter <chapter-id>`：校验单章或单个 source 文本文件的对白 `lineId` 链接。
+- `npm run speaker-metadata-check -- --chapter <chapter-id>`: validate speaker name, portrait, style, and chapter-local speaker NPC ownership.
+- `npm run speaker-metadata-check -- --chapter <chapter-id>`：校验 speaker 名称、头像、样式以及章节内 speaker NPC 归属。
+- `npm run chapter-npc-text-report`: summarize per-chapter NPC source coverage and text-source completeness.
+- `npm run chapter-npc-text-report`：汇总每章 NPC source 覆盖和文本 source 完整性。
 - `npm run check:chapter-completeness`: compare chapter metadata ownership against currently reachable content.
 - `npm run check:chapter-completeness`：把章节元数据归属与当前可达内容做对照。
 - `npm run chapter-bootstrap -- --id <chapter-id> --title "<title>" --area "<area>"`: create a new chapter scaffold from the repository templates.

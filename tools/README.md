@@ -23,6 +23,16 @@ Current first-pass tooling:
 - `tools/event-json.ts`：检查事件 JSON 结构，并可把 `story.content.json` 重写为稳定格式化输出。
 - `tools/check-npc-placement.ts`: checks whether NPC placement collides with blocked tiles, portals, spawns, or other NPCs.
 - `tools/check-npc-placement.ts`：检查 NPC 摆位是否撞上阻挡格、portal、spawn 点或其他 NPC。
+- `tools/npc-placement-import.ts`: compares chapter NPC placements in source maps against manual world content and emits import-ready rows plus mismatch issues.
+- `tools/npc-placement-import.ts`：对比章节 source 地图中的 NPC 摆位与 manual world 内容，并输出可导入行和不一致问题。
+- `tools/dialogue-table-import.ts`: compares one chapter text source file against manual story dialogue/event content and reports missing or mismatched rows.
+- `tools/dialogue-table-import.ts`：对比单章文本 source 文件与 manual story 的对白/事件内容，并报告缺失或不一致的行。
+- `tools/event-text-linkage-check.ts`: validates dialogue `lineId` references for one chapter or one source text file.
+- `tools/event-text-linkage-check.ts`：校验单章或单个 source 文本文件的对白 `lineId` 引用。
+- `tools/speaker-metadata-check.ts`: validates speaker metadata completeness and whether `speakerNpcId` still belongs to the target chapter.
+- `tools/speaker-metadata-check.ts`：校验 speaker 元数据完整性，以及 `speakerNpcId` 是否仍属于目标章节。
+- `tools/chapter-npc-text-report.ts`: summarizes per-chapter NPC placement source coverage and text-source completeness for imported chapters.
+- `tools/chapter-npc-text-report.ts`：汇总已导入章节的 NPC 摆位 source 覆盖和文本 source 完整性。
 - `tools/check-chapter-completeness.ts`: compares chapter metadata against reachable maps, NPCs, events, shops, and enemy groups.
 - `tools/check-chapter-completeness.ts`：把章节元数据与当前可达地图、NPC、事件、商店和敌群做对照。
 - `tools/chapter-bootstrap.ts`: creates a chapter metadata file plus matching plan and lock-report scaffolds from the repository templates.
@@ -97,6 +107,26 @@ Current first-pass tooling:
   Validates that current manual NPC coordinates do not overlap blocked tiles, portals, spawn points, or other NPCs.
 - `npm run check:npc-placement`
   校验当前 manual NPC 坐标不会与阻挡格、portal、spawn 点或其他 NPC 重叠。
+- `npm run npc-placement-import -- --chapter chapter-06-border-fort`
+  Generates one chapter-targeted NPC placement import report from source maps and manual world content.
+- `npm run npc-placement-import -- --chapter chapter-06-border-fort`
+  基于 source 地图和 manual world 内容生成单章 NPC 摆位导入报告。
+- `npm run dialogue-table-import -- --chapter chapter-06-border-fort`
+  Generates one chapter-targeted dialogue/event import comparison from `content/source/text/<chapter-id>.source.json`.
+- `npm run dialogue-table-import -- --chapter chapter-06-border-fort`
+  基于 `content/source/text/<chapter-id>.source.json` 生成单章对白/事件导入对比报告。
+- `npm run event-text-linkage-check -- --chapter chapter-06-border-fort`
+  Validates chapter-scoped dialogue `lineId` linkage using the current DSL.
+- `npm run event-text-linkage-check -- --chapter chapter-06-border-fort`
+  基于当前 DSL 校验章节范围内的对白 `lineId` 链接。
+- `npm run speaker-metadata-check -- --chapter chapter-06-border-fort`
+  Validates chapter speaker name, portrait, style, and speaker NPC ownership metadata.
+- `npm run speaker-metadata-check -- --chapter chapter-06-border-fort`
+  校验章节的 speaker 名称、头像、样式和 speaker NPC 归属元数据。
+- `npm run chapter-npc-text-report`
+  Generates one per-chapter NPC/text completeness report for imported chapters.
+- `npm run chapter-npc-text-report`
+  为已导入章节生成每章一份 NPC/文本完整性报告。
 - `npm run check:chapter-completeness`
   Compares chapter metadata ownership against currently reachable chapter content and reports missing or cross-chapter entries.
 - `npm run check:chapter-completeness`

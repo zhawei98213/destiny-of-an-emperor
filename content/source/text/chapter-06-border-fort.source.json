@@ -1,0 +1,214 @@
+{
+  "format": "text-source-v1",
+  "dialogueLines": [
+    {
+      "id": "border-clerk-line-issue",
+      "speakerName": "边关文吏",
+      "speakerNpcId": "border-clerk",
+      "text": "前营已经把文书送到了。你先拿着这道关印去见守兵，他验过之后才会开门。",
+      "portraitId": "guide-default",
+      "soundId": "voice-guide",
+      "styleId": "dialogue-default"
+    },
+    {
+      "id": "border-clerk-line-repeat",
+      "speakerName": "边关文吏",
+      "speakerNpcId": "border-clerk",
+      "text": "关印已经发给你了。别在门口拖延，守兵只认印记，不认空话。",
+      "portraitId": "guide-default",
+      "soundId": "voice-guide",
+      "styleId": "dialogue-default"
+    },
+    {
+      "id": "border-sentry-line-blocked",
+      "speakerName": "边关守兵",
+      "speakerNpcId": "border-sentry",
+      "text": "没有关印，任何人都不能穿过前面那道营门。",
+      "portraitId": "guard-default",
+      "soundId": "voice-guard",
+      "styleId": "dialogue-default"
+    },
+    {
+      "id": "border-sentry-line-open",
+      "speakerName": "边关守兵",
+      "speakerNpcId": "border-sentry",
+      "text": "印记无误。我这就把前营的门路让开，进营后先去找医官整备。",
+      "portraitId": "guard-default",
+      "soundId": "voice-guard",
+      "styleId": "dialogue-default"
+    },
+    {
+      "id": "border-fort-gate-line-blocked",
+      "speakerName": "系统",
+      "text": "边关守兵还没有放行，前营大门暂时不会打开。",
+      "portraitId": "system-default",
+      "soundId": "sfx-blocked",
+      "styleId": "system-default"
+    },
+    {
+      "id": "fort-healer-line",
+      "speakerName": "关营医官",
+      "speakerNpcId": "fort-healer",
+      "text": "边营药具都在这儿。真要再往前冲，先把伤口包好，队列也重新整一遍。",
+      "portraitId": "merchant-default",
+      "soundId": "voice-merchant",
+      "styleId": "dialogue-default"
+    },
+    {
+      "id": "fort-cache-line-open",
+      "speakerName": "系统",
+      "text": "你在前营角落的补给箱里找到两卷绷带。",
+      "portraitId": "system-default",
+      "soundId": "sfx-chest",
+      "styleId": "system-default"
+    }
+  ],
+  "events": [
+    {
+      "id": "border-clerk-event",
+      "name": "Border Clerk Event",
+      "steps": [
+        {
+          "type": "ifFlag",
+          "flagId": "border-orders-issued",
+          "steps": [
+            {
+              "type": "dialogue",
+              "lineId": "border-clerk-line-repeat"
+            },
+            {
+              "type": "end"
+            }
+          ]
+        },
+        {
+          "type": "dialogue",
+          "lineId": "border-clerk-line-issue"
+        },
+        {
+          "type": "setFlag",
+          "flagId": "border-orders-issued"
+        },
+        {
+          "type": "end"
+        }
+      ]
+    },
+    {
+      "id": "border-sentry-event",
+      "name": "Border Sentry Event",
+      "steps": [
+        {
+          "type": "ifFlag",
+          "flagId": "border-orders-issued",
+          "steps": [
+            {
+              "type": "dialogue",
+              "lineId": "border-sentry-line-open"
+            },
+            {
+              "type": "setFlag",
+              "flagId": "border-fort-gate-open"
+            },
+            {
+              "type": "playSfx",
+              "sfxId": "sfx-gate-open"
+            },
+            {
+              "type": "end"
+            }
+          ]
+        },
+        {
+          "type": "dialogue",
+          "lineId": "border-sentry-line-blocked"
+        },
+        {
+          "type": "end"
+        }
+      ]
+    },
+    {
+      "id": "border-fort-gate-event",
+      "name": "Border Fort Gate Event",
+      "steps": [
+        {
+          "type": "ifNotFlag",
+          "flagId": "border-fort-gate-open",
+          "steps": [
+            {
+              "type": "dialogue",
+              "lineId": "border-fort-gate-line-blocked"
+            },
+            {
+              "type": "end"
+            }
+          ]
+        },
+        {
+          "type": "ifFlag",
+          "flagId": "border-fort-gate-open",
+          "steps": [
+            {
+              "type": "warp",
+              "targetMapId": "border-fort-yard",
+              "targetSpawnId": "from-border-road"
+            },
+            {
+              "type": "end"
+            }
+          ]
+        },
+        {
+          "type": "end"
+        }
+      ]
+    },
+    {
+      "id": "fort-healer-event",
+      "name": "Fort Healer Event",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lineId": "fort-healer-line"
+        },
+        {
+          "type": "restoreParty"
+        },
+        {
+          "type": "playSfx",
+          "sfxId": "sfx-rest"
+        },
+        {
+          "type": "end"
+        }
+      ]
+    },
+    {
+      "id": "fort-cache-event",
+      "name": "Fort Cache Event",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lineId": "fort-cache-line-open"
+        },
+        {
+          "type": "giveItem",
+          "itemId": "bandage",
+          "quantity": 2
+        },
+        {
+          "type": "setFlag",
+          "flagId": "fort-cache-opened"
+        },
+        {
+          "type": "playSfx",
+          "sfxId": "sfx-chest"
+        },
+        {
+          "type": "end"
+        }
+      ]
+    }
+  ]
+}

@@ -339,6 +339,9 @@ export function validateDialogueLineDefinition(
     text: ensureString(record.text, `${path}.text`),
     portraitId: ensureOptionalString(record.portraitId, `${path}.portraitId`),
     soundId: ensureOptionalString(record.soundId, `${path}.soundId`),
+    styleId: ensureOptionalString(record.styleId, `${path}.styleId`),
+    locale: ensureOptionalString(record.locale, `${path}.locale`),
+    revisionTag: ensureOptionalString(record.revisionTag, `${path}.revisionTag`),
   };
 }
 

@@ -30,6 +30,10 @@
 - 医官恢复、木箱奖励、战斗切片和存档读档往返都已有回归覆盖
 - current regression artifacts are green with `pass=46 mismatch=0 fail=0`, including 7 chapter-06 cases
 - 当前 regression 产物全绿，结果为 `pass=46 mismatch=0 fail=0`，其中包含 7 条 chapter-06 用例
+- chapter-06 now also has source-backed NPC/text helper coverage via `npc-placement-import`、`dialogue-table-import`、`event-text-linkage-check`、`speaker-metadata-check`、`chapter-npc-text-report`
+- chapter-06 现在也已经通过 `npc-placement-import`、`dialogue-table-import`、`event-text-linkage-check`、`speaker-metadata-check`、`chapter-npc-text-report` 获得 source 支撑的 NPC/文本辅助校验
+- helper results are currently clean for chapter-06: NPC placement `issues=0`, dialogue import `mismatch=0`, speaker metadata `issues=0`, chapter NPC/text completeness `status=ready`
+- chapter-06 当前 helper 结果为干净状态：NPC 摆位 `issues=0`、对白导入 `mismatch=0`、speaker 元数据 `issues=0`、章节 NPC/文本完整性 `status=ready`
 - chapter-local visual replacement backlog is in place, so unresolved references do not block gameplay closure
 - 章节级视觉替换 backlog 已建立，因此未完成的视觉参考不会阻塞 gameplay 闭环
 
