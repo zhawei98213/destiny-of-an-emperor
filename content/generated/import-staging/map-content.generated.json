@@ -32,6 +32,34 @@
     },
     {
       "collisionLayerCount": 1,
+      "id": "bridge-road",
+      "name": "Bridge Road",
+      "npcCount": 2,
+      "portalCount": 1,
+      "size": {
+        "height": 14,
+        "width": 24
+      },
+      "sourceFile": "bridgehead-post.source.json",
+      "spawnPointCount": 2,
+      "triggerCount": 4
+    },
+    {
+      "collisionLayerCount": 1,
+      "id": "bridgehead-post",
+      "name": "Bridgehead Post",
+      "npcCount": 2,
+      "portalCount": 1,
+      "size": {
+        "height": 12,
+        "width": 20
+      },
+      "sourceFile": "bridgehead-post.source.json",
+      "spawnPointCount": 1,
+      "triggerCount": 2
+    },
+    {
+      "collisionLayerCount": 1,
       "id": "field",
       "name": "Field",
       "npcCount": 1,
@@ -91,13 +119,13 @@
       "id": "forward-camp-yard",
       "name": "Forward Camp Yard",
       "npcCount": 2,
-      "portalCount": 1,
+      "portalCount": 2,
       "size": {
         "height": 12,
         "width": 20
       },
       "sourceFile": "forward-camp.source.json",
-      "spawnPointCount": 1,
+      "spawnPointCount": 2,
       "triggerCount": 2
     },
     {
@@ -243,6 +271,7 @@
   ],
   "sourceFiles": [
     "border-fort.source.json",
+    "bridgehead-post.source.json",
     "demo-maps.source.json",
     "east-road-relay.source.json",
     "forward-camp.source.json",

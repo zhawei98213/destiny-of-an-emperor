@@ -393,30 +393,8 @@ function createVisualBackfillPlan(chapterId: string, title: string) {
     chapterId,
     title: `${title} Bootstrap Visual Batch`,
     status: "planned",
-    notes: "Bootstrap visual batch. Replace placeholders with real registry-only replacement entries once chapter references are available. / 批量初始化生成的视觉批次。章节参考资料到位后，请替换为真实的 registry-only 替换条目。",
-    replacementEntries: [
-      {
-        logicalAssetKey: "ui.dialogue-box",
-        category: "ui-panel",
-        expectedBaseState: "placeholder",
-        targetState: "imported",
-        sourceManifestIds: [
-          `${chapterId}-dialogue-ui-reference`,
-        ],
-        rollback: {
-          mode: "remove-chapter-override",
-          fallbackKey: "ui.panel.default",
-          notes: "Rollback by removing the chapter override. / 通过移除章节 override 回滚。",
-        },
-        verification: {
-          regressionCaseIds: [],
-          requireUiParity: true,
-          requireBuild: true,
-          notes: "Fill regression case ids after the first gameplay loop is bound. / 首条 gameplay 闭环绑定后，再补 regression case id。",
-        },
-        notes: "Replace with a real chapter-local dialogue panel or keep as shared fallback. / 将其替换为真实章节对话框，或继续保留共享回退。",
-      },
-    ],
+    notes: "Bootstrap visual batch. Keep this file valid as an empty plan until chapter-local registry overrides are ready. / 批量初始化生成的视觉批次。在章节级 registry override 准备好之前，先保持为空批次。",
+    replacementEntries: [],
   };
 }
 
@@ -428,7 +406,7 @@ function createReferencePackTemplate(chapterId: string, title: string) {
     title: `${title} Reference Pack`,
     source: {
       source_name: `${chapterId}-reference-source`,
-      source_type: "screenshot",
+      source_type: "screenshot-sequence",
       input_path: `screenshots/${chapterId}/reference-source.png`,
       approximate_source: "Describe the screenshot or video source for this chapter. / 描述本章截图或视频参考来源。",
     },

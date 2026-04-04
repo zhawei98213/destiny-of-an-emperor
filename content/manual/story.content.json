@@ -401,6 +401,69 @@
       "speakerName": "系统",
       "text": "你在补给场角落的木箱里找到一卷绷带和一份草药。",
       "soundId": "sfx-chest"
+    },
+    {
+      "id": "bridge-captain-line-issue",
+      "speakerName": "桥头都伯",
+      "speakerNpcId": "bridge-captain",
+      "text": "桥头那边已经整队完了。你先带着这道桥令去见守兵，他验过之后才会放你过去。",
+      "portraitId": "guide-default",
+      "soundId": "voice-guide",
+      "styleId": "dialogue-default"
+    },
+    {
+      "id": "bridge-captain-line-repeat",
+      "speakerName": "桥头都伯",
+      "speakerNpcId": "bridge-captain",
+      "text": "桥令已经交给你了。别在桥口耽搁，桥头守兵只认令牌。",
+      "portraitId": "guide-default",
+      "soundId": "voice-guide",
+      "styleId": "dialogue-default"
+    },
+    {
+      "id": "bridge-sentry-line-blocked",
+      "speakerName": "桥头守兵",
+      "speakerNpcId": "bridge-sentry",
+      "text": "没有桥令，桥头木栅不能开。前面的人马还在等军令。",
+      "portraitId": "guard-default",
+      "soundId": "voice-guard",
+      "styleId": "dialogue-default"
+    },
+    {
+      "id": "bridge-sentry-line-open",
+      "speakerName": "桥头守兵",
+      "speakerNpcId": "bridge-sentry",
+      "text": "桥令无误。我这就把木栅让开，进桥头后先去粮棚补给。",
+      "portraitId": "guard-default",
+      "soundId": "voice-guard",
+      "styleId": "dialogue-default"
+    },
+    {
+      "id": "bridgehead-gate-line-blocked",
+      "speakerName": "系统",
+      "text": "桥头守兵还没有放行，前面的木栅暂时不会打开。",
+      "soundId": "sfx-blocked"
+    },
+    {
+      "id": "bridgehead-gate-line-open",
+      "speakerName": "系统",
+      "text": "桥头木栅已经抬起，前面的补给哨所可以进入。",
+      "soundId": "sfx-gate-open"
+    },
+    {
+      "id": "bridgehead-shop-line",
+      "speakerName": "桥头粮官",
+      "speakerNpcId": "bridge-quartermaster",
+      "text": "过桥的人都在这里领补给。药包和干粮都备着，缺什么就拿什么。",
+      "portraitId": "merchant-default",
+      "soundId": "voice-merchant",
+      "styleId": "dialogue-default"
+    },
+    {
+      "id": "bridgehead-cache-line-open",
+      "speakerName": "系统",
+      "text": "你在桥头角落的补给箱里找到一份行军干粮和一卷绷带。",
+      "soundId": "sfx-chest"
     }
   ],
   "events": [
@@ -983,6 +1046,88 @@
         { "type": "playSfx", "sfxId": "sfx-chest" },
         { "type": "end" }
       ]
+    },
+    {
+      "id": "bridge-captain-event",
+      "name": "Bridge Captain Event",
+      "steps": [
+        {
+          "type": "ifFlag",
+          "flagId": "bridge-orders-issued",
+          "steps": [
+            { "type": "dialogue", "lineId": "bridge-captain-line-repeat" },
+            { "type": "end" }
+          ],
+          "elseSteps": [
+            { "type": "dialogue", "lineId": "bridge-captain-line-issue" },
+            { "type": "setFlag", "flagId": "bridge-orders-issued" },
+            { "type": "end" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bridge-sentry-event",
+      "name": "Bridge Sentry Event",
+      "steps": [
+        {
+          "type": "ifFlag",
+          "flagId": "bridge-orders-issued",
+          "steps": [
+            { "type": "dialogue", "lineId": "bridge-sentry-line-open" },
+            { "type": "setFlag", "flagId": "bridgehead-gate-open" },
+            { "type": "playSfx", "sfxId": "sfx-gate-open" },
+            { "type": "end" }
+          ],
+          "elseSteps": [
+            { "type": "dialogue", "lineId": "bridge-sentry-line-blocked" },
+            { "type": "end" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bridgehead-gate-event",
+      "name": "Bridgehead Gate Event",
+      "steps": [
+        {
+          "type": "ifFlag",
+          "flagId": "bridgehead-gate-open",
+          "steps": [
+            { "type": "dialogue", "lineId": "bridgehead-gate-line-open" },
+            { "type": "facePlayer", "facing": "right" },
+            { "type": "movePlayer", "direction": "right", "distance": 1 },
+            { "type": "warp", "targetMapId": "bridgehead-post", "targetSpawnId": "from-bridge-road" },
+            { "type": "end" }
+          ],
+          "elseSteps": [
+            { "type": "dialogue", "lineId": "bridgehead-gate-line-blocked" },
+            { "type": "end" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bridgehead-shop-event",
+      "name": "Bridgehead Shop Event",
+      "steps": [
+        { "type": "dialogue", "lineId": "bridgehead-shop-line" },
+        { "type": "openShop", "shopId": "bridgehead-post-shop" },
+        { "type": "playSfx", "sfxId": "sfx-shop-open" },
+        { "type": "end" }
+      ]
+    },
+    {
+      "id": "bridgehead-cache-event",
+      "name": "Bridgehead Cache Event",
+      "steps": [
+        { "type": "dialogue", "lineId": "bridgehead-cache-line-open" },
+        { "type": "giveItem", "itemId": "travel-ration", "quantity": 1 },
+        { "type": "giveItem", "itemId": "bandage", "quantity": 1 },
+        { "type": "setFlag", "flagId": "bridgehead-cache-opened" },
+        { "type": "playSfx", "sfxId": "sfx-chest" },
+        { "type": "end" }
+      ]
     }
   ],
   "shops": [
@@ -1076,6 +1221,27 @@
         {
           "itemId": "bronze-sword",
           "price": 47
+        }
+      ]
+    },
+    {
+      "id": "bridgehead-post-shop",
+      "name": "Bridgehead Supply Post",
+      "inventory": [
+        {
+          "itemId": "herb"
+        },
+        {
+          "itemId": "bandage",
+          "price": 21
+        },
+        {
+          "itemId": "travel-ration",
+          "price": 25
+        },
+        {
+          "itemId": "bronze-sword",
+          "price": 50
         }
       ]
     }

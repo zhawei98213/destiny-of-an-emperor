@@ -203,8 +203,14 @@ export async function validateVisualBackfillPlans(): Promise<VisualBackfillPlan[
     if (!chapterIds.has(plan.chapterId)) {
       throw new Error(`[visual-backfill] ${path.relative(repoRoot, getPlanPath(plan.planId))}:chapterId references unknown chapter "${plan.chapterId}"`);
     }
-    if (!Array.isArray(plan.replacementEntries) || plan.replacementEntries.length === 0) {
-      throw new Error(`[visual-backfill] ${path.relative(repoRoot, getPlanPath(plan.planId))}:replacementEntries must contain at least one entry`);
+    if (!Array.isArray(plan.replacementEntries)) {
+      throw new Error(`[visual-backfill] ${path.relative(repoRoot, getPlanPath(plan.planId))}:replacementEntries must be an array`);
+    }
+    if (plan.replacementEntries.length === 0) {
+      if (plan.status === "planned") {
+        return;
+      }
+      throw new Error(`[visual-backfill] ${path.relative(repoRoot, getPlanPath(plan.planId))}:replacementEntries must contain at least one entry unless the plan is still planned / 除非计划仍处于 planned 状态，否则 replacementEntries 至少需要一条记录`);
     }
 
     const isTemplatePlan = plan.chapterId === "chapter-template";

@@ -1,0 +1,88 @@
+{
+  "format": "reference-frame-pack-v1",
+  "pack_id": "chapter-08-bridgehead-post-pack",
+  "chapter": "chapter-08-bridgehead-post",
+  "title": "Bridgehead Post Advance Reference Pack",
+  "source": {
+    "source_name": "chapter-08-bridgehead-post-reference-source",
+    "source_type": "screenshot-sequence",
+    "input_path": "screenshots/chapter-08-bridgehead-post/reference-source.png",
+    "approximate_source": "Curated screenshot set for the bridge road and bridgehead post slice. / 桥头路与桥头哨所切片的人工整理截图集。"
+  },
+  "notes": "Initial chapter-08 pack created during gameplay import. Replace low-confidence rows as stronger references arrive. / 在 gameplay 导入时建立的 chapter-08 初始参考包。随着更强参考资料到位，请替换这些低置信度条目。",
+  "frames": [
+    {
+      "id": "chapter-08-bridge-road-map-0001",
+      "source_ref": "manual-sample-map-0001",
+      "scene_type": "world",
+      "map_id": "bridge-road",
+      "subject_type": "map",
+      "subject_id": "bridge-road",
+      "confidence": "low",
+      "output_asset_path": "screenshots/chapter-08-bridgehead-post/bridge-road-map-0001.png",
+      "metadata": {
+        "variant": "layout",
+        "tags": [
+          "map",
+          "world",
+          "bridge-road"
+        ]
+      },
+      "notes": "Bridge-road full layout placeholder for later map parity review. / 桥头路全图布局占位，用于后续地图一致性核对。"
+    },
+    {
+      "id": "chapter-08-bridge-captain-npc-0001",
+      "source_ref": "manual-sample-npc-0001",
+      "scene_type": "world",
+      "map_id": "bridge-road",
+      "subject_type": "npc",
+      "subject_id": "bridge-captain",
+      "confidence": "low",
+      "output_asset_path": "screenshots/chapter-08-bridgehead-post/bridge-captain-npc-0001.png",
+      "metadata": {
+        "variant": "standing",
+        "tags": [
+          "npc",
+          "bridge-captain"
+        ]
+      },
+      "notes": "Bridge captain standing-frame placeholder for future sprite reconstruction. / 桥头都伯站立帧占位，用于后续精灵重建。"
+    },
+    {
+      "id": "chapter-08-bridge-ui-dialogue-0001",
+      "source_ref": "manual-sample-ui-0001",
+      "scene_type": "dialogue",
+      "map_id": "bridge-road",
+      "subject_type": "ui",
+      "subject_id": "dialogue-box",
+      "confidence": "low",
+      "output_asset_path": "ui/chapter-08-bridgehead-post/dialogue-box-0001.png",
+      "metadata": {
+        "variant": "open",
+        "tags": [
+          "ui",
+          "dialogue"
+        ]
+      },
+      "notes": "Dialogue UI reference placeholder for chapter-08. / chapter-08 对话框 UI 参考占位。"
+    },
+    {
+      "id": "chapter-08-bridge-battle-0001",
+      "source_ref": "manual-sample-battle-0001",
+      "scene_type": "battle",
+      "map_id": "bridge-road",
+      "subject_type": "battle",
+      "subject_id": "bridge-road-raiders",
+      "confidence": "low",
+      "output_asset_path": "battle/chapter-08-bridgehead-post/bridge-road-battle-0001.png",
+      "metadata": {
+        "variant": "encounter-open",
+        "tags": [
+          "battle",
+          "bridge-road-raiders"
+        ]
+      },
+      "notes": "Bridge-road encounter placeholder for later battle visual and parity review. / 桥头路遭遇战占位，用于后续战斗视觉与一致性核对。"
+    }
+  ]
+}

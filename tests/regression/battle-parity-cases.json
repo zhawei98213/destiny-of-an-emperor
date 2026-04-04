@@ -187,6 +187,51 @@
           "battleOutcome": "victory"
         }
       }
+    },
+    {
+      "id": "bridgehead-outlaw-baseline",
+      "chapterId": "chapter-08-bridgehead-post",
+      "name": "Bridgehead outlaw baseline / 桥头前路乱兵战基线",
+      "goldenCaseId": "bridge-road-battle-roundtrip",
+      "expected": {
+        "battleGroupId": "highland-outlaws",
+        "enemyIds": ["highland-outlaw"],
+        "openingTurnOrder": [
+          "ally:liu-bei",
+          "enemy:highland-outlaw:0"
+        ],
+        "damageSequence": [
+          { "actorId": "ally:liu-bei", "targetId": "enemy:highland-outlaw:0", "damage": 7 },
+          { "actorId": "enemy:highland-outlaw:0", "targetId": "ally:liu-bei", "damage": 4 },
+          { "actorId": "ally:liu-bei", "targetId": "enemy:highland-outlaw:0", "damage": 7 },
+          { "actorId": "enemy:highland-outlaw:0", "targetId": "ally:liu-bei", "damage": 4 },
+          { "actorId": "ally:liu-bei", "targetId": "enemy:highland-outlaw:0", "damage": 7 }
+        ],
+        "rewards": {
+          "experience": 9,
+          "gold": 16,
+          "items": []
+        },
+        "outcome": "victory",
+        "worldReturn": {
+          "mapId": "bridge-road",
+          "spawnId": "from-forward-camp-yard-east",
+          "playerX": 10,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "trigger": {
+          "mapId": "bridge-road",
+          "triggerId": "bridge-road-battle-trigger",
+          "encounterTableId": "bridge-road-raiders",
+          "battleGroupId": "highland-outlaws"
+        },
+        "settlement": {
+          "sceneFlow": ["WorldScene", "BattleScene", "WorldScene"],
+          "activeScene": "WorldScene",
+          "battleOutcome": "victory"
+        }
+      }
     }
   ]
 }

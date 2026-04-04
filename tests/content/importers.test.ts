@@ -12,6 +12,7 @@ describe("import tools", () => {
     expect(stableStringify(firstReport)).toBe(stableStringify(secondReport));
     expect(firstReport.sourceFiles).toEqual([
       "border-fort.source.json",
+      "bridgehead-post.source.json",
       "demo-maps.source.json",
       "east-road-relay.source.json",
       "forward-camp.source.json",
@@ -85,6 +86,22 @@ describe("import tools", () => {
       expect.objectContaining({
         id: "forward-camp-yard",
         sourceFile: "forward-camp.source.json",
+        npcCount: 2,
+        portalCount: 2,
+        spawnPointCount: 2,
+        triggerCount: 2,
+      }),
+      expect.objectContaining({
+        id: "bridge-road",
+        sourceFile: "bridgehead-post.source.json",
+        npcCount: 2,
+        portalCount: 1,
+        spawnPointCount: 2,
+        triggerCount: 4,
+      }),
+      expect.objectContaining({
+        id: "bridgehead-post",
+        sourceFile: "bridgehead-post.source.json",
         npcCount: 2,
         portalCount: 1,
         spawnPointCount: 1,

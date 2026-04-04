@@ -3291,6 +3291,466 @@
         "activeScene": "WorldScene",
         "dialogueLineIds": []
       }
+    },
+    {
+      "id": "bridge-captain-issues-orders",
+      "name": "Bridge captain issues orders / 桥头都伯发放桥令",
+      "initialState": {
+        "world": {
+          "mapId": "bridge-road",
+          "spawnPointId": "from-forward-camp-yard-east",
+          "playerX": 6,
+          "playerY": 7,
+          "facing": "up"
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "bridge-road",
+        "npcId": "bridge-captain"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "bridge-road",
+          "currentSpawnId": "from-forward-camp-yard-east",
+          "playerX": 6,
+          "playerY": 7,
+          "facing": "up"
+        },
+        "flags": {
+          "bridge-orders-issued": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["bridge-captain-line-issue"]
+      }
+    },
+    {
+      "id": "bridge-sentry-opens-gate",
+      "name": "Bridge sentry opens gate / 桥头守兵放行木栅",
+      "initialState": {
+        "world": {
+          "mapId": "bridge-road",
+          "spawnPointId": "from-forward-camp-yard-east",
+          "playerX": 15,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "bridge-orders-issued": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "bridge-road",
+        "npcId": "bridge-sentry"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "bridge-road",
+          "currentSpawnId": "from-forward-camp-yard-east",
+          "playerX": 15,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "bridge-orders-issued": true,
+          "bridgehead-gate-open": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["bridge-sentry-line-open"]
+      }
+    },
+    {
+      "id": "bridgehead-gate-warps",
+      "name": "Bridgehead gate warps / 桥头木栅过场后切入哨所",
+      "initialState": {
+        "world": {
+          "mapId": "bridge-road",
+          "spawnPointId": "from-forward-camp-yard-east",
+          "playerX": 18,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "bridgehead-gate-open": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "tile",
+        "mapId": "bridge-road",
+        "x": 18,
+        "y": 7
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "bridgehead-post",
+          "currentSpawnId": "from-bridge-road",
+          "playerX": 2,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "bridgehead-gate-open": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["bridgehead-gate-line-open"]
+      }
+    },
+    {
+      "id": "bridgehead-shop-opens",
+      "name": "Bridgehead shop opens / 桥头粮官开启商店",
+      "initialState": {
+        "world": {
+          "mapId": "bridgehead-post",
+          "spawnPointId": "from-bridge-road",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 52,
+          "items": []
+        },
+        "shopStates": {
+          "bridgehead-post-shop": {
+            "visited": false
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "bridgehead-post",
+        "npcId": "bridge-quartermaster"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "bridgehead-post",
+          "currentSpawnId": "from-bridge-road",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 52,
+          "items": []
+        },
+        "shopStates": {
+          "bridgehead-post-shop": {
+            "visited": true
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["bridgehead-shop-line"],
+        "shopId": "bridgehead-post-shop",
+        "shopItemLines": [
+          "1. Herb - 10G",
+          "2. Bandage - 21G",
+          "3. 行军口粮 - 25G",
+          "4. Bronze Sword - 50G"
+        ]
+      }
+    },
+    {
+      "id": "bridgehead-cache-first-open",
+      "name": "Bridgehead cache first open / 桥头补给箱首次开启",
+      "initialState": {
+        "world": {
+          "mapId": "bridgehead-post",
+          "spawnPointId": "from-bridge-road",
+          "playerX": 3,
+          "playerY": 9,
+          "facing": "up"
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "tile",
+        "mapId": "bridgehead-post",
+        "x": 3,
+        "y": 9
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "bridgehead-post",
+          "currentSpawnId": "from-bridge-road",
+          "playerX": 3,
+          "playerY": 9,
+          "facing": "up"
+        },
+        "flags": {
+          "bridgehead-cache-opened": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": [
+            {
+              "itemId": "travel-ration",
+              "quantity": 1
+            },
+            {
+              "itemId": "bandage",
+              "quantity": 1
+            }
+          ]
+        },
+        "consumedTriggerIds": ["bridgehead-cache-trigger"]
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["bridgehead-cache-line-open"]
+      }
+    },
+    {
+      "id": "bridge-road-battle-roundtrip",
+      "name": "Bridge road battle roundtrip / 桥头前路遭遇战并返回地图",
+      "initialState": {
+        "world": {
+          "mapId": "bridge-road",
+          "spawnPointId": "from-forward-camp-yard-east",
+          "playerX": 10,
+          "playerY": 6,
+          "facing": "right",
+          "stepCount": 6
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 0,
+            "currentHp": 24,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "region",
+        "mapId": "bridge-road",
+        "x": 10,
+        "y": 6
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "bridge-road",
+          "currentSpawnId": "from-forward-camp-yard-east",
+          "playerX": 10,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 16,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 9,
+            "currentHp": 16,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene", "BattleScene", "WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": [],
+        "battleOutcome": "victory"
+      }
+    },
+    {
+      "id": "bridgehead-post-save-load-restores-runtime",
+      "name": "Bridgehead post save load restores runtime / 桥头哨所存档读档恢复运行时状态",
+      "initialState": {
+        "world": {
+          "mapId": "bridgehead-post",
+          "spawnPointId": "from-bridge-road",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "bridge-orders-issued": true,
+          "bridgehead-gate-open": true,
+          "bridgehead-cache-opened": true
+        },
+        "inventory": {
+          "gold": 58,
+          "items": [
+            {
+              "itemId": "travel-ration",
+              "quantity": 1
+            },
+            {
+              "itemId": "bandage",
+              "quantity": 1
+            }
+          ]
+        },
+        "shopStates": {
+          "bridgehead-post-shop": {
+            "visited": true
+          }
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 9,
+            "currentHp": 18,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": ["bridgehead-cache-trigger"]
+      },
+      "trigger": {
+        "kind": "saveLoadRoundTrip",
+        "slot": "golden-slot",
+        "postSaveMutation": {
+          "world": {
+            "mapId": "bridge-road",
+            "spawnPointId": "from-forward-camp-yard-east",
+            "playerX": 2,
+            "playerY": 7,
+            "facing": "left"
+          },
+          "flags": {
+            "bridge-orders-issued": false,
+            "bridgehead-gate-open": false,
+            "bridgehead-cache-opened": false
+          },
+          "inventory": {
+            "gold": 0,
+            "items": []
+          },
+          "shopStates": {
+            "bridgehead-post-shop": {
+              "visited": false
+            }
+          },
+          "partyStates": {
+            "liu-bei": {
+              "memberId": "liu-bei",
+              "level": 1,
+              "experience": 0,
+              "currentHp": 1,
+              "currentMp": 0,
+              "statusIds": [],
+              "formationSlot": 0
+            }
+          },
+          "consumedTriggerIds": []
+        }
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "bridgehead-post",
+          "currentSpawnId": "from-bridge-road",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "bridge-orders-issued": true,
+          "bridgehead-gate-open": true,
+          "bridgehead-cache-opened": true
+        },
+        "inventory": {
+          "gold": 58,
+          "items": [
+            {
+              "itemId": "travel-ration",
+              "quantity": 1
+            },
+            {
+              "itemId": "bandage",
+              "quantity": 1
+            }
+          ]
+        },
+        "shopStates": {
+          "bridgehead-post-shop": {
+            "visited": true
+          }
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 9,
+            "currentHp": 18,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": ["bridgehead-cache-trigger"]
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": []
+      }
     }
   ]
 }

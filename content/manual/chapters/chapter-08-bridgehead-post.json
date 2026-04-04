@@ -1,0 +1,52 @@
+{
+  "areaLabel": "Forward Camp East Road and Bridgehead Slice",
+  "chapterId": "chapter-08-bridgehead-post",
+  "enemyGroups": [
+    "highland-outlaws"
+  ],
+  "events": [
+    "bridge-captain-event",
+    "bridge-sentry-event",
+    "bridgehead-gate-event",
+    "bridgehead-shop-event",
+    "bridgehead-cache-event"
+  ],
+  "format": "chapter-metadata-v1",
+  "maps": [
+    "bridge-road",
+    "bridgehead-post"
+  ],
+  "notes": "Eighth real slice extends east from chapter-07 into a bridge approach and a bridgehead supply post. It intentionally reuses the current guard gate, shop, chest, and battle patterns so the main new system pressure is cross-chapter portal stitching plus chapter-local reference pack maintenance. / 第八段真实切片从 chapter-07 继续向东扩展到桥头前路与桥头补给哨所。它刻意复用现有的守兵门禁、商店、宝箱和战斗模式，因此新增系统压力主要集中在跨章 portal 拼接和章节级 reference pack 维护。",
+  "npcs": [
+    "bridge-captain",
+    "bridge-sentry",
+    "bridge-quartermaster",
+    "bridge-runner"
+  ],
+  "paritySummary": {
+    "battles": "validating",
+    "collision": "validating",
+    "dialogue": "parity-review",
+    "events": "validating",
+    "flags": "validating",
+    "items": "parity-review",
+    "mapLayout": "validating",
+    "npcPlacement": "validating",
+    "shops": "validating",
+    "transitions": "validating"
+  },
+  "regressionCases": [
+    "bridge-captain-issues-orders",
+    "bridge-sentry-opens-gate",
+    "bridgehead-gate-warps",
+    "bridgehead-shop-opens",
+    "bridgehead-cache-first-open",
+    "bridge-road-battle-roundtrip",
+    "bridgehead-post-save-load-restores-runtime"
+  ],
+  "shops": [
+    "bridgehead-post-shop"
+  ],
+  "status": "validating",
+  "title": "Bridgehead Post Advance"
+}

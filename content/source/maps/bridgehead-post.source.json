@@ -2,8 +2,8 @@
   "format": "map-source-v1",
   "maps": [
     {
-      "id": "fort-east-road",
-      "name": "Fort East Road",
+      "id": "bridge-road",
+      "name": "Bridge Road",
       "width": 24,
       "height": 14,
       "tileWidth": 16,
@@ -58,24 +58,24 @@
       ],
       "portals": [
         {
-          "id": "fort-east-road-to-border-fort-yard",
+          "id": "bridge-road-to-forward-camp-yard",
           "x": 1,
           "y": 7,
           "width": 1,
           "height": 1,
-          "targetMapId": "border-fort-yard",
-          "targetSpawnId": "from-fort-east-road"
+          "targetMapId": "forward-camp-yard",
+          "targetSpawnId": "from-bridge-road"
         }
       ],
       "spawnPoints": [
         {
-          "id": "from-border-fort-yard-east",
+          "id": "from-forward-camp-yard-east",
           "x": 2,
           "y": 7,
           "facing": "right"
         },
         {
-          "id": "from-forward-camp-yard",
+          "id": "from-bridgehead-post",
           "x": 20,
           "y": 7,
           "facing": "left"
@@ -83,8 +83,8 @@
       ],
       "npcs": [
         {
-          "id": "fort-adjutant",
-          "name": "前营都尉",
+          "id": "bridge-captain",
+          "name": "桥头都伯",
           "x": 6,
           "y": 6,
           "sprite": "guide",
@@ -92,8 +92,8 @@
           "behavior": "idle"
         },
         {
-          "id": "camp-sentry",
-          "name": "前营守兵",
+          "id": "bridge-sentry",
+          "name": "桥头守兵",
           "x": 16,
           "y": 7,
           "sprite": "guard",
@@ -103,44 +103,44 @@
       ],
       "triggers": [
         {
-          "id": "fort-adjutant-trigger",
+          "id": "bridge-captain-trigger",
           "kind": "npcInteraction",
-          "npcId": "fort-adjutant",
-          "eventId": "fort-adjutant-event",
+          "npcId": "bridge-captain",
+          "eventId": "bridge-captain-event",
           "once": false
         },
         {
-          "id": "camp-sentry-trigger",
+          "id": "bridge-sentry-trigger",
           "kind": "npcInteraction",
-          "npcId": "camp-sentry",
-          "eventId": "camp-sentry-event",
+          "npcId": "bridge-sentry",
+          "eventId": "bridge-sentry-event",
           "once": false
         },
         {
-          "id": "forward-camp-gate-trigger",
+          "id": "bridgehead-gate-trigger",
           "kind": "tile",
           "x": 18,
           "y": 7,
           "width": 1,
           "height": 1,
-          "eventId": "forward-camp-gate-event",
+          "eventId": "bridgehead-gate-event",
           "once": false
         },
         {
-          "id": "fort-east-road-battle-trigger",
+          "id": "bridge-road-battle-trigger",
           "kind": "region",
           "x": 10,
           "y": 5,
           "width": 4,
           "height": 3,
-          "encounterTableId": "fort-east-road-raiders",
+          "encounterTableId": "bridge-road-raiders",
           "once": false
         }
       ]
     },
     {
-      "id": "forward-camp-yard",
-      "name": "Forward Camp Yard",
+      "id": "bridgehead-post",
+      "name": "Bridgehead Post",
       "width": 20,
       "height": 12,
       "tileWidth": 16,
@@ -191,52 +191,37 @@
       ],
       "portals": [
         {
-          "id": "forward-camp-yard-to-fort-east-road",
+          "id": "bridgehead-post-to-bridge-road",
           "x": 1,
           "y": 6,
           "width": 1,
           "height": 1,
-          "targetMapId": "fort-east-road",
-          "targetSpawnId": "from-forward-camp-yard"
-        },
-        {
-          "id": "forward-camp-yard-to-bridge-road",
-          "x": 18,
-          "y": 6,
-          "width": 1,
-          "height": 1,
           "targetMapId": "bridge-road",
-          "targetSpawnId": "from-forward-camp-yard-east"
+          "targetSpawnId": "from-bridgehead-post"
         }
       ],
       "spawnPoints": [
         {
-          "id": "from-fort-east-road",
+          "id": "from-bridge-road",
           "x": 2,
           "y": 6,
           "facing": "right"
-        },
-        {
-          "id": "from-bridge-road",
-          "x": 17,
-          "y": 6,
-          "facing": "left"
         }
       ],
       "npcs": [
         {
-          "id": "camp-purveyor",
-          "name": "前营粮官",
+          "id": "bridge-quartermaster",
+          "name": "桥头粮官",
           "x": 9,
           "y": 6,
           "sprite": "merchant",
-          "shopId": "forward-camp-shop",
+          "shopId": "bridgehead-post-shop",
           "facing": "left",
           "behavior": "idle"
         },
         {
-          "id": "camp-scout",
-          "name": "前营斥候",
+          "id": "bridge-runner",
+          "name": "桥头传令兵",
           "x": 12,
           "y": 7,
           "sprite": "guide",
@@ -246,20 +231,20 @@
       ],
       "triggers": [
         {
-          "id": "forward-camp-shop-trigger",
+          "id": "bridgehead-shop-trigger",
           "kind": "npcInteraction",
-          "npcId": "camp-purveyor",
-          "eventId": "forward-camp-shop-event",
+          "npcId": "bridge-quartermaster",
+          "eventId": "bridgehead-shop-event",
           "once": false
         },
         {
-          "id": "forward-camp-cache-trigger",
+          "id": "bridgehead-cache-trigger",
           "kind": "tile",
           "x": 3,
           "y": 9,
           "width": 1,
           "height": 1,
-          "eventId": "forward-camp-cache-event",
+          "eventId": "bridgehead-cache-event",
           "once": true
         }
       ]
