@@ -1,0 +1,172 @@
+{
+  "format": "text-source-v1",
+  "chapterId": "chapter-10-marsh-outpost",
+  "title": "Marsh Outpost Advance",
+  "notes": "Chapter-10 marsh road and outpost dialogue source. / 第 10 章沼泽前路与沼营哨所对白源。",
+  "dialogueLines": [
+    {
+      "id": "marsh-clerk-line-issue",
+      "speakerName": "沼地文吏",
+      "text": "前头就是沼营木栅。拿着这道湿地军令去见守兵，别在泥地里乱闯。",
+      "portraitId": "system-default",
+      "styleId": "system-default",
+      "locale": "zh-CN",
+      "revisionTag": "chapter-10",
+      "soundId": "sfx-confirm"
+    },
+    {
+      "id": "marsh-clerk-line-repeat",
+      "speakerName": "沼地文吏",
+      "text": "军令已经发给你了。过了木栅，沼营里自会有人接应。",
+      "portraitId": "system-default",
+      "styleId": "system-default",
+      "locale": "zh-CN",
+      "revisionTag": "chapter-10",
+      "soundId": "sfx-confirm"
+    },
+    {
+      "id": "marsh-sentry-line-blocked",
+      "speakerName": "沼地守兵",
+      "text": "没有湿地军令，谁也不准靠近木栅。",
+      "portraitId": "system-default",
+      "styleId": "system-default",
+      "locale": "zh-CN",
+      "revisionTag": "chapter-10",
+      "soundId": "sfx-confirm"
+    },
+    {
+      "id": "marsh-sentry-line-open",
+      "speakerName": "沼地守兵",
+      "text": "军令无误。把木栅抬起，放他们进沼营。",
+      "portraitId": "system-default",
+      "styleId": "system-default",
+      "locale": "zh-CN",
+      "revisionTag": "chapter-10",
+      "soundId": "sfx-gate-open"
+    },
+    {
+      "id": "marsh-gate-line-blocked",
+      "speakerName": "系统",
+      "text": "木栅还没有打开。",
+      "portraitId": "system-default",
+      "styleId": "system-default",
+      "locale": "zh-CN",
+      "revisionTag": "chapter-10",
+      "soundId": "sfx-confirm"
+    },
+    {
+      "id": "marsh-gate-line-open",
+      "speakerName": "系统",
+      "text": "木栅缓缓抬起，前方就是沼营哨所。",
+      "portraitId": "system-default",
+      "styleId": "system-default",
+      "locale": "zh-CN",
+      "revisionTag": "chapter-10",
+      "soundId": "sfx-gate-open"
+    },
+    {
+      "id": "marsh-shop-line",
+      "speakerName": "沼营粮官",
+      "text": "湿地补给都在这里。药草、口粮和刀剑，自己挑吧。",
+      "portraitId": "system-default",
+      "styleId": "system-default",
+      "locale": "zh-CN",
+      "revisionTag": "chapter-10",
+      "soundId": "sfx-shop-open"
+    },
+    {
+      "id": "marsh-cache-line-open",
+      "speakerName": "系统",
+      "text": "木箱里还剩下一点干粮和药带。",
+      "portraitId": "system-default",
+      "styleId": "system-default",
+      "locale": "zh-CN",
+      "revisionTag": "chapter-10",
+      "soundId": "sfx-chest"
+    }
+  ],
+  "events": [
+    {
+      "id": "marsh-clerk-event",
+      "name": "Marsh Clerk Event",
+      "steps": [
+        {
+          "type": "ifFlag",
+          "flagId": "marsh-orders-issued",
+          "steps": [
+            { "type": "dialogue", "lineId": "marsh-clerk-line-repeat" },
+            { "type": "end" }
+          ],
+          "elseSteps": [
+            { "type": "dialogue", "lineId": "marsh-clerk-line-issue" },
+            { "type": "setFlag", "flagId": "marsh-orders-issued" },
+            { "type": "end" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "marsh-sentry-event",
+      "name": "Marsh Sentry Event",
+      "steps": [
+        {
+          "type": "ifFlag",
+          "flagId": "marsh-orders-issued",
+          "steps": [
+            { "type": "dialogue", "lineId": "marsh-sentry-line-open" },
+            { "type": "setFlag", "flagId": "marsh-outpost-gate-open" },
+            { "type": "playSfx", "sfxId": "sfx-gate-open" },
+            { "type": "end" }
+          ],
+          "elseSteps": [
+            { "type": "dialogue", "lineId": "marsh-sentry-line-blocked" },
+            { "type": "end" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "marsh-outpost-gate-event",
+      "name": "Marsh Outpost Gate Event",
+      "steps": [
+        {
+          "type": "ifFlag",
+          "flagId": "marsh-outpost-gate-open",
+          "steps": [
+            { "type": "dialogue", "lineId": "marsh-gate-line-open" },
+            { "type": "facePlayer", "facing": "right" },
+            { "type": "movePlayer", "direction": "right", "distance": 1 },
+            { "type": "warp", "targetMapId": "marsh-outpost", "targetSpawnId": "from-marsh-road" },
+            { "type": "end" }
+          ],
+          "elseSteps": [
+            { "type": "dialogue", "lineId": "marsh-gate-line-blocked" },
+            { "type": "end" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "marsh-outpost-shop-event",
+      "name": "Marsh Outpost Shop Event",
+      "steps": [
+        { "type": "dialogue", "lineId": "marsh-shop-line" },
+        { "type": "openShop", "shopId": "marsh-outpost-shop" },
+        { "type": "playSfx", "sfxId": "sfx-shop-open" },
+        { "type": "end" }
+      ]
+    },
+    {
+      "id": "marsh-outpost-cache-event",
+      "name": "Marsh Outpost Cache Event",
+      "steps": [
+        { "type": "dialogue", "lineId": "marsh-cache-line-open" },
+        { "type": "giveItem", "itemId": "travel-ration", "quantity": 1 },
+        { "type": "giveItem", "itemId": "herb", "quantity": 1 },
+        { "type": "setFlag", "flagId": "marsh-cache-opened" },
+        { "type": "playSfx", "sfxId": "sfx-chest" },
+        { "type": "end" }
+      ]
+    }
+  ]
+}

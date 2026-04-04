@@ -527,6 +527,69 @@
       "speakerName": "系统",
       "text": "你在河营角落的补给箱里找到了一包行军口粮和一卷绷带。",
       "soundId": "sfx-chest"
+    },
+    {
+      "id": "marsh-clerk-line-issue",
+      "speakerName": "沼地文吏",
+      "speakerNpcId": "marsh-clerk",
+      "text": "前头就是沼营木栅。拿着这道湿地军令去见守兵，别在泥地里乱闯。",
+      "portraitId": "guide-default",
+      "soundId": "voice-guide",
+      "styleId": "dialogue-default"
+    },
+    {
+      "id": "marsh-clerk-line-repeat",
+      "speakerName": "沼地文吏",
+      "speakerNpcId": "marsh-clerk",
+      "text": "军令已经发给你了。过了木栅，沼营里自会有人接应。",
+      "portraitId": "guide-default",
+      "soundId": "voice-guide",
+      "styleId": "dialogue-default"
+    },
+    {
+      "id": "marsh-sentry-line-blocked",
+      "speakerName": "沼地守兵",
+      "speakerNpcId": "marsh-sentry",
+      "text": "没有湿地军令，谁也不准靠近木栅。",
+      "portraitId": "guard-default",
+      "soundId": "voice-guard",
+      "styleId": "dialogue-default"
+    },
+    {
+      "id": "marsh-sentry-line-open",
+      "speakerName": "沼地守兵",
+      "speakerNpcId": "marsh-sentry",
+      "text": "军令无误。把木栅抬起，放他们进沼营。",
+      "portraitId": "guard-default",
+      "soundId": "voice-guard",
+      "styleId": "dialogue-default"
+    },
+    {
+      "id": "marsh-gate-line-blocked",
+      "speakerName": "系统",
+      "text": "木栅还没有打开。",
+      "soundId": "sfx-blocked"
+    },
+    {
+      "id": "marsh-gate-line-open",
+      "speakerName": "系统",
+      "text": "木栅缓缓抬起，前方就是沼营哨所。",
+      "soundId": "sfx-step"
+    },
+    {
+      "id": "marsh-shop-line",
+      "speakerName": "沼营粮官",
+      "speakerNpcId": "marsh-quartermaster",
+      "text": "湿地补给都在这里。药草、口粮和刀剑，自己挑吧。",
+      "portraitId": "merchant-default",
+      "soundId": "voice-merchant",
+      "styleId": "dialogue-default"
+    },
+    {
+      "id": "marsh-cache-line-open",
+      "speakerName": "系统",
+      "text": "木箱里还剩下一点干粮和药草。",
+      "soundId": "sfx-chest"
     }
   ],
   "events": [
@@ -1273,6 +1336,88 @@
         { "type": "playSfx", "sfxId": "sfx-chest" },
         { "type": "end" }
       ]
+    },
+    {
+      "id": "marsh-clerk-event",
+      "name": "Marsh Clerk Event",
+      "steps": [
+        {
+          "type": "ifFlag",
+          "flagId": "marsh-orders-issued",
+          "steps": [
+            { "type": "dialogue", "lineId": "marsh-clerk-line-repeat" },
+            { "type": "end" }
+          ],
+          "elseSteps": [
+            { "type": "dialogue", "lineId": "marsh-clerk-line-issue" },
+            { "type": "setFlag", "flagId": "marsh-orders-issued" },
+            { "type": "end" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "marsh-sentry-event",
+      "name": "Marsh Sentry Event",
+      "steps": [
+        {
+          "type": "ifFlag",
+          "flagId": "marsh-orders-issued",
+          "steps": [
+            { "type": "dialogue", "lineId": "marsh-sentry-line-open" },
+            { "type": "setFlag", "flagId": "marsh-outpost-gate-open" },
+            { "type": "playSfx", "sfxId": "sfx-gate-open" },
+            { "type": "end" }
+          ],
+          "elseSteps": [
+            { "type": "dialogue", "lineId": "marsh-sentry-line-blocked" },
+            { "type": "end" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "marsh-outpost-gate-event",
+      "name": "Marsh Outpost Gate Event",
+      "steps": [
+        {
+          "type": "ifFlag",
+          "flagId": "marsh-outpost-gate-open",
+          "steps": [
+            { "type": "dialogue", "lineId": "marsh-gate-line-open" },
+            { "type": "facePlayer", "facing": "right" },
+            { "type": "movePlayer", "direction": "right", "distance": 1 },
+            { "type": "warp", "targetMapId": "marsh-outpost", "targetSpawnId": "from-marsh-road" },
+            { "type": "end" }
+          ],
+          "elseSteps": [
+            { "type": "dialogue", "lineId": "marsh-gate-line-blocked" },
+            { "type": "end" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "marsh-outpost-shop-event",
+      "name": "Marsh Outpost Shop Event",
+      "steps": [
+        { "type": "dialogue", "lineId": "marsh-shop-line" },
+        { "type": "openShop", "shopId": "marsh-outpost-shop" },
+        { "type": "playSfx", "sfxId": "sfx-shop-open" },
+        { "type": "end" }
+      ]
+    },
+    {
+      "id": "marsh-outpost-cache-event",
+      "name": "Marsh Outpost Cache Event",
+      "steps": [
+        { "type": "dialogue", "lineId": "marsh-cache-line-open" },
+        { "type": "giveItem", "itemId": "travel-ration", "quantity": 1 },
+        { "type": "giveItem", "itemId": "herb", "quantity": 1 },
+        { "type": "setFlag", "flagId": "marsh-cache-opened" },
+        { "type": "playSfx", "sfxId": "sfx-chest" },
+        { "type": "end" }
+      ]
     }
   ],
   "shops": [
@@ -1408,6 +1553,27 @@
         {
           "itemId": "bronze-sword",
           "price": 52
+        }
+      ]
+    },
+    {
+      "id": "marsh-outpost-shop",
+      "name": "Marsh Outpost Supply Post",
+      "inventory": [
+        {
+          "itemId": "herb"
+        },
+        {
+          "itemId": "bandage",
+          "price": 23
+        },
+        {
+          "itemId": "travel-ration",
+          "price": 27
+        },
+        {
+          "itemId": "bronze-sword",
+          "price": 54
         }
       ]
     }

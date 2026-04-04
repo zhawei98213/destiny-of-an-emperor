@@ -5,7 +5,7 @@ describe("text integrity", () => {
   it("builds chapter-level coverage and demo-vs-real text ratio", async () => {
     const report = await buildTextIntegrityReport();
 
-    expect(report.summary.chapterCount).toBe(9);
+    expect(report.summary.chapterCount).toBe(10);
     expect(report.ratio.demoLineCount).toBeGreaterThan(0);
     expect(report.ratio.realLineCount).toBeGreaterThan(0);
     expect(report.ratio.realSharePercent).toBeGreaterThan(report.ratio.demoSharePercent);
@@ -17,6 +17,7 @@ describe("text integrity", () => {
     const chapterSeven = report.chapterCoverage.find((entry) => entry.chapterId === "chapter-07-forward-camp");
     const chapterEight = report.chapterCoverage.find((entry) => entry.chapterId === "chapter-08-bridgehead-post");
     const chapterNine = report.chapterCoverage.find((entry) => entry.chapterId === "chapter-09-river-watch-post");
+    const chapterTen = report.chapterCoverage.find((entry) => entry.chapterId === "chapter-10-marsh-outpost");
     expect(chapterThree?.referencedLineIds).toContain("ford-clerk-line-issue");
     expect(chapterThree?.referencedLineIds).toContain("camp-quartermaster-line");
     expect(chapterThree?.manualCoveragePercent).toBe(100);
@@ -38,6 +39,9 @@ describe("text integrity", () => {
     expect(chapterNine?.referencedLineIds).toContain("bank-clerk-line-issue");
     expect(chapterNine?.referencedLineIds).toContain("river-watch-shop-line");
     expect(chapterNine?.manualCoveragePercent).toBe(100);
+    expect(chapterTen?.referencedLineIds).toContain("marsh-clerk-line-issue");
+    expect(chapterTen?.referencedLineIds).toContain("marsh-shop-line");
+    expect(chapterTen?.manualCoveragePercent).toBe(100);
 
     expect(report.issues.some((issue) => issue.type === "missing-style")).toBe(true);
     expect(report.issues.some((issue) => issue.type === "missing-line-reference")).toBe(false);

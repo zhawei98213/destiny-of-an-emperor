@@ -4222,6 +4222,477 @@
         "activeScene": "WorldScene",
         "dialogueLineIds": []
       }
+    },
+    {
+      "id": "marsh-clerk-issues-orders",
+      "name": "Marsh clerk issues orders / 沼地文吏发放军令",
+      "initialState": {
+        "world": {
+          "mapId": "marsh-road",
+          "spawnPointId": "from-river-watch-post-east",
+          "playerX": 5,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "marsh-orders-issued": false,
+          "marsh-outpost-gate-open": false
+        },
+        "inventory": {
+          "gold": 72,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "marsh-road",
+        "npcId": "marsh-clerk"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "marsh-road",
+          "currentSpawnId": "from-river-watch-post-east",
+          "playerX": 5,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "marsh-orders-issued": true,
+          "marsh-outpost-gate-open": false
+        },
+        "inventory": {
+          "gold": 72,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["marsh-clerk-line-issue"]
+      }
+    },
+    {
+      "id": "marsh-sentry-opens-gate",
+      "name": "Marsh sentry opens gate / 沼地守兵放行木栅",
+      "initialState": {
+        "world": {
+          "mapId": "marsh-road",
+          "spawnPointId": "from-river-watch-post-east",
+          "playerX": 15,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "marsh-orders-issued": true,
+          "marsh-outpost-gate-open": false
+        },
+        "inventory": {
+          "gold": 72,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "marsh-road",
+        "npcId": "marsh-sentry"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "marsh-road",
+          "currentSpawnId": "from-river-watch-post-east",
+          "playerX": 15,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "marsh-orders-issued": true,
+          "marsh-outpost-gate-open": true
+        },
+        "inventory": {
+          "gold": 72,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["marsh-sentry-line-open"]
+      }
+    },
+    {
+      "id": "marsh-outpost-gate-warps",
+      "name": "Marsh outpost gate warps / 沼地木栅切入沼营",
+      "initialState": {
+        "world": {
+          "mapId": "marsh-road",
+          "spawnPointId": "from-river-watch-post-east",
+          "playerX": 18,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "marsh-orders-issued": true,
+          "marsh-outpost-gate-open": true
+        },
+        "inventory": {
+          "gold": 72,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "tile",
+        "mapId": "marsh-road",
+        "x": 18,
+        "y": 7
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "marsh-outpost",
+          "currentSpawnId": "from-marsh-road",
+          "playerX": 2,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "marsh-orders-issued": true,
+          "marsh-outpost-gate-open": true
+        },
+        "inventory": {
+          "gold": 72,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["marsh-gate-line-open"]
+      }
+    },
+    {
+      "id": "marsh-outpost-shop-opens",
+      "name": "Marsh outpost shop opens / 沼营粮官开启商店",
+      "initialState": {
+        "world": {
+          "mapId": "marsh-outpost",
+          "spawnPointId": "from-marsh-road",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 72,
+          "items": []
+        },
+        "shopStates": {
+          "marsh-outpost-shop": {
+            "visited": false
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "marsh-outpost",
+        "npcId": "marsh-quartermaster"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "marsh-outpost",
+          "currentSpawnId": "from-marsh-road",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 72,
+          "items": []
+        },
+        "shopStates": {
+          "marsh-outpost-shop": {
+            "visited": true
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["marsh-shop-line"],
+        "shopId": "marsh-outpost-shop",
+        "shopItemLines": [
+          "1. Herb - 10G",
+          "2. Bandage - 23G",
+          "3. 行军口粮 - 27G",
+          "4. Bronze Sword - 54G"
+        ]
+      }
+    },
+    {
+      "id": "marsh-outpost-cache-first-open",
+      "name": "Marsh outpost cache first open / 沼营补给箱首次开启",
+      "initialState": {
+        "world": {
+          "mapId": "marsh-outpost",
+          "spawnPointId": "from-marsh-road",
+          "playerX": 3,
+          "playerY": 9,
+          "facing": "up"
+        },
+        "flags": {
+          "marsh-cache-opened": false
+        },
+        "inventory": {
+          "gold": 72,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "tile",
+        "mapId": "marsh-outpost",
+        "x": 3,
+        "y": 9
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "marsh-outpost",
+          "currentSpawnId": "from-marsh-road",
+          "playerX": 3,
+          "playerY": 9,
+          "facing": "up"
+        },
+        "flags": {
+          "marsh-cache-opened": true
+        },
+        "inventory": {
+          "gold": 72,
+          "items": [
+            {
+              "itemId": "travel-ration",
+              "quantity": 1
+            },
+            {
+              "itemId": "herb",
+              "quantity": 1
+            }
+          ]
+        },
+        "consumedTriggerIds": ["marsh-outpost-cache-trigger"]
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["marsh-cache-line-open"]
+      }
+    },
+    {
+      "id": "marsh-road-battle-roundtrip",
+      "name": "Marsh road battle roundtrip / 沼泽前路遭遇战并返回地图",
+      "initialState": {
+        "world": {
+          "mapId": "marsh-road",
+          "spawnPointId": "from-river-watch-post-east",
+          "playerX": 10,
+          "playerY": 6,
+          "facing": "right",
+          "stepCount": 6
+        },
+        "inventory": {
+          "gold": 72,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 0,
+            "currentHp": 24,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "region",
+        "mapId": "marsh-road",
+        "x": 10,
+        "y": 6
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "marsh-road",
+          "currentSpawnId": "from-river-watch-post-east",
+          "playerX": 10,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 88,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 9,
+            "currentHp": 16,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene", "BattleScene", "WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": [],
+        "battleOutcome": "victory"
+      }
+    },
+    {
+      "id": "marsh-outpost-save-load-restores-runtime",
+      "name": "Marsh outpost save load restores runtime / 沼营哨所存档读档恢复运行时状态",
+      "initialState": {
+        "world": {
+          "mapId": "marsh-outpost",
+          "spawnPointId": "from-marsh-road",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "marsh-orders-issued": true,
+          "marsh-outpost-gate-open": true,
+          "marsh-cache-opened": true
+        },
+        "inventory": {
+          "gold": 72,
+          "items": [
+            {
+              "itemId": "travel-ration",
+              "quantity": 1
+            },
+            {
+              "itemId": "herb",
+              "quantity": 1
+            }
+          ]
+        },
+        "shopStates": {
+          "marsh-outpost-shop": {
+            "visited": true
+          }
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 9,
+            "currentHp": 18,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": ["marsh-outpost-cache-trigger"]
+      },
+      "trigger": {
+        "kind": "saveLoadRoundTrip",
+        "slot": "golden-slot",
+        "postSaveMutation": {
+          "world": {
+            "mapId": "marsh-road",
+            "spawnPointId": "from-river-watch-post-east",
+            "playerX": 2,
+            "playerY": 7,
+            "facing": "left"
+          },
+          "flags": {
+            "marsh-orders-issued": false,
+            "marsh-outpost-gate-open": false,
+            "marsh-cache-opened": false
+          },
+          "inventory": {
+            "gold": 0,
+            "items": []
+          },
+          "shopStates": {
+            "marsh-outpost-shop": {
+              "visited": false
+            }
+          },
+          "partyStates": {
+            "liu-bei": {
+              "memberId": "liu-bei",
+              "level": 1,
+              "experience": 0,
+              "currentHp": 1,
+              "currentMp": 0,
+              "statusIds": [],
+              "formationSlot": 0
+            }
+          },
+          "consumedTriggerIds": []
+        }
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "marsh-outpost",
+          "currentSpawnId": "from-marsh-road",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "marsh-orders-issued": true,
+          "marsh-outpost-gate-open": true,
+          "marsh-cache-opened": true
+        },
+        "inventory": {
+          "gold": 72,
+          "items": [
+            {
+              "itemId": "travel-ration",
+              "quantity": 1
+            },
+            {
+              "itemId": "herb",
+              "quantity": 1
+            }
+          ]
+        },
+        "shopStates": {
+          "marsh-outpost-shop": {
+            "visited": true
+          }
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 9,
+            "currentHp": 18,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": ["marsh-outpost-cache-trigger"]
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": []
+      }
     }
   ]
 }

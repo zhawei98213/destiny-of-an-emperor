@@ -9,7 +9,7 @@ describe("parity scoring", () => {
       regressionReportPath: path.resolve(process.cwd(), "reports/regression/latest/report.json"),
     });
 
-    expect(report.totals.chapterCount).toBe(9);
+    expect(report.totals.chapterCount).toBe(10);
 
     const chapterOne = report.chapters.find((entry) => entry.chapterId === "chapter-01-lou-sang");
     const chapterTwo = report.chapters.find((entry) => entry.chapterId === "chapter-02-east-road-relay");
@@ -20,6 +20,7 @@ describe("parity scoring", () => {
     const chapterSeven = report.chapters.find((entry) => entry.chapterId === "chapter-07-forward-camp");
     const chapterEight = report.chapters.find((entry) => entry.chapterId === "chapter-08-bridgehead-post");
     const chapterNine = report.chapters.find((entry) => entry.chapterId === "chapter-09-river-watch-post");
+    const chapterTen = report.chapters.find((entry) => entry.chapterId === "chapter-10-marsh-outpost");
 
     expect(chapterOne?.dimensions.find((entry) => entry.id === "shop-consistency")?.applicable).toBe(true);
     expect(chapterOne?.dimensions.find((entry) => entry.id === "save-restore")?.score).toBe(100);
@@ -42,5 +43,7 @@ describe("parity scoring", () => {
     expect(chapterEight?.dimensions.find((entry) => entry.id === "battle-rewards")?.score).toBeGreaterThan(0);
     expect(chapterNine?.dimensions.find((entry) => entry.id === "shop-consistency")?.applicable).toBe(true);
     expect(chapterNine?.dimensions.find((entry) => entry.id === "battle-rewards")?.score).toBeGreaterThan(0);
+    expect(chapterTen?.dimensions.find((entry) => entry.id === "shop-consistency")?.applicable).toBe(true);
+    expect(chapterTen?.dimensions.find((entry) => entry.id === "battle-rewards")?.score).toBeGreaterThan(0);
   });
 });

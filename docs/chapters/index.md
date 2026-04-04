@@ -61,6 +61,8 @@ This directory tracks chapter-level planning documents for real remake slices.
 - `chapter-08-bridgehead-post`：第八段真实切片，当前状态为 `validating`
 - `chapter-09-river-watch-post`: ninth real slice, currently `validating`
 - `chapter-09-river-watch-post`：第九段真实切片，当前状态为 `validating`
+- `chapter-10-marsh-outpost`: tenth real slice, currently `validating`
+- `chapter-10-marsh-outpost`：第十段真实切片，当前状态为 `validating`
 
 ## Working Files
 ## 工作文件
@@ -113,6 +115,14 @@ This directory tracks chapter-level planning documents for real remake slices.
 - `chapter-09-river-watch-post-visual-replacement-backlog.md`：chapter-09 的章节级视觉替换 backlog 与参考缺口跟踪
 - `chapter-09-river-watch-post-battle-parity-notes.md`: chapter-local battle parity notes for the east-bank outlaw slice
 - `chapter-09-river-watch-post-battle-parity-notes.md`：chapter-09 河岸前路乱兵战切片的章节级 battle parity 说明
+- [chapter-10-marsh-outpost-plan.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-10-marsh-outpost-plan.md): execution plan for the tenth real slice, including marsh-side gate-chain reuse notes
+- [chapter-10-marsh-outpost-plan.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-10-marsh-outpost-plan.md)：第十段真实切片的执行计划，内含沼泽侧 gate-chain 复用说明
+- [chapter-10-marsh-outpost-lock-report.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-10-marsh-outpost-lock-report.md): current lock, divergence, and throughput report for the tenth real slice
+- [chapter-10-marsh-outpost-lock-report.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-10-marsh-outpost-lock-report.md)：第十段真实切片当前的锁定、偏差与吞吐报告
+- `chapter-10-marsh-outpost-visual-replacement-backlog.md`: chapter-local visual replacement backlog and reference gap tracker for chapter-10
+- `chapter-10-marsh-outpost-visual-replacement-backlog.md`：chapter-10 的章节级视觉替换 backlog 与参考缺口跟踪
+- `chapter-10-marsh-outpost-battle-parity-notes.md`: chapter-local battle parity notes for the marsh-road outlaw slice
+- `chapter-10-marsh-outpost-battle-parity-notes.md`：chapter-10 沼泽前路乱兵战切片的章节级 battle parity 说明
 
 The matching chapter metadata lives in `content/manual/chapters/`.
 对应的章节元数据位于 `content/manual/chapters/`。
