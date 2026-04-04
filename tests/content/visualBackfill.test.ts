@@ -7,6 +7,7 @@ describe("visual backfill workflow", () => {
 
     expect(plans.some((entry) => entry.planId === "chapter-01-lou-sang-ui-batch")).toBe(true);
     expect(plans.some((entry) => entry.planId === "chapter-08-bridgehead-post-bootstrap-batch")).toBe(true);
+    expect(plans.some((entry) => entry.planId === "chapter-09-river-watch-post-bootstrap-batch")).toBe(true);
   });
 
   it("builds a chapter-local before/after report for the proven chapter-01 batch", async () => {

@@ -10,7 +10,7 @@ describe("golden regression suite", () => {
     const suite = await loadGoldenRegressionSuite();
 
     expect(suite.version).toBe(1);
-    expect(suite.cases).toHaveLength(61);
+    expect(suite.cases).toHaveLength(68);
     expect(suite.cases.map((entry) => entry.id)).toEqual([
       "guard-blocked-without-pass",
       "guard-opens-gate-with-pass",
@@ -73,6 +73,13 @@ describe("golden regression suite", () => {
       "bridgehead-cache-first-open",
       "bridge-road-battle-roundtrip",
       "bridgehead-post-save-load-restores-runtime",
+      "bank-clerk-issues-orders",
+      "bank-sentry-opens-gate",
+      "river-watch-gate-warps",
+      "river-watch-shop-opens",
+      "river-watch-cache-first-open",
+      "east-bank-road-battle-roundtrip",
+      "river-watch-post-save-load-restores-runtime",
     ]);
   });
 
@@ -81,7 +88,7 @@ describe("golden regression suite", () => {
 
     expect(report.totals.mismatch).toBe(0);
     expect(report.totals.fail).toBe(0);
-    expect(report.totals.pass).toBe(61);
+    expect(report.totals.pass).toBe(68);
     expect(report.reportDirectory).toContain("reports/regression/latest");
     expect(report.cases[0]?.artifacts?.expectedSnapshotPath).toContain(".expected.snapshot.json");
     expect(report.cases[0]?.artifacts?.actualSnapshotPath).toContain(".actual.snapshot.json");

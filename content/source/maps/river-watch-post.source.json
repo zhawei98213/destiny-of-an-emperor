@@ -2,8 +2,8 @@
   "format": "map-source-v1",
   "maps": [
     {
-      "id": "bridge-road",
-      "name": "Bridge Road",
+      "id": "east-bank-road",
+      "name": "East Bank Road",
       "width": 24,
       "height": 14,
       "tileWidth": 16,
@@ -21,11 +21,11 @@
             3,1,1,1,1,1,1,1,1,4,4,4,1,1,1,1,1,1,1,1,1,1,1,3,
             3,1,1,1,1,1,1,1,1,4,4,4,1,1,1,1,1,1,1,1,1,1,1,3,
             3,1,1,1,1,1,1,1,1,4,4,4,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,3,1,1,3,
+            3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,3,1,1,3,
             3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
-            3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,
             3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
-            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,3,3,1,1,1,1,3,
-            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,3,3,1,1,1,1,3,
             3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
             3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
             3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
@@ -45,11 +45,11 @@
             1,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,
             1,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,
             1,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,
             1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
             1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
-            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,1,
-            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,1,
             1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
             1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
             1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
@@ -58,33 +58,33 @@
       ],
       "portals": [
         {
-          "id": "bridge-road-to-forward-camp-yard",
+          "id": "east-bank-road-to-bridgehead-post",
           "x": 1,
           "y": 7,
           "width": 1,
           "height": 1,
-          "targetMapId": "forward-camp-yard",
-          "targetSpawnId": "from-bridge-road"
+          "targetMapId": "bridgehead-post",
+          "targetSpawnId": "from-east-bank-road"
         }
       ],
       "spawnPoints": [
         {
-          "id": "from-forward-camp-yard-east",
+          "id": "from-bridgehead-post-east",
           "x": 2,
           "y": 7,
           "facing": "right"
         },
         {
-          "id": "from-bridgehead-post",
-          "x": 20,
+          "id": "from-river-watch-post",
+          "x": 19,
           "y": 7,
           "facing": "left"
         }
       ],
       "npcs": [
         {
-          "id": "bridge-captain",
-          "name": "桥头都伯",
+          "id": "bank-clerk",
+          "name": "河岸文吏",
           "x": 6,
           "y": 6,
           "sprite": "guide",
@@ -92,8 +92,8 @@
           "behavior": "idle"
         },
         {
-          "id": "bridge-sentry",
-          "name": "桥头守兵",
+          "id": "bank-sentry",
+          "name": "河岸守兵",
           "x": 16,
           "y": 7,
           "sprite": "guard",
@@ -103,44 +103,44 @@
       ],
       "triggers": [
         {
-          "id": "bridge-captain-trigger",
+          "id": "bank-clerk-trigger",
           "kind": "npcInteraction",
-          "npcId": "bridge-captain",
-          "eventId": "bridge-captain-event",
+          "npcId": "bank-clerk",
+          "eventId": "bank-clerk-event",
           "once": false
         },
         {
-          "id": "bridge-sentry-trigger",
+          "id": "bank-sentry-trigger",
           "kind": "npcInteraction",
-          "npcId": "bridge-sentry",
-          "eventId": "bridge-sentry-event",
+          "npcId": "bank-sentry",
+          "eventId": "bank-sentry-event",
           "once": false
         },
         {
-          "id": "bridgehead-gate-trigger",
+          "id": "river-watch-gate-trigger",
           "kind": "tile",
           "x": 18,
           "y": 7,
           "width": 1,
           "height": 1,
-          "eventId": "bridgehead-gate-event",
+          "eventId": "river-watch-gate-event",
           "once": false
         },
         {
-          "id": "bridge-road-battle-trigger",
+          "id": "east-bank-road-battle-trigger",
           "kind": "region",
           "x": 10,
           "y": 5,
           "width": 4,
           "height": 3,
-          "encounterTableId": "bridge-road-raiders",
+          "encounterTableId": "east-bank-raiders",
           "once": false
         }
       ]
     },
     {
-      "id": "bridgehead-post",
-      "name": "Bridgehead Post",
+      "id": "river-watch-post",
+      "name": "River Watch Post",
       "width": 20,
       "height": 12,
       "tileWidth": 16,
@@ -191,52 +191,37 @@
       ],
       "portals": [
         {
-          "id": "bridgehead-post-to-bridge-road",
+          "id": "river-watch-post-to-east-bank-road",
           "x": 1,
           "y": 6,
           "width": 1,
           "height": 1,
-          "targetMapId": "bridge-road",
-          "targetSpawnId": "from-bridgehead-post"
-        },
-        {
-          "id": "bridgehead-post-to-east-bank-road",
-          "x": 18,
-          "y": 6,
-          "width": 1,
-          "height": 1,
           "targetMapId": "east-bank-road",
-          "targetSpawnId": "from-bridgehead-post-east"
+          "targetSpawnId": "from-river-watch-post"
         }
       ],
       "spawnPoints": [
         {
-          "id": "from-bridge-road",
+          "id": "from-east-bank-road",
           "x": 2,
           "y": 6,
           "facing": "right"
-        },
-        {
-          "id": "from-east-bank-road",
-          "x": 17,
-          "y": 6,
-          "facing": "left"
         }
       ],
       "npcs": [
         {
-          "id": "bridge-quartermaster",
-          "name": "桥头粮官",
+          "id": "watch-quartermaster",
+          "name": "河营粮官",
           "x": 9,
           "y": 6,
           "sprite": "merchant",
-          "shopId": "bridgehead-post-shop",
+          "shopId": "river-watch-post-shop",
           "facing": "left",
           "behavior": "idle"
         },
         {
-          "id": "bridge-runner",
-          "name": "桥头传令兵",
+          "id": "watch-scout",
+          "name": "河营哨探",
           "x": 12,
           "y": 7,
           "sprite": "guide",
@@ -246,20 +231,20 @@
       ],
       "triggers": [
         {
-          "id": "bridgehead-shop-trigger",
+          "id": "river-watch-shop-trigger",
           "kind": "npcInteraction",
-          "npcId": "bridge-quartermaster",
-          "eventId": "bridgehead-shop-event",
+          "npcId": "watch-quartermaster",
+          "eventId": "river-watch-shop-event",
           "once": false
         },
         {
-          "id": "bridgehead-cache-trigger",
+          "id": "river-watch-cache-trigger",
           "kind": "tile",
           "x": 3,
           "y": 9,
           "width": 1,
           "height": 1,
-          "eventId": "bridgehead-cache-event",
+          "eventId": "river-watch-cache-event",
           "once": true
         }
       ]

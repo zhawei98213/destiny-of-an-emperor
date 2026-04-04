@@ -464,6 +464,69 @@
       "speakerName": "系统",
       "text": "你在桥头角落的补给箱里找到一份行军干粮和一卷绷带。",
       "soundId": "sfx-chest"
+    },
+    {
+      "id": "bank-clerk-line-issue",
+      "speakerName": "河岸文吏",
+      "speakerNpcId": "bank-clerk",
+      "text": "前面的河营正在换防。你先记下这道河岸军令，到了木栅前再让守兵验过。",
+      "portraitId": "guide-default",
+      "soundId": "voice-guide",
+      "styleId": "dialogue-default"
+    },
+    {
+      "id": "bank-clerk-line-repeat",
+      "speakerName": "河岸文吏",
+      "speakerNpcId": "bank-clerk",
+      "text": "河岸军令已经交给你了。守兵只认军令，不认口头传话。",
+      "portraitId": "guide-default",
+      "soundId": "voice-guide",
+      "styleId": "dialogue-default"
+    },
+    {
+      "id": "bank-sentry-line-blocked",
+      "speakerName": "河岸守兵",
+      "speakerNpcId": "bank-sentry",
+      "text": "木栅后面就是河营，没有军令一律不准通行。",
+      "portraitId": "guard-default",
+      "soundId": "voice-guard",
+      "styleId": "dialogue-default"
+    },
+    {
+      "id": "bank-sentry-line-open",
+      "speakerName": "河岸守兵",
+      "speakerNpcId": "bank-sentry",
+      "text": "军令无误。我先把木栅给你放开，过去就是河营补给哨。",
+      "portraitId": "guard-default",
+      "soundId": "voice-guard",
+      "styleId": "dialogue-default"
+    },
+    {
+      "id": "river-watch-gate-line-blocked",
+      "speakerName": "系统",
+      "text": "木栅还没有放行，暂时不能继续向东。",
+      "soundId": "sfx-blocked"
+    },
+    {
+      "id": "river-watch-gate-line-open",
+      "speakerName": "系统",
+      "text": "你穿过河岸木栅，前面就是河营补给哨。",
+      "soundId": "sfx-step"
+    },
+    {
+      "id": "river-watch-shop-line",
+      "speakerName": "河营粮官",
+      "speakerNpcId": "watch-quartermaster",
+      "text": "河营用的干粮、绷带和短兵都在这里。过河之前，最好先把行装补齐。",
+      "portraitId": "merchant-default",
+      "soundId": "voice-merchant",
+      "styleId": "dialogue-default"
+    },
+    {
+      "id": "river-watch-cache-line-open",
+      "speakerName": "系统",
+      "text": "你在河营角落的补给箱里找到了一包行军口粮和一卷绷带。",
+      "soundId": "sfx-chest"
     }
   ],
   "events": [
@@ -1128,6 +1191,88 @@
         { "type": "playSfx", "sfxId": "sfx-chest" },
         { "type": "end" }
       ]
+    },
+    {
+      "id": "bank-clerk-event",
+      "name": "Bank Clerk Event",
+      "steps": [
+        {
+          "type": "ifFlag",
+          "flagId": "river-watch-orders-issued",
+          "steps": [
+            { "type": "dialogue", "lineId": "bank-clerk-line-repeat" },
+            { "type": "end" }
+          ],
+          "elseSteps": [
+            { "type": "dialogue", "lineId": "bank-clerk-line-issue" },
+            { "type": "setFlag", "flagId": "river-watch-orders-issued" },
+            { "type": "end" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bank-sentry-event",
+      "name": "Bank Sentry Event",
+      "steps": [
+        {
+          "type": "ifFlag",
+          "flagId": "river-watch-orders-issued",
+          "steps": [
+            { "type": "dialogue", "lineId": "bank-sentry-line-open" },
+            { "type": "setFlag", "flagId": "river-watch-gate-open" },
+            { "type": "playSfx", "sfxId": "sfx-gate-open" },
+            { "type": "end" }
+          ],
+          "elseSteps": [
+            { "type": "dialogue", "lineId": "bank-sentry-line-blocked" },
+            { "type": "end" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "river-watch-gate-event",
+      "name": "River Watch Gate Event",
+      "steps": [
+        {
+          "type": "ifFlag",
+          "flagId": "river-watch-gate-open",
+          "steps": [
+            { "type": "dialogue", "lineId": "river-watch-gate-line-open" },
+            { "type": "facePlayer", "facing": "right" },
+            { "type": "movePlayer", "direction": "right", "distance": 1 },
+            { "type": "warp", "targetMapId": "river-watch-post", "targetSpawnId": "from-east-bank-road" },
+            { "type": "end" }
+          ],
+          "elseSteps": [
+            { "type": "dialogue", "lineId": "river-watch-gate-line-blocked" },
+            { "type": "end" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "river-watch-shop-event",
+      "name": "River Watch Shop Event",
+      "steps": [
+        { "type": "dialogue", "lineId": "river-watch-shop-line" },
+        { "type": "openShop", "shopId": "river-watch-post-shop" },
+        { "type": "playSfx", "sfxId": "sfx-shop-open" },
+        { "type": "end" }
+      ]
+    },
+    {
+      "id": "river-watch-cache-event",
+      "name": "River Watch Cache Event",
+      "steps": [
+        { "type": "dialogue", "lineId": "river-watch-cache-line-open" },
+        { "type": "giveItem", "itemId": "travel-ration", "quantity": 1 },
+        { "type": "giveItem", "itemId": "bandage", "quantity": 1 },
+        { "type": "setFlag", "flagId": "river-watch-cache-opened" },
+        { "type": "playSfx", "sfxId": "sfx-chest" },
+        { "type": "end" }
+      ]
     }
   ],
   "shops": [
@@ -1242,6 +1387,27 @@
         {
           "itemId": "bronze-sword",
           "price": 50
+        }
+      ]
+    },
+    {
+      "id": "river-watch-post-shop",
+      "name": "River Watch Supply Post",
+      "inventory": [
+        {
+          "itemId": "herb"
+        },
+        {
+          "itemId": "bandage",
+          "price": 22
+        },
+        {
+          "itemId": "travel-ration",
+          "price": 26
+        },
+        {
+          "itemId": "bronze-sword",
+          "price": 52
         }
       ]
     }

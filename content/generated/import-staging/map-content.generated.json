@@ -49,13 +49,13 @@
       "id": "bridgehead-post",
       "name": "Bridgehead Post",
       "npcCount": 2,
-      "portalCount": 1,
+      "portalCount": 2,
       "size": {
         "height": 12,
         "width": 20
       },
       "sourceFile": "bridgehead-post.source.json",
-      "spawnPointCount": 1,
+      "spawnPointCount": 2,
       "triggerCount": 2
     },
     {
@@ -267,6 +267,34 @@
       "sourceFile": "river-ford-camp.source.json",
       "spawnPointCount": 2,
       "triggerCount": 2
+    },
+    {
+      "collisionLayerCount": 1,
+      "id": "east-bank-road",
+      "name": "East Bank Road",
+      "npcCount": 2,
+      "portalCount": 1,
+      "size": {
+        "height": 14,
+        "width": 24
+      },
+      "sourceFile": "river-watch-post.source.json",
+      "spawnPointCount": 2,
+      "triggerCount": 4
+    },
+    {
+      "collisionLayerCount": 1,
+      "id": "river-watch-post",
+      "name": "River Watch Post",
+      "npcCount": 2,
+      "portalCount": 1,
+      "size": {
+        "height": 12,
+        "width": 20
+      },
+      "sourceFile": "river-watch-post.source.json",
+      "spawnPointCount": 1,
+      "triggerCount": 2
     }
   ],
   "sourceFiles": [
@@ -278,6 +306,7 @@
     "highland-waystation.source.json",
     "lou-sang-village.source.json",
     "ridgeway-camp.source.json",
-    "river-ford-camp.source.json"
+    "river-ford-camp.source.json",
+    "river-watch-post.source.json"
   ]
 }

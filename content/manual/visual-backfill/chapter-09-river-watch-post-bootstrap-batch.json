@@ -1,0 +1,9 @@
+{
+  "chapterId": "chapter-09-river-watch-post",
+  "format": "visual-backfill-plan-v1",
+  "notes": "Bootstrap visual batch. Keep this file valid as an empty plan until chapter-local registry overrides are ready. / 批量初始化生成的视觉批次。在章节级 registry override 准备好之前，先保持为空批次。",
+  "planId": "chapter-09-river-watch-post-bootstrap-batch",
+  "replacementEntries": [],
+  "status": "planned",
+  "title": "River Watch Post Advance Bootstrap Visual Batch"
+}

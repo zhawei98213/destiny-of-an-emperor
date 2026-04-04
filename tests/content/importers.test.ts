@@ -20,6 +20,7 @@ describe("import tools", () => {
       "lou-sang-village.source.json",
       "ridgeway-camp.source.json",
       "river-ford-camp.source.json",
+      "river-watch-post.source.json",
     ]);
     expect(firstReport.maps).toEqual(expect.arrayContaining([
       expect.objectContaining({
@@ -102,6 +103,22 @@ describe("import tools", () => {
       expect.objectContaining({
         id: "bridgehead-post",
         sourceFile: "bridgehead-post.source.json",
+        npcCount: 2,
+        portalCount: 2,
+        spawnPointCount: 2,
+        triggerCount: 2,
+      }),
+      expect.objectContaining({
+        id: "east-bank-road",
+        sourceFile: "river-watch-post.source.json",
+        npcCount: 2,
+        portalCount: 1,
+        spawnPointCount: 2,
+        triggerCount: 4,
+      }),
+      expect.objectContaining({
+        id: "river-watch-post",
+        sourceFile: "river-watch-post.source.json",
         npcCount: 2,
         portalCount: 1,
         spawnPointCount: 1,

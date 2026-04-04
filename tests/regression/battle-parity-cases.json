@@ -232,6 +232,51 @@
           "battleOutcome": "victory"
         }
       }
+    },
+    {
+      "id": "river-watch-outlaw-baseline",
+      "chapterId": "chapter-09-river-watch-post",
+      "name": "River watch outlaw baseline / 河岸前路乱兵战基线",
+      "goldenCaseId": "east-bank-road-battle-roundtrip",
+      "expected": {
+        "battleGroupId": "highland-outlaws",
+        "enemyIds": ["highland-outlaw"],
+        "openingTurnOrder": [
+          "ally:liu-bei",
+          "enemy:highland-outlaw:0"
+        ],
+        "damageSequence": [
+          { "actorId": "ally:liu-bei", "targetId": "enemy:highland-outlaw:0", "damage": 7 },
+          { "actorId": "enemy:highland-outlaw:0", "targetId": "ally:liu-bei", "damage": 4 },
+          { "actorId": "ally:liu-bei", "targetId": "enemy:highland-outlaw:0", "damage": 7 },
+          { "actorId": "enemy:highland-outlaw:0", "targetId": "ally:liu-bei", "damage": 4 },
+          { "actorId": "ally:liu-bei", "targetId": "enemy:highland-outlaw:0", "damage": 7 }
+        ],
+        "rewards": {
+          "experience": 9,
+          "gold": 16,
+          "items": []
+        },
+        "outcome": "victory",
+        "worldReturn": {
+          "mapId": "east-bank-road",
+          "spawnId": "from-bridgehead-post-east",
+          "playerX": 10,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "trigger": {
+          "mapId": "east-bank-road",
+          "triggerId": "east-bank-road-battle-trigger",
+          "encounterTableId": "east-bank-raiders",
+          "battleGroupId": "highland-outlaws"
+        },
+        "settlement": {
+          "sceneFlow": ["WorldScene", "BattleScene", "WorldScene"],
+          "activeScene": "WorldScene",
+          "battleOutcome": "victory"
+        }
+      }
     }
   ]
 }

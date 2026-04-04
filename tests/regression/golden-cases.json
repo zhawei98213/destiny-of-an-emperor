@@ -3751,6 +3751,477 @@
         "activeScene": "WorldScene",
         "dialogueLineIds": []
       }
+    },
+    {
+      "id": "bank-clerk-issues-orders",
+      "name": "Bank clerk issues orders / 河岸文吏发放军令",
+      "initialState": {
+        "world": {
+          "mapId": "east-bank-road",
+          "spawnPointId": "from-bridgehead-post-east",
+          "playerX": 5,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "river-watch-orders-issued": false,
+          "river-watch-gate-open": false
+        },
+        "inventory": {
+          "gold": 60,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "east-bank-road",
+        "npcId": "bank-clerk"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "east-bank-road",
+          "currentSpawnId": "from-bridgehead-post-east",
+          "playerX": 5,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "river-watch-orders-issued": true,
+          "river-watch-gate-open": false
+        },
+        "inventory": {
+          "gold": 60,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["bank-clerk-line-issue"]
+      }
+    },
+    {
+      "id": "bank-sentry-opens-gate",
+      "name": "Bank sentry opens gate / 河岸守兵放行木栅",
+      "initialState": {
+        "world": {
+          "mapId": "east-bank-road",
+          "spawnPointId": "from-bridgehead-post-east",
+          "playerX": 15,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "river-watch-orders-issued": true,
+          "river-watch-gate-open": false
+        },
+        "inventory": {
+          "gold": 60,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "east-bank-road",
+        "npcId": "bank-sentry"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "east-bank-road",
+          "currentSpawnId": "from-bridgehead-post-east",
+          "playerX": 15,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "river-watch-orders-issued": true,
+          "river-watch-gate-open": true
+        },
+        "inventory": {
+          "gold": 60,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["bank-sentry-line-open"]
+      }
+    },
+    {
+      "id": "river-watch-gate-warps",
+      "name": "River watch gate warps / 河岸木栅切入河营",
+      "initialState": {
+        "world": {
+          "mapId": "east-bank-road",
+          "spawnPointId": "from-bridgehead-post-east",
+          "playerX": 18,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "river-watch-orders-issued": true,
+          "river-watch-gate-open": true
+        },
+        "inventory": {
+          "gold": 60,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "tile",
+        "mapId": "east-bank-road",
+        "x": 18,
+        "y": 7
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "river-watch-post",
+          "currentSpawnId": "from-east-bank-road",
+          "playerX": 2,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "river-watch-orders-issued": true,
+          "river-watch-gate-open": true
+        },
+        "inventory": {
+          "gold": 60,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["river-watch-gate-line-open"]
+      }
+    },
+    {
+      "id": "river-watch-shop-opens",
+      "name": "River watch shop opens / 河营粮官开启商店",
+      "initialState": {
+        "world": {
+          "mapId": "river-watch-post",
+          "spawnPointId": "from-east-bank-road",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 64,
+          "items": []
+        },
+        "shopStates": {
+          "river-watch-post-shop": {
+            "visited": false
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "river-watch-post",
+        "npcId": "watch-quartermaster"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "river-watch-post",
+          "currentSpawnId": "from-east-bank-road",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 64,
+          "items": []
+        },
+        "shopStates": {
+          "river-watch-post-shop": {
+            "visited": true
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["river-watch-shop-line"],
+        "shopId": "river-watch-post-shop",
+        "shopItemLines": [
+          "1. Herb - 10G",
+          "2. Bandage - 22G",
+          "3. 行军口粮 - 26G",
+          "4. Bronze Sword - 52G"
+        ]
+      }
+    },
+    {
+      "id": "river-watch-cache-first-open",
+      "name": "River watch cache first open / 河营补给箱首次开启",
+      "initialState": {
+        "world": {
+          "mapId": "river-watch-post",
+          "spawnPointId": "from-east-bank-road",
+          "playerX": 3,
+          "playerY": 9,
+          "facing": "up"
+        },
+        "flags": {
+          "river-watch-cache-opened": false
+        },
+        "inventory": {
+          "gold": 64,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "tile",
+        "mapId": "river-watch-post",
+        "x": 3,
+        "y": 9
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "river-watch-post",
+          "currentSpawnId": "from-east-bank-road",
+          "playerX": 3,
+          "playerY": 9,
+          "facing": "up"
+        },
+        "flags": {
+          "river-watch-cache-opened": true
+        },
+        "inventory": {
+          "gold": 64,
+          "items": [
+            {
+              "itemId": "travel-ration",
+              "quantity": 1
+            },
+            {
+              "itemId": "bandage",
+              "quantity": 1
+            }
+          ]
+        },
+        "consumedTriggerIds": ["river-watch-cache-trigger"]
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["river-watch-cache-line-open"]
+      }
+    },
+    {
+      "id": "east-bank-road-battle-roundtrip",
+      "name": "East bank road battle roundtrip / 河岸前路遭遇战并返回地图",
+      "initialState": {
+        "world": {
+          "mapId": "east-bank-road",
+          "spawnPointId": "from-bridgehead-post-east",
+          "playerX": 10,
+          "playerY": 6,
+          "facing": "right",
+          "stepCount": 6
+        },
+        "inventory": {
+          "gold": 64,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 0,
+            "currentHp": 24,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "region",
+        "mapId": "east-bank-road",
+        "x": 10,
+        "y": 6
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "east-bank-road",
+          "currentSpawnId": "from-bridgehead-post-east",
+          "playerX": 10,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 80,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 9,
+            "currentHp": 16,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene", "BattleScene", "WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": [],
+        "battleOutcome": "victory"
+      }
+    },
+    {
+      "id": "river-watch-post-save-load-restores-runtime",
+      "name": "River watch post save load restores runtime / 河营哨所存档读档恢复运行时状态",
+      "initialState": {
+        "world": {
+          "mapId": "river-watch-post",
+          "spawnPointId": "from-east-bank-road",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "river-watch-orders-issued": true,
+          "river-watch-gate-open": true,
+          "river-watch-cache-opened": true
+        },
+        "inventory": {
+          "gold": 64,
+          "items": [
+            {
+              "itemId": "travel-ration",
+              "quantity": 1
+            },
+            {
+              "itemId": "bandage",
+              "quantity": 1
+            }
+          ]
+        },
+        "shopStates": {
+          "river-watch-post-shop": {
+            "visited": true
+          }
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 9,
+            "currentHp": 18,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": ["river-watch-cache-trigger"]
+      },
+      "trigger": {
+        "kind": "saveLoadRoundTrip",
+        "slot": "golden-slot",
+        "postSaveMutation": {
+          "world": {
+            "mapId": "east-bank-road",
+            "spawnPointId": "from-bridgehead-post-east",
+            "playerX": 2,
+            "playerY": 7,
+            "facing": "left"
+          },
+          "flags": {
+            "river-watch-orders-issued": false,
+            "river-watch-gate-open": false,
+            "river-watch-cache-opened": false
+          },
+          "inventory": {
+            "gold": 0,
+            "items": []
+          },
+          "shopStates": {
+            "river-watch-post-shop": {
+              "visited": false
+            }
+          },
+          "partyStates": {
+            "liu-bei": {
+              "memberId": "liu-bei",
+              "level": 1,
+              "experience": 0,
+              "currentHp": 1,
+              "currentMp": 0,
+              "statusIds": [],
+              "formationSlot": 0
+            }
+          },
+          "consumedTriggerIds": []
+        }
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "river-watch-post",
+          "currentSpawnId": "from-east-bank-road",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "river-watch-orders-issued": true,
+          "river-watch-gate-open": true,
+          "river-watch-cache-opened": true
+        },
+        "inventory": {
+          "gold": 64,
+          "items": [
+            {
+              "itemId": "travel-ration",
+              "quantity": 1
+            },
+            {
+              "itemId": "bandage",
+              "quantity": 1
+            }
+          ]
+        },
+        "shopStates": {
+          "river-watch-post-shop": {
+            "visited": true
+          }
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 9,
+            "currentHp": 18,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": ["river-watch-cache-trigger"]
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": []
+      }
     }
   ]
 }
