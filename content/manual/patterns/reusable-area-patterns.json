@@ -1,0 +1,59 @@
+{
+  "format": "reusable-area-patterns-v1",
+  "patterns": [
+    {
+      "id": "town-pattern",
+      "label": "Town Pattern / 城镇模式",
+      "mapShape": "safe-hub-plus-exit",
+      "npcRoles": ["guide", "clerk", "merchant", "guard"],
+      "eventPatterns": ["intro-dialogue", "shop", "guard-gate", "exit-warp"],
+      "regressionHooks": ["shop-open", "gate-warp", "save-load"],
+      "notes": "Use for early-route safe hubs and chapter reset points. / 用于路线前段的安全城镇与章节重置点。"
+    },
+    {
+      "id": "dungeon-cave-pattern",
+      "label": "Dungeon Or Cave Pattern / 洞穴或迷宫模式",
+      "mapShape": "one-to-three-interior-maps",
+      "npcRoles": ["checkpoint"],
+      "eventPatterns": ["checkpoint-dialogue", "chest", "encounter-region", "exit-warp"],
+      "regressionHooks": ["chest-open", "battle-roundtrip", "return-warp"],
+      "notes": "Use for compact interior exploration slices. / 用于紧凑型室内探索切片。"
+    },
+    {
+      "id": "gate-guard-pattern",
+      "label": "Gate Guard Pattern / 栅门守兵模式",
+      "mapShape": "road-plus-gated-next-map",
+      "npcRoles": ["clerk", "sentry"],
+      "eventPatterns": ["order-issue", "flag-check", "gate-cutscene-warp"],
+      "regressionHooks": ["orders-issued", "guard-opens", "gate-warps"],
+      "notes": "Use when route progression depends on one issued order or one key item. / 用于依赖军令或关键物品推进路线的场景。"
+    },
+    {
+      "id": "shop-pattern",
+      "label": "Shop Pattern / 商店模式",
+      "mapShape": "hub-or-outpost-owner-npc",
+      "npcRoles": ["merchant", "quartermaster", "purveyor"],
+      "eventPatterns": ["dialogue-open-shop-play-sfx"],
+      "regressionHooks": ["shop-open", "shop-item-lines"],
+      "notes": "Use when chapter economics need one stable supply node. / 用于章节经济需要一个稳定补给点的场景。"
+    },
+    {
+      "id": "chest-pattern",
+      "label": "Chest Pattern / 宝箱模式",
+      "mapShape": "one-shot-tile-trigger",
+      "npcRoles": [],
+      "eventPatterns": ["dialogue-give-item-set-flag-play-sfx"],
+      "regressionHooks": ["cache-first-open", "save-load"],
+      "notes": "Use for one-shot reward nodes with clear consumed-trigger tracking. / 用于带清晰 consumed trigger 跟踪的一次性奖励节点。"
+    },
+    {
+      "id": "story-checkpoint-pattern",
+      "label": "Story Checkpoint Pattern / 剧情检查点模式",
+      "mapShape": "npc-or-tile-route-state-change",
+      "npcRoles": ["clerk", "guide", "checkpoint"],
+      "eventPatterns": ["dialogue-flag-change-optional-warp"],
+      "regressionHooks": ["main-flow-event", "progression-gating"],
+      "notes": "Use when one interaction flips route availability for the next chapter edge. / 用于一次交互改变下一章路线开放状态的场景。"
+    }
+  ]
+}
