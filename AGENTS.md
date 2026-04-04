@@ -109,6 +109,8 @@ Follow it before making code, content, tooling, or documentation changes.
 - `npm run check:chapter-completeness`：把章节元数据归属与当前可达内容做对照。
 - `npm run chapter-bootstrap -- --id <chapter-id> --title "<title>" --area "<area>"`: create a new chapter scaffold from the repository templates.
 - `npm run chapter-bootstrap -- --id <chapter-id> --title "<title>" --area "<area>"`：基于仓库模板创建新的章节骨架。
+- `npm run batch-chapter-bootstrap -- --id <chapter-id> --title "<title>" --area "<area>"`: create the default chapter batch, including manifests, checklists, reference folders, and a creation summary.
+- `npm run batch-chapter-bootstrap -- --id <chapter-id> --title "<title>" --area "<area>"`：创建默认章节批次，包括 manifest、checklist、reference 目录和创建摘要。
 - `npm run chapter-status-report`: summarize chapter import status from metadata, completeness, parity, regression, and UI parity evidence.
 - `npm run chapter-status-report`：基于元数据、completeness、parity、regression 和 UI parity 证据汇总章节导入状态。
 - `npm run chapter-lock-checklist -- --id <chapter-id>`: generate a chapter lock checklist for review.
@@ -169,6 +171,8 @@ Follow it before making code, content, tooling, or documentation changes.
 - 不得把剧情逻辑写死在 scene。
 - Real chapter importing now runs in dual-track mode: gameplay/content must close the chapter loop first, while visual parity work must stay traceable through chapter-local visual replacement backlog files.
 - 真实章节导入现在采用双轨模式：先由 gameplay/content 完成章节闭环，而 visual parity 必须通过章节级 visual replacement backlog 保持可追溯。
+- For any new real chapter after the bootstrap workflow landed, prefer `batch-chapter-bootstrap` over manual file creation or the smaller scaffold command.
+- 在批量初始化工作流落地之后，新增真实章节应优先使用 `batch-chapter-bootstrap`，不要手工建文件，也不要优先使用更小的 scaffold 命令。
 - Story and dialogue content should default to Simplified Chinese unless a task explicitly requires another language.
 - 剧情和对话内容默认使用简体中文，除非任务明确要求使用其他语言。
 - Do not hand-edit generated content.

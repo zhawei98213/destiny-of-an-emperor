@@ -24,6 +24,7 @@
     "chapter-npc-text-report": "vite-node tools/chapter-npc-text-report.ts",
     "check:chapter-completeness": "vite-node tools/check-chapter-completeness.ts",
     "chapter-bootstrap": "vite-node tools/chapter-bootstrap.ts",
+    "batch-chapter-bootstrap": "vite-node tools/batch-chapter-bootstrap.ts",
     "chapter-status-report": "vite-node tools/chapter-status-report.ts",
     "chapter-lock-checklist": "vite-node tools/chapter-lock-checklist.ts",
     "progression-gating-audit": "vite-node tools/progression-gating-audit.ts",

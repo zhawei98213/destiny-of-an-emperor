@@ -37,6 +37,8 @@ Current first-pass tooling:
 - `tools/check-chapter-completeness.ts`：把章节元数据与当前可达地图、NPC、事件、商店和敌群做对照。
 - `tools/chapter-bootstrap.ts`: creates a chapter metadata file plus matching plan and lock-report scaffolds from the repository templates.
 - `tools/chapter-bootstrap.ts`：基于仓库模板创建章节元数据文件，以及对应的计划和锁定报告骨架。
+- `tools/batch-chapter-bootstrap.ts`: creates the full default chapter batch, including metadata, plan, lock-report, visual backlog, battle notes, source text skeleton, reference pack, visual backfill plan, and a creation summary.
+- `tools/batch-chapter-bootstrap.ts`：创建完整的默认章节批次，包括元数据、计划、锁定报告、视觉 backlog、战斗说明、source 文本骨架、reference pack、visual backfill plan 和创建摘要。
 - `tools/chapter-status-report.ts`: aggregates chapter metadata, completeness, parity, regression, and UI parity into one chapter import status summary.
 - `tools/chapter-status-report.ts`：把章节元数据、completeness、parity、regression 和 UI parity 聚合成一份章节导入状态摘要。
 - `tools/chapter-lock-checklist.ts`: generates a review checklist for deciding whether a chapter is ready to lock.
@@ -163,6 +165,10 @@ Current first-pass tooling:
   Creates a new chapter scaffold from the current templates with much less manual copy/paste work.
 - `npm run chapter-bootstrap -- --id <chapter-id> --title "<title>" --area "<area>"`
   基于当前模板创建新的章节骨架，显著减少手工复制样板的工作量。
+- `npm run batch-chapter-bootstrap -- --id <chapter-id> --title "<title>" --area "<area>"`
+  Creates the default chapter batch in one step, including chapter-local manifests, checklists, reference folders, and a bootstrap summary.
+- `npm run batch-chapter-bootstrap -- --id <chapter-id> --title "<title>" --area "<area>"`
+  一次性创建默认章节批次，包括章节级 manifest、checklist、reference 目录和 bootstrap 摘要。
 - `npm run chapter-status-report`
   Generates `reports/chapters/latest/status-report.*` from current chapter metadata and evidence reports.
 - `npm run chapter-status-report`

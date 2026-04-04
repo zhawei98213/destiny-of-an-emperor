@@ -31,6 +31,8 @@ This directory tracks chapter-level planning documents for real remake slices.
 
 - `npm run chapter-bootstrap -- --id <chapter-id> --title "<title>" --area "<area>"`
 - `npm run chapter-bootstrap -- --id <chapter-id> --title "<title>" --area "<area>"`
+- `npm run batch-chapter-bootstrap -- --id <chapter-id> --title "<title>" --area "<area>"`
+- `npm run batch-chapter-bootstrap -- --id <chapter-id> --title "<title>" --area "<area>"`
 - `npm run check:chapter-completeness`
 - `npm run check:chapter-completeness`
 - `npm run chapter-status-report`

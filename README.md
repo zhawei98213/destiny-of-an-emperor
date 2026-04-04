@@ -81,6 +81,8 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - `npm run check:chapter-completeness`：把章节元数据与当前可达地图、NPC、事件、商店和敌群做对照。
 - `npm run chapter-bootstrap -- --id <chapter-id> --title "<title>" --area "<area>"`: create chapter metadata, plan, and lock-report scaffolds from the existing templates.
 - `npm run chapter-bootstrap -- --id <chapter-id> --title "<title>" --area "<area>"`：基于现有模板创建章节元数据、计划和锁定报告骨架。
+- `npm run batch-chapter-bootstrap -- --id <chapter-id> --title "<title>" --area "<area>"`: create the default chapter batch in one step, including chapter metadata, plan, lock report, visual backlog, reference pack, source text skeleton, visual backfill plan, and a bootstrap summary.
+- `npm run batch-chapter-bootstrap -- --id <chapter-id> --title "<title>" --area "<area>"`：一步创建默认章节批次，包括章节元数据、计划、锁定报告、视觉 backlog、reference pack、source 文本骨架、visual backfill plan 和 bootstrap 摘要。
 - `npm run chapter-status-report`: generate one chapter-level status summary aligned with completeness, parity, regression, and UI parity.
 - `npm run chapter-status-report`：生成与 completeness、parity、regression 和 UI parity 对齐的章节级状态摘要。
 - `npm run chapter-lock-checklist -- --id <chapter-id>`: generate a lock checklist for one chapter.
