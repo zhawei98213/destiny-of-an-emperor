@@ -123,6 +123,12 @@ Follow it before making code, content, tooling, or documentation changes.
 - `npm run encounter-transition-parity`：审计 world-battle、battle-world、剧情到 battle 缺口，以及 map-map 衔接完整性。
 - `npm run world-connectivity-audit`: generate the current global world graph audit for portals, spawns, and return-path consistency.
 - `npm run world-connectivity-audit`：生成当前全局世界连接图审计，覆盖 portal、spawn 和返回路径一致性。
+- `npm run npc-global-state-audit`: generate the current imported-chapter NPC visibility, trigger, and stale-state audit.
+- `npm run npc-global-state-audit`：生成当前已导入章节的 NPC 显示、触发和陈旧状态审计。
+- `npm run global-text-continuity-audit`: generate the current cross-chapter text continuity report for repeated text, linkage, and naming consistency.
+- `npm run global-text-continuity-audit`：生成当前跨章节文本连续性报告，覆盖重复文本、链接和命名一致性。
+- `npm run overworld-navigation-parity`: generate the current world-navigation parity report from connectivity and progression evidence.
+- `npm run overworld-navigation-parity`：基于连接性与推进证据生成当前世界导航一致性报告。
 - `npm run economy-parity-audit`: audit chapter-owned shops, key-item circulation, price consistency, and battle reward/drop sanity.
 - `npm run economy-parity-audit`：审计章节归属商店、关键物品流通、价格一致性以及战斗奖励/掉落合理性。
 - `npm run equipment-status-recovery`: audit equipment behavior gaps, status support gaps, heal/save point behavior, and restore/revive edge cases.
@@ -202,6 +208,12 @@ After a meaningful change, run at least the commands that match the risk:
 - 世界地图、portal、spawn 或切图链路改动：执行 `npm run world-connectivity-audit`
 - Mainline progression, guard gating, map unlock, or flag gating change: `npm run progression-gating-audit`
 - 主线推进、门卫阻拦、地图开放或 flag 门禁改动：执行 `npm run progression-gating-audit`
+- NPC placement, visibility, trigger ownership, or stale state change: `npm run npc-global-state-audit`
+- NPC 摆位、显示、触发归属或陈旧状态改动：执行 `npm run npc-global-state-audit`
+- Cross-chapter dialogue naming, repeated text, or continuity change: `npm run global-text-continuity-audit`
+- 跨章节对白命名、重复文本或连续性改动：执行 `npm run global-text-continuity-audit`
+- World-route growth or chapter-to-chapter navigation change: `npm run overworld-navigation-parity`
+- 世界路线扩张或章节间导航关系改动：执行 `npm run overworld-navigation-parity`
 - Shop inventory, item flow, price, reward, or drop change: `npm run economy-parity-audit`
 - 商店库存、物品流通、价格、奖励或掉落改动：执行 `npm run economy-parity-audit`
 - Party growth, enemy stat curve, or chapter reward-curve change: `npm run progression-stat-parity`

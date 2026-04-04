@@ -95,6 +95,12 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - `npm run encounter-transition-parity`：审计真实切片中的 world-battle、battle-world 和 map-map 衔接完整性。
 - `npm run world-connectivity-audit`: generate the current global map graph audit for portals, spawns, and return-path consistency.
 - `npm run world-connectivity-audit`：生成当前全局地图连接图审计，覆盖 portal、spawn 和返回路径一致性。
+- `npm run npc-global-state-audit`: generate the current front-10 NPC visibility, trigger, and stale-state audit.
+- `npm run npc-global-state-audit`：生成当前前 10 区域的 NPC 显示、触发和陈旧状态审计。
+- `npm run global-text-continuity-audit`: generate the current cross-chapter text continuity report for repeated text, linkage, and naming consistency.
+- `npm run global-text-continuity-audit`：生成当前跨章节文本连续性报告，覆盖重复文本、链接和命名一致性。
+- `npm run overworld-navigation-parity`: generate the current world-navigation parity report from connectivity and progression evidence.
+- `npm run overworld-navigation-parity`：基于连接性与推进证据生成当前世界导航一致性报告。
 - `npm run economy-parity-audit`: generate the current shop, item, price, reward, and drop economy audit for imported chapters.
 - `npm run economy-parity-audit`：为已导入章节生成当前商店、物品、价格、奖励和掉落的经济一致性审计。
 - `npm run equipment-status-recovery`: audit equipment gaps, recovery flow calibration, and restore/revive edge cases.

@@ -51,6 +51,12 @@ Current first-pass tooling:
 - `tools/encounter-transition-parity.ts`：审计真实切片中的遭遇触发、切场时机、场景交接状态和返回 world 完整性。
 - `tools/world-connectivity-audit.ts`: generates the current global map connection graph and reports missing return portals, isolated maps, invalid spawns, and bidirectional traversal mismatches.
 - `tools/world-connectivity-audit.ts`：生成当前全局地图连接图，并报告缺失返回 portal、孤立地图、无效 spawn 和双向移动不一致问题。
+- `tools/npc-global-state-audit.ts`: generates a front-10 NPC visibility, trigger, and stale-state audit from manual world/story content.
+- `tools/npc-global-state-audit.ts`：基于 manual world/story 内容生成前 10 区域的 NPC 显示、触发和陈旧状态审计。
+- `tools/global-text-continuity-audit.ts`: generates a front-10 text continuity audit covering repeated text, missing linkage, and naming consistency.
+- `tools/global-text-continuity-audit.ts`：生成前 10 区域文本连续性审计，覆盖重复文本、缺失链接和命名一致性。
+- `tools/overworld-navigation-parity.ts`: generates a front-10 world navigation audit from connectivity and progression evidence.
+- `tools/overworld-navigation-parity.ts`：基于连接性和推进证据生成前 10 区域的大地图导航审计。
 - `tools/economy-parity-audit.ts`: audits chapter-owned shops, item circulation, price overrides, and battle reward/drop sanity.
 - `tools/economy-parity-audit.ts`：审计章节归属商店、物品流通、价格覆盖以及战斗奖励/掉落合理性。
 - `tools/equipment-status-recovery.ts`: audits equipment support gaps, status support gaps, heal/save point behavior, and restore/revive edge cases.
@@ -185,6 +191,18 @@ Current first-pass tooling:
   Generates `reports/world-connectivity/latest/` and audits graph-level map traversal issues such as missing return portals, isolated maps, invalid spawns, and bidirectional traversal mismatches.
 - `npm run world-connectivity-audit`
   生成 `reports/world-connectivity/latest/`，并审计缺失返回 portal、孤立地图、无效 spawn、双向移动不一致等图结构级问题。
+- `npm run npc-global-state-audit`
+  Generates `reports/npc-global-state/latest/` and summarizes NPC visibility, trigger bindings, flag-driven behavior, and stale-state risks across imported chapters.
+- `npm run npc-global-state-audit`
+  生成 `reports/npc-global-state/latest/`，并汇总已导入章节中的 NPC 显示、触发绑定、flag 驱动行为和陈旧状态风险。
+- `npm run global-text-continuity-audit`
+  Generates `reports/global-text-continuity/latest/` and summarizes repeated text, missing linkage, naming consistency, and chapter continuity notes.
+- `npm run global-text-continuity-audit`
+  生成 `reports/global-text-continuity/latest/`，并汇总重复文本、缺失链接、命名一致性和章节连续性说明。
+- `npm run overworld-navigation-parity`
+  Generates `reports/overworld-navigation/latest/` and summarizes world-route edges, travel dependencies, inaccessible intended paths, and accidental shortcuts.
+- `npm run overworld-navigation-parity`
+  生成 `reports/overworld-navigation/latest/`，并汇总世界路线边、行进依赖、预期路径不可达以及非预期捷径。
 - `npm run economy-parity-audit`
   Generates `reports/economy-parity/latest/` and audits shop inventory, item circulation, price consistency, and reward/drop sanity for imported chapters.
 - `npm run economy-parity-audit`
