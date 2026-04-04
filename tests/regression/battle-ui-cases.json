@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "cases": [
+    {
+      "id": "battle-command-selection",
+      "chapterId": "chapter-05-highland-waystation",
+      "mapId": "waystation-gate",
+      "triggerId": "waystation-gate-battle-trigger",
+      "battleGroupId": "highland-outlaws"
+    },
+    {
+      "id": "battle-command-confirm-cancel",
+      "chapterId": "chapter-05-highland-waystation",
+      "mapId": "waystation-gate",
+      "triggerId": "waystation-gate-battle-trigger",
+      "battleGroupId": "highland-outlaws"
+    },
+    {
+      "id": "battle-target-selection",
+      "chapterId": "chapter-05-highland-waystation",
+      "mapId": "waystation-gate",
+      "triggerId": "waystation-gate-battle-trigger",
+      "battleGroupId": "highland-outlaws"
+    },
+    {
+      "id": "battle-result-message-timing",
+      "chapterId": "chapter-05-highland-waystation",
+      "mapId": "waystation-gate",
+      "triggerId": "waystation-gate-battle-trigger",
+      "battleGroupId": "highland-outlaws"
+    },
+    {
+      "id": "battle-end-transition",
+      "chapterId": "chapter-05-highland-waystation",
+      "mapId": "waystation-gate",
+      "triggerId": "waystation-gate-battle-trigger",
+      "battleGroupId": "highland-outlaws"
+    }
+  ]
+}

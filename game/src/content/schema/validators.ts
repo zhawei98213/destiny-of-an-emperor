@@ -375,6 +375,8 @@ function validateEventStep(value: unknown, path: string): EventStep {
       "ifNotFlag",
       "ifHasItem",
       "warp",
+      "movePlayer",
+      "facePlayer",
       "giveItem",
       "removeItem",
       "joinParty",
@@ -449,6 +451,17 @@ function validateEventStep(value: unknown, path: string): EventStep {
         type,
         targetMapId: ensureString(record.targetMapId, `${path}.targetMapId`),
         targetSpawnId: ensureString(record.targetSpawnId, `${path}.targetSpawnId`),
+      };
+    case "movePlayer":
+      return {
+        type,
+        direction: ensureLiteral(record.direction, ["up", "down", "left", "right"], `${path}.direction`),
+        distance: ensureOptionalNumber(record.distance, `${path}.distance`),
+      };
+    case "facePlayer":
+      return {
+        type,
+        facing: ensureLiteral(record.facing, ["up", "down", "left", "right"], `${path}.facing`),
       };
     case "giveItem":
       return {

@@ -3,6 +3,7 @@ import type {
   DialogueCue,
   EventDefinition,
   EventStep,
+  Facing,
   FlagStateMap,
   InventoryState,
   PartyStateMap,
@@ -11,6 +12,10 @@ import type {
 export interface EventWorldState {
   currentMapId: string;
   currentSpawnPointId: string;
+  playerX: number;
+  playerY: number;
+  facing: Facing;
+  stepCount: number;
 }
 
 export interface WarpTarget {
@@ -42,6 +47,40 @@ export interface CreateEventRuntimeOptions {
   world?: Partial<EventWorldState>;
 }
 
+function getMapById(database: ContentDatabase, mapId: string) {
+  const map = database.maps.find((entry) => entry.id === mapId);
+  if (!map) {
+    throw new Error(`[event] missing world map "${mapId}" during execution`);
+  }
+
+  return map;
+}
+
+function isBlocked(database: ContentDatabase, mapId: string, x: number, y: number): boolean {
+  const map = getMapById(database, mapId);
+  if (x < 0 || y < 0 || x >= map.width || y >= map.height) {
+    return true;
+  }
+
+  if (map.npcs.some((npc) => npc.x === x && npc.y === y)) {
+    return true;
+  }
+
+  const index = y * map.width + x;
+  return map.collisionLayers.some((layer) => (layer.blocked[index] ?? 0) !== 0);
+}
+
+function moveWorldPosition(world: EventWorldState, direction: Facing, distance = 1): EventWorldState {
+  const amount = Math.max(1, distance);
+  return {
+    ...world,
+    facing: direction,
+    playerX: world.playerX + (direction === "left" ? -amount : direction === "right" ? amount : 0),
+    playerY: world.playerY + (direction === "up" ? -amount : direction === "down" ? amount : 0),
+    stepCount: world.stepCount + amount,
+  };
+}
+
 export function createEventRuntime(
   database?: ContentDatabase,
   options: CreateEventRuntimeOptions = {},
@@ -50,6 +89,10 @@ export function createEventRuntime(
   const defaultSpawnPointId = options.world?.currentSpawnPointId
     ?? database?.maps[0]?.spawnPoints[0]?.id
     ?? "";
+  const defaultPlayerX = options.world?.playerX ?? database?.maps[0]?.spawnPoints[0]?.x ?? 0;
+  const defaultPlayerY = options.world?.playerY ?? database?.maps[0]?.spawnPoints[0]?.y ?? 0;
+  const defaultFacing = options.world?.facing ?? database?.maps[0]?.spawnPoints[0]?.facing ?? "down";
+  const defaultStepCount = options.world?.stepCount ?? 0;
   const defaultFlags = database
     ? Object.fromEntries(database.flags.map((flag) => [flag.id, flag.defaultValue]))
     : {};
@@ -87,6 +130,10 @@ export function createEventRuntime(
       world: {
         currentMapId: defaultMapId,
         currentSpawnPointId: defaultSpawnPointId,
+        playerX: defaultPlayerX,
+        playerY: defaultPlayerY,
+        facing: defaultFacing,
+        stepCount: defaultStepCount,
       },
     },
     dialogueLog: [],
@@ -218,6 +265,23 @@ export class EventInterpreter {
         runtime.pendingWarp = {
           mapId: command.targetMapId,
           spawnPointId: command.targetSpawnId,
+        };
+        break;
+      case "movePlayer": {
+        const nextWorld = moveWorldPosition(runtime.state.world, command.direction, command.distance ?? 1);
+        if (isBlocked(database, nextWorld.currentMapId, nextWorld.playerX, nextWorld.playerY)) {
+          throw new Error(
+            `[event] ${event.id}: movePlayer would place the player on a blocked tile at `
+            + `(${nextWorld.playerX}, ${nextWorld.playerY}) on map "${nextWorld.currentMapId}"`,
+          );
+        }
+        runtime.state.world = nextWorld;
+        break;
+      }
+      case "facePlayer":
+        runtime.state.world = {
+          ...runtime.state.world,
+          facing: command.facing,
         };
         break;
       case "giveItem":

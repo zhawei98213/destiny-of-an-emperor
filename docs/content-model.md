@@ -53,6 +53,8 @@ The shared event interpreter currently supports these opcodes:
 - `ifNotFlag`
 - `ifHasItem`
 - `warp`
+- `movePlayer`
+- `facePlayer`
 - `giveItem`
 - `removeItem`
 - `joinParty`
@@ -73,6 +75,12 @@ Use `elseSteps` when the same real event repeatedly expands into "success branch
 
 This is an interpreter enhancement, not a new story path. It keeps branching data-driven while reducing repeated event JSON noise.
 这是解释器增强，不是新的剧情写死路径。它的目标是在保持数据驱动分支的同时，减少事件 JSON 的重复噪音。
+
+`movePlayer` and `facePlayer` are the current minimum cutscene extensions. They are intentionally limited to player-side scripted motion and facing, so real chapter imports can stage short approach beats without adding ad hoc scene code.
+`movePlayer` 和 `facePlayer` 是当前补给 cutscene 的最小扩展。它们刻意只覆盖玩家侧的脚本移动和朝向控制，这样真实章节就能加入短促的推进过场，而不用在 scene 里写临时代码。
+
+Chained dialogue does not require a new opcode. Keep using multiple `dialogue` steps in sequence, and only add a new opcode when a real chapter needs behavior that cannot be expressed as existing step composition.
+链式对话不需要新增 opcode。继续使用顺序排列的多个 `dialogue` step 即可，只有当真实章节明确需要现有 step 组合无法表达的行为时，才新增 opcode。
 
 ## Validation Flow
 ## 校验流程

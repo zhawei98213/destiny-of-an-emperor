@@ -83,6 +83,8 @@ Follow it before making code, content, tooling, or documentation changes.
 - `npm run battle-reward-drop-check`：校验 generated battle groups 的奖励、经验和掉落合理性。
 - `npm run battle-parity-checklist`: generate one checklist showing whether imported real battle slices are fully calibrated.
 - `npm run battle-parity-checklist`：生成一份清单，说明已导入真实战斗切片是否已经完整校准。
+- `npm run battle-ui-flow-parity`: audit battle command, target, result-message, and end-transition behavior.
+- `npm run battle-ui-flow-parity`：审计战斗中的指令、目标、结果提示和结束过场行为。
 - `npm run battle-visual-backfill`: verify battle asset manifest, enemy intake metadata, and asset-registry attachment for battle visuals.
 - `npm run battle-visual-backfill`：校验 battle 资产 manifest、enemy intake 元数据与 battle 视觉的 asset-registry 接线状态。
 - `npm run battle-visual-parity-score`: score battle-scene visual replacement progress for imported battle assets.
@@ -113,6 +115,8 @@ Follow it before making code, content, tooling, or documentation changes.
 - `npm run chapter-lock-checklist -- --id <chapter-id>`：生成供审查使用的章节锁定清单。
 - `npm run progression-gating-audit`: simulate chapter mainline progression and audit gate dependencies plus soft-lock risk.
 - `npm run progression-gating-audit`：模拟章节主线推进，并审计门禁依赖与软锁风险。
+- `npm run encounter-transition-parity`: audit world-battle, battle-world, story-battle gaps, and map-map transition integrity.
+- `npm run encounter-transition-parity`：审计 world-battle、battle-world、剧情到 battle 缺口，以及 map-map 衔接完整性。
 - `npm run world-connectivity-audit`: generate the current global world graph audit for portals, spawns, and return-path consistency.
 - `npm run world-connectivity-audit`：生成当前全局世界连接图审计，覆盖 portal、spawn 和返回路径一致性。
 - `npm run economy-parity-audit`: audit chapter-owned shops, key-item circulation, price consistency, and battle reward/drop sanity.
@@ -200,6 +204,8 @@ After a meaningful change, run at least the commands that match the risk:
 - 战斗调参或战斗相关内容改动：`npm run battle-parity`
 - Battle source import, enemy group changes, or reward/drop changes: `npm run battle-enemy-group-import`, `npm run battle-scenario-import`, `npm run battle-reward-drop-check`, and `npm run battle-parity-checklist`
 - 战斗 source 导入、敌群改动或奖励/掉落改动：执行 `npm run battle-enemy-group-import`、`npm run battle-scenario-import`、`npm run battle-reward-drop-check` 和 `npm run battle-parity-checklist`
+- Battle UI flow or encounter handoff change: `npm run battle-ui-flow-parity` and `npm run encounter-transition-parity`
+- 战斗 UI 流程或遭遇切场链路改动：执行 `npm run battle-ui-flow-parity` 和 `npm run encounter-transition-parity`
 - Build-affecting change: `npm run build`
 - 可能影响构建的改动：`npm run build`
 - Performance-sensitive change: `npm run performance-baseline`

@@ -43,6 +43,8 @@ Current first-pass tooling:
 - `tools/chapter-lock-checklist.ts`：生成用于判断章节是否可锁定的审查清单。
 - `tools/progression-gating-audit.ts`: simulates mainline chapter progression, reports map-access dependencies, and identifies soft-lock risks plus per-chapter progression checklists.
 - `tools/progression-gating-audit.ts`：模拟主线章节推进，输出地图开放依赖，并识别软锁风险与每章推进检查清单。
+- `tools/encounter-transition-parity.ts`: audits encounter triggers, transition timing, scene handoff state, and return-to-world integrity for real slices.
+- `tools/encounter-transition-parity.ts`：审计真实切片中的遭遇触发、切场时机、场景交接状态和返回 world 完整性。
 - `tools/world-connectivity-audit.ts`: generates the current global map connection graph and reports missing return portals, isolated maps, invalid spawns, and bidirectional traversal mismatches.
 - `tools/world-connectivity-audit.ts`：生成当前全局地图连接图，并报告缺失返回 portal、孤立地图、无效 spawn 和双向移动不一致问题。
 - `tools/economy-parity-audit.ts`: audits chapter-owned shops, item circulation, price overrides, and battle reward/drop sanity.
@@ -55,6 +57,8 @@ Current first-pass tooling:
 - `tools/battle-reward-drop-check.ts`：校验当前 generated battle groups 的奖励、经验与掉落合理性。
 - `tools/battle-parity-checklist.ts`: generates one checklist showing whether scenario import, regression, and parity wiring are complete.
 - `tools/battle-parity-checklist.ts`：生成一份检查清单，说明场景导入、回归和 parity 接线是否完整。
+- `tools/battle-ui-flow-parity.ts`: audits battle command selection, confirm/cancel, target selection, result timing, and battle-end transition behavior.
+- `tools/battle-ui-flow-parity.ts`：审计战斗中的指令选择、确认/取消、目标选择、结果提示时机和战斗结束过场行为。
 - `tools/battle-visual-backfill.ts`: validates battle asset manifests, enemy sprite intake, and asset-registry attachment for battle visuals.
 - `tools/battle-visual-backfill.ts`：校验 battle 资产 manifest、enemy sprite intake 以及 battle 视觉的 asset-registry 接线状态。
 - `tools/battle-visual-parity-score.ts`: scores battle-scene visual replacement progress from the current battle asset manifest and chapter overrides.

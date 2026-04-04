@@ -284,6 +284,17 @@ export interface WarpEventStep {
   targetSpawnId: string;
 }
 
+export interface MovePlayerEventStep {
+  type: "movePlayer";
+  direction: Facing;
+  distance?: number;
+}
+
+export interface FacePlayerEventStep {
+  type: "facePlayer";
+  facing: Facing;
+}
+
 export interface GiveItemEventStep {
   type: "giveItem";
   itemId: string;
@@ -332,6 +343,8 @@ export type EventStep =
   | IfNotFlagEventStep
   | IfHasItemEventStep
   | WarpEventStep
+  | MovePlayerEventStep
+  | FacePlayerEventStep
   | GiveItemEventStep
   | RemoveItemEventStep
   | JoinPartyEventStep

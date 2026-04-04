@@ -6,7 +6,7 @@ import type { UiParityReport } from "./uiParity";
 export type TriagePriority = "P0" | "P1" | "P2" | "P3";
 
 export interface TriageEvidence {
-  source: "parity-score" | "regression-smoke" | "ui-parity";
+  source: "parity-score" | "regression-smoke" | "ui-parity" | "battle-ui-parity";
   chapterId: string;
   dimensionId?: string;
   messages: string[];
@@ -34,6 +34,7 @@ export interface DiscrepancyTriageReport {
     parityReportPath: string;
     regressionReportPath: string;
     uiParityReportPath?: string;
+    battleUiParityReportPath?: string;
   };
   summary: {
     totalItems: number;
@@ -68,6 +69,23 @@ interface DiscrepancyTriageOptions {
   parityReportPath?: string;
   regressionReportPath?: string;
   uiParityReportPath?: string;
+  battleUiParityReportPath?: string;
+}
+
+interface BattleUiFlowReport {
+  cases: Array<{
+    id: string;
+    title: string;
+    area: string;
+    status: "matched" | "diverged";
+    priority: TriagePriority;
+    locator: {
+      chapterId: string;
+      mapId: string;
+    };
+    differences: string[];
+    suggestedRepairTargets: string[];
+  }>;
 }
 
 interface ItemSeed {
@@ -162,6 +180,7 @@ function buildSeeds(
   parityReport: ParityScoreReport,
   regressionReport: RegressionReportSummary,
   uiParityReport?: UiParityReport,
+  battleUiReport?: BattleUiFlowReport,
 ): ItemSeed[] {
   const seeds: ItemSeed[] = [];
 
@@ -383,6 +402,29 @@ function buildSeeds(
       });
     });
 
+  battleUiReport?.cases
+    .filter((entry) => entry.status === "diverged")
+    .forEach((entry) => {
+      seeds.push({
+        id: `battle-ui:${entry.id.split(":").at(-1)}`,
+        priority: entry.priority,
+        title: entry.title,
+        summary: entry.differences[0] ?? "Battle UI parity gap requires follow-up.",
+        chapters: [entry.locator.chapterId],
+        systems: ["battle-scene", "battle-runtime", "battle-ui-flow"],
+        maps: [entry.locator.mapId],
+        suggestedRepairTargets: [...entry.suggestedRepairTargets],
+        dependencies: [],
+        source: [{
+          source: "battle-ui-parity",
+          chapterId: entry.locator.chapterId,
+          dimensionId: entry.area,
+          messages: [...entry.differences],
+          caseIds: [entry.id],
+        }],
+      });
+    });
+
   return seeds;
 }
 
@@ -403,6 +445,23 @@ async function loadOptionalUiParityReport(targetPath: string | undefined): Promi
   }
 }
 
+async function loadOptionalBattleUiParityReport(targetPath: string | undefined): Promise<BattleUiFlowReport | undefined> {
+  if (!targetPath) {
+    return undefined;
+  }
+
+  try {
+    return await readJsonFile<BattleUiFlowReport>(targetPath);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    if (message.includes("ENOENT") || message.includes("no such file")) {
+      return undefined;
+    }
+
+    throw error;
+  }
+}
+
 export async function buildDiscrepancyTriageReport(options?: DiscrepancyTriageOptions): Promise<DiscrepancyTriageReport> {
   const parityReportPath = options?.parityReportPath
     ?? path.join(repoRoot, "reports", "parity", "latest", "report.json");
@@ -410,11 +469,14 @@ export async function buildDiscrepancyTriageReport(options?: DiscrepancyTriageOp
     ?? path.join(repoRoot, "reports", "regression", "latest", "report.json");
   const uiParityReportPath = options?.uiParityReportPath
     ?? path.join(repoRoot, "reports", "ui-parity", "latest", "report.json");
+  const battleUiParityReportPath = options?.battleUiParityReportPath
+    ?? path.join(repoRoot, "reports", "battle-ui-flow", "latest", "report.json");
 
   const parityReport = await readJsonFile<ParityScoreReport>(parityReportPath);
   const regressionReport = await readJsonFile<RegressionReportSummary>(regressionReportPath);
   const uiParityReport = await loadOptionalUiParityReport(uiParityReportPath);
-  const backlog = mergeBacklogItems(buildSeeds(parityReport, regressionReport, uiParityReport));
+  const battleUiReport = await loadOptionalBattleUiParityReport(battleUiParityReportPath);
+  const backlog = mergeBacklogItems(buildSeeds(parityReport, regressionReport, uiParityReport, battleUiReport));
   const byPriority = {
     P0: backlog.filter((entry) => entry.priority === "P0").length,
     P1: backlog.filter((entry) => entry.priority === "P1").length,
@@ -428,6 +490,7 @@ export async function buildDiscrepancyTriageReport(options?: DiscrepancyTriageOp
       parityReportPath,
       regressionReportPath,
       uiParityReportPath: uiParityReport ? uiParityReportPath : undefined,
+      battleUiParityReportPath: battleUiReport ? battleUiParityReportPath : undefined,
     },
     summary: {
       totalItems: backlog.length,

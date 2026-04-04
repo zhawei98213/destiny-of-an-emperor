@@ -118,6 +118,14 @@ export class GameStateRuntime {
         visited: true,
       };
     });
+    this.world = {
+      currentMapId: runtime.state.world.currentMapId,
+      currentSpawnId: runtime.state.world.currentSpawnPointId,
+      playerX: runtime.state.world.playerX,
+      playerY: runtime.state.world.playerY,
+      facing: runtime.state.world.facing,
+      stepCount: runtime.state.world.stepCount,
+    };
     this.ensurePartyStatesForMembers();
   }
 

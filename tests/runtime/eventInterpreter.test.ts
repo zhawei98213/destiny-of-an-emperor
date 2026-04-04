@@ -211,6 +211,10 @@ describe("event interpreter", () => {
     expect(runtime.state.world).toEqual({
       currentMapId: "field",
       currentSpawnPointId: "field-gate",
+      playerX: 1,
+      playerY: 1,
+      facing: "down",
+      stepCount: 0,
     });
     expect(runtime.state.inventory.items).toEqual([
       { itemId: "travel-pass", quantity: 1 },
@@ -316,5 +320,73 @@ describe("event interpreter", () => {
     expect(withPermit.state.flags["fallback-ran"]).toBe(false);
     expect(withPermit.state.flags["fallback-skipped"]).toBe(true);
     expect(withPermit.dialogueLog.map((entry) => entry.id)).toEqual(["line-open"]);
+  });
+
+  it("supports player-facing and scripted movement steps for cutscene-style events", () => {
+    const interpreter = new EventInterpreter();
+    const event: EventDefinition = {
+      id: "escort-step-event",
+      name: "Escort Step Event",
+      steps: [
+        { type: "facePlayer", facing: "right" },
+        { type: "movePlayer", direction: "right", distance: 2 },
+        { type: "dialogue", lineId: "line-forward" },
+        { type: "end" },
+      ],
+    };
+    const database: ContentDatabase = {
+      packs: [],
+      maps: [
+        {
+          id: "road",
+          name: "Road",
+          width: 6,
+          height: 4,
+          tileWidth: 16,
+          tileHeight: 16,
+          tileLayers: [{ id: "ground", name: "Ground", width: 6, height: 4, tiles: Array.from({ length: 24 }, () => 1) }],
+          collisionLayers: [{ id: "collision", name: "Collision", width: 6, height: 4, blocked: Array.from({ length: 24 }, () => 0) }],
+          portals: [],
+          spawnPoints: [{ id: "road-start", x: 1, y: 1, facing: "down" }],
+          npcs: [],
+          triggers: [],
+        },
+      ],
+      dialogueLines: [
+        { id: "line-forward", speakerName: "系统", text: "你被催着向前移动了两步。", soundId: "sfx-step" },
+      ],
+      events: [event],
+      items: [],
+      partyMembers: [],
+      enemies: [],
+      battleGroups: [],
+      shops: [],
+      skills: [],
+      flags: [],
+      questStates: [],
+      encounterTables: [],
+    };
+    const runtime = createEventRuntime(database, {
+      world: {
+        currentMapId: "road",
+        currentSpawnPointId: "road-start",
+        playerX: 1,
+        playerY: 1,
+        facing: "down",
+        stepCount: 3,
+      },
+    });
+
+    interpreter.execute(event, database, runtime);
+
+    expect(runtime.state.world).toEqual({
+      currentMapId: "road",
+      currentSpawnPointId: "road-start",
+      playerX: 3,
+      playerY: 1,
+      facing: "right",
+      stepCount: 5,
+    });
+    expect(runtime.dialogueLog.map((entry) => entry.id)).toEqual(["line-forward"]);
   });
 });

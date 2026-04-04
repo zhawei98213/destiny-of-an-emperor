@@ -496,6 +496,10 @@ export class WorldScene extends Phaser.Scene {
       world: {
         currentMapId: worldState.currentMapId,
         currentSpawnPointId: worldState.currentSpawnId,
+        playerX: worldState.playerX,
+        playerY: worldState.playerY,
+        facing: worldState.facing,
+        stepCount: worldState.stepCount,
       },
     });
 
@@ -509,6 +513,11 @@ export class WorldScene extends Phaser.Scene {
     this.pendingBattleGroupId = runtime.startedBattleGroupIds.at(-1);
     this.pendingBattleTriggerId = runtime.startedBattleGroupIds.length > 0 ? trigger.id : undefined;
     this.pendingShopId = runtime.openedShopIds.at(-1);
+
+    if (!runtime.pendingWarp) {
+      this.worldRuntime.setState(this.gameStateRuntime.getWorldState());
+      this.syncHeroToRuntime();
+    }
 
     if (runtime.dialogueLog.length > 0) {
       this.dialogueSession = new DialogueSession(runtime.dialogueLog);

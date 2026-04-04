@@ -55,6 +55,8 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - `npm run battle-reward-drop-check`：校验已导入敌群的战斗奖励、经验和掉落合理性。
 - `npm run battle-parity-checklist`: generate one checklist showing whether a real battle slice is fully imported and calibrated.
 - `npm run battle-parity-checklist`：生成一份清单，说明某个真实战斗切片是否已经完整导入并校准。
+- `npm run battle-ui-flow-parity`: audit battle command, target, result-message, and end-transition behavior.
+- `npm run battle-ui-flow-parity`：审计战斗中的指令、目标、结果提示和结束过场行为。
 - `npm run battle-visual-backfill`: validate battle asset manifest, enemy intake, and asset-registry attachment for battle visuals.
 - `npm run battle-visual-backfill`：校验 battle asset manifest、enemy intake 与 battle 视觉的 asset-registry 接线状态。
 - `npm run battle-visual-parity-score`: score battle-scene visual replacement progress for imported battle assets.
@@ -85,6 +87,8 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - `npm run chapter-lock-checklist -- --id <chapter-id>`：为单个章节生成锁定检查清单。
 - `npm run progression-gating-audit`: simulate mainline chapter progression, report map-access dependencies, and flag soft-lock risks.
 - `npm run progression-gating-audit`：模拟主线章节推进，输出地图开放依赖并报告软锁风险。
+- `npm run encounter-transition-parity`: audit world-battle, battle-world, and map-map handoff integrity for real slices.
+- `npm run encounter-transition-parity`：审计真实切片中的 world-battle、battle-world 和 map-map 衔接完整性。
 - `npm run world-connectivity-audit`: generate the current global map graph audit for portals, spawns, and return-path consistency.
 - `npm run world-connectivity-audit`：生成当前全局地图连接图审计，覆盖 portal、spawn 和返回路径一致性。
 - `npm run economy-parity-audit`: generate the current shop, item, price, reward, and drop economy audit for imported chapters.
@@ -204,8 +208,8 @@ The first extension points are intentionally typed and data-driven:
 - `dialogueSession` + `dialogueBox`: keep dialogue presentation and typewriter flow separate from event execution so portraits, audio, and choices can be extended later.
 - `dialogueSession` + `dialogueBox`：将对话展示与逐字播放流程从事件执行中分离，为后续头像、音效和选项扩展预留接口。
 
-Supported event opcodes currently include `dialogue`, `setFlag`, `clearFlag`, `ifFlag`, `ifNotFlag`, `warp`, `giveItem`, `removeItem`, `joinParty`, `startBattle`, `playSfx`, `openShop`, and `end`.
-当前支持的事件 opcode 包括 `dialogue`、`setFlag`、`clearFlag`、`ifFlag`、`ifNotFlag`、`warp`、`giveItem`、`removeItem`、`joinParty`、`startBattle`、`playSfx`、`openShop` 和 `end`。
+Supported event opcodes currently include `dialogue`, `setFlag`, `clearFlag`, `ifFlag`, `ifNotFlag`, `ifHasItem`, `warp`, `movePlayer`, `facePlayer`, `giveItem`, `removeItem`, `joinParty`, `startBattle`, `playSfx`, `openShop`, `restoreParty`, and `end`.
+当前支持的事件 opcode 包括 `dialogue`、`setFlag`、`clearFlag`、`ifFlag`、`ifNotFlag`、`ifHasItem`、`warp`、`movePlayer`、`facePlayer`、`giveItem`、`removeItem`、`joinParty`、`startBattle`、`playSfx`、`openShop`、`restoreParty` 和 `end`。
 
 `content/source/` is reserved for raw import material and is intentionally outside the runtime loading path. `content/manual/` is for hand-authored packs. `content/generated/` is for tool-produced packs that already satisfy runtime schema. Do not hand-edit `content/generated/`; re-run `npm run import:all` instead.
 `content/source/` 保留给原始导入材料，刻意不进入运行时加载路径。`content/manual/` 用于手工编写内容包。`content/generated/` 用于已经满足运行时 schema 的工具生成内容包。不要手工修改 `content/generated/`，需要更新时请重新执行 `npm run import:all`。
