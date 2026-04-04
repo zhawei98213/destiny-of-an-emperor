@@ -367,6 +367,51 @@
           "battleOutcome": "victory"
         }
       }
+    },
+    {
+      "id": "inner-ford-road-outlaw-baseline",
+      "chapterId": "chapter-12-inner-ford",
+      "name": "Inner ford road outlaw baseline / 内渡前路乱兵战基线",
+      "goldenCaseId": "inner-ford-road-battle-roundtrip",
+      "expected": {
+        "battleGroupId": "highland-outlaws",
+        "enemyIds": ["highland-outlaw"],
+        "openingTurnOrder": [
+          "ally:liu-bei",
+          "enemy:highland-outlaw:0"
+        ],
+        "damageSequence": [
+          { "actorId": "ally:liu-bei", "targetId": "enemy:highland-outlaw:0", "damage": 7 },
+          { "actorId": "enemy:highland-outlaw:0", "targetId": "ally:liu-bei", "damage": 4 },
+          { "actorId": "ally:liu-bei", "targetId": "enemy:highland-outlaw:0", "damage": 7 },
+          { "actorId": "enemy:highland-outlaw:0", "targetId": "ally:liu-bei", "damage": 4 },
+          { "actorId": "ally:liu-bei", "targetId": "enemy:highland-outlaw:0", "damage": 7 }
+        ],
+        "rewards": {
+          "experience": 9,
+          "gold": 16,
+          "items": []
+        },
+        "outcome": "victory",
+        "worldReturn": {
+          "mapId": "inner-ford-road",
+          "spawnId": "from-reed-ferry-camp",
+          "playerX": 10,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "trigger": {
+          "mapId": "inner-ford-road",
+          "triggerId": "inner-ford-road-battle-trigger",
+          "encounterTableId": "inner-ford-road-raiders",
+          "battleGroupId": "highland-outlaws"
+        },
+        "settlement": {
+          "sceneFlow": ["WorldScene", "BattleScene", "WorldScene"],
+          "activeScene": "WorldScene",
+          "battleOutcome": "victory"
+        }
+      }
     }
   ]
 }

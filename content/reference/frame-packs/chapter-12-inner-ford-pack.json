@@ -1,0 +1,75 @@
+{
+  "chapter": "chapter-12-inner-ford",
+  "format": "reference-frame-pack-v1",
+  "frames": [
+    {
+      "confidence": "low",
+      "id": "chapter-12-inner-ford-road-map-frame",
+      "map_id": "inner-ford-road",
+      "metadata": {
+        "tags": ["map", "bootstrap"],
+        "variant": "wide"
+      },
+      "notes": "Replace with a higher-confidence still for the inner ford road route. / 请后续替换成更高置信度的内渡前路地图参考。",
+      "output_asset_path": "screenshots/chapter-12-inner-ford/inner-ford-road-map-frame.png",
+      "scene_type": "world",
+      "source_ref": "manual-sample-1201",
+      "subject_id": "inner-ford-road",
+      "subject_type": "map"
+    },
+    {
+      "confidence": "low",
+      "id": "chapter-12-inner-ford-clerk-frame",
+      "map_id": "inner-ford-road",
+      "metadata": {
+        "tags": ["npc", "bootstrap"],
+        "variant": "standing"
+      },
+      "notes": "Placeholder clerk standing reference for chapter-12. / chapter-12 文吏站立参考占位。",
+      "output_asset_path": "sprites/chapter-12-inner-ford/inner-ford-clerk-frame.png",
+      "scene_type": "world",
+      "source_ref": "manual-sample-1202",
+      "subject_id": "inner-ford-clerk",
+      "subject_type": "npc"
+    },
+    {
+      "confidence": "low",
+      "id": "chapter-12-inner-ford-dialogue-ui-frame",
+      "map_id": "inner-ford-road",
+      "metadata": {
+        "tags": ["ui", "bootstrap"],
+        "variant": "dialogue"
+      },
+      "notes": "Placeholder dialogue UI still for chapter-12. / chapter-12 对话框 UI 参考占位。",
+      "output_asset_path": "ui/chapter-12-inner-ford/inner-ford-dialogue-ui-frame.png",
+      "scene_type": "dialogue",
+      "source_ref": "manual-sample-1203",
+      "subject_id": "dialogue-box",
+      "subject_type": "ui"
+    },
+    {
+      "confidence": "low",
+      "id": "chapter-12-inner-ford-battle-frame",
+      "map_id": "inner-ford-road",
+      "metadata": {
+        "tags": ["battle", "bootstrap"],
+        "variant": "encounter"
+      },
+      "notes": "Placeholder battle still for the inner ford road outlaw encounter. / 内渡前路乱兵战参考占位。",
+      "output_asset_path": "battle/chapter-12-inner-ford/inner-ford-battle-frame.png",
+      "scene_type": "battle",
+      "source_ref": "manual-sample-1204",
+      "subject_id": "highland-outlaws",
+      "subject_type": "battle"
+    }
+  ],
+  "notes": "Chapter-12 reference pack created during import. All current entries are low-confidence placeholders and should be replaced by chapter-level map, NPC, UI, and battle stills. / chapter-12 导入时建立的 reference pack。当前条目都是低置信度占位，后续应替换成章节级地图、NPC、UI 与战斗参考。",
+  "pack_id": "chapter-12-inner-ford-pack",
+  "source": {
+    "approximate_source": "Pending reed ferry to inner ford route capture. / 待补芦渡至内渡路线参考。",
+    "input_path": "screenshots/chapter-12-inner-ford/reference-source.png",
+    "source_name": "chapter-12-inner-ford-reference-source",
+    "source_type": "screenshot-sequence"
+  },
+  "title": "Inner Ford Approach Reference Pack"
+}

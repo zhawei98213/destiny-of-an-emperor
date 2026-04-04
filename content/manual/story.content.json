@@ -653,6 +653,69 @@
       "speakerName": "系统",
       "text": "木箱里剩下一卷绷带和一包口粮。",
       "soundId": "sfx-chest"
+    },
+    {
+      "id": "inner-ford-clerk-line-issue",
+      "speakerName": "内渡文吏",
+      "speakerNpcId": "inner-ford-clerk",
+      "text": "再往前就是内渡河口。拿这道内渡军文去给守兵看，他才会放桥。",
+      "portraitId": "guide-default",
+      "soundId": "voice-guide",
+      "styleId": "dialogue-default"
+    },
+    {
+      "id": "inner-ford-clerk-line-repeat",
+      "speakerName": "内渡文吏",
+      "speakerNpcId": "inner-ford-clerk",
+      "text": "内渡军文已经交给你了，别在河口外侧多停留。",
+      "portraitId": "guide-default",
+      "soundId": "voice-guide",
+      "styleId": "dialogue-default"
+    },
+    {
+      "id": "inner-ford-sentry-line-blocked",
+      "speakerName": "内渡守兵",
+      "speakerNpcId": "inner-ford-sentry",
+      "text": "没有内渡军文，谁也不能靠近浮桥。",
+      "portraitId": "guard-default",
+      "soundId": "voice-guard",
+      "styleId": "dialogue-default"
+    },
+    {
+      "id": "inner-ford-sentry-line-open",
+      "speakerName": "内渡守兵",
+      "speakerNpcId": "inner-ford-sentry",
+      "text": "军文无误。把浮桥放稳，让他们进内渡营。",
+      "portraitId": "guard-default",
+      "soundId": "voice-guard",
+      "styleId": "dialogue-default"
+    },
+    {
+      "id": "inner-ford-gate-line-blocked",
+      "speakerName": "系统",
+      "text": "浮桥还没有稳稳搭好。",
+      "soundId": "sfx-blocked"
+    },
+    {
+      "id": "inner-ford-gate-line-open",
+      "speakerName": "系统",
+      "text": "浮桥被放下，前方就是内渡营地。",
+      "soundId": "sfx-step"
+    },
+    {
+      "id": "inner-ford-shop-line",
+      "speakerName": "内渡粮官",
+      "speakerNpcId": "inner-ford-quartermaster",
+      "text": "过内渡前先把药草和干粮补齐，这里就是前队最后一处补给点。",
+      "portraitId": "merchant-default",
+      "soundId": "voice-merchant",
+      "styleId": "dialogue-default"
+    },
+    {
+      "id": "inner-ford-cache-line-open",
+      "speakerName": "系统",
+      "text": "木箱里压着一卷绷带和一包干粮。",
+      "soundId": "sfx-chest"
     }
   ],
   "events": [
@@ -1563,6 +1626,96 @@
         { "type": "playSfx", "sfxId": "sfx-chest" },
         { "type": "end" }
       ]
+    },
+    {
+      "id": "reed-ferry-east-crossing-event",
+      "name": "Reed Ferry East Crossing Event",
+      "steps": [
+        { "type": "warp", "targetMapId": "inner-ford-road", "targetSpawnId": "from-reed-ferry-camp" },
+        { "type": "end" }
+      ]
+    },
+    {
+      "id": "inner-ford-clerk-event",
+      "name": "Inner Ford Clerk Event",
+      "steps": [
+        {
+          "type": "ifFlag",
+          "flagId": "inner-ford-orders-issued",
+          "steps": [
+            { "type": "dialogue", "lineId": "inner-ford-clerk-line-repeat" },
+            { "type": "end" }
+          ],
+          "elseSteps": [
+            { "type": "dialogue", "lineId": "inner-ford-clerk-line-issue" },
+            { "type": "setFlag", "flagId": "inner-ford-orders-issued" },
+            { "type": "end" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "inner-ford-sentry-event",
+      "name": "Inner Ford Sentry Event",
+      "steps": [
+        {
+          "type": "ifFlag",
+          "flagId": "inner-ford-orders-issued",
+          "steps": [
+            { "type": "dialogue", "lineId": "inner-ford-sentry-line-open" },
+            { "type": "setFlag", "flagId": "inner-ford-gate-open" },
+            { "type": "playSfx", "sfxId": "sfx-gate-open" },
+            { "type": "end" }
+          ],
+          "elseSteps": [
+            { "type": "dialogue", "lineId": "inner-ford-sentry-line-blocked" },
+            { "type": "end" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "inner-ford-gate-event",
+      "name": "Inner Ford Gate Event",
+      "steps": [
+        {
+          "type": "ifFlag",
+          "flagId": "inner-ford-gate-open",
+          "steps": [
+            { "type": "dialogue", "lineId": "inner-ford-gate-line-open" },
+            { "type": "facePlayer", "facing": "right" },
+            { "type": "movePlayer", "direction": "right", "distance": 1 },
+            { "type": "warp", "targetMapId": "inner-ford-camp", "targetSpawnId": "from-inner-ford-road" },
+            { "type": "end" }
+          ],
+          "elseSteps": [
+            { "type": "dialogue", "lineId": "inner-ford-gate-line-blocked" },
+            { "type": "end" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "inner-ford-shop-event",
+      "name": "Inner Ford Shop Event",
+      "steps": [
+        { "type": "dialogue", "lineId": "inner-ford-shop-line" },
+        { "type": "openShop", "shopId": "inner-ford-shop" },
+        { "type": "playSfx", "sfxId": "sfx-shop-open" },
+        { "type": "end" }
+      ]
+    },
+    {
+      "id": "inner-ford-cache-event",
+      "name": "Inner Ford Cache Event",
+      "steps": [
+        { "type": "dialogue", "lineId": "inner-ford-cache-line-open" },
+        { "type": "giveItem", "itemId": "bandage", "quantity": 1 },
+        { "type": "giveItem", "itemId": "travel-ration", "quantity": 1 },
+        { "type": "setFlag", "flagId": "inner-ford-cache-opened" },
+        { "type": "playSfx", "sfxId": "sfx-chest" },
+        { "type": "end" }
+      ]
     }
   ],
   "shops": [
@@ -1740,6 +1893,27 @@
         {
           "itemId": "bronze-sword",
           "price": 56
+        }
+      ]
+    },
+    {
+      "id": "inner-ford-shop",
+      "name": "Inner Ford Supply Post",
+      "inventory": [
+        {
+          "itemId": "herb"
+        },
+        {
+          "itemId": "bandage",
+          "price": 25
+        },
+        {
+          "itemId": "travel-ration",
+          "price": 29
+        },
+        {
+          "itemId": "bronze-sword",
+          "price": 58
         }
       ]
     }

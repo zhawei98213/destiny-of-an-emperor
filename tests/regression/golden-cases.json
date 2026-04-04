@@ -4846,6 +4846,49 @@
       }
     },
     {
+      "id": "reed-ferry-east-crossing-warps",
+      "name": "Reed ferry east crossing warps / 芦渡东向切入内渡前路",
+      "initialState": {
+        "world": {
+          "mapId": "reed-ferry-camp",
+          "spawnPointId": "from-reed-ferry-road",
+          "playerX": 18,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 72,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "tile",
+        "mapId": "reed-ferry-camp",
+        "x": 18,
+        "y": 6
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "inner-ford-road",
+          "currentSpawnId": "from-reed-ferry-camp",
+          "playerX": 2,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 72,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": []
+      }
+    },
+    {
       "id": "reed-ferry-shop-opens",
       "name": "Reed ferry shop opens / 渡营粮官开启商店",
       "initialState": {
@@ -5158,6 +5201,477 @@
           }
         },
         "consumedTriggerIds": ["reed-ferry-cache-trigger"]
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": []
+      }
+    },
+    {
+      "id": "inner-ford-clerk-issues-orders",
+      "name": "Inner ford clerk issues orders / 内渡文吏发放军文",
+      "initialState": {
+        "world": {
+          "mapId": "inner-ford-road",
+          "spawnPointId": "from-reed-ferry-camp",
+          "playerX": 5,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "inner-ford-orders-issued": false,
+          "inner-ford-gate-open": false
+        },
+        "inventory": {
+          "gold": 72,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "inner-ford-road",
+        "npcId": "inner-ford-clerk"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "inner-ford-road",
+          "currentSpawnId": "from-reed-ferry-camp",
+          "playerX": 5,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "inner-ford-orders-issued": true,
+          "inner-ford-gate-open": false
+        },
+        "inventory": {
+          "gold": 72,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["inner-ford-clerk-line-issue"]
+      }
+    },
+    {
+      "id": "inner-ford-sentry-opens-gate",
+      "name": "Inner ford sentry opens gate / 内渡守兵放下浮桥",
+      "initialState": {
+        "world": {
+          "mapId": "inner-ford-road",
+          "spawnPointId": "from-reed-ferry-camp",
+          "playerX": 16,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "inner-ford-orders-issued": true,
+          "inner-ford-gate-open": false
+        },
+        "inventory": {
+          "gold": 72,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "inner-ford-road",
+        "npcId": "inner-ford-sentry"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "inner-ford-road",
+          "currentSpawnId": "from-reed-ferry-camp",
+          "playerX": 16,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "inner-ford-orders-issued": true,
+          "inner-ford-gate-open": true
+        },
+        "inventory": {
+          "gold": 72,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["inner-ford-sentry-line-open"]
+      }
+    },
+    {
+      "id": "inner-ford-gate-warps",
+      "name": "Inner ford gate warps / 内渡浮桥切入营地",
+      "initialState": {
+        "world": {
+          "mapId": "inner-ford-road",
+          "spawnPointId": "from-reed-ferry-camp",
+          "playerX": 19,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "inner-ford-orders-issued": true,
+          "inner-ford-gate-open": true
+        },
+        "inventory": {
+          "gold": 72,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "tile",
+        "mapId": "inner-ford-road",
+        "x": 19,
+        "y": 7
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "inner-ford-camp",
+          "currentSpawnId": "from-inner-ford-road",
+          "playerX": 2,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "inner-ford-orders-issued": true,
+          "inner-ford-gate-open": true
+        },
+        "inventory": {
+          "gold": 72,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["inner-ford-gate-line-open"]
+      }
+    },
+    {
+      "id": "inner-ford-shop-opens",
+      "name": "Inner ford shop opens / 内渡粮官开启商店",
+      "initialState": {
+        "world": {
+          "mapId": "inner-ford-camp",
+          "spawnPointId": "from-inner-ford-road",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 72,
+          "items": []
+        },
+        "shopStates": {
+          "inner-ford-shop": {
+            "visited": false
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "inner-ford-camp",
+        "npcId": "inner-ford-quartermaster"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "inner-ford-camp",
+          "currentSpawnId": "from-inner-ford-road",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 72,
+          "items": []
+        },
+        "shopStates": {
+          "inner-ford-shop": {
+            "visited": true
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["inner-ford-shop-line"],
+        "shopId": "inner-ford-shop",
+        "shopItemLines": [
+          "1. Herb - 10G",
+          "2. Bandage - 25G",
+          "3. 行军口粮 - 29G",
+          "4. Bronze Sword - 58G"
+        ]
+      }
+    },
+    {
+      "id": "inner-ford-cache-first-open",
+      "name": "Inner ford cache first open / 内渡补给箱首次开启",
+      "initialState": {
+        "world": {
+          "mapId": "inner-ford-camp",
+          "spawnPointId": "from-inner-ford-road",
+          "playerX": 3,
+          "playerY": 9,
+          "facing": "up"
+        },
+        "flags": {
+          "inner-ford-cache-opened": false
+        },
+        "inventory": {
+          "gold": 72,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "tile",
+        "mapId": "inner-ford-camp",
+        "x": 3,
+        "y": 9
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "inner-ford-camp",
+          "currentSpawnId": "from-inner-ford-road",
+          "playerX": 3,
+          "playerY": 9,
+          "facing": "up"
+        },
+        "flags": {
+          "inner-ford-cache-opened": true
+        },
+        "inventory": {
+          "gold": 72,
+          "items": [
+            {
+              "itemId": "bandage",
+              "quantity": 1
+            },
+            {
+              "itemId": "travel-ration",
+              "quantity": 1
+            }
+          ]
+        },
+        "consumedTriggerIds": ["inner-ford-cache-trigger"]
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["inner-ford-cache-line-open"]
+      }
+    },
+    {
+      "id": "inner-ford-road-battle-roundtrip",
+      "name": "Inner ford road battle roundtrip / 内渡前路遭遇战并返回地图",
+      "initialState": {
+        "world": {
+          "mapId": "inner-ford-road",
+          "spawnPointId": "from-reed-ferry-camp",
+          "playerX": 10,
+          "playerY": 6,
+          "facing": "right",
+          "stepCount": 6
+        },
+        "inventory": {
+          "gold": 72,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 0,
+            "currentHp": 24,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "region",
+        "mapId": "inner-ford-road",
+        "x": 10,
+        "y": 6
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "inner-ford-road",
+          "currentSpawnId": "from-reed-ferry-camp",
+          "playerX": 10,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 88,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 9,
+            "currentHp": 16,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene", "BattleScene", "WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": [],
+        "battleOutcome": "victory"
+      }
+    },
+    {
+      "id": "inner-ford-camp-save-load-restores-runtime",
+      "name": "Inner ford camp save load restores runtime / 内渡营存档读档恢复运行时状态",
+      "initialState": {
+        "world": {
+          "mapId": "inner-ford-camp",
+          "spawnPointId": "from-inner-ford-road",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "inner-ford-orders-issued": true,
+          "inner-ford-gate-open": true,
+          "inner-ford-cache-opened": true
+        },
+        "inventory": {
+          "gold": 72,
+          "items": [
+            {
+              "itemId": "bandage",
+              "quantity": 1
+            },
+            {
+              "itemId": "travel-ration",
+              "quantity": 1
+            }
+          ]
+        },
+        "shopStates": {
+          "inner-ford-shop": {
+            "visited": true
+          }
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 9,
+            "currentHp": 18,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": ["inner-ford-cache-trigger"]
+      },
+      "trigger": {
+        "kind": "saveLoadRoundTrip",
+        "slot": "golden-slot",
+        "postSaveMutation": {
+          "world": {
+            "mapId": "inner-ford-road",
+            "spawnPointId": "from-reed-ferry-camp",
+            "playerX": 2,
+            "playerY": 7,
+            "facing": "left"
+          },
+          "flags": {
+            "inner-ford-orders-issued": false,
+            "inner-ford-gate-open": false,
+            "inner-ford-cache-opened": false
+          },
+          "inventory": {
+            "gold": 0,
+            "items": []
+          },
+          "shopStates": {
+            "inner-ford-shop": {
+              "visited": false
+            }
+          },
+          "partyStates": {
+            "liu-bei": {
+              "memberId": "liu-bei",
+              "level": 1,
+              "experience": 0,
+              "currentHp": 1,
+              "currentMp": 0,
+              "statusIds": [],
+              "formationSlot": 0
+            }
+          },
+          "consumedTriggerIds": []
+        }
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "inner-ford-camp",
+          "currentSpawnId": "from-inner-ford-road",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "inner-ford-orders-issued": true,
+          "inner-ford-gate-open": true,
+          "inner-ford-cache-opened": true
+        },
+        "inventory": {
+          "gold": 72,
+          "items": [
+            {
+              "itemId": "bandage",
+              "quantity": 1
+            },
+            {
+              "itemId": "travel-ration",
+              "quantity": 1
+            }
+          ]
+        },
+        "shopStates": {
+          "inner-ford-shop": {
+            "visited": true
+          }
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 9,
+            "currentHp": 18,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": ["inner-ford-cache-trigger"]
       },
       "expectedUi": {
         "sceneFlow": ["WorldScene"],

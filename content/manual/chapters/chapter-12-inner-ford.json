@@ -1,0 +1,52 @@
+{
+  "areaLabel": "Inner Ford Road and Camp Slice",
+  "chapterId": "chapter-12-inner-ford",
+  "enemyGroups": [
+    "highland-outlaws"
+  ],
+  "events": [
+    "inner-ford-clerk-event",
+    "inner-ford-sentry-event",
+    "inner-ford-gate-event",
+    "inner-ford-shop-event",
+    "inner-ford-cache-event"
+  ],
+  "format": "chapter-metadata-v1",
+  "maps": [
+    "inner-ford-road",
+    "inner-ford-camp"
+  ],
+  "notes": "Twelfth real slice extends the reed-ferry route into a second ford checkpoint without introducing a new runtime branch. It keeps the shared clerk -> sentry -> gate -> shop -> chest -> encounter rhythm, but pressure shifts toward keeping cross-chapter portals, save/load parity, and chapter-local reference gaps manageable as the back-half queue advances. / 第十二段真实切片把芦渡路线继续推进到第二个河渡检查点，同时不引入新的 runtime 分支。它继续复用共享的文吏 -> 守兵 -> 栅门 -> 商店 -> 宝箱 -> 遭遇战节奏，但压力开始转向：在后半程队列继续扩张时，如何保持跨章 portal、存档恢复一致性，以及章节级 reference 缺口的可控。",
+  "npcs": [
+    "inner-ford-clerk",
+    "inner-ford-sentry",
+    "inner-ford-quartermaster",
+    "inner-ford-boatman"
+  ],
+  "paritySummary": {
+    "battles": "validating",
+    "collision": "validating",
+    "dialogue": "parity-review",
+    "events": "validating",
+    "flags": "validating",
+    "items": "parity-review",
+    "mapLayout": "validating",
+    "npcPlacement": "validating",
+    "shops": "validating",
+    "transitions": "validating"
+  },
+  "regressionCases": [
+    "inner-ford-clerk-issues-orders",
+    "inner-ford-sentry-opens-gate",
+    "inner-ford-gate-warps",
+    "inner-ford-shop-opens",
+    "inner-ford-cache-first-open",
+    "inner-ford-road-battle-roundtrip",
+    "inner-ford-camp-save-load-restores-runtime"
+  ],
+  "shops": [
+    "inner-ford-shop"
+  ],
+  "status": "validating",
+  "title": "Inner Ford Approach"
+}

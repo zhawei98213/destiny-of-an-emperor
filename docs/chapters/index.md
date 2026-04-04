@@ -65,6 +65,8 @@ This directory tracks chapter-level planning documents for real remake slices.
 - `chapter-10-marsh-outpost`：第十段真实切片，当前状态为 `validating`
 - `chapter-11-reed-ferry`: eleventh real slice, currently `validating`
 - `chapter-11-reed-ferry`：第十一段真实切片，当前状态为 `validating`
+- `chapter-12-inner-ford`: twelfth real slice, currently `validating`
+- `chapter-12-inner-ford`：第十二段真实切片，当前状态为 `validating`
 
 ## Working Files
 ## 工作文件
@@ -133,6 +135,14 @@ This directory tracks chapter-level planning documents for real remake slices.
 - `chapter-11-reed-ferry-visual-replacement-backlog.md`：chapter-11 的章节级视觉替换 backlog 与参考缺口跟踪
 - `chapter-11-reed-ferry-battle-parity-notes.md`: chapter-local battle parity notes for the reed-ferry outlaw slice
 - `chapter-11-reed-ferry-battle-parity-notes.md`：chapter-11 芦渡前路乱兵战切片的章节级 battle parity 说明
+- [chapter-12-inner-ford-plan.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-12-inner-ford-plan.md): execution plan for the twelfth real slice, including second-ford reuse notes
+- [chapter-12-inner-ford-plan.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-12-inner-ford-plan.md)：第十二段真实切片的执行计划，内含第二道河渡检查点复用说明
+- [chapter-12-inner-ford-lock-report.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-12-inner-ford-lock-report.md): current lock, divergence, and second-ford throughput report for the twelfth real slice
+- [chapter-12-inner-ford-lock-report.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-12-inner-ford-lock-report.md)：第十二段真实切片当前的锁定、偏差与第二道河渡吞吐报告
+- `chapter-12-inner-ford-visual-replacement-backlog.md`: chapter-local visual replacement backlog and reference gap tracker for chapter-12
+- `chapter-12-inner-ford-visual-replacement-backlog.md`：chapter-12 的章节级视觉替换 backlog 与参考缺口跟踪
+- `chapter-12-inner-ford-battle-parity-notes.md`: chapter-local battle parity notes for the inner-ford outlaw slice
+- `chapter-12-inner-ford-battle-parity-notes.md`：chapter-12 内渡前路乱兵战切片的章节级 battle parity 说明
 
 The matching chapter metadata lives in `content/manual/chapters/`.
 对应的章节元数据位于 `content/manual/chapters/`。

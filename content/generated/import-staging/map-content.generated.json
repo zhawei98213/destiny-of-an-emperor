@@ -172,6 +172,34 @@
     },
     {
       "collisionLayerCount": 1,
+      "id": "inner-ford-road",
+      "name": "Inner Ford Road",
+      "npcCount": 2,
+      "portalCount": 1,
+      "size": {
+        "height": 14,
+        "width": 24
+      },
+      "sourceFile": "inner-ford.source.json",
+      "spawnPointCount": 2,
+      "triggerCount": 4
+    },
+    {
+      "collisionLayerCount": 1,
+      "id": "inner-ford-camp",
+      "name": "Inner Ford Camp",
+      "npcCount": 2,
+      "portalCount": 1,
+      "size": {
+        "height": 12,
+        "width": 20
+      },
+      "sourceFile": "inner-ford.source.json",
+      "spawnPointCount": 1,
+      "triggerCount": 2
+    },
+    {
+      "collisionLayerCount": 1,
       "id": "town",
       "name": "Lou Sang Village",
       "npcCount": 3,
@@ -360,6 +388,7 @@
     "east-road-relay.source.json",
     "forward-camp.source.json",
     "highland-waystation.source.json",
+    "inner-ford.source.json",
     "lou-sang-village.source.json",
     "marsh-outpost.source.json",
     "reed-ferry.source.json",
