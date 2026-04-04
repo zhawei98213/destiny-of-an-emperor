@@ -186,6 +186,34 @@
     },
     {
       "collisionLayerCount": 1,
+      "id": "marsh-road",
+      "name": "Marsh Road",
+      "npcCount": 2,
+      "portalCount": 1,
+      "size": {
+        "height": 14,
+        "width": 24
+      },
+      "sourceFile": "marsh-outpost.source.json",
+      "spawnPointCount": 2,
+      "triggerCount": 4
+    },
+    {
+      "collisionLayerCount": 1,
+      "id": "marsh-outpost",
+      "name": "Marsh Outpost",
+      "npcCount": 2,
+      "portalCount": 1,
+      "size": {
+        "height": 12,
+        "width": 20
+      },
+      "sourceFile": "marsh-outpost.source.json",
+      "spawnPointCount": 1,
+      "triggerCount": 2
+    },
+    {
+      "collisionLayerCount": 1,
       "id": "ridgeway-west-pass",
       "name": "Ridgeway West Pass",
       "npcCount": 2,
@@ -305,6 +333,7 @@
     "forward-camp.source.json",
     "highland-waystation.source.json",
     "lou-sang-village.source.json",
+    "marsh-outpost.source.json",
     "ridgeway-camp.source.json",
     "river-ford-camp.source.json",
     "river-watch-post.source.json"
