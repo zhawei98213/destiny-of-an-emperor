@@ -1,0 +1,44 @@
+{
+  "format": "battle-asset-manifest-v1",
+  "entries": [
+    {
+      "id": "chapter-05-waystation-gate-backdrop",
+      "chapterId": "chapter-05-highland-waystation",
+      "mapIds": ["waystation-gate"],
+      "battleGroupIds": ["highland-outlaws"],
+      "logicalAssetKey": "ui.battle-backdrop",
+      "assetType": "backdrop",
+      "state": "imported",
+      "referenceIds": [
+        "chapter-05-waystation-gate-battle-backdrop-shot"
+      ],
+      "notes": "First reconstructed battle backdrop for the waystation outlaw encounter. / 驿门乱兵遭遇的第一批重建战斗背景。"
+    },
+    {
+      "id": "chapter-05-highland-outlaw-visual",
+      "chapterId": "chapter-05-highland-waystation",
+      "mapIds": ["waystation-gate", "highland-pass"],
+      "battleGroupIds": ["highland-outlaws"],
+      "logicalAssetKey": "enemy.highland-outlaw",
+      "assetType": "enemy-sprite",
+      "state": "imported",
+      "referenceIds": [
+        "chapter-05-highland-outlaw-battle-crop"
+      ],
+      "notes": "Imported enemy visual for the highland outlaw encounter slice. / 高地乱兵遭遇切片的敌方视觉导入项。"
+    },
+    {
+      "id": "chapter-05-battle-panel-recon",
+      "chapterId": "chapter-05-highland-waystation",
+      "mapIds": ["waystation-gate"],
+      "battleGroupIds": ["highland-outlaws"],
+      "logicalAssetKey": "ui.battle-panel",
+      "assetType": "ui-panel",
+      "state": "imported",
+      "referenceIds": [
+        "chapter-05-waystation-battle-panel-shot"
+      ],
+      "notes": "Imported battle command panel styling for the first highland battle slice. / 第一批高地战斗切片的战斗指令框样式导入项。"
+    }
+  ]
+}

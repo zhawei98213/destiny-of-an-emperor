@@ -338,6 +338,62 @@
         "variant": "crop"
       },
       "notes": "Wall tile crop for Lou Sang reconstructed tileset. / 用于楼桑村重建 tileset 的墙体图块裁切。"
+    },
+    {
+      "id": "chapter-05-waystation-gate-battle-backdrop-shot",
+      "source_name": "waystation-gate-battle-backdrop",
+      "source_type": "screenshot",
+      "chapter": "chapter-05-highland-waystation",
+      "map_id": "waystation-gate",
+      "scene_type": "battle",
+      "subject_type": "battle",
+      "subject_id": "ui.battle-backdrop",
+      "confidence": "medium",
+      "asset_path": "battle/chapter-05/waystation-gate-backdrop.png",
+      "metadata": {
+        "tags": ["battle", "backdrop", "waystation-gate"],
+        "variant": "wide"
+      },
+      "notes": "Backdrop reference for the waystation gate outlaw battle. / 驿门乱兵战斗背景参考。"
+    },
+    {
+      "id": "chapter-05-highland-outlaw-battle-crop",
+      "source_name": "highland-outlaw-battle-crop",
+      "source_type": "manual-crop",
+      "chapter": "chapter-05-highland-waystation",
+      "map_id": "waystation-gate",
+      "scene_type": "battle",
+      "subject_type": "enemy",
+      "subject_id": "enemy.highland-outlaw",
+      "confidence": "medium",
+      "asset_path": "enemies/chapter-05/highland-outlaw-battle-crop.png",
+      "metadata": {
+        "crop": {
+          "x": 40,
+          "y": 12,
+          "width": 48,
+          "height": 48
+        },
+        "tags": ["battle", "enemy", "outlaw"]
+      },
+      "notes": "Enemy crop reference for the first reconstructed highland outlaw battle visual. / 第一批高地乱兵战斗视觉的敌方裁切参考。"
+    },
+    {
+      "id": "chapter-05-waystation-battle-panel-shot",
+      "source_name": "waystation-battle-command-panel",
+      "source_type": "screenshot",
+      "chapter": "chapter-05-highland-waystation",
+      "map_id": "waystation-gate",
+      "scene_type": "battle",
+      "subject_type": "ui",
+      "subject_id": "ui.battle-panel",
+      "confidence": "medium",
+      "asset_path": "ui/chapter-05/battle-panel.png",
+      "metadata": {
+        "tags": ["battle", "ui", "panel"],
+        "variant": "command"
+      },
+      "notes": "Battle command panel reference for the waystation gate encounter. / 驿门遭遇战的战斗指令框参考。"
     }
   ]
 }

@@ -61,6 +61,24 @@ export interface PortraitPlaceholderAssetResource {
   textColor: string;
 }
 
+export interface BattleVisualAssetResource {
+  kind: "battle-visual";
+  fillColor: string;
+  strokeColor: string;
+  accentColor: string;
+  silhouette: "humanoid" | "beast" | "slime";
+  sourceManifestId?: string;
+}
+
+export interface BattleBackdropAssetResource {
+  kind: "battle-backdrop";
+  topColor: string;
+  bottomColor: string;
+  floorColor: string;
+  accentColor: string;
+  sourceManifestId?: string;
+}
+
 export interface SpriteFrameAssetResource {
   kind: "sprite-frame";
   sheetId: string;
@@ -86,6 +104,8 @@ export type AssetResource =
   | PanelStyleAssetResource
   | TilesetPaletteAssetResource
   | PortraitPlaceholderAssetResource
+  | BattleVisualAssetResource
+  | BattleBackdropAssetResource
   | SpriteFrameAssetResource
   | AudioRefAssetResource
   | IconGlyphAssetResource;

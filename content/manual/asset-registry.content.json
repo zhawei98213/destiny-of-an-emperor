@@ -73,6 +73,18 @@
       }
     },
     {
+      "key": "enemy.default",
+      "category": "enemy-sprite",
+      "state": "placeholder",
+      "resource": {
+        "kind": "battle-visual",
+        "fillColor": "#64748b",
+        "strokeColor": "#0f172a",
+        "accentColor": "#e2e8f0",
+        "silhouette": "humanoid"
+      }
+    },
+    {
       "key": "portrait.default",
       "category": "portrait",
       "state": "placeholder",
@@ -221,6 +233,19 @@
         "paddingY": 12,
         "lineHeight": 1.35,
         "pointerAssetKey": "icon.battle-cursor"
+      }
+    },
+    {
+      "key": "ui.battle-backdrop",
+      "category": "ui-panel",
+      "state": "placeholder",
+      "fallbackKey": "ui.panel.default",
+      "resource": {
+        "kind": "battle-backdrop",
+        "topColor": "#1f2937",
+        "bottomColor": "#111827",
+        "floorColor": "#3f3f46",
+        "accentColor": "#f59e0b"
       }
     },
     {
@@ -688,6 +713,56 @@
               "5": "#31572c"
             },
             "sourceCandidateIds": []
+          }
+        },
+        {
+          "key": "enemy.highland-outlaw",
+          "category": "enemy-sprite",
+          "state": "imported",
+          "fallbackKey": "enemy.default",
+          "resource": {
+            "kind": "battle-visual",
+            "fillColor": "#7f1d1d",
+            "strokeColor": "#1f2937",
+            "accentColor": "#fde68a",
+            "silhouette": "humanoid",
+            "sourceManifestId": "chapter-05-highland-outlaw-visual"
+          }
+        },
+        {
+          "key": "ui.battle-backdrop",
+          "category": "ui-panel",
+          "state": "imported",
+          "fallbackKey": "ui.panel.default",
+          "resource": {
+            "kind": "battle-backdrop",
+            "topColor": "#334155",
+            "bottomColor": "#0f172a",
+            "floorColor": "#3f3f46",
+            "accentColor": "#f59e0b",
+            "sourceManifestId": "chapter-05-waystation-gate-backdrop"
+          }
+        },
+        {
+          "key": "ui.battle-panel",
+          "category": "ui-panel",
+          "state": "imported",
+          "fallbackKey": "ui.panel.default",
+          "resource": {
+            "kind": "panel-style",
+            "backgroundColor": "#1e293b",
+            "borderColor": "#f59e0b",
+            "titleColor": "#f8fafc",
+            "bodyColor": "#f8fafc",
+            "accentColor": "#fde68a",
+            "frameMode": "nine-slice-css",
+            "borderThickness": 3,
+            "cornerSize": 8,
+            "paddingX": 14,
+            "paddingY": 12,
+            "lineHeight": 1.35,
+            "pointerAssetKey": "icon.battle-cursor",
+            "sourceManifestId": "chapter-05-battle-panel-recon"
           }
         }
       ]

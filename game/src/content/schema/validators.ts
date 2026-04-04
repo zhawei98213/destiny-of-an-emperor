@@ -51,7 +51,7 @@ function validateAssetResource(value: unknown, path: string): AssetResource {
   const record = ensureRecord(value, path);
   const kind = ensureLiteral(
     record.kind,
-    ["world-placeholder", "panel-style", "tileset-palette", "portrait-placeholder", "sprite-frame", "audio-ref", "icon-glyph"],
+    ["world-placeholder", "panel-style", "tileset-palette", "portrait-placeholder", "battle-visual", "battle-backdrop", "sprite-frame", "audio-ref", "icon-glyph"],
     `${path}.kind`,
   );
 
@@ -103,6 +103,24 @@ function validateAssetResource(value: unknown, path: string): AssetResource {
         backgroundColor: ensureString(record.backgroundColor, `${path}.backgroundColor`),
         borderColor: ensureString(record.borderColor, `${path}.borderColor`),
         textColor: ensureString(record.textColor, `${path}.textColor`),
+      };
+    case "battle-visual":
+      return {
+        kind,
+        fillColor: ensureString(record.fillColor, `${path}.fillColor`),
+        strokeColor: ensureString(record.strokeColor, `${path}.strokeColor`),
+        accentColor: ensureString(record.accentColor, `${path}.accentColor`),
+        silhouette: ensureLiteral(record.silhouette, ["humanoid", "beast", "slime"] as const, `${path}.silhouette`),
+        sourceManifestId: ensureOptionalString(record.sourceManifestId, `${path}.sourceManifestId`),
+      };
+    case "battle-backdrop":
+      return {
+        kind,
+        topColor: ensureString(record.topColor, `${path}.topColor`),
+        bottomColor: ensureString(record.bottomColor, `${path}.bottomColor`),
+        floorColor: ensureString(record.floorColor, `${path}.floorColor`),
+        accentColor: ensureString(record.accentColor, `${path}.accentColor`),
+        sourceManifestId: ensureOptionalString(record.sourceManifestId, `${path}.sourceManifestId`),
       };
     case "sprite-frame":
       return {

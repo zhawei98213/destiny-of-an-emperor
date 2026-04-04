@@ -55,6 +55,10 @@ Current first-pass tooling:
 - `tools/battle-reward-drop-check.ts`：校验当前 generated battle groups 的奖励、经验与掉落合理性。
 - `tools/battle-parity-checklist.ts`: generates one checklist showing whether scenario import, regression, and parity wiring are complete.
 - `tools/battle-parity-checklist.ts`：生成一份检查清单，说明场景导入、回归和 parity 接线是否完整。
+- `tools/battle-visual-backfill.ts`: validates battle asset manifests, enemy sprite intake, and asset-registry attachment for battle visuals.
+- `tools/battle-visual-backfill.ts`：校验 battle 资产 manifest、enemy sprite intake 以及 battle 视觉的 asset-registry 接线状态。
+- `tools/battle-visual-parity-score.ts`: scores battle-scene visual replacement progress from the current battle asset manifest and chapter overrides.
+- `tools/battle-visual-parity-score.ts`：基于当前 battle asset manifest 和章节级 override，为战斗场景视觉替换进度打分。
 - `tools/asset-check.ts`: generates an asset parity report for current chapters, including missing resources, unreferenced resources, broken references, and sprite metadata integrity.
 - `tools/asset-check.ts`：为当前章节生成资产一致性报告，覆盖缺失资源、未引用资源、失效引用以及 sprite metadata 完整性。
 - `tools/tileset-crop-normalize.ts`: writes the current tileset crop and normalization task plan from reference candidates into generated staging output.
@@ -185,6 +189,14 @@ Current first-pass tooling:
   Generates `reports/battle-calibration/latest/battle-parity-checklist.*` and shows whether a real battle slice is fully imported and calibrated.
 - `npm run battle-parity-checklist`
   生成 `reports/battle-calibration/latest/battle-parity-checklist.*`，并说明某个真实战斗切片是否已完整导入并校准。
+- `npm run battle-visual-backfill`
+  Generates `reports/battle-visual-backfill/latest/` and verifies battle asset manifest entries, enemy intake metadata, and asset-registry attachment.
+- `npm run battle-visual-backfill`
+  生成 `reports/battle-visual-backfill/latest/`，并校验 battle 资产 manifest、enemy intake 元数据和 asset-registry 接线状态。
+- `npm run battle-visual-parity-score`
+  Generates `reports/battle-visual-parity/latest/` and scores battle-scene visual replacement progress for imported battle assets.
+- `npm run battle-visual-parity-score`
+  生成 `reports/battle-visual-parity/latest/`，并为已导入 battle 视觉资产计算战斗场景视觉替换得分。
 - `npm run asset-check`
   Generates `reports/asset-parity/latest/` and classifies current chapter assets as placeholder/imported/validated.
 - `npm run asset-check`

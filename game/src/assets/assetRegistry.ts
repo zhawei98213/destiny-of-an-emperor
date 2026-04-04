@@ -4,6 +4,8 @@ import type {
   AssetOverrideDefinition,
   AssetResource,
   AssetState,
+  BattleBackdropAssetResource,
+  BattleVisualAssetResource,
   ContentDatabase,
   IconGlyphAssetResource,
   PanelStyleAssetResource,
@@ -63,6 +65,36 @@ export class AssetRegistry {
       fillColor: "#cbd5e1",
       strokeColor: "#0f172a",
       accentColor: "#ef4444",
+    };
+  }
+
+  resolveEnemyVisual(enemyId: string, context: AssetContext = {}): BattleVisualAssetResource {
+    const resolved = this.resolve(`enemy.${enemyId}`, "enemy.default", context);
+    if (resolved.resource.kind === "battle-visual") {
+      return resolved.resource;
+    }
+
+    return {
+      kind: "battle-visual",
+      fillColor: "#94a3b8",
+      strokeColor: "#0f172a",
+      accentColor: "#f8fafc",
+      silhouette: "humanoid",
+    };
+  }
+
+  resolveBattleBackdrop(context: AssetContext = {}): BattleBackdropAssetResource {
+    const resolved = this.resolve("ui.battle-backdrop", "ui.battle-backdrop", context);
+    if (resolved.resource.kind === "battle-backdrop") {
+      return resolved.resource;
+    }
+
+    return {
+      kind: "battle-backdrop",
+      topColor: "#1f2937",
+      bottomColor: "#111827",
+      floorColor: "#3f3f46",
+      accentColor: "#f59e0b",
     };
   }
 
@@ -192,6 +224,10 @@ export class AssetRegistry {
       return "npc-sprite";
     }
 
+    if (key.startsWith("enemy.")) {
+      return "enemy-sprite";
+    }
+
     if (key.startsWith("tileset.")) {
       return "tileset";
     }
@@ -219,6 +255,8 @@ export class AssetRegistry {
     switch (category) {
       case "npc-sprite":
         return "npc.default";
+      case "enemy-sprite":
+        return "enemy.default";
       case "tileset":
         return "tileset.default";
       case "portrait":

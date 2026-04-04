@@ -55,6 +55,10 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - `npm run battle-reward-drop-check`：校验已导入敌群的战斗奖励、经验和掉落合理性。
 - `npm run battle-parity-checklist`: generate one checklist showing whether a real battle slice is fully imported and calibrated.
 - `npm run battle-parity-checklist`：生成一份清单，说明某个真实战斗切片是否已经完整导入并校准。
+- `npm run battle-visual-backfill`: validate battle asset manifest, enemy intake, and asset-registry attachment for battle visuals.
+- `npm run battle-visual-backfill`：校验 battle asset manifest、enemy intake 与 battle 视觉的 asset-registry 接线状态。
+- `npm run battle-visual-parity-score`: score battle-scene visual replacement progress for imported battle assets.
+- `npm run battle-visual-parity-score`：为已导入 battle 视觉资产计算战斗场景视觉替换进度得分。
 - `npm run event-json`: lint event JSON structure and show formatting drift in `content/manual/story.content.json`.
 - `npm run event-json`：检查 `content/manual/story.content.json` 的事件 JSON 结构并提示格式化漂移。
 - `npm run format:events`: rewrite `content/manual/story.content.json` into stable formatting for reviewable diffs.
@@ -125,6 +129,10 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - 战斗一致性校准报告会写入 `reports/battle-parity/latest/`。
 - Battle calibration helper reports are written to `reports/battle-calibration/latest/`.
 - 战斗校准 helper 报告会写入 `reports/battle-calibration/latest/`。
+- Battle visual backfill reports are written to `reports/battle-visual-backfill/latest/`.
+- 战斗视觉回填报告会写入 `reports/battle-visual-backfill/latest/`。
+- Battle visual parity reports are written to `reports/battle-visual-parity/latest/`.
+- 战斗视觉一致性报告会写入 `reports/battle-visual-parity/latest/`。
 - Performance baseline reports are written to `reports/performance/latest/`.
 - 性能基线报告会写入 `reports/performance/latest/`。
 - UI parity reports are written to `reports/ui-parity/latest/`.

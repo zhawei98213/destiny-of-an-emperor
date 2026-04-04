@@ -83,6 +83,10 @@ Follow it before making code, content, tooling, or documentation changes.
 - `npm run battle-reward-drop-check`：校验 generated battle groups 的奖励、经验和掉落合理性。
 - `npm run battle-parity-checklist`: generate one checklist showing whether imported real battle slices are fully calibrated.
 - `npm run battle-parity-checklist`：生成一份清单，说明已导入真实战斗切片是否已经完整校准。
+- `npm run battle-visual-backfill`: verify battle asset manifest, enemy intake metadata, and asset-registry attachment for battle visuals.
+- `npm run battle-visual-backfill`：校验 battle 资产 manifest、enemy intake 元数据与 battle 视觉的 asset-registry 接线状态。
+- `npm run battle-visual-parity-score`: score battle-scene visual replacement progress for imported battle assets.
+- `npm run battle-visual-parity-score`：为已导入 battle 视觉资产计算战斗场景视觉替换进度得分。
 - `npm run event-json`: lint event JSON structure and report formatting drift.
 - `npm run event-json`：检查事件 JSON 结构并报告格式化漂移。
 - `npm run format:events`: rewrite `content/manual/story.content.json` into stable formatting.
@@ -204,6 +208,8 @@ After a meaningful change, run at least the commands that match the risk:
 - 涉及 UI 流程或玩家可见 overlay 的改动：`npm run ui-parity`
 - Visual backfill or asset-registry replacement change: `npm run visual-backfill-report -- --id <plan-id>` and `npm run visual-parity-score -- --id <plan-id>`
 - 视觉回填或 asset-registry 替换改动：执行 `npm run visual-backfill-report -- --id <plan-id>` 和 `npm run visual-parity-score -- --id <plan-id>`
+- Battle visual backfill or battle asset-registry replacement change: `npm run battle-visual-backfill` and `npm run battle-visual-parity-score`
+- 战斗视觉回填或 battle asset-registry 替换改动：执行 `npm run battle-visual-backfill` 和 `npm run battle-visual-parity-score`
 - Before a beta-test handoff or any release-style checkpoint: `npm run pre-release-check -- --mode full`
 - 在测试版移交或任何接近发布的检查点之前：执行 `npm run pre-release-check -- --mode full`
 - CI should stay aligned with these same checks instead of inventing a separate heavier path.

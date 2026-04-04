@@ -33,6 +33,8 @@
     "battle-scenario-import": "vite-node tools/battle-scenario-import.ts",
     "battle-reward-drop-check": "vite-node tools/battle-reward-drop-check.ts",
     "battle-parity-checklist": "vite-node tools/battle-parity-checklist.ts",
+    "battle-visual-backfill": "vite-node tools/battle-visual-backfill.ts",
+    "battle-visual-parity-score": "vite-node tools/battle-visual-parity-score.ts",
     "asset-check": "vite-node tools/asset-check.ts",
     "visual-backfill-report": "vite-node tools/visual-backfill-report.ts",
     "visual-backfill-checklist": "vite-node tools/visual-backfill-checklist.ts",
