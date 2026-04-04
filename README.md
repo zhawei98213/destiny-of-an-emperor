@@ -47,6 +47,14 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - `npm run regression-smoke`：用一条命令执行导入、校验和最小回归测试。
 - `npm run battle-parity`: generate the current battle parity calibration report for real battle slices.
 - `npm run battle-parity`：为当前真实战斗切片生成战斗一致性校准报告。
+- `npm run battle-enemy-group-import`: verify source enemies and battle groups against generated battle content.
+- `npm run battle-enemy-group-import`：校验 source 敌人和敌群与 generated battle content 是否一致。
+- `npm run battle-scenario-import`: verify battle scenario source entries against world triggers, golden cases, and battle parity cases.
+- `npm run battle-scenario-import`：校验 battle scenario source 条目与 world trigger、golden case、battle parity case 的一致性。
+- `npm run battle-reward-drop-check`: validate battle reward, experience, and drop sanity across generated battle groups.
+- `npm run battle-reward-drop-check`：校验已导入敌群的战斗奖励、经验和掉落合理性。
+- `npm run battle-parity-checklist`: generate one checklist showing whether a real battle slice is fully imported and calibrated.
+- `npm run battle-parity-checklist`：生成一份清单，说明某个真实战斗切片是否已经完整导入并校准。
 - `npm run event-json`: lint event JSON structure and show formatting drift in `content/manual/story.content.json`.
 - `npm run event-json`：检查 `content/manual/story.content.json` 的事件 JSON 结构并提示格式化漂移。
 - `npm run format:events`: rewrite `content/manual/story.content.json` into stable formatting for reviewable diffs.
@@ -115,6 +123,8 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - 回归报告会写入 `reports/regression/latest/`。
 - Battle parity reports are written to `reports/battle-parity/latest/`.
 - 战斗一致性校准报告会写入 `reports/battle-parity/latest/`。
+- Battle calibration helper reports are written to `reports/battle-calibration/latest/`.
+- 战斗校准 helper 报告会写入 `reports/battle-calibration/latest/`。
 - Performance baseline reports are written to `reports/performance/latest/`.
 - 性能基线报告会写入 `reports/performance/latest/`。
 - UI parity reports are written to `reports/ui-parity/latest/`.

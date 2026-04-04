@@ -97,6 +97,51 @@
           "battleOutcome": "victory"
         }
       }
+    },
+    {
+      "id": "waystation-gate-outlaw-baseline",
+      "chapterId": "chapter-05-highland-waystation",
+      "name": "Waystation gate outlaw baseline / 驿门乱兵战基线",
+      "goldenCaseId": "waystation-gate-battle-roundtrip",
+      "expected": {
+        "battleGroupId": "highland-outlaws",
+        "enemyIds": ["highland-outlaw"],
+        "openingTurnOrder": [
+          "ally:liu-bei",
+          "enemy:highland-outlaw:0"
+        ],
+        "damageSequence": [
+          { "actorId": "ally:liu-bei", "targetId": "enemy:highland-outlaw:0", "damage": 7 },
+          { "actorId": "enemy:highland-outlaw:0", "targetId": "ally:liu-bei", "damage": 4 },
+          { "actorId": "ally:liu-bei", "targetId": "enemy:highland-outlaw:0", "damage": 7 },
+          { "actorId": "enemy:highland-outlaw:0", "targetId": "ally:liu-bei", "damage": 4 },
+          { "actorId": "ally:liu-bei", "targetId": "enemy:highland-outlaw:0", "damage": 7 }
+        ],
+        "rewards": {
+          "experience": 9,
+          "gold": 16,
+          "items": []
+        },
+        "outcome": "victory",
+        "worldReturn": {
+          "mapId": "waystation-gate",
+          "spawnId": "from-highland-pass",
+          "playerX": 12,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "trigger": {
+          "mapId": "waystation-gate",
+          "triggerId": "waystation-gate-battle-trigger",
+          "encounterTableId": "waystation-gate-outlaws",
+          "battleGroupId": "highland-outlaws"
+        },
+        "settlement": {
+          "sceneFlow": ["WorldScene", "BattleScene", "WorldScene"],
+          "activeScene": "WorldScene",
+          "battleOutcome": "victory"
+        }
+      }
     }
   ]
 }

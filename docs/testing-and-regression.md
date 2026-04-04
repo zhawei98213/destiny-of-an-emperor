@@ -18,6 +18,14 @@
 - `npm run discrepancy-triage`：把最新 parity 和 regression 证据转成带优先级的修复待办
 - `npm run battle-parity`: generate a dedicated parity calibration report for the real battle slices currently used by imported content
 - `npm run battle-parity`：为当前真实内容已使用的战斗切片生成专项一致性校准报告
+- `npm run battle-enemy-group-import`: verify source enemies and battle groups against generated battle content
+- `npm run battle-enemy-group-import`：校验 source 敌人和敌群与 generated battle content 是否一致
+- `npm run battle-scenario-import`: verify battle scenario source entries against world triggers and regression/parity bindings
+- `npm run battle-scenario-import`：校验 battle scenario source 条目与 world trigger 以及 regression/parity 绑定
+- `npm run battle-reward-drop-check`: validate reward, experience, and drop sanity for generated battle groups
+- `npm run battle-reward-drop-check`：校验 generated battle groups 的奖励、经验和掉落合理性
+- `npm run battle-parity-checklist`: generate one checklist showing whether a real battle slice is fully imported and calibrated
+- `npm run battle-parity-checklist`：生成一份清单，说明某个真实战斗切片是否已经完整导入并校准
 - `npm run performance-baseline`: generate the current startup, map-transition, battle-entry, and save/load timing baseline
 - `npm run performance-baseline`：生成当前启动、地图切换、战斗进入和存档读写的耗时基线
 - `npm run ui-parity`: generate the current UI behavior parity report for dialogue, menu, shop, battle, and save flows
@@ -82,6 +90,21 @@ It also writes readable and machine-readable artifacts into `reports/regression/
 - `summary.md`：每个真实战斗案例单独成节，包含敌群组成、出手顺序、伤害、奖励、触发链路和返回 world 状态的对照
 - `report.json`: machine-readable structured evidence for future battle repair loops
 - `report.json`：供后续战斗修补流程读取的结构化证据
+
+## Battle Calibration Helper Output
+## 战斗校准辅助输出
+
+The battle import and calibration helpers write supporting artifacts into `reports/battle-calibration/latest/`.
+战斗导入与校准 helper 会把辅助产物写入 `reports/battle-calibration/latest/`。
+
+- `enemy-group-import.*`: source enemy/group import verification
+- `enemy-group-import.*`：source 敌人与敌群导入核对
+- `battle-scenario-import.*`: scenario source linkage verification
+- `battle-scenario-import.*`：战斗场景 source 接线核对
+- `reward-drop-validation.*`: reward, experience, and drop sanity validation
+- `reward-drop-validation.*`：奖励、经验和掉落合理性校验
+- `battle-parity-checklist.*`: per-scenario calibration checklist
+- `battle-parity-checklist.*`：按场景生成的校准检查清单
 
 ## Discrepancy Triage Output
 ## 差异分级输出

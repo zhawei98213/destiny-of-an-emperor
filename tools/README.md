@@ -47,6 +47,14 @@ Current first-pass tooling:
 - `tools/world-connectivity-audit.ts`：生成当前全局地图连接图，并报告缺失返回 portal、孤立地图、无效 spawn 和双向移动不一致问题。
 - `tools/economy-parity-audit.ts`: audits chapter-owned shops, item circulation, price overrides, and battle reward/drop sanity.
 - `tools/economy-parity-audit.ts`：审计章节归属商店、物品流通、价格覆盖以及战斗奖励/掉落合理性。
+- `tools/battle-enemy-group-import.ts`: checks source enemies and battle groups against generated battle content.
+- `tools/battle-enemy-group-import.ts`：检查 source 敌人和敌群与 generated battle content 的一致性。
+- `tools/battle-scenario-import.ts`: checks battle scenario source entries against world triggers, encounter tables, golden cases, and battle parity cases.
+- `tools/battle-scenario-import.ts`：检查 battle scenario source 条目与 world trigger、遭遇表、golden case 和 battle parity case 的一致性。
+- `tools/battle-reward-drop-check.ts`: validates reward, experience, and drop sanity for current generated battle groups.
+- `tools/battle-reward-drop-check.ts`：校验当前 generated battle groups 的奖励、经验与掉落合理性。
+- `tools/battle-parity-checklist.ts`: generates one checklist showing whether scenario import, regression, and parity wiring are complete.
+- `tools/battle-parity-checklist.ts`：生成一份检查清单，说明场景导入、回归和 parity 接线是否完整。
 - `tools/asset-check.ts`: generates an asset parity report for current chapters, including missing resources, unreferenced resources, broken references, and sprite metadata integrity.
 - `tools/asset-check.ts`：为当前章节生成资产一致性报告，覆盖缺失资源、未引用资源、失效引用以及 sprite metadata 完整性。
 - `tools/tileset-crop-normalize.ts`: writes the current tileset crop and normalization task plan from reference candidates into generated staging output.
@@ -161,6 +169,22 @@ Current first-pass tooling:
   Generates `reports/economy-parity/latest/` and audits shop inventory, item circulation, price consistency, and reward/drop sanity for imported chapters.
 - `npm run economy-parity-audit`
   生成 `reports/economy-parity/latest/`，并为已导入章节审计商店库存、物品流通、价格一致性以及奖励/掉落合理性。
+- `npm run battle-enemy-group-import`
+  Generates `reports/battle-calibration/latest/enemy-group-import.*` and checks source enemy/group data against generated battle content.
+- `npm run battle-enemy-group-import`
+  生成 `reports/battle-calibration/latest/enemy-group-import.*`，并检查 source 敌人/敌群数据与 generated battle content 的一致性。
+- `npm run battle-scenario-import`
+  Generates `reports/battle-calibration/latest/battle-scenario-import.*` and checks battle scenario source entries against world content and regression/parity bindings.
+- `npm run battle-scenario-import`
+  生成 `reports/battle-calibration/latest/battle-scenario-import.*`，并检查 battle scenario source 条目与 world 内容及 regression/parity 绑定。
+- `npm run battle-reward-drop-check`
+  Generates `reports/battle-calibration/latest/reward-drop-validation.*` and validates reward/experience/drop sanity.
+- `npm run battle-reward-drop-check`
+  生成 `reports/battle-calibration/latest/reward-drop-validation.*`，并校验奖励/经验/掉落合理性。
+- `npm run battle-parity-checklist`
+  Generates `reports/battle-calibration/latest/battle-parity-checklist.*` and shows whether a real battle slice is fully imported and calibrated.
+- `npm run battle-parity-checklist`
+  生成 `reports/battle-calibration/latest/battle-parity-checklist.*`，并说明某个真实战斗切片是否已完整导入并校准。
 - `npm run asset-check`
   Generates `reports/asset-parity/latest/` and classifies current chapter assets as placeholder/imported/validated.
 - `npm run asset-check`

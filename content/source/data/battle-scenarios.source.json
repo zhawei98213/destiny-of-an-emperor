@@ -1,0 +1,17 @@
+{
+  "format": "battle-scenario-source-v1",
+  "scenarios": [
+    {
+      "id": "waystation-gate-outlaw-scout",
+      "chapterId": "chapter-05-highland-waystation",
+      "name": "Waystation Gate Outlaw Scout / 驿门乱兵遭遇",
+      "mapId": "waystation-gate",
+      "triggerId": "waystation-gate-battle-trigger",
+      "encounterTableId": "waystation-gate-outlaws",
+      "battleGroupId": "highland-outlaws",
+      "goldenCaseId": "waystation-gate-battle-roundtrip",
+      "battleParityCaseId": "waystation-gate-outlaw-baseline",
+      "notes": "Calibrated baseline for the first imported highland outlaw encounter. / 第一个已导入高地乱兵遭遇的校准基线。"
+    }
+  ]
+}

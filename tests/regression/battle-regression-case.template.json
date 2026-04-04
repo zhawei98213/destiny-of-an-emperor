@@ -1,0 +1,111 @@
+{
+  "goldenCaseTemplate": {
+    "id": "chapter-xx-battle-roundtrip",
+    "name": "Chapter XX battle roundtrip / 第 XX 章战斗往返",
+    "initialState": {
+      "world": {
+        "mapId": "target-map",
+        "spawnPointId": "target-spawn",
+        "playerX": 0,
+        "playerY": 0,
+        "facing": "right",
+        "stepCount": 0
+      },
+      "inventory": {
+        "gold": 0,
+        "items": []
+      },
+      "partyStates": {
+        "liu-bei": {
+          "memberId": "liu-bei",
+          "level": 1,
+          "experience": 0,
+          "currentHp": 24,
+          "currentMp": 6,
+          "statusIds": [],
+          "formationSlot": 0
+        }
+      },
+      "consumedTriggerIds": []
+    },
+    "trigger": {
+      "kind": "region",
+      "mapId": "target-map",
+      "x": 0,
+      "y": 0
+    },
+    "expectedState": {
+      "world": {
+        "currentMapId": "target-map",
+        "currentSpawnId": "target-spawn",
+        "playerX": 0,
+        "playerY": 0,
+        "facing": "right"
+      },
+      "inventory": {
+        "gold": 0,
+        "items": []
+      },
+      "partyStates": {
+        "liu-bei": {
+          "memberId": "liu-bei",
+          "level": 1,
+          "experience": 0,
+          "currentHp": 24,
+          "currentMp": 6,
+          "statusIds": [],
+          "formationSlot": 0
+        }
+      },
+      "consumedTriggerIds": []
+    },
+    "expectedUi": {
+      "sceneFlow": ["WorldScene", "BattleScene", "WorldScene"],
+      "activeScene": "WorldScene",
+      "dialogueLineIds": [],
+      "battleOutcome": "victory"
+    }
+  },
+  "battleParityCaseTemplate": {
+    "id": "chapter-xx-battle-baseline",
+    "chapterId": "chapter-xx",
+    "name": "Chapter XX battle baseline / 第 XX 章战斗基线",
+    "goldenCaseId": "chapter-xx-battle-roundtrip",
+    "expected": {
+      "battleGroupId": "target-battle-group",
+      "enemyIds": ["enemy-id"],
+      "openingTurnOrder": ["ally:liu-bei", "enemy:enemy-id:0"],
+      "damageSequence": [
+        {
+          "actorId": "ally:liu-bei",
+          "targetId": "enemy:enemy-id:0",
+          "damage": 0
+        }
+      ],
+      "rewards": {
+        "experience": 0,
+        "gold": 0,
+        "items": []
+      },
+      "outcome": "victory",
+      "trigger": {
+        "mapId": "target-map",
+        "triggerId": "target-trigger",
+        "encounterTableId": "target-encounter-table",
+        "battleGroupId": "target-battle-group"
+      },
+      "worldReturn": {
+        "mapId": "target-map",
+        "spawnId": "target-spawn",
+        "playerX": 0,
+        "playerY": 0,
+        "facing": "right"
+      },
+      "settlement": {
+        "sceneFlow": ["WorldScene", "BattleScene", "WorldScene"],
+        "activeScene": "WorldScene",
+        "battleOutcome": "victory"
+      }
+    }
+  }
+}

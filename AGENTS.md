@@ -75,6 +75,14 @@ Follow it before making code, content, tooling, or documentation changes.
 - `.github/workflows/ci.yml`：在 push 和 pull request 上镜像仓库最小校验链路。
 - `npm run battle-parity`: generate the current real-battle parity calibration report.
 - `npm run battle-parity`：生成当前真实战斗一致性校准报告。
+- `npm run battle-enemy-group-import`: verify source enemies and battle groups against generated battle content.
+- `npm run battle-enemy-group-import`：校验 source 敌人和敌群与 generated battle content 是否一致。
+- `npm run battle-scenario-import`: verify battle scenario source entries against world triggers plus regression/parity bindings.
+- `npm run battle-scenario-import`：校验 battle scenario source 条目与 world trigger 以及 regression/parity 绑定是否一致。
+- `npm run battle-reward-drop-check`: validate reward, experience, and drop sanity across generated battle groups.
+- `npm run battle-reward-drop-check`：校验 generated battle groups 的奖励、经验和掉落合理性。
+- `npm run battle-parity-checklist`: generate one checklist showing whether imported real battle slices are fully calibrated.
+- `npm run battle-parity-checklist`：生成一份清单，说明已导入真实战斗切片是否已经完整校准。
 - `npm run event-json`: lint event JSON structure and report formatting drift.
 - `npm run event-json`：检查事件 JSON 结构并报告格式化漂移。
 - `npm run format:events`: rewrite `content/manual/story.content.json` into stable formatting.
@@ -186,6 +194,8 @@ After a meaningful change, run at least the commands that match the risk:
 - SaveData 或兼容性改动：`npm run save-migration-check`
 - Battle tuning or battle-facing content change: `npm run battle-parity`
 - 战斗调参或战斗相关内容改动：`npm run battle-parity`
+- Battle source import, enemy group changes, or reward/drop changes: `npm run battle-enemy-group-import`, `npm run battle-scenario-import`, `npm run battle-reward-drop-check`, and `npm run battle-parity-checklist`
+- 战斗 source 导入、敌群改动或奖励/掉落改动：执行 `npm run battle-enemy-group-import`、`npm run battle-scenario-import`、`npm run battle-reward-drop-check` 和 `npm run battle-parity-checklist`
 - Build-affecting change: `npm run build`
 - 可能影响构建的改动：`npm run build`
 - Performance-sensitive change: `npm run performance-baseline`
