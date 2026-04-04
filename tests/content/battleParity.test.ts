@@ -8,7 +8,7 @@ describe("battle parity", () => {
       regressionReportPath: path.resolve(process.cwd(), "reports/regression/latest/report.json"),
     });
 
-    expect(report.totals.totalCases).toBe(7);
+    expect(report.totals.totalCases).toBe(8);
     expect(report.totals.failedCases).toBe(0);
 
     const louSang = report.cases.find((entry) => entry.id === "lou-sang-field-training");
@@ -18,6 +18,7 @@ describe("battle parity", () => {
     const bridgehead = report.cases.find((entry) => entry.id === "bridgehead-outlaw-baseline");
     const riverWatch = report.cases.find((entry) => entry.id === "river-watch-outlaw-baseline");
     const marsh = report.cases.find((entry) => entry.id === "marsh-road-outlaw-baseline");
+    const reedFerry = report.cases.find((entry) => entry.id === "reed-ferry-road-outlaw-baseline");
 
     expect(louSang?.calibrated).toBe(true);
     expect(louSang?.dimensions.find((entry) => entry.id === "turn-order")?.status).toBe("pass");
@@ -28,5 +29,6 @@ describe("battle parity", () => {
     expect(bridgehead?.calibrated).toBe(true);
     expect(riverWatch?.calibrated).toBe(true);
     expect(marsh?.calibrated).toBe(true);
+    expect(reedFerry?.calibrated).toBe(true);
   });
 });

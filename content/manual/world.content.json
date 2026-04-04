@@ -2928,6 +2928,15 @@
           "height": 1,
           "targetMapId": "marsh-road",
           "targetSpawnId": "from-marsh-outpost"
+        },
+        {
+          "id": "marsh-outpost-to-reed-ferry-road",
+          "x": 18,
+          "y": 6,
+          "width": 1,
+          "height": 1,
+          "targetMapId": "reed-ferry-road",
+          "targetSpawnId": "from-marsh-outpost"
         }
       ],
       "spawnPoints": [
@@ -2936,6 +2945,12 @@
           "x": 2,
           "y": 6,
           "facing": "right"
+        },
+        {
+          "id": "from-reed-ferry-road",
+          "x": 17,
+          "y": 6,
+          "facing": "left"
         }
       ],
       "npcs": [
@@ -2975,6 +2990,254 @@
           "width": 1,
           "height": 1,
           "eventId": "marsh-outpost-cache-event",
+          "once": true
+        }
+      ]
+    },
+    {
+      "id": "reed-ferry-road",
+      "name": "Reed Ferry Road",
+      "width": 24,
+      "height": 14,
+      "tileWidth": 16,
+      "tileHeight": 16,
+      "tileLayers": [
+        {
+          "id": "ground",
+          "name": "Ground",
+          "width": 24,
+          "height": 14,
+          "tiles": [
+            3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,4,4,4,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,4,4,4,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,4,4,4,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,3,1,1,3,
+            3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,2,2,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,3,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
+          ]
+        }
+      ],
+      "collisionLayers": [
+        {
+          "id": "collision",
+          "name": "Collision",
+          "width": 24,
+          "height": 14,
+          "blocked": [
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+          ]
+        }
+      ],
+      "portals": [
+        {
+          "id": "reed-ferry-road-to-marsh-outpost",
+          "x": 1,
+          "y": 7,
+          "width": 1,
+          "height": 1,
+          "targetMapId": "marsh-outpost",
+          "targetSpawnId": "from-reed-ferry-road"
+        }
+      ],
+      "spawnPoints": [
+        {
+          "id": "from-marsh-outpost",
+          "x": 2,
+          "y": 7,
+          "facing": "right"
+        },
+        {
+          "id": "from-reed-ferry-camp",
+          "x": 19,
+          "y": 7,
+          "facing": "left"
+        }
+      ],
+      "npcs": [
+        {
+          "id": "reed-clerk",
+          "name": "渡口文吏",
+          "sprite": "guide",
+          "x": 6,
+          "y": 6,
+          "facing": "down",
+          "behavior": "idle"
+        },
+        {
+          "id": "reed-sentry",
+          "name": "渡口守兵",
+          "sprite": "guard",
+          "x": 16,
+          "y": 7,
+          "facing": "left",
+          "behavior": "idle"
+        }
+      ],
+      "triggers": [
+        {
+          "id": "reed-clerk-trigger",
+          "kind": "npcInteraction",
+          "npcId": "reed-clerk",
+          "eventId": "reed-clerk-event",
+          "once": false
+        },
+        {
+          "id": "reed-sentry-trigger",
+          "kind": "npcInteraction",
+          "npcId": "reed-sentry",
+          "eventId": "reed-sentry-event",
+          "once": false
+        },
+        {
+          "id": "reed-ferry-gate-trigger",
+          "kind": "tile",
+          "x": 18,
+          "y": 7,
+          "width": 1,
+          "height": 1,
+          "eventId": "reed-ferry-gate-event",
+          "once": false
+        },
+        {
+          "id": "reed-ferry-road-battle-trigger",
+          "kind": "region",
+          "x": 10,
+          "y": 6,
+          "width": 4,
+          "height": 3,
+          "encounterTableId": "reed-ferry-road-raiders",
+          "once": false
+        }
+      ]
+    },
+    {
+      "id": "reed-ferry-camp",
+      "name": "Reed Ferry Camp",
+      "width": 20,
+      "height": 12,
+      "tileWidth": 16,
+      "tileHeight": 16,
+      "tileLayers": [
+        {
+          "id": "ground",
+          "name": "Ground",
+          "width": 20,
+          "height": 12,
+          "tiles": [
+            3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,3,3,3,1,1,1,1,3,3,3,1,1,1,1,1,3,
+            3,1,1,1,3,3,3,1,1,1,1,3,3,3,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,1,1,1,3,3,1,1,1,1,1,1,3,3,1,1,1,1,1,3,
+            3,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,3,
+            3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3
+          ]
+        }
+      ],
+      "collisionLayers": [
+        {
+          "id": "collision",
+          "name": "Collision",
+          "width": 20,
+          "height": 12,
+          "blocked": [
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,1,1,1,0,0,0,0,1,1,1,0,0,0,0,0,1,
+            1,0,0,0,1,1,1,0,0,0,0,1,1,1,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,0,0,0,1,1,0,0,0,0,0,0,1,1,0,0,0,0,0,1,
+            1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,
+            1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+          ]
+        }
+      ],
+      "portals": [
+        {
+          "id": "reed-ferry-camp-to-reed-ferry-road",
+          "x": 1,
+          "y": 6,
+          "width": 1,
+          "height": 1,
+          "targetMapId": "reed-ferry-road",
+          "targetSpawnId": "from-reed-ferry-camp"
+        }
+      ],
+      "spawnPoints": [
+        {
+          "id": "from-reed-ferry-road",
+          "x": 2,
+          "y": 6,
+          "facing": "right"
+        }
+      ],
+      "npcs": [
+        {
+          "id": "reed-quartermaster",
+          "name": "渡营粮官",
+          "sprite": "merchant",
+          "shopId": "reed-ferry-shop",
+          "x": 9,
+          "y": 6,
+          "facing": "left",
+          "behavior": "idle"
+        },
+        {
+          "id": "reed-boatman",
+          "name": "渡口艄公",
+          "sprite": "guide",
+          "x": 12,
+          "y": 7,
+          "facing": "down",
+          "behavior": "idle"
+        }
+      ],
+      "triggers": [
+        {
+          "id": "reed-ferry-shop-trigger",
+          "kind": "npcInteraction",
+          "npcId": "reed-quartermaster",
+          "eventId": "reed-ferry-shop-event",
+          "once": false
+        },
+        {
+          "id": "reed-ferry-cache-trigger",
+          "kind": "tile",
+          "x": 3,
+          "y": 9,
+          "width": 1,
+          "height": 1,
+          "eventId": "reed-ferry-cache-event",
           "once": true
         }
       ]
@@ -3192,6 +3455,18 @@
     {
       "id": "marsh-cache-opened",
       "defaultValue": false
+    },
+    {
+      "id": "reed-orders-issued",
+      "defaultValue": false
+    },
+    {
+      "id": "reed-ferry-open",
+      "defaultValue": false
+    },
+    {
+      "id": "reed-ferry-cache-opened",
+      "defaultValue": false
     }
   ],
   "questStates": [
@@ -3366,6 +3641,19 @@
       "entries": [
         {
           "id": "marsh-road-raider-entry",
+          "battleGroupId": "highland-outlaws",
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "id": "reed-ferry-road-raiders",
+      "name": "芦渡前路乱兵",
+      "stepInterval": 3,
+      "chance": 1,
+      "entries": [
+        {
+          "id": "reed-ferry-road-raider-entry",
           "battleGroupId": "highland-outlaws",
           "weight": 1
         }

@@ -4693,6 +4693,477 @@
         "activeScene": "WorldScene",
         "dialogueLineIds": []
       }
+    },
+    {
+      "id": "reed-clerk-issues-orders",
+      "name": "Reed clerk issues orders / 渡口文吏发放军文",
+      "initialState": {
+        "world": {
+          "mapId": "reed-ferry-road",
+          "spawnPointId": "from-marsh-outpost",
+          "playerX": 5,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "reed-orders-issued": false,
+          "reed-ferry-open": false
+        },
+        "inventory": {
+          "gold": 72,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "reed-ferry-road",
+        "npcId": "reed-clerk"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "reed-ferry-road",
+          "currentSpawnId": "from-marsh-outpost",
+          "playerX": 5,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "reed-orders-issued": true,
+          "reed-ferry-open": false
+        },
+        "inventory": {
+          "gold": 72,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["reed-clerk-line-issue"]
+      }
+    },
+    {
+      "id": "reed-sentry-opens-gate",
+      "name": "Reed sentry opens gate / 渡口守兵放下木桥",
+      "initialState": {
+        "world": {
+          "mapId": "reed-ferry-road",
+          "spawnPointId": "from-marsh-outpost",
+          "playerX": 15,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "reed-orders-issued": true,
+          "reed-ferry-open": false
+        },
+        "inventory": {
+          "gold": 72,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "reed-ferry-road",
+        "npcId": "reed-sentry"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "reed-ferry-road",
+          "currentSpawnId": "from-marsh-outpost",
+          "playerX": 15,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "reed-orders-issued": true,
+          "reed-ferry-open": true
+        },
+        "inventory": {
+          "gold": 72,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["reed-sentry-line-open"]
+      }
+    },
+    {
+      "id": "reed-ferry-gate-warps",
+      "name": "Reed ferry gate warps / 芦渡木桥切入渡营",
+      "initialState": {
+        "world": {
+          "mapId": "reed-ferry-road",
+          "spawnPointId": "from-marsh-outpost",
+          "playerX": 18,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "reed-orders-issued": true,
+          "reed-ferry-open": true
+        },
+        "inventory": {
+          "gold": 72,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "tile",
+        "mapId": "reed-ferry-road",
+        "x": 18,
+        "y": 7
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "reed-ferry-camp",
+          "currentSpawnId": "from-reed-ferry-road",
+          "playerX": 2,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "reed-orders-issued": true,
+          "reed-ferry-open": true
+        },
+        "inventory": {
+          "gold": 72,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["reed-gate-line-open"]
+      }
+    },
+    {
+      "id": "reed-ferry-shop-opens",
+      "name": "Reed ferry shop opens / 渡营粮官开启商店",
+      "initialState": {
+        "world": {
+          "mapId": "reed-ferry-camp",
+          "spawnPointId": "from-reed-ferry-road",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 72,
+          "items": []
+        },
+        "shopStates": {
+          "reed-ferry-shop": {
+            "visited": false
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "reed-ferry-camp",
+        "npcId": "reed-quartermaster"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "reed-ferry-camp",
+          "currentSpawnId": "from-reed-ferry-road",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 72,
+          "items": []
+        },
+        "shopStates": {
+          "reed-ferry-shop": {
+            "visited": true
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["reed-shop-line"],
+        "shopId": "reed-ferry-shop",
+        "shopItemLines": [
+          "1. Herb - 10G",
+          "2. Bandage - 24G",
+          "3. 行军口粮 - 28G",
+          "4. Bronze Sword - 56G"
+        ]
+      }
+    },
+    {
+      "id": "reed-ferry-cache-first-open",
+      "name": "Reed ferry cache first open / 渡营补给箱首次开启",
+      "initialState": {
+        "world": {
+          "mapId": "reed-ferry-camp",
+          "spawnPointId": "from-reed-ferry-road",
+          "playerX": 3,
+          "playerY": 9,
+          "facing": "up"
+        },
+        "flags": {
+          "reed-ferry-cache-opened": false
+        },
+        "inventory": {
+          "gold": 72,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "tile",
+        "mapId": "reed-ferry-camp",
+        "x": 3,
+        "y": 9
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "reed-ferry-camp",
+          "currentSpawnId": "from-reed-ferry-road",
+          "playerX": 3,
+          "playerY": 9,
+          "facing": "up"
+        },
+        "flags": {
+          "reed-ferry-cache-opened": true
+        },
+        "inventory": {
+          "gold": 72,
+          "items": [
+            {
+              "itemId": "bandage",
+              "quantity": 1
+            },
+            {
+              "itemId": "travel-ration",
+              "quantity": 1
+            }
+          ]
+        },
+        "consumedTriggerIds": ["reed-ferry-cache-trigger"]
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["reed-cache-line-open"]
+      }
+    },
+    {
+      "id": "reed-ferry-road-battle-roundtrip",
+      "name": "Reed ferry road battle roundtrip / 芦渡前路遭遇战并返回地图",
+      "initialState": {
+        "world": {
+          "mapId": "reed-ferry-road",
+          "spawnPointId": "from-marsh-outpost",
+          "playerX": 10,
+          "playerY": 6,
+          "facing": "right",
+          "stepCount": 6
+        },
+        "inventory": {
+          "gold": 72,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 0,
+            "currentHp": 24,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "region",
+        "mapId": "reed-ferry-road",
+        "x": 10,
+        "y": 6
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "reed-ferry-road",
+          "currentSpawnId": "from-marsh-outpost",
+          "playerX": 10,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 88,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 9,
+            "currentHp": 16,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene", "BattleScene", "WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": [],
+        "battleOutcome": "victory"
+      }
+    },
+    {
+      "id": "reed-ferry-camp-save-load-restores-runtime",
+      "name": "Reed ferry camp save load restores runtime / 渡营存档读档恢复运行时状态",
+      "initialState": {
+        "world": {
+          "mapId": "reed-ferry-camp",
+          "spawnPointId": "from-reed-ferry-road",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "reed-orders-issued": true,
+          "reed-ferry-open": true,
+          "reed-ferry-cache-opened": true
+        },
+        "inventory": {
+          "gold": 72,
+          "items": [
+            {
+              "itemId": "bandage",
+              "quantity": 1
+            },
+            {
+              "itemId": "travel-ration",
+              "quantity": 1
+            }
+          ]
+        },
+        "shopStates": {
+          "reed-ferry-shop": {
+            "visited": true
+          }
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 9,
+            "currentHp": 18,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": ["reed-ferry-cache-trigger"]
+      },
+      "trigger": {
+        "kind": "saveLoadRoundTrip",
+        "slot": "golden-slot",
+        "postSaveMutation": {
+          "world": {
+            "mapId": "reed-ferry-road",
+            "spawnPointId": "from-marsh-outpost",
+            "playerX": 2,
+            "playerY": 7,
+            "facing": "left"
+          },
+          "flags": {
+            "reed-orders-issued": false,
+            "reed-ferry-open": false,
+            "reed-ferry-cache-opened": false
+          },
+          "inventory": {
+            "gold": 0,
+            "items": []
+          },
+          "shopStates": {
+            "reed-ferry-shop": {
+              "visited": false
+            }
+          },
+          "partyStates": {
+            "liu-bei": {
+              "memberId": "liu-bei",
+              "level": 1,
+              "experience": 0,
+              "currentHp": 1,
+              "currentMp": 0,
+              "statusIds": [],
+              "formationSlot": 0
+            }
+          },
+          "consumedTriggerIds": []
+        }
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "reed-ferry-camp",
+          "currentSpawnId": "from-reed-ferry-road",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "reed-orders-issued": true,
+          "reed-ferry-open": true,
+          "reed-ferry-cache-opened": true
+        },
+        "inventory": {
+          "gold": 72,
+          "items": [
+            {
+              "itemId": "bandage",
+              "quantity": 1
+            },
+            {
+              "itemId": "travel-ration",
+              "quantity": 1
+            }
+          ]
+        },
+        "shopStates": {
+          "reed-ferry-shop": {
+            "visited": true
+          }
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 9,
+            "currentHp": 18,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": ["reed-ferry-cache-trigger"]
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": []
+      }
     }
   ]
 }

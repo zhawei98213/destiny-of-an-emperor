@@ -63,6 +63,8 @@ This directory tracks chapter-level planning documents for real remake slices.
 - `chapter-09-river-watch-post`：第九段真实切片，当前状态为 `validating`
 - `chapter-10-marsh-outpost`: tenth real slice, currently `validating`
 - `chapter-10-marsh-outpost`：第十段真实切片，当前状态为 `validating`
+- `chapter-11-reed-ferry`: eleventh real slice, currently `validating`
+- `chapter-11-reed-ferry`：第十一段真实切片，当前状态为 `validating`
 
 ## Working Files
 ## 工作文件
@@ -123,6 +125,14 @@ This directory tracks chapter-level planning documents for real remake slices.
 - `chapter-10-marsh-outpost-visual-replacement-backlog.md`：chapter-10 的章节级视觉替换 backlog 与参考缺口跟踪
 - `chapter-10-marsh-outpost-battle-parity-notes.md`: chapter-local battle parity notes for the marsh-road outlaw slice
 - `chapter-10-marsh-outpost-battle-parity-notes.md`：chapter-10 沼泽前路乱兵战切片的章节级 battle parity 说明
+- [chapter-11-reed-ferry-plan.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-11-reed-ferry-plan.md): execution plan for the eleventh real slice, including ferry handoff reuse notes
+- [chapter-11-reed-ferry-plan.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-11-reed-ferry-plan.md)：第十一段真实切片的执行计划，内含渡口交接模式复用说明
+- [chapter-11-reed-ferry-lock-report.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-11-reed-ferry-lock-report.md): current lock, divergence, and ferry-route throughput report for the eleventh real slice
+- [chapter-11-reed-ferry-lock-report.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-11-reed-ferry-lock-report.md)：第十一段真实切片当前的锁定、偏差与渡口路线吞吐报告
+- `chapter-11-reed-ferry-visual-replacement-backlog.md`: chapter-local visual replacement backlog and reference gap tracker for chapter-11
+- `chapter-11-reed-ferry-visual-replacement-backlog.md`：chapter-11 的章节级视觉替换 backlog 与参考缺口跟踪
+- `chapter-11-reed-ferry-battle-parity-notes.md`: chapter-local battle parity notes for the reed-ferry outlaw slice
+- `chapter-11-reed-ferry-battle-parity-notes.md`：chapter-11 芦渡前路乱兵战切片的章节级 battle parity 说明
 
 The matching chapter metadata lives in `content/manual/chapters/`.
 对应的章节元数据位于 `content/manual/chapters/`。

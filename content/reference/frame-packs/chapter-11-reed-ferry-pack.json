@@ -1,0 +1,87 @@
+{
+  "chapter": "chapter-11-reed-ferry",
+  "format": "reference-frame-pack-v1",
+  "frames": [
+    {
+      "confidence": "low",
+      "id": "chapter-11-reed-ferry-road-map-keyframe-0001",
+      "map_id": "reed-ferry-road",
+      "metadata": {
+        "tags": [
+          "map",
+          "chapter-11"
+        ],
+        "variant": "bootstrap-upgraded"
+      },
+      "notes": "Low-confidence map reference for the reed ferry road. / chapter-11 芦渡前路的低置信度地图参考。",
+      "output_asset_path": "screenshots/chapter-11-reed-ferry/chapter-11-reed-ferry-road-map-keyframe-0001.png",
+      "scene_type": "world",
+      "source_ref": "chapter-11-reed-ferry-road-approx-0001",
+      "subject_id": "reed-ferry-road",
+      "subject_type": "map"
+    },
+    {
+      "confidence": "low",
+      "id": "chapter-11-reed-sentry-keyframe-0001",
+      "map_id": "reed-ferry-road",
+      "metadata": {
+        "tags": [
+          "npc",
+          "chapter-11"
+        ],
+        "variant": "bootstrap-upgraded"
+      },
+      "notes": "Low-confidence sentry standing reference. / 低置信度守兵站立参考。",
+      "output_asset_path": "sprites/chapter-11-reed-ferry/chapter-11-reed-sentry-keyframe-0001.png",
+      "scene_type": "world",
+      "source_ref": "chapter-11-reed-sentry-approx-0001",
+      "subject_id": "reed-sentry",
+      "subject_type": "npc"
+    },
+    {
+      "confidence": "low",
+      "id": "chapter-11-dialogue-ui-keyframe-0001",
+      "map_id": "reed-ferry-road",
+      "metadata": {
+        "tags": [
+          "ui",
+          "dialogue"
+        ],
+        "variant": "bootstrap-upgraded"
+      },
+      "notes": "Low-confidence dialogue UI reference for chapter-11. / chapter-11 对话 UI 的低置信度参考。",
+      "output_asset_path": "ui/chapter-11-reed-ferry/chapter-11-dialogue-ui-keyframe-0001.png",
+      "scene_type": "dialogue",
+      "source_ref": "chapter-11-dialogue-ui-approx-0001",
+      "subject_id": "dialogue-box",
+      "subject_type": "ui"
+    },
+    {
+      "confidence": "low",
+      "id": "chapter-11-reed-battle-keyframe-0001",
+      "map_id": "reed-ferry-road",
+      "metadata": {
+        "tags": [
+          "battle",
+          "chapter-11"
+        ],
+        "variant": "bootstrap-upgraded"
+      },
+      "notes": "Low-confidence battle reference for the reed ferry road outlaw slice. / chapter-11 芦渡前路乱兵战的低置信度参考。",
+      "output_asset_path": "battle/chapter-11-reed-ferry/chapter-11-reed-battle-keyframe-0001.png",
+      "scene_type": "battle",
+      "source_ref": "chapter-11-reed-battle-approx-0001",
+      "subject_id": "reed-ferry-road-raiders",
+      "subject_type": "battle"
+    }
+  ],
+  "notes": "Bootstrap-upgraded low-confidence reference pack for chapter-11. / 由 bootstrap 占位升级而来的 chapter-11 低置信度参考包。",
+  "pack_id": "chapter-11-reed-ferry-pack",
+  "source": {
+    "approximate_source": "Manual curated screenshot set for chapter-11 planning. / 供 chapter-11 规划使用的人工整理截图集合。",
+    "input_path": "screenshots/chapter-11-reed-ferry/reference-source.png",
+    "source_name": "chapter-11-reed-ferry-reference-set",
+    "source_type": "screenshot-sequence"
+  },
+  "title": "Reed Ferry Crossing Reference Pack"
+}

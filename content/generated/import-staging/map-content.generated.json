@@ -203,12 +203,40 @@
       "id": "marsh-outpost",
       "name": "Marsh Outpost",
       "npcCount": 2,
-      "portalCount": 1,
+      "portalCount": 2,
       "size": {
         "height": 12,
         "width": 20
       },
       "sourceFile": "marsh-outpost.source.json",
+      "spawnPointCount": 2,
+      "triggerCount": 2
+    },
+    {
+      "collisionLayerCount": 1,
+      "id": "reed-ferry-road",
+      "name": "Reed Ferry Road",
+      "npcCount": 2,
+      "portalCount": 1,
+      "size": {
+        "height": 14,
+        "width": 24
+      },
+      "sourceFile": "reed-ferry.source.json",
+      "spawnPointCount": 2,
+      "triggerCount": 4
+    },
+    {
+      "collisionLayerCount": 1,
+      "id": "reed-ferry-camp",
+      "name": "Reed Ferry Camp",
+      "npcCount": 2,
+      "portalCount": 1,
+      "size": {
+        "height": 12,
+        "width": 20
+      },
+      "sourceFile": "reed-ferry.source.json",
       "spawnPointCount": 1,
       "triggerCount": 2
     },
@@ -334,6 +362,7 @@
     "highland-waystation.source.json",
     "lou-sang-village.source.json",
     "marsh-outpost.source.json",
+    "reed-ferry.source.json",
     "ridgeway-camp.source.json",
     "river-ford-camp.source.json",
     "river-watch-post.source.json"
