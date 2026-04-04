@@ -99,6 +99,8 @@ Follow it before making code, content, tooling, or documentation changes.
 - `npm run chapter-status-report`：基于元数据、completeness、parity、regression 和 UI parity 证据汇总章节导入状态。
 - `npm run chapter-lock-checklist -- --id <chapter-id>`: generate a chapter lock checklist for review.
 - `npm run chapter-lock-checklist -- --id <chapter-id>`：生成供审查使用的章节锁定清单。
+- `npm run progression-gating-audit`: simulate chapter mainline progression and audit gate dependencies plus soft-lock risk.
+- `npm run progression-gating-audit`：模拟章节主线推进，并审计门禁依赖与软锁风险。
 - `npm run world-connectivity-audit`: generate the current global world graph audit for portals, spawns, and return-path consistency.
 - `npm run world-connectivity-audit`：生成当前全局世界连接图审计，覆盖 portal、spawn 和返回路径一致性。
 - `npm run asset-check`: generate the current asset parity report for imported chapters.
@@ -170,6 +172,8 @@ After a meaningful change, run at least the commands that match the risk:
 - 内容或导入器改动：`npm run import-all` 和 `npm run validate-content`
 - World map, portal, spawn, or transition change: `npm run world-connectivity-audit`
 - 世界地图、portal、spawn 或切图链路改动：执行 `npm run world-connectivity-audit`
+- Mainline progression, guard gating, map unlock, or flag gating change: `npm run progression-gating-audit`
+- 主线推进、门卫阻拦、地图开放或 flag 门禁改动：执行 `npm run progression-gating-audit`
 - Runtime or scene change: `npm run test`
 - 运行时或 scene 改动：`npm run test`
 - Cross-cutting or release-shaping change: `npm run regression-smoke`

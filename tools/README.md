@@ -41,6 +41,8 @@ Current first-pass tooling:
 - `tools/chapter-status-report.ts`：把章节元数据、completeness、parity、regression 和 UI parity 聚合成一份章节导入状态摘要。
 - `tools/chapter-lock-checklist.ts`: generates a review checklist for deciding whether a chapter is ready to lock.
 - `tools/chapter-lock-checklist.ts`：生成用于判断章节是否可锁定的审查清单。
+- `tools/progression-gating-audit.ts`: simulates mainline chapter progression, reports map-access dependencies, and identifies soft-lock risks plus per-chapter progression checklists.
+- `tools/progression-gating-audit.ts`：模拟主线章节推进，输出地图开放依赖，并识别软锁风险与每章推进检查清单。
 - `tools/world-connectivity-audit.ts`: generates the current global map connection graph and reports missing return portals, isolated maps, invalid spawns, and bidirectional traversal mismatches.
 - `tools/world-connectivity-audit.ts`：生成当前全局地图连接图，并报告缺失返回 portal、孤立地图、无效 spawn 和双向移动不一致问题。
 - `tools/asset-check.ts`: generates an asset parity report for current chapters, including missing resources, unreferenced resources, broken references, and sprite metadata integrity.
@@ -145,6 +147,10 @@ Current first-pass tooling:
   Generates `reports/chapters/latest/lock-checklists/<chapter-id>.md` for lock review.
 - `npm run chapter-lock-checklist -- --id <chapter-id>`
   生成 `reports/chapters/latest/lock-checklists/<chapter-id>.md`，用于锁定审核。
+- `npm run progression-gating-audit`
+  Generates `reports/progression-gating/latest/` and audits progression-critical gates, provider chains, and soft-lock risk.
+- `npm run progression-gating-audit`
+  生成 `reports/progression-gating/latest/`，并审计推进关键门禁、提供者链路和软锁风险。
 - `npm run world-connectivity-audit`
   Generates `reports/world-connectivity/latest/` and audits graph-level map traversal issues such as missing return portals, isolated maps, invalid spawns, and bidirectional traversal mismatches.
 - `npm run world-connectivity-audit`

@@ -226,10 +226,19 @@ export async function bootstrapChapterScaffold(
 
 async function loadOptionalJson<T>(filePath: string): Promise<T | undefined> {
   try {
-    return JSON.parse(await readFile(filePath, "utf8")) as T;
+    const rawText = await readFile(filePath, "utf8");
+    if (rawText.trim().length === 0) {
+      return undefined;
+    }
+
+    return JSON.parse(rawText) as T;
   } catch (error) {
     const message = error instanceof Error ? error.message : String(error);
-    if (message.includes("ENOENT") || message.includes("no such file")) {
+    if (
+      message.includes("ENOENT")
+      || message.includes("no such file")
+      || message.includes("Unexpected end of JSON input")
+    ) {
       return undefined;
     }
 

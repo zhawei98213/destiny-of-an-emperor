@@ -26,6 +26,7 @@
     "chapter-bootstrap": "vite-node tools/chapter-bootstrap.ts",
     "chapter-status-report": "vite-node tools/chapter-status-report.ts",
     "chapter-lock-checklist": "vite-node tools/chapter-lock-checklist.ts",
+    "progression-gating-audit": "vite-node tools/progression-gating-audit.ts",
     "world-connectivity-audit": "vite-node tools/world-connectivity-audit.ts",
     "asset-check": "vite-node tools/asset-check.ts",
     "visual-backfill-report": "vite-node tools/visual-backfill-report.ts",
