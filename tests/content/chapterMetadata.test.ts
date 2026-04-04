@@ -18,6 +18,7 @@ describe("chapter metadata", () => {
       "chapter-04-ridgeway-camp",
       "chapter-05-highland-waystation",
       "chapter-06-border-fort",
+      "chapter-07-forward-camp",
       "chapter-template",
     ]);
     expect(chapters.find((entry) => entry.chapterId === "chapter-01-lou-sang")?.maps).toEqual([
@@ -37,6 +38,10 @@ describe("chapter metadata", () => {
     expect(chapters.find((entry) => entry.chapterId === "chapter-06-border-fort")?.maps).toEqual([
       "border-road",
       "border-fort-yard",
+    ]);
+    expect(chapters.find((entry) => entry.chapterId === "chapter-07-forward-camp")?.maps).toEqual([
+      "fort-east-road",
+      "forward-camp-yard",
     ]);
   });
 

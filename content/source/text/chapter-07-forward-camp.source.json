@@ -1,0 +1,251 @@
+{
+  "format": "text-source-v1",
+  "dialogueLines": [
+    {
+      "id": "fort-adjutant-line-issue-1",
+      "speakerName": "前营都尉",
+      "speakerNpcId": "fort-adjutant",
+      "text": "前营东侧还在盘查往来兵卒。你先把这道前营军令记在心里，到了门前别说错了。",
+      "portraitId": "guide-default",
+      "soundId": "voice-guide",
+      "styleId": "dialogue-default"
+    },
+    {
+      "id": "fort-adjutant-line-issue-2",
+      "speakerName": "前营都尉",
+      "speakerNpcId": "fort-adjutant",
+      "text": "守兵点头之后，你就沿营墙往里走，粮官和斥候都在里面等着。",
+      "portraitId": "guide-default",
+      "soundId": "voice-guide",
+      "styleId": "dialogue-default"
+    },
+    {
+      "id": "fort-adjutant-line-repeat",
+      "speakerName": "前营都尉",
+      "speakerNpcId": "fort-adjutant",
+      "text": "军令已经交代给你了。别在门口耽搁，前营里面还有人等着回报。",
+      "portraitId": "guide-default",
+      "soundId": "voice-guide",
+      "styleId": "dialogue-default"
+    },
+    {
+      "id": "camp-sentry-line-blocked",
+      "speakerName": "前营守兵",
+      "speakerNpcId": "camp-sentry",
+      "text": "没有都尉那边的军令，谁也不能再往里走。",
+      "portraitId": "guard-default",
+      "soundId": "voice-guard",
+      "styleId": "dialogue-default"
+    },
+    {
+      "id": "camp-sentry-line-open",
+      "speakerName": "前营守兵",
+      "speakerNpcId": "camp-sentry",
+      "text": "军令核对无误。你跟着营墙往东进，里面就是前营补给场。",
+      "portraitId": "guard-default",
+      "soundId": "voice-guard",
+      "styleId": "dialogue-default"
+    },
+    {
+      "id": "forward-camp-gate-line-open",
+      "speakerName": "系统",
+      "text": "守兵让开身位，你顺着东侧营墙继续向前。",
+      "portraitId": "system-default",
+      "soundId": "sfx-step",
+      "styleId": "system-default"
+    },
+    {
+      "id": "forward-camp-gate-line-blocked",
+      "speakerName": "系统",
+      "text": "前营守兵还没有放行，东侧营道暂时不能通过。",
+      "portraitId": "system-default",
+      "soundId": "sfx-blocked",
+      "styleId": "system-default"
+    },
+    {
+      "id": "forward-camp-shop-line",
+      "speakerName": "前营粮官",
+      "speakerNpcId": "camp-purveyor",
+      "text": "前营口粮、草药和备用短兵都在这里。要是准备继续前推，就先把包袱整好。",
+      "portraitId": "merchant-default",
+      "soundId": "voice-merchant",
+      "styleId": "dialogue-default"
+    },
+    {
+      "id": "forward-camp-cache-line-open",
+      "speakerName": "系统",
+      "text": "你在补给场角落的木箱里找到一卷绷带和一份草药。",
+      "portraitId": "system-default",
+      "soundId": "sfx-chest",
+      "styleId": "system-default"
+    }
+  ],
+  "events": [
+    {
+      "id": "fort-adjutant-event",
+      "name": "Fort Adjutant Event",
+      "steps": [
+        {
+          "type": "ifFlag",
+          "flagId": "forward-orders-issued",
+          "steps": [
+            {
+              "type": "dialogue",
+              "lineId": "fort-adjutant-line-repeat"
+            },
+            {
+              "type": "end"
+            }
+          ],
+          "elseSteps": [
+            {
+              "type": "dialogue",
+              "lineId": "fort-adjutant-line-issue-1"
+            },
+            {
+              "type": "dialogue",
+              "lineId": "fort-adjutant-line-issue-2"
+            },
+            {
+              "type": "setFlag",
+              "flagId": "forward-orders-issued"
+            },
+            {
+              "type": "end"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "camp-sentry-event",
+      "name": "Camp Sentry Event",
+      "steps": [
+        {
+          "type": "ifFlag",
+          "flagId": "forward-orders-issued",
+          "steps": [
+            {
+              "type": "dialogue",
+              "lineId": "camp-sentry-line-open"
+            },
+            {
+              "type": "setFlag",
+              "flagId": "forward-camp-gate-open"
+            },
+            {
+              "type": "playSfx",
+              "sfxId": "sfx-gate-open"
+            },
+            {
+              "type": "end"
+            }
+          ],
+          "elseSteps": [
+            {
+              "type": "dialogue",
+              "lineId": "camp-sentry-line-blocked"
+            },
+            {
+              "type": "end"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "forward-camp-gate-event",
+      "name": "Forward Camp Gate Event",
+      "steps": [
+        {
+          "type": "ifFlag",
+          "flagId": "forward-camp-gate-open",
+          "steps": [
+            {
+              "type": "dialogue",
+              "lineId": "forward-camp-gate-line-open"
+            },
+            {
+              "type": "facePlayer",
+              "facing": "right"
+            },
+            {
+              "type": "movePlayer",
+              "direction": "right",
+              "distance": 1
+            },
+            {
+              "type": "warp",
+              "targetMapId": "forward-camp-yard",
+              "targetSpawnId": "from-fort-east-road"
+            },
+            {
+              "type": "end"
+            }
+          ],
+          "elseSteps": [
+            {
+              "type": "dialogue",
+              "lineId": "forward-camp-gate-line-blocked"
+            },
+            {
+              "type": "end"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "forward-camp-shop-event",
+      "name": "Forward Camp Shop Event",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lineId": "forward-camp-shop-line"
+        },
+        {
+          "type": "openShop",
+          "shopId": "forward-camp-shop"
+        },
+        {
+          "type": "playSfx",
+          "sfxId": "sfx-shop-open"
+        },
+        {
+          "type": "end"
+        }
+      ]
+    },
+    {
+      "id": "forward-camp-cache-event",
+      "name": "Forward Camp Cache Event",
+      "steps": [
+        {
+          "type": "dialogue",
+          "lineId": "forward-camp-cache-line-open"
+        },
+        {
+          "type": "giveItem",
+          "itemId": "bandage",
+          "quantity": 1
+        },
+        {
+          "type": "giveItem",
+          "itemId": "herb",
+          "quantity": 1
+        },
+        {
+          "type": "setFlag",
+          "flagId": "forward-camp-cache-opened"
+        },
+        {
+          "type": "playSfx",
+          "sfxId": "sfx-chest"
+        },
+        {
+          "type": "end"
+        }
+      ]
+    }
+  ]
+}

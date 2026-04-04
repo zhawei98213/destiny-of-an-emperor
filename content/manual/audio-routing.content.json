@@ -54,6 +54,32 @@
         "audio.sfx-rest",
         "audio.sfx-chest"
       ]
+    },
+    {
+      "battleAudio": [
+        {
+          "battleGroupId": "highland-outlaws",
+          "bgmKey": "audio.bgm.chapter-07-forward-camp.battle.highland-outlaws"
+        }
+      ],
+      "chapterId": "chapter-07-forward-camp",
+      "mapAudio": [
+        {
+          "bgmKey": "audio.bgm.chapter-07-forward-camp.world",
+          "mapId": "fort-east-road"
+        },
+        {
+          "bgmKey": "audio.bgm.chapter-07-forward-camp.world",
+          "mapId": "forward-camp-yard"
+        }
+      ],
+      "notes": "Chapter-07 keeps placeholder audio assets, but world/battle routing is now explicit so later backfill can replace them without touching gameplay content. / chapter-07 当前仍使用 placeholder 音频资产，但 world/battle 路由已经显式化，后续回填时无需改 gameplay 内容数据。",
+      "sfxKeys": [
+        "audio.sfx-gate-open",
+        "audio.sfx-shop-open",
+        "audio.sfx-step",
+        "audio.sfx-chest"
+      ]
     }
   ],
   "defaults": {

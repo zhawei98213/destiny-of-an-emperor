@@ -43,6 +43,6 @@ describe("npc dialogue import helpers", () => {
     expect(chapterSix?.status).toBe("ready");
     expect(chapterSix?.sourceDialogueCount).toBe(7);
     expect(chapterSix?.sourceEventCount).toBe(5);
-    expect(chapterSix?.referencedDialogueCount).toBe(7);
+    expect(chapterSix?.referencedDialogueCount).toBe(8);
   });
 });

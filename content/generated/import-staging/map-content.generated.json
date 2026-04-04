@@ -27,8 +27,8 @@
         "width": 20
       },
       "sourceFile": "border-fort.source.json",
-      "spawnPointCount": 1,
-      "triggerCount": 2
+      "spawnPointCount": 2,
+      "triggerCount": 3
     },
     {
       "collisionLayerCount": 1,
@@ -69,6 +69,34 @@
         "width": 18
       },
       "sourceFile": "east-road-relay.source.json",
+      "spawnPointCount": 1,
+      "triggerCount": 2
+    },
+    {
+      "collisionLayerCount": 1,
+      "id": "fort-east-road",
+      "name": "Fort East Road",
+      "npcCount": 2,
+      "portalCount": 1,
+      "size": {
+        "height": 14,
+        "width": 24
+      },
+      "sourceFile": "forward-camp.source.json",
+      "spawnPointCount": 2,
+      "triggerCount": 4
+    },
+    {
+      "collisionLayerCount": 1,
+      "id": "forward-camp-yard",
+      "name": "Forward Camp Yard",
+      "npcCount": 2,
+      "portalCount": 1,
+      "size": {
+        "height": 12,
+        "width": 20
+      },
+      "sourceFile": "forward-camp.source.json",
       "spawnPointCount": 1,
       "triggerCount": 2
     },
@@ -217,6 +245,7 @@
     "border-fort.source.json",
     "demo-maps.source.json",
     "east-road-relay.source.json",
+    "forward-camp.source.json",
     "highland-waystation.source.json",
     "lou-sang-village.source.json",
     "ridgeway-camp.source.json",

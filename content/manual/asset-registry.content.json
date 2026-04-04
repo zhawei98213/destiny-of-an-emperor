@@ -403,6 +403,24 @@
       }
     },
     {
+      "key": "audio.bgm.chapter-07-forward-camp.world",
+      "category": "audio",
+      "state": "placeholder",
+      "fallbackKey": "audio.bgm.default.world",
+      "resource": {
+        "kind": "audio-ref"
+      }
+    },
+    {
+      "key": "audio.bgm.chapter-07-forward-camp.battle.highland-outlaws",
+      "category": "audio",
+      "state": "placeholder",
+      "fallbackKey": "audio.bgm.default.battle",
+      "resource": {
+        "kind": "audio-ref"
+      }
+    },
+    {
       "key": "audio.voice-merchant",
       "category": "audio",
       "state": "placeholder",
@@ -847,6 +865,52 @@
         },
         {
           "key": "tileset.border-fort-yard",
+          "category": "tileset",
+          "state": "placeholder",
+          "fallbackKey": "tileset.default",
+          "resource": {
+            "kind": "tileset-palette",
+            "tileWidth": 16,
+            "tileHeight": 16,
+            "tileColors": {
+              "0": "#0f172a",
+              "1": "#5f8f3f",
+              "2": "#c8a65a",
+              "3": "#59626d",
+              "4": "#3b82c4",
+              "5": "#31572c"
+            },
+            "sourceCandidateIds": []
+          }
+        }
+      ]
+    },
+    {
+      "chapterId": "chapter-07-forward-camp",
+      "mapIds": ["fort-east-road", "forward-camp-yard"],
+      "assetBindings": [
+        {
+          "key": "tileset.fort-east-road",
+          "category": "tileset",
+          "state": "placeholder",
+          "fallbackKey": "tileset.default",
+          "resource": {
+            "kind": "tileset-palette",
+            "tileWidth": 16,
+            "tileHeight": 16,
+            "tileColors": {
+              "0": "#0f172a",
+              "1": "#5f8f3f",
+              "2": "#c8a65a",
+              "3": "#59626d",
+              "4": "#3b82c4",
+              "5": "#31572c"
+            },
+            "sourceCandidateIds": []
+          }
+        },
+        {
+          "key": "tileset.forward-camp-yard",
           "category": "tileset",
           "state": "placeholder",
           "fallbackKey": "tileset.default",

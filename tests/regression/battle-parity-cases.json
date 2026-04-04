@@ -142,6 +142,51 @@
           "battleOutcome": "victory"
         }
       }
+    },
+    {
+      "id": "forward-camp-outlaw-baseline",
+      "chapterId": "chapter-07-forward-camp",
+      "name": "Forward camp outlaw baseline / 前营东路乱兵战基线",
+      "goldenCaseId": "fort-east-road-battle-roundtrip",
+      "expected": {
+        "battleGroupId": "highland-outlaws",
+        "enemyIds": ["highland-outlaw"],
+        "openingTurnOrder": [
+          "ally:liu-bei",
+          "enemy:highland-outlaw:0"
+        ],
+        "damageSequence": [
+          { "actorId": "ally:liu-bei", "targetId": "enemy:highland-outlaw:0", "damage": 7 },
+          { "actorId": "enemy:highland-outlaw:0", "targetId": "ally:liu-bei", "damage": 4 },
+          { "actorId": "ally:liu-bei", "targetId": "enemy:highland-outlaw:0", "damage": 7 },
+          { "actorId": "enemy:highland-outlaw:0", "targetId": "ally:liu-bei", "damage": 4 },
+          { "actorId": "ally:liu-bei", "targetId": "enemy:highland-outlaw:0", "damage": 7 }
+        ],
+        "rewards": {
+          "experience": 9,
+          "gold": 16,
+          "items": []
+        },
+        "outcome": "victory",
+        "worldReturn": {
+          "mapId": "fort-east-road",
+          "spawnId": "from-border-fort-yard-east",
+          "playerX": 10,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "trigger": {
+          "mapId": "fort-east-road",
+          "triggerId": "fort-east-road-battle-trigger",
+          "encounterTableId": "fort-east-road-raiders",
+          "battleGroupId": "highland-outlaws"
+        },
+        "settlement": {
+          "sceneFlow": ["WorldScene", "BattleScene", "WorldScene"],
+          "activeScene": "WorldScene",
+          "battleOutcome": "victory"
+        }
+      }
     }
   ]
 }

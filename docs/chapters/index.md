@@ -53,6 +53,8 @@ This directory tracks chapter-level planning documents for real remake slices.
 - `chapter-05-highland-waystation`：第五段真实切片，当前状态为 `validating`
 - `chapter-06-border-fort`: sixth real slice, currently `validating`
 - `chapter-06-border-fort`：第六段真实切片，当前状态为 `validating`
+- `chapter-07-forward-camp`: seventh real slice, currently `validating`
+- `chapter-07-forward-camp`：第七段真实切片，当前状态为 `validating`
 
 ## Working Files
 ## 工作文件
@@ -81,6 +83,14 @@ This directory tracks chapter-level planning documents for real remake slices.
 - [chapter-06-border-fort-lock-report.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-06-border-fort-lock-report.md)：第六段真实切片当前的锁定、偏差与功能点报告
 - `chapter-06-border-fort-visual-replacement-backlog.md`: chapter-local visual replacement backlog and new reference-gap tracker for chapter-06
 - `chapter-06-border-fort-visual-replacement-backlog.md`：chapter-06 的章节级视觉替换 backlog 与新增参考缺口跟踪
+- [chapter-07-forward-camp-plan.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-07-forward-camp-plan.md): execution plan for the seventh real slice, including scripted gate-flow notes
+- [chapter-07-forward-camp-plan.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-07-forward-camp-plan.md)：第七段真实切片的执行计划，内含 scripted gate-flow 说明
+- [chapter-07-forward-camp-lock-report.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-07-forward-camp-lock-report.md): current lock, divergence, and dual-track report for the seventh real slice
+- [chapter-07-forward-camp-lock-report.md](/Users/zha/Documents/CodeSpaces/gptAI/destiny-of-an-emperor/docs/chapters/chapter-07-forward-camp-lock-report.md)：第七段真实切片当前的锁定、偏差与双轨报告
+- `chapter-07-forward-camp-visual-replacement-backlog.md`: chapter-local visual replacement backlog and reference gap tracker for chapter-07
+- `chapter-07-forward-camp-visual-replacement-backlog.md`：chapter-07 的章节级视觉替换 backlog 与参考缺口跟踪
+- `chapter-07-forward-camp-battle-parity-notes.md`: chapter-local battle parity notes for the reused outlaw slice
+- `chapter-07-forward-camp-battle-parity-notes.md`：chapter-07 复用乱兵战切片的章节级 battle parity 说明
 
 The matching chapter metadata lives in `content/manual/chapters/`.
 对应的章节元数据位于 `content/manual/chapters/`。

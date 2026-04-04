@@ -2,8 +2,8 @@
   "format": "map-source-v1",
   "maps": [
     {
-      "id": "border-road",
-      "name": "Border Road",
+      "id": "fort-east-road",
+      "name": "Fort East Road",
       "width": 24,
       "height": 14,
       "tileWidth": 16,
@@ -58,24 +58,24 @@
       ],
       "portals": [
         {
-          "id": "border-road-to-supply-court",
+          "id": "fort-east-road-to-border-fort-yard",
           "x": 1,
           "y": 7,
           "width": 1,
           "height": 1,
-          "targetMapId": "supply-court",
-          "targetSpawnId": "from-border-road"
+          "targetMapId": "border-fort-yard",
+          "targetSpawnId": "from-fort-east-road"
         }
       ],
       "spawnPoints": [
         {
-          "id": "from-supply-court-west",
+          "id": "from-border-fort-yard-east",
           "x": 2,
           "y": 7,
           "facing": "right"
         },
         {
-          "id": "from-border-fort-yard",
+          "id": "from-forward-camp-yard",
           "x": 20,
           "y": 7,
           "facing": "left"
@@ -83,8 +83,8 @@
       ],
       "npcs": [
         {
-          "id": "border-clerk",
-          "name": "边关文吏",
+          "id": "fort-adjutant",
+          "name": "前营都尉",
           "x": 6,
           "y": 6,
           "sprite": "guide",
@@ -92,8 +92,8 @@
           "behavior": "idle"
         },
         {
-          "id": "border-sentry",
-          "name": "边关守兵",
+          "id": "camp-sentry",
+          "name": "前营守兵",
           "x": 16,
           "y": 7,
           "sprite": "guard",
@@ -103,44 +103,44 @@
       ],
       "triggers": [
         {
-          "id": "border-clerk-trigger",
+          "id": "fort-adjutant-trigger",
           "kind": "npcInteraction",
-          "npcId": "border-clerk",
-          "eventId": "border-clerk-event",
+          "npcId": "fort-adjutant",
+          "eventId": "fort-adjutant-event",
           "once": false
         },
         {
-          "id": "border-sentry-trigger",
+          "id": "camp-sentry-trigger",
           "kind": "npcInteraction",
-          "npcId": "border-sentry",
-          "eventId": "border-sentry-event",
+          "npcId": "camp-sentry",
+          "eventId": "camp-sentry-event",
           "once": false
         },
         {
-          "id": "border-fort-gate-trigger",
+          "id": "forward-camp-gate-trigger",
           "kind": "tile",
-          "x": 22,
+          "x": 18,
           "y": 7,
           "width": 1,
           "height": 1,
-          "eventId": "border-fort-gate-event",
+          "eventId": "forward-camp-gate-event",
           "once": false
         },
         {
-          "id": "border-road-battle-trigger",
+          "id": "fort-east-road-battle-trigger",
           "kind": "region",
           "x": 10,
           "y": 5,
           "width": 4,
           "height": 3,
-          "encounterTableId": "border-road-outlaws",
+          "encounterTableId": "fort-east-road-raiders",
           "once": false
         }
       ]
     },
     {
-      "id": "border-fort-yard",
-      "name": "Border Fort Yard",
+      "id": "forward-camp-yard",
+      "name": "Forward Camp Yard",
       "width": 20,
       "height": 12,
       "tileWidth": 16,
@@ -191,42 +191,37 @@
       ],
       "portals": [
         {
-          "id": "border-fort-yard-to-border-road",
+          "id": "forward-camp-yard-to-fort-east-road",
           "x": 1,
           "y": 6,
           "width": 1,
           "height": 1,
-          "targetMapId": "border-road",
-          "targetSpawnId": "from-border-fort-yard"
+          "targetMapId": "fort-east-road",
+          "targetSpawnId": "from-forward-camp-yard"
         }
       ],
       "spawnPoints": [
         {
-          "id": "from-border-road",
-          "x": 2,
-          "y": 6,
-          "facing": "right"
-        },
-        {
           "id": "from-fort-east-road",
-          "x": 17,
+          "x": 2,
           "y": 6,
           "facing": "right"
         }
       ],
       "npcs": [
         {
-          "id": "fort-healer",
-          "name": "关营医官",
+          "id": "camp-purveyor",
+          "name": "前营粮官",
           "x": 9,
           "y": 6,
           "sprite": "merchant",
+          "shopId": "forward-camp-shop",
           "facing": "left",
           "behavior": "idle"
         },
         {
-          "id": "fort-veteran",
-          "name": "边营老卒",
+          "id": "camp-scout",
+          "name": "前营斥候",
           "x": 12,
           "y": 7,
           "sprite": "guide",
@@ -236,31 +231,21 @@
       ],
       "triggers": [
         {
-          "id": "fort-healer-trigger",
+          "id": "forward-camp-shop-trigger",
           "kind": "npcInteraction",
-          "npcId": "fort-healer",
-          "eventId": "fort-healer-event",
+          "npcId": "camp-purveyor",
+          "eventId": "forward-camp-shop-event",
           "once": false
         },
         {
-          "id": "fort-cache-trigger",
+          "id": "forward-camp-cache-trigger",
           "kind": "tile",
           "x": 3,
           "y": 9,
           "width": 1,
           "height": 1,
-          "eventId": "fort-cache-event",
+          "eventId": "forward-camp-cache-event",
           "once": true
-        },
-        {
-          "id": "border-fort-east-road-trigger",
-          "kind": "tile",
-          "x": 18,
-          "y": 6,
-          "width": 1,
-          "height": 1,
-          "eventId": "border-fort-east-road-event",
-          "once": false
         }
       ]
     }

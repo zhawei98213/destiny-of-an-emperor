@@ -8,6 +8,7 @@
     "border-clerk-event",
     "border-sentry-event",
     "border-fort-gate-event",
+    "border-fort-east-road-event",
     "fort-healer-event",
     "fort-cache-event"
   ],

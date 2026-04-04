@@ -2829,5 +2829,468 @@
         "dialogueLineIds": []
       }
     }
+    ,
+    {
+      "id": "fort-adjutant-issues-orders",
+      "name": "Fort adjutant issues orders / 前营都尉交代军令",
+      "initialState": {
+        "world": {
+          "mapId": "fort-east-road",
+          "spawnPointId": "from-border-fort-yard-east",
+          "playerX": 6,
+          "playerY": 7,
+          "facing": "up"
+        },
+        "flags": {
+          "forward-orders-issued": false
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "fort-east-road",
+        "npcId": "fort-adjutant"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "fort-east-road",
+          "currentSpawnId": "from-border-fort-yard-east",
+          "playerX": 6,
+          "playerY": 7,
+          "facing": "up"
+        },
+        "flags": {
+          "forward-orders-issued": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["fort-adjutant-line-issue-1", "fort-adjutant-line-issue-2"]
+      }
+    },
+    {
+      "id": "camp-sentry-opens-gate",
+      "name": "Camp sentry opens gate / 前营守兵核令后放行",
+      "initialState": {
+        "world": {
+          "mapId": "fort-east-road",
+          "spawnPointId": "from-border-fort-yard-east",
+          "playerX": 15,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "forward-orders-issued": true,
+          "forward-camp-gate-open": false
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "fort-east-road",
+        "npcId": "camp-sentry"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "fort-east-road",
+          "currentSpawnId": "from-border-fort-yard-east",
+          "playerX": 15,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "forward-orders-issued": true,
+          "forward-camp-gate-open": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["camp-sentry-line-open"]
+      }
+    },
+    {
+      "id": "forward-camp-gate-warps",
+      "name": "Forward camp gate warps / 前营东门过场后切入补给场",
+      "initialState": {
+        "world": {
+          "mapId": "fort-east-road",
+          "spawnPointId": "from-border-fort-yard-east",
+          "playerX": 18,
+          "playerY": 7,
+          "facing": "right"
+        },
+        "flags": {
+          "forward-camp-gate-open": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "tile",
+        "mapId": "fort-east-road",
+        "x": 18,
+        "y": 7
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "forward-camp-yard",
+          "currentSpawnId": "from-fort-east-road",
+          "playerX": 2,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "forward-camp-gate-open": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["forward-camp-gate-line-open"]
+      }
+    },
+    {
+      "id": "forward-camp-shop-opens",
+      "name": "Forward camp shop opens / 前营粮官开启商店",
+      "initialState": {
+        "world": {
+          "mapId": "forward-camp-yard",
+          "spawnPointId": "from-fort-east-road",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 31,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "forward-camp-yard",
+        "npcId": "camp-purveyor"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "forward-camp-yard",
+          "currentSpawnId": "from-fort-east-road",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 31,
+          "items": []
+        },
+        "shopStates": {
+          "forward-camp-shop": {
+            "visited": true
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["forward-camp-shop-line"],
+        "shopId": "forward-camp-shop",
+        "shopItemLines": [
+          "1. Herb - 10G",
+          "2. Bandage - 20G",
+          "3. 行军口粮 - 23G",
+          "4. Bronze Sword - 47G"
+        ]
+      }
+    },
+    {
+      "id": "forward-camp-cache-first-open",
+      "name": "Forward camp cache first open / 前营补给箱首次开启",
+      "initialState": {
+        "world": {
+          "mapId": "forward-camp-yard",
+          "spawnPointId": "from-fort-east-road",
+          "playerX": 3,
+          "playerY": 9,
+          "facing": "down"
+        },
+        "flags": {
+          "forward-camp-cache-opened": false
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "tile",
+        "mapId": "forward-camp-yard",
+        "x": 3,
+        "y": 9
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "forward-camp-yard",
+          "currentSpawnId": "from-fort-east-road",
+          "playerX": 3,
+          "playerY": 9,
+          "facing": "down"
+        },
+        "flags": {
+          "forward-camp-cache-opened": true
+        },
+        "inventory": {
+          "gold": 0,
+          "items": [
+            {
+              "itemId": "bandage",
+              "quantity": 1
+            },
+            {
+              "itemId": "herb",
+              "quantity": 1
+            }
+          ]
+        },
+        "consumedTriggerIds": ["forward-camp-cache-trigger"]
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["forward-camp-cache-line-open"]
+      }
+    },
+    {
+      "id": "fort-east-road-battle-roundtrip",
+      "name": "Fort east road battle roundtrip / 前营东路遭遇战并返回地图",
+      "initialState": {
+        "world": {
+          "mapId": "fort-east-road",
+          "spawnPointId": "from-border-fort-yard-east",
+          "playerX": 10,
+          "playerY": 6,
+          "facing": "right",
+          "stepCount": 6
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 0,
+            "currentHp": 24,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "region",
+        "mapId": "fort-east-road",
+        "x": 10,
+        "y": 6
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "fort-east-road",
+          "currentSpawnId": "from-border-fort-yard-east",
+          "playerX": 10,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 16,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 9,
+            "currentHp": 16,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene", "BattleScene", "WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": [],
+        "battleOutcome": "victory"
+      }
+    },
+    {
+      "id": "forward-camp-save-load-restores-runtime",
+      "name": "Forward camp save load restores runtime / 前营补给场存档读档恢复运行时状态",
+      "initialState": {
+        "world": {
+          "mapId": "forward-camp-yard",
+          "spawnPointId": "from-fort-east-road",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "forward-orders-issued": true,
+          "forward-camp-gate-open": true,
+          "forward-camp-cache-opened": true
+        },
+        "inventory": {
+          "gold": 47,
+          "items": [
+            {
+              "itemId": "bandage",
+              "quantity": 1
+            },
+            {
+              "itemId": "herb",
+              "quantity": 1
+            }
+          ]
+        },
+        "shopStates": {
+          "forward-camp-shop": {
+            "visited": true
+          }
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 9,
+            "currentHp": 18,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": ["forward-camp-cache-trigger"]
+      },
+      "trigger": {
+        "kind": "saveLoadRoundTrip",
+        "slot": "golden-slot",
+        "postSaveMutation": {
+          "world": {
+            "mapId": "fort-east-road",
+            "spawnPointId": "from-border-fort-yard-east",
+            "playerX": 2,
+            "playerY": 7,
+            "facing": "left"
+          },
+          "flags": {
+            "forward-orders-issued": false,
+            "forward-camp-gate-open": false,
+            "forward-camp-cache-opened": false
+          },
+          "inventory": {
+            "gold": 0,
+            "items": []
+          },
+          "shopStates": {
+            "forward-camp-shop": {
+              "visited": false
+            }
+          },
+          "partyStates": {
+            "liu-bei": {
+              "memberId": "liu-bei",
+              "level": 1,
+              "experience": 0,
+              "currentHp": 1,
+              "currentMp": 0,
+              "statusIds": [],
+              "formationSlot": 0
+            }
+          },
+          "consumedTriggerIds": []
+        }
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "forward-camp-yard",
+          "currentSpawnId": "from-fort-east-road",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "flags": {
+          "forward-orders-issued": true,
+          "forward-camp-gate-open": true,
+          "forward-camp-cache-opened": true
+        },
+        "inventory": {
+          "gold": 47,
+          "items": [
+            {
+              "itemId": "bandage",
+              "quantity": 1
+            },
+            {
+              "itemId": "herb",
+              "quantity": 1
+            }
+          ]
+        },
+        "shopStates": {
+          "forward-camp-shop": {
+            "visited": true
+          }
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 9,
+            "currentHp": 18,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": ["forward-camp-cache-trigger"]
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": []
+      }
+    }
   ]
 }

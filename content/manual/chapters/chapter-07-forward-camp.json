@@ -1,0 +1,52 @@
+{
+  "areaLabel": "Border Fort East Road and Forward Camp Slice",
+  "chapterId": "chapter-07-forward-camp",
+  "enemyGroups": [
+    "highland-outlaws"
+  ],
+  "events": [
+    "fort-adjutant-event",
+    "camp-sentry-event",
+    "forward-camp-gate-event",
+    "forward-camp-shop-event",
+    "forward-camp-cache-event"
+  ],
+  "format": "chapter-metadata-v1",
+  "maps": [
+    "fort-east-road",
+    "forward-camp-yard"
+  ],
+  "notes": "Seventh real slice extends east from chapter-06 into a forward-camp road and supply yard. It is the first chapter that actively reuses the new cutscene minimum (`facePlayer` + `movePlayer`) inside a real gate transition while keeping gameplay closure and visual backlog in parallel. / 第七段真实切片从 chapter-06 继续向东扩展到前营东路与补给场，也是第一个在真实章节里主动复用新 cutscene 最小能力（`facePlayer` + `movePlayer`）来完成营门过场，同时继续保持 gameplay 闭环与视觉 backlog 并行推进。",
+  "npcs": [
+    "fort-adjutant",
+    "camp-sentry",
+    "camp-purveyor",
+    "camp-scout"
+  ],
+  "paritySummary": {
+    "battles": "validating",
+    "collision": "validating",
+    "dialogue": "parity-review",
+    "events": "validating",
+    "flags": "validating",
+    "items": "parity-review",
+    "mapLayout": "validating",
+    "npcPlacement": "validating",
+    "shops": "validating",
+    "transitions": "validating"
+  },
+  "regressionCases": [
+    "fort-adjutant-issues-orders",
+    "camp-sentry-opens-gate",
+    "forward-camp-gate-warps",
+    "forward-camp-shop-opens",
+    "forward-camp-cache-first-open",
+    "fort-east-road-battle-roundtrip",
+    "forward-camp-save-load-restores-runtime"
+  ],
+  "shops": [
+    "forward-camp-shop"
+  ],
+  "status": "validating",
+  "title": "Forward Camp Corridor"
+}

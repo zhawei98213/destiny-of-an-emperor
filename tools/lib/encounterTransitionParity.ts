@@ -84,11 +84,13 @@ export async function buildEncounterTransitionParityReport(): Promise<EncounterT
   );
 
   const cases: EncounterTransitionCase[] = [];
-  const auditedChapters = ["chapter-05-highland-waystation", "chapter-06-border-fort"];
+  const auditedChapters = ["chapter-05-highland-waystation", "chapter-06-border-fort", "chapter-07-forward-camp"];
 
   const highlandPass = database.maps.find((entry) => entry.id === "highland-pass");
   const borderRoad = database.maps.find((entry) => entry.id === "border-road");
   const borderFortYard = database.maps.find((entry) => entry.id === "border-fort-yard");
+  const fortEastRoad = database.maps.find((entry) => entry.id === "fort-east-road");
+  const forwardCampYard = database.maps.find((entry) => entry.id === "forward-camp-yard");
 
   if (highlandPass) {
     const trigger = highlandPass.triggers.find((entry) => entry.id === "highland-pass-battle-trigger");
@@ -167,6 +169,48 @@ export async function buildEncounterTransitionParityReport(): Promise<EncounterT
     evidence: [
       filePath("content/manual/story.content.json"),
       filePath("content/manual/world.content.json"),
+    ],
+  });
+
+  cases.push({
+    id: "chapter-07-forward-camp:map-to-map",
+    title: "Fort east road to forward camp yard / 前营东路到补给场切图",
+    chapterId: "chapter-07-forward-camp",
+    mapId: "fort-east-road",
+    status: fortEastRoad && forwardCampYard && mapHasReturnPortal(forwardCampYard, "fort-east-road") ? "passed" : "warning",
+    summary: fortEastRoad && forwardCampYard && mapHasReturnPortal(forwardCampYard, "fort-east-road")
+      ? "Gate-triggered cutscene warp enters forward-camp-yard and the return portal remains intact."
+      : "One side of the fort east road to forward camp yard transition is missing.",
+    locator: {
+      triggerId: "forward-camp-gate-trigger",
+      eventId: "forward-camp-gate-event",
+    },
+    kind: "map-to-map",
+    evidence: [
+      filePath("content/manual/world.content.json"),
+      filePath("content/manual/story.content.json"),
+    ],
+  });
+
+  cases.push({
+    id: "chapter-07-forward-camp:battle-to-world",
+    title: "Forward camp battle return to world / 前营东路战斗返回 world",
+    chapterId: "chapter-07-forward-camp",
+    mapId: "fort-east-road",
+    status: battleParityReport.cases.some((entry) => entry.id === "forward-camp-outlaw-baseline" && entry.status === "calibrated")
+      ? "passed"
+      : "warning",
+    summary: "Battle parity baseline confirms the chapter-07 outlaw slice returns to WorldScene with settlement data applied.",
+    locator: {
+      triggerId: "fort-east-road-battle-trigger",
+      encounterTableId: "fort-east-road-raiders",
+      battleGroupId: "highland-outlaws",
+    },
+    kind: "battle-to-world",
+    evidence: [
+      filePath("reports/battle-parity/latest/report.json"),
+      filePath("game/src/scenes/BattleScene.ts"),
+      filePath("game/src/systems/gameStateRuntime.ts"),
     ],
   });
 
