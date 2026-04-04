@@ -349,6 +349,60 @@
       }
     },
     {
+      "key": "audio.bgm.default.world",
+      "category": "audio",
+      "state": "placeholder",
+      "fallbackKey": "audio.default",
+      "resource": {
+        "kind": "audio-ref"
+      }
+    },
+    {
+      "key": "audio.bgm.default.battle",
+      "category": "audio",
+      "state": "placeholder",
+      "fallbackKey": "audio.default",
+      "resource": {
+        "kind": "audio-ref"
+      }
+    },
+    {
+      "key": "audio.bgm.chapter-05-highland-waystation.world",
+      "category": "audio",
+      "state": "imported",
+      "fallbackKey": "audio.bgm.default.world",
+      "resource": {
+        "kind": "audio-ref"
+      }
+    },
+    {
+      "key": "audio.bgm.chapter-05-highland-waystation.battle.highland-outlaws",
+      "category": "audio",
+      "state": "imported",
+      "fallbackKey": "audio.bgm.default.battle",
+      "resource": {
+        "kind": "audio-ref"
+      }
+    },
+    {
+      "key": "audio.bgm.chapter-06-border-fort.world",
+      "category": "audio",
+      "state": "placeholder",
+      "fallbackKey": "audio.bgm.default.world",
+      "resource": {
+        "kind": "audio-ref"
+      }
+    },
+    {
+      "key": "audio.bgm.chapter-06-border-fort.battle.highland-outlaws",
+      "category": "audio",
+      "state": "placeholder",
+      "fallbackKey": "audio.bgm.default.battle",
+      "resource": {
+        "kind": "audio-ref"
+      }
+    },
+    {
       "key": "audio.voice-merchant",
       "category": "audio",
       "state": "placeholder",

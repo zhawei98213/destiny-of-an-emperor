@@ -513,6 +513,10 @@ function executeWorldTriggerCase(database: ContentDatabase, regressionCase: Gold
           world: {
             currentMapId: snapshot.world.currentMapId,
             currentSpawnPointId: snapshot.world.currentSpawnId,
+            playerX: snapshot.world.playerX,
+            playerY: snapshot.world.playerY,
+            facing: snapshot.world.facing,
+            stepCount: snapshot.world.stepCount,
           },
         });
         new EventInterpreter().execute(event, database, runtime);

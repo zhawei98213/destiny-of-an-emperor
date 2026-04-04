@@ -111,6 +111,7 @@ export interface ManualWorldContent {
   items: Array<{
     id: string;
     price: number;
+    kind: string;
   }>;
   enemies: Array<{
     id: string;

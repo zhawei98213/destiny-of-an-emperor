@@ -2532,6 +2532,70 @@
       }
     },
     {
+      "id": "fort-healer-restores-downed-party",
+      "name": "Fort healer restores downed party / 关营医官恢复濒死队伍",
+      "initialState": {
+        "world": {
+          "mapId": "border-fort-yard",
+          "spawnPointId": "from-border-road",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 0,
+            "currentHp": 0,
+            "currentMp": 0,
+            "statusIds": ["poison"],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "trigger": {
+        "kind": "npcInteraction",
+        "mapId": "border-fort-yard",
+        "npcId": "fort-healer"
+      },
+      "expectedState": {
+        "world": {
+          "currentMapId": "border-fort-yard",
+          "currentSpawnId": "from-border-road",
+          "playerX": 8,
+          "playerY": 6,
+          "facing": "right"
+        },
+        "inventory": {
+          "gold": 0,
+          "items": []
+        },
+        "partyStates": {
+          "liu-bei": {
+            "memberId": "liu-bei",
+            "level": 1,
+            "experience": 0,
+            "currentHp": 24,
+            "currentMp": 6,
+            "statusIds": [],
+            "formationSlot": 0
+          }
+        },
+        "consumedTriggerIds": []
+      },
+      "expectedUi": {
+        "sceneFlow": ["WorldScene"],
+        "activeScene": "WorldScene",
+        "dialogueLineIds": ["fort-healer-line"]
+      }
+    },
+    {
       "id": "fort-cache-first-open",
       "name": "Fort cache first open / 前营军资箱首次开启",
       "initialState": {

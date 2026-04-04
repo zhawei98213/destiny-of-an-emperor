@@ -40,6 +40,7 @@
     "border-sentry-opens-gate",
     "border-fort-gate-warps",
     "fort-healer-restores-party",
+    "fort-healer-restores-downed-party",
     "fort-cache-first-open",
     "border-road-battle-roundtrip",
     "border-fort-save-load-restores-runtime"

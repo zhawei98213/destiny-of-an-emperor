@@ -43,12 +43,18 @@ Current first-pass tooling:
 - `tools/chapter-lock-checklist.ts`：生成用于判断章节是否可锁定的审查清单。
 - `tools/progression-gating-audit.ts`: simulates mainline chapter progression, reports map-access dependencies, and identifies soft-lock risks plus per-chapter progression checklists.
 - `tools/progression-gating-audit.ts`：模拟主线章节推进，输出地图开放依赖，并识别软锁风险与每章推进检查清单。
+- `tools/progression-stat-parity.ts`: summarizes chapter growth curves, battle reward bands, equipment progression, and obvious stat outliers.
+- `tools/progression-stat-parity.ts`：汇总章节成长曲线、战斗奖励区间、装备推进和明显属性异常点。
 - `tools/encounter-transition-parity.ts`: audits encounter triggers, transition timing, scene handoff state, and return-to-world integrity for real slices.
 - `tools/encounter-transition-parity.ts`：审计真实切片中的遭遇触发、切场时机、场景交接状态和返回 world 完整性。
 - `tools/world-connectivity-audit.ts`: generates the current global map connection graph and reports missing return portals, isolated maps, invalid spawns, and bidirectional traversal mismatches.
 - `tools/world-connectivity-audit.ts`：生成当前全局地图连接图，并报告缺失返回 portal、孤立地图、无效 spawn 和双向移动不一致问题。
 - `tools/economy-parity-audit.ts`: audits chapter-owned shops, item circulation, price overrides, and battle reward/drop sanity.
 - `tools/economy-parity-audit.ts`：审计章节归属商店、物品流通、价格覆盖以及战斗奖励/掉落合理性。
+- `tools/equipment-status-recovery.ts`: audits equipment support gaps, status support gaps, heal/save point behavior, and restore/revive edge cases.
+- `tools/equipment-status-recovery.ts`：审计装备支持缺口、状态支持缺口、恢复/存档点行为以及恢复/复活边界情况。
+- `tools/audio-workflow.ts`: validates chapter / map / battle audio routing and logical audio-key coverage against the shared asset registry.
+- `tools/audio-workflow.ts`：校验章节 / 地图 / 战斗音频路由，以及共享 asset registry 中逻辑音频 key 的覆盖情况。
 - `tools/battle-enemy-group-import.ts`: checks source enemies and battle groups against generated battle content.
 - `tools/battle-enemy-group-import.ts`：检查 source 敌人和敌群与 generated battle content 的一致性。
 - `tools/battle-scenario-import.ts`: checks battle scenario source entries against world triggers, encounter tables, golden cases, and battle parity cases.

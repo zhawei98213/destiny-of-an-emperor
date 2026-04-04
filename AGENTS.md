@@ -115,12 +115,18 @@ Follow it before making code, content, tooling, or documentation changes.
 - `npm run chapter-lock-checklist -- --id <chapter-id>`：生成供审查使用的章节锁定清单。
 - `npm run progression-gating-audit`: simulate chapter mainline progression and audit gate dependencies plus soft-lock risk.
 - `npm run progression-gating-audit`：模拟章节主线推进，并审计门禁依赖与软锁风险。
+- `npm run progression-stat-parity`: audit chapter growth, enemy strength bands, equipment progression, and obvious outliers.
+- `npm run progression-stat-parity`：审计章节成长、敌人强度区间、装备推进和明显异常点。
 - `npm run encounter-transition-parity`: audit world-battle, battle-world, story-battle gaps, and map-map transition integrity.
 - `npm run encounter-transition-parity`：审计 world-battle、battle-world、剧情到 battle 缺口，以及 map-map 衔接完整性。
 - `npm run world-connectivity-audit`: generate the current global world graph audit for portals, spawns, and return-path consistency.
 - `npm run world-connectivity-audit`：生成当前全局世界连接图审计，覆盖 portal、spawn 和返回路径一致性。
 - `npm run economy-parity-audit`: audit chapter-owned shops, key-item circulation, price consistency, and battle reward/drop sanity.
 - `npm run economy-parity-audit`：审计章节归属商店、关键物品流通、价格一致性以及战斗奖励/掉落合理性。
+- `npm run equipment-status-recovery`: audit equipment behavior gaps, status support gaps, heal/save point behavior, and restore/revive edge cases.
+- `npm run equipment-status-recovery`：审计装备行为缺口、状态支持缺口、恢复/存档点行为以及恢复/复活边界情况。
+- `npm run audio-workflow`: validate structured chapter/map/battle audio routing against asset-registry logical audio keys.
+- `npm run audio-workflow`：校验章节 / 地图 / 战斗的结构化音频路由是否与 asset-registry 逻辑音频 key 对齐。
 - `npm run asset-check`: generate the current asset parity report for imported chapters.
 - `npm run asset-check`：为已导入章节生成当前资产一致性报告。
 - `npm run visual-backfill-report -- --id <plan-id>`: generate one visual backfill compare report for a registry-only replacement batch.
@@ -194,6 +200,12 @@ After a meaningful change, run at least the commands that match the risk:
 - 主线推进、门卫阻拦、地图开放或 flag 门禁改动：执行 `npm run progression-gating-audit`
 - Shop inventory, item flow, price, reward, or drop change: `npm run economy-parity-audit`
 - 商店库存、物品流通、价格、奖励或掉落改动：执行 `npm run economy-parity-audit`
+- Party growth, enemy stat curve, or chapter reward-curve change: `npm run progression-stat-parity`
+- 队伍成长、敌人属性曲线或章节奖励曲线改动：执行 `npm run progression-stat-parity`
+- Equipment, status, heal point, or revive-related change: `npm run equipment-status-recovery`
+- 装备、状态、恢复点或复活相关改动：执行 `npm run equipment-status-recovery`
+- Audio routing or logical BGM/SFX mapping change: `npm run audio-workflow`
+- 音频路由或逻辑 BGM/SFX 映射改动：执行 `npm run audio-workflow`
 - Runtime or scene change: `npm run test`
 - 运行时或 scene 改动：`npm run test`
 - Cross-cutting or release-shaping change: `npm run regression-smoke`

@@ -4,6 +4,7 @@ import type {
   AssetOverrideDefinition,
   AssetResource,
   AssetState,
+  AudioRefAssetResource,
   BattleBackdropAssetResource,
   BattleVisualAssetResource,
   ContentDatabase,
@@ -147,6 +148,17 @@ export class AssetRegistry {
         "5": "#31572c",
       },
       sourceCandidateIds: [],
+    };
+  }
+
+  resolveAudioRef(audioKey: string, context: AssetContext = {}): AudioRefAssetResource {
+    const resolved = this.resolve(audioKey, "audio.default", context);
+    if (resolved.resource.kind === "audio-ref") {
+      return resolved.resource;
+    }
+
+    return {
+      kind: "audio-ref",
     };
   }
 
