@@ -75,6 +75,8 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - `npm run progression-gating-audit`：模拟主线章节推进，输出地图开放依赖并报告软锁风险。
 - `npm run world-connectivity-audit`: generate the current global map graph audit for portals, spawns, and return-path consistency.
 - `npm run world-connectivity-audit`：生成当前全局地图连接图审计，覆盖 portal、spawn 和返回路径一致性。
+- `npm run economy-parity-audit`: generate the current shop, item, price, reward, and drop economy audit for imported chapters.
+- `npm run economy-parity-audit`：为已导入章节生成当前商店、物品、价格、奖励和掉落的经济一致性审计。
 - `npm run asset-check`: generate the current chapter asset parity report and identify placeholder asset categories.
 - `npm run asset-check`：生成当前章节资产一致性报告，并识别占位资产分类。
 - `npm run visual-backfill-report -- --id <plan-id>`: generate one visual backfill compare report for a registry-only replacement batch.
@@ -119,6 +121,8 @@ This repository starts a data-driven 2D JRPG remake foundation inspired by the s
 - UI 一致性报告会写入 `reports/ui-parity/latest/`。
 - Reference pipeline reports are written to `reports/reference/latest/`.
 - Reference pipeline 报告会写入 `reports/reference/latest/`。
+- Economy parity reports are written to `reports/economy-parity/latest/`.
+- 经济一致性报告会写入 `reports/economy-parity/latest/`。
 - Chapter workflow reports are written to `reports/chapters/latest/`.
 - 章节工作流报告会写入 `reports/chapters/latest/`。
 - Pre-release reports are written to `reports/pre-release/latest/`.

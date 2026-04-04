@@ -103,6 +103,8 @@ Follow it before making code, content, tooling, or documentation changes.
 - `npm run progression-gating-audit`：模拟章节主线推进，并审计门禁依赖与软锁风险。
 - `npm run world-connectivity-audit`: generate the current global world graph audit for portals, spawns, and return-path consistency.
 - `npm run world-connectivity-audit`：生成当前全局世界连接图审计，覆盖 portal、spawn 和返回路径一致性。
+- `npm run economy-parity-audit`: audit chapter-owned shops, key-item circulation, price consistency, and battle reward/drop sanity.
+- `npm run economy-parity-audit`：审计章节归属商店、关键物品流通、价格一致性以及战斗奖励/掉落合理性。
 - `npm run asset-check`: generate the current asset parity report for imported chapters.
 - `npm run asset-check`：为已导入章节生成当前资产一致性报告。
 - `npm run visual-backfill-report -- --id <plan-id>`: generate one visual backfill compare report for a registry-only replacement batch.
@@ -174,6 +176,8 @@ After a meaningful change, run at least the commands that match the risk:
 - 世界地图、portal、spawn 或切图链路改动：执行 `npm run world-connectivity-audit`
 - Mainline progression, guard gating, map unlock, or flag gating change: `npm run progression-gating-audit`
 - 主线推进、门卫阻拦、地图开放或 flag 门禁改动：执行 `npm run progression-gating-audit`
+- Shop inventory, item flow, price, reward, or drop change: `npm run economy-parity-audit`
+- 商店库存、物品流通、价格、奖励或掉落改动：执行 `npm run economy-parity-audit`
 - Runtime or scene change: `npm run test`
 - 运行时或 scene 改动：`npm run test`
 - Cross-cutting or release-shaping change: `npm run regression-smoke`

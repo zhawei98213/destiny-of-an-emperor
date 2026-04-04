@@ -28,6 +28,7 @@
     "chapter-lock-checklist": "vite-node tools/chapter-lock-checklist.ts",
     "progression-gating-audit": "vite-node tools/progression-gating-audit.ts",
     "world-connectivity-audit": "vite-node tools/world-connectivity-audit.ts",
+    "economy-parity-audit": "vite-node tools/economy-parity-audit.ts",
     "asset-check": "vite-node tools/asset-check.ts",
     "visual-backfill-report": "vite-node tools/visual-backfill-report.ts",
     "visual-backfill-checklist": "vite-node tools/visual-backfill-checklist.ts",
