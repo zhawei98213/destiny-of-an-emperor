@@ -20,3 +20,9 @@ English: This milestone stops subjective visual tweaking and establishes a priva
 
 中文：截图、帧缓存、save state、ROM-derived payload 全部不入库。  
 English: Screenshots, framebuffers, save states, and ROM-derived payloads must not enter git.
+
+
+## Mapper 74 shim result / Mapper 74 shim 结果
+
+中文：`jsnes@2.1.0` 原生不支持 Mapper 74。加入本地 shim 后，ROM 可开始运行但约 4 帧后 invalid opcode，因此不能生成可信参考截图。  
+English: `jsnes@2.1.0` does not natively support Mapper 74. After a local shim, the ROM starts running but hits an invalid opcode after about 4 frames, so it cannot produce trustworthy reference screenshots.

@@ -66,6 +66,7 @@ try {
     framesCaptured: frameCount,
     privatePayloadWritten: false,
     error: String(error?.stack ?? error),
+    failureKind: String(error?.message ?? error).includes("Unsupported mapper") ? "unsupported-mapper" : (String(error?.message ?? error).includes("invalid opcode") ? "mapper-shim-crash" : "emulation-failure"),
     likelyNextSteps: [
       "try another project-local NPM emulator with Mapper 74 support",
       "write a Mapper 74 compatibility probe before visual parity work",

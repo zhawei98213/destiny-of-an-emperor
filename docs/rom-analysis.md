@@ -93,3 +93,9 @@ English: `tools/nes_rom_tool.py town-probe` writes a metadata-only town inferenc
 
 中文：按照用户要求，本阶段只使用项目内 JS/NPM 依赖，不安装系统 emulator。已接入 `jsnes@2.1.0` 并新增 `npm run rom:capture`。运行本地 `吞食天地2.nes` 时，`jsnes` 返回 `Unsupported mapper: 74`，因此当前没有可用原版截图输出。失败 manifest 写入 `.omx/visual-reference/manifest.json`，不入库。  
 English: Per user constraints, this phase uses only project-local JS/NPM dependencies and does not install a system emulator. `jsnes@2.1.0` is integrated via `npm run rom:capture`. Running the local `吞食天地2.nes` ROM returns `Unsupported mapper: 74`, so no usable original screenshot is produced yet. The failure manifest is written to `.omx/visual-reference/manifest.json` and is not committed.
+
+
+## Mapper 74 shim attempt / Mapper 74 兼容尝试
+
+中文：为了继续遵守“只用项目内 NPM 依赖”的边界，已添加 `scripts/patch-jsnes-mapper74.mjs`，把 jsnes 的 mapper 74 临时映射到 MMC3 mapper4。结果：ROM 能越过 unsupported mapper，但运行约 4 帧后崩溃为 `invalid opcode at address $5466`。结论：简单 Mapper 74→MMC3 映射不够准确，不能作为视觉参考截图来源。  
+English: To stay within the “project-local NPM dependencies only” boundary, `scripts/patch-jsnes-mapper74.mjs` temporarily maps jsnes mapper 74 to MMC3 mapper4. Result: the ROM gets past unsupported mapper, but crashes after about 4 frames with `invalid opcode at address $5466`. Conclusion: a simple Mapper 74→MMC3 mapping is not accurate enough and cannot be used as a visual reference capture source.
