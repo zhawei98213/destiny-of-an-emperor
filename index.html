@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>吞食天地复刻原型</title>
+    <link rel="stylesheet" href="src/styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <section class="screen-panel" aria-label="game screen">
+        <canvas id="game" width="256" height="240"></canvas>
+      </section>
+      <aside class="guide">
+        <h1>吞食天地复刻原型</h1>
+        <p>当前目标：先做可运行的高还原 RPG 引擎骨架，后续接入本地 ROM 解析出的私有数据。</p>
+        <dl>
+          <dt>移动</dt><dd>方向键 / WASD</dd>
+          <dt>确认 / 菜单</dt><dd>Enter / Z</dd>
+          <dt>取消</dt><dd>Esc / X</dd>
+          <dt>保存 / 读取</dt><dd>F5 / F9</dd>
+        </dl>
+      </aside>
+    </main>
+    <script type="module" src="src/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,17 @@
+.omx/
+
+# Python/tooling byproducts
+__pycache__/
+*.py[cod]
+
+# macOS/editor noise
+.DS_Store
+
+# Private ROMs and extracted proprietary assets
+*.nes
+*.NES
+*.fc
+*.FC
+/roms/
+/private/
+/extracted-assets/

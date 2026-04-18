@@ -1,0 +1,16 @@
+{
+  "source": "user-provided local ROM; metadata only, no copyrighted payload",
+  "format": "iNES",
+  "mapper": 74,
+  "prgRomSize": 1048576,
+  "chrRomSize": 0,
+  "chrRamSizeHint": 8192,
+  "mirroring": "vertical",
+  "battery": true,
+  "vectorsLast16k": {
+    "nmi": "0xef69",
+    "reset": "0xffd8",
+    "irq": "0xf0d6"
+  },
+  "sha256": "9751c8181af70e8f02bfc037113425257f7eb4a0dd7077643dbb57842b73dfe6"
+}
