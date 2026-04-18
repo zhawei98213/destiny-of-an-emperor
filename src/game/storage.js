@@ -1,5 +1,6 @@
-export const CURRENT_SAVE_VERSION = 2;
-export const SAVE_KEY = "doae-remake-save";
+import { CURRENT_SAVE_VERSION, SAVE_KEY } from "./save-constants.js";
+
+export { CURRENT_SAVE_VERSION, SAVE_KEY };
 
 function normalizeInventory(inventory) {
   return { "healing-herb": 2, ...(inventory && typeof inventory === "object" ? inventory : {}) };

@@ -205,3 +205,15 @@ staged private-payload regex check -> pass
 
 中文：本记录所在提交用于补充最终证据文字；其 commit hash 以 `git log -1 --oneline` 为准。  
 English: The commit containing this section records final evidence text; use `git log -1 --oneline` for its hash.
+
+
+## 2026-04-18 — Deslop pass / 去 AI 味清理
+
+中文：Ralph mandatory deslop pass 限定在本轮改动文件内执行。行为先由 `npm run check` 锁定；清理点为 save version 漂移风险：新增 `src/game/save-constants.js`，让 `newGame()` 与 storage 使用同一个 `CURRENT_SAVE_VERSION`，避免未来版本号漂移。未进行大规模 `src/main.js` 重构。  
+English: The Ralph mandatory deslop pass was scoped to files changed in this session. Behavior was locked first with `npm run check`; the cleanup addressed save-version drift by adding `src/game/save-constants.js` so `newGame()` and storage share the same `CURRENT_SAVE_VERSION`. No broad `src/main.js` refactor was performed.
+
+验证 / Verification:
+
+```sh
+npm run check -> smoke ok
+```

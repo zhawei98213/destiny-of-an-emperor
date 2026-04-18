@@ -1,4 +1,5 @@
 import { maps, officers, enemyGroups, tileInfo } from "./data.js";
+import { CURRENT_SAVE_VERSION } from "./save-constants.js";
 export { CURRENT_SAVE_VERSION, loadGame, migrateSave, saveGame, serializeSave } from "./storage.js";
 
 export function clone(value) {
@@ -19,7 +20,7 @@ export function newGame() {
     messages: [],
     inventory: { "healing-herb": 2 },
     objectives: { active: "hulao-gate", completed: [] },
-    saveVersion: 2,
+    saveVersion: CURRENT_SAVE_VERSION,
     flags: {
       hulaoCleared: false,
       visitedXiaopei: false,
