@@ -86,3 +86,9 @@ English: Milestone 2 has been delivered. The recommended next phase is Milestone
 
 - 中文：战斗界面已强化为更清晰的 FC RPG 窗口化军队对峙结构。  
   English: Battle UI has been strengthened into a clearer FC RPG-style windowed army-vs-army layout.
+
+
+## Mapper 74 capture blocker / Mapper 74 截图阻塞
+
+- 中文：项目内 NPM emulator `jsnes@2.1.0` 已验证不支持 Mapper 74；下一步需要评估另一个 NPM emulator 或实现 Mapper 74/MMC3-like 兼容支持。  
+  English: Project-local NPM emulator `jsnes@2.1.0` has been verified not to support Mapper 74; next steps are evaluating another NPM emulator or implementing Mapper 74/MMC3-like compatibility.

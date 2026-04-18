@@ -154,3 +154,9 @@ English: The main menu no longer shows status/inventory as plain dialogue. It no
 
 中文：战斗界面现在有敌军标题、回合数、敌我分区、指令窗口、敌兵窗口和兵力条，比早期原型更接近 FC RPG 军队对峙界面。  
 English: The battle screen now includes an enemy title, round counter, enemy/party regions, command window, enemy-soldier panel, and soldier bars, making it closer to an FC RPG army-vs-army presentation.
+
+
+## Private ROM capture / 私有 ROM 截图采集
+
+中文：`npm run rom:capture` 会尝试用项目内 NPM emulator `jsnes` 运行本地 ROM 并输出私有截图到 `.omx/visual-reference/`。当前验证结果：`jsnes@2.1.0` 不支持本 ROM 的 Mapper 74，因此会生成 failure manifest，而不是伪造截图。  
+English: `npm run rom:capture` attempts to run the local ROM with the project-local NPM emulator `jsnes` and write private captures under `.omx/visual-reference/`. Current result: `jsnes@2.1.0` does not support this ROM's Mapper 74, so it writes a failure manifest instead of faking a screenshot.

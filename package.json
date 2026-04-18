@@ -8,6 +8,10 @@
     "check": "node --check src/game/data.js && node --check src/game/state.js && node --check src/main.js && node scripts/smoke-test.mjs",
     "rom:inspect": "python3 tools/nes_rom_tool.py inspect '吞食天地2.nes' --out .omx/rom-analysis/metadata.json",
     "rom:chr": "python3 tools/nes_rom_tool.py extract-chr-candidates '吞食天地2.nes' --out-dir .omx/rom-analysis/chr-candidates",
-    "rom:town-probe": "python3 tools/nes_rom_tool.py town-probe '吞食天地2.nes' --out .omx/rom-analysis/town-probe.json"
+    "rom:town-probe": "python3 tools/nes_rom_tool.py town-probe '吞食天地2.nes' --out .omx/rom-analysis/town-probe.json",
+    "rom:capture": "node scripts/capture-rom-frame.mjs 吞食天地2.nes .omx/visual-reference/capture.ppm .omx/visual-reference/manifest.json"
+  },
+  "dependencies": {
+    "jsnes": "^2.1.0"
   }
 }

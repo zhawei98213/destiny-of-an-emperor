@@ -87,3 +87,9 @@ English: `tools/nes_rom_tool.py trace-plan` writes a metadata-only runtime traci
 
 中文：`tools/nes_rom_tool.py town-probe` 会生成 metadata-only 城镇推断报告，列出候选 PRG bank 的 hash、entropy、结构比例等信息，但不输出原始字节、文本、图像、palette、nametable、pattern table、音频或 bank slice。当前小沛内部实现必须保持 `prototype` 标记，直到有更强证据。  
 English: `tools/nes_rom_tool.py town-probe` writes a metadata-only town inference report with candidate PRG bank hashes, entropy, and structural ratios, but it does not output raw bytes, text, images, palettes, nametables, pattern tables, audio, or bank slices. The current Xiaopei interior must remain labeled `prototype` until stronger evidence exists.
+
+
+## Private visual capture attempt / 私有视觉采集尝试
+
+中文：按照用户要求，本阶段只使用项目内 JS/NPM 依赖，不安装系统 emulator。已接入 `jsnes@2.1.0` 并新增 `npm run rom:capture`。运行本地 `吞食天地2.nes` 时，`jsnes` 返回 `Unsupported mapper: 74`，因此当前没有可用原版截图输出。失败 manifest 写入 `.omx/visual-reference/manifest.json`，不入库。  
+English: Per user constraints, this phase uses only project-local JS/NPM dependencies and does not install a system emulator. `jsnes@2.1.0` is integrated via `npm run rom:capture`. Running the local `吞食天地2.nes` ROM returns `Unsupported mapper: 74`, so no usable original screenshot is produced yet. The failure manifest is written to `.omx/visual-reference/manifest.json` and is not committed.
