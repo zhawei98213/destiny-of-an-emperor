@@ -1,4 +1,4 @@
-import { TILE, bossEncounters, tileInfo, openingText } from "./game/data.js";
+import { TILE, bossEncounters, tileInfo } from "./game/data.js";
 import { useBattleItemCommand } from "./game/battle-actions.js";
 import { inventoryLines } from "./game/items.js";
 import { applyObjectiveEvent } from "./game/objectives.js";
@@ -57,7 +57,7 @@ const keyMap = new Map([
 ]);
 
 let state = newGame();
-let dialogue = [...openingText];
+let dialogue = [];
 let lastTick = 0;
 let romMetadata = null;
 
@@ -528,5 +528,5 @@ function loop(time) {
   requestAnimationFrame(loop);
 }
 
-setDialogue(openingText);
+pushMessage("方向键/WASD 直接移动", "Enter/Z 打开菜单");
 requestAnimationFrame(loop);

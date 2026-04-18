@@ -24,7 +24,7 @@ Open / 打开：<http://localhost:8080>
 
 | 中文 | English | Key |
 | --- | --- | --- |
-| 移动 | Move | Arrow keys / WASD |
+| 移动 | Move | Arrow keys / WASD，打开后可以直接移动 / move immediately after launch |
 | 确认、打开菜单 | Confirm / open menu | Enter / Z |
 | 取消 | Cancel | Esc / X |
 | 保存 | Save | F5 |
