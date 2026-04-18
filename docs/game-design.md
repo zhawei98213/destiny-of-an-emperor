@@ -94,3 +94,9 @@ English: To move back toward an FC RPG feel, town events are no longer data-only
 
 中文：为了更接近《吞食天地》类 FC RPG 观感，状态和物品从对话文本改为独立菜单窗口：状态页显示武将、兵力、攻防策；物品页显示金、粮和物品列表。  
 English: To better match a Destiny-of-an-Emperor-like FC RPG feel, status and inventory now use dedicated menu windows instead of dialogue text: the status page shows officers, soldiers, attack/defense/tactics; the inventory page shows gold, food, and item lines.
+
+
+## Battle visual hierarchy / 战斗视觉层次
+
+中文：战斗画面强化为窗口化军队对峙结构：顶部敌军标题与回合数，中部敌方像素单位与兵力条，下方我军、命令、敌兵和战斗日志窗口。当前仍为原创 prototype 视觉，不是 ROM 提取图像。  
+English: Battle presentation now uses a windowed army-vs-army structure: enemy title and round at the top, enemy pixel units and soldier bars in the middle, and party, command, enemy-soldier, and battle-log windows below. Visuals remain original prototype art, not ROM-extracted graphics.

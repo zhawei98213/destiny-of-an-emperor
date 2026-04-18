@@ -559,6 +559,14 @@ function drawBattleBackdrop() {
   ctx.fillRect(0, 96, 256, 16);
 }
 
+function drawSoldierBar(x, y, w, current, max) {
+  const ratio = Math.max(0, Math.min(1, current / max));
+  ctx.fillStyle = NES.gray; ctx.fillRect(x, y, w, 4);
+  ctx.fillStyle = ratio > 0.35 ? NES.grass1 : NES.red;
+  ctx.fillRect(x, y, Math.max(1, Math.floor(w * ratio)), 4);
+  ctx.strokeStyle = NES.black; ctx.strokeRect(x, y, w, 4);
+}
+
 function drawEnemySprite(x, y, scale = 1) {
   ctx.fillStyle = NES.red; ctx.fillRect(x + 8 * scale, y + 4 * scale, 16 * scale, 12 * scale);
   ctx.fillStyle = NES.skin; ctx.fillRect(x + 12 * scale, y, 8 * scale, 8 * scale);
@@ -570,22 +578,38 @@ function drawEnemySprite(x, y, scale = 1) {
 function drawBattle() {
   drawBattleBackdrop();
   const battle = state.battle;
-  drawNamePlate(battle.groupName, 8, 8, 112);
+  drawPanel(6, 6, 244, 24, NES.navy);
+  text(`敌军 ${battle.groupName}`, 16, 22, NES.gold);
+  text(`第 ${battle.round} 合`, 188, 22, NES.white);
+
   battle.enemies.slice(0, 3).forEach((unit, i) => {
-    if (unit.soldiers > 0) drawEnemySprite(40 + i * 58, 42, 1);
+    const x = 32 + i * 66;
+    if (unit.soldiers > 0) drawEnemySprite(x, 42, 1);
+    drawPanel(20 + i * 76, 82, 70, 26);
+    text(unit.name.slice(0, 4), 26 + i * 76, 96, unit.soldiers > 0 ? NES.white : NES.gray);
+    drawSoldierBar(26 + i * 76, 100, 54, unit.soldiers, unit.maxSoldiers);
   });
-  drawPanel(8, 120, 112, 112);
+
+  drawPanel(6, 116, 116, 80);
+  text("我军", 16, 132, NES.gold);
   state.party.forEach((unit, i) => {
+    const y = 148 + i * 15;
     const color = unit.soldiers > 0 ? NES.white : NES.gray;
-    text(`${unit.name}`, 18, 140 + i * 24, color);
-    text(`兵 ${String(unit.soldiers).padStart(4, " ")}`, 18, 153 + i * 24, color);
+    text(`${unit.name}`, 16, y, color);
+    text(`${String(unit.soldiers).padStart(4, " ")}`, 58, y, color);
+    drawSoldierBar(90, y - 7, 24, unit.soldiers, unit.maxSoldiers);
   });
-  drawPanel(126, 120, 58, 78, NES.navy);
-  COMMANDS.forEach((cmd, i) => text(`${battle.commandIndex === i ? "▶" : " "}${cmd}`, 136, 140 + i * 15, battle.commandIndex === i ? NES.gold : NES.white));
-  drawPanel(8, 198, 240, 34);
-  battle.log.slice(-2).forEach((line, i) => text(line, 18, 214 + i * 13));
-  drawPanel(184, 120, 64, 78);
-  battle.enemies.slice(0, 3).forEach((unit, i) => text(`${unit.name.slice(0, 3)} ${unit.soldiers}`, 192, 140 + i * 16, unit.soldiers > 0 ? NES.white : NES.gray));
+
+  drawPanel(128, 116, 58, 80, NES.navy);
+  text("命令", 140, 132, NES.gold);
+  COMMANDS.forEach((cmd, i) => text(`${battle.commandIndex === i ? "▶" : " "}${cmd}`, 138, 150 + i * 14, battle.commandIndex === i ? NES.gold : NES.white));
+
+  drawPanel(188, 116, 62, 80);
+  text("敌兵", 198, 132, NES.gold);
+  battle.enemies.slice(0, 3).forEach((unit, i) => text(`${unit.name.slice(0, 2)} ${Math.max(0, unit.soldiers)}`, 196, 150 + i * 14, unit.soldiers > 0 ? NES.white : NES.gray));
+
+  drawPanel(6, 198, 244, 36);
+  battle.log.slice(-2).forEach((line, i) => text(line, 16, 214 + i * 14));
 }
 
 function draw() {

@@ -82,3 +82,7 @@ English: Milestone 2 has been delivered. The recommended next phase is Milestone
 
 - 中文：状态/物品菜单已从普通对话框升级为 FC 风格窗口。  
   English: Status and inventory menus have been upgraded from plain dialogue into FC-style windows.
+
+
+- 中文：战斗界面已强化为更清晰的 FC RPG 窗口化军队对峙结构。  
+  English: Battle UI has been strengthened into a clearer FC RPG-style windowed army-vs-army layout.

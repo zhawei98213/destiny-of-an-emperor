@@ -148,3 +148,9 @@ English: Xiaopei interior now visibly renders NPCs, the inn marker, and the exit
 
 中文：主菜单现在不再把状态/物品塞进普通对话框，而是显示独立的 FC 风格窗口。Enter/Z 打开菜单，选择“状态”或“物品”进入子窗口，X/Esc 返回。  
 English: The main menu no longer shows status/inventory as plain dialogue. It now displays dedicated FC-style windows. Press Enter/Z to open the menu, choose Status or Items to enter a sub-window, and use X/Esc to return.
+
+
+## Battle visual pass / 战斗视觉迭代
+
+中文：战斗界面现在有敌军标题、回合数、敌我分区、指令窗口、敌兵窗口和兵力条，比早期原型更接近 FC RPG 军队对峙界面。  
+English: The battle screen now includes an enemy title, round counter, enemy/party regions, command window, enemy-soldier panel, and soldier bars, making it closer to an FC RPG army-vs-army presentation.
