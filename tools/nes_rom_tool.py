@@ -250,6 +250,43 @@ def extract_chr_candidates_cmd(args: argparse.Namespace) -> None:
     print(json.dumps({"manifest": str(manifest_path), "sheet_count": len(sheets)}, ensure_ascii=False, indent=2))
 
 
+
+def trace_plan_cmd(args: argparse.Namespace) -> None:
+    """Write a metadata-only runtime tracing plan without extracting payload."""
+    info, _, _ = parse_rom(Path(args.rom))
+    out = Path(args.out)
+    plan = {
+        "kind": "runtime-trace-plan",
+        "payloadPolicy": "metadata-only; do not commit runtime captures, screenshots, pattern tables, nametables, palettes, text dumps, audio, or bank slices",
+        "rom": {
+            "sha256": info.sha256,
+            "format": info.format,
+            "mapper": info.mapper,
+            "prgRomSize": info.prg_rom_size,
+            "chrRomSize": info.chr_rom_size,
+            "chrRamSizeHint": info.chr_ram_size_hint,
+            "mirroring": info.mirroring,
+            "battery": info.battery,
+        },
+        "ignoredOutputRoot": ".omx/rom-analysis/runtime-captures/",
+        "captureTargets": [
+            {"name": "pattern-table-writes", "payload": "private", "description": "PPU pattern table write events and resulting CHR-RAM pages"},
+            {"name": "palette-writes", "payload": "private", "description": "PPU palette write events"},
+            {"name": "nametable-snapshots", "payload": "private", "description": "Scene nametable snapshots for map/menu/battle screens"},
+            {"name": "text-render-events", "payload": "private", "description": "Runtime text rendering references for table discovery"},
+        ],
+        "commitSafeOutputs": [
+            "hashes",
+            "sizes",
+            "counts",
+            "schema documentation",
+            "payload-free manifests",
+        ],
+    }
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(plan, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps({"tracePlan": str(out), "payloadPolicy": plan["payloadPolicy"]}, ensure_ascii=False, indent=2))
+
 def main(argv: Iterable[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Inspect NES ROM headers/banks and extract private CHR visualizations.")
     sub = parser.add_subparsers(dest="cmd", required=True)
@@ -263,6 +300,11 @@ def main(argv: Iterable[str] | None = None) -> int:
     extract.add_argument("rom")
     extract.add_argument("--out-dir", required=True)
     extract.set_defaults(func=extract_chr_candidates_cmd)
+
+    trace = sub.add_parser("trace-plan", help="Write a metadata-only runtime tracing plan; does not extract payload.")
+    trace.add_argument("rom")
+    trace.add_argument("--out", required=True)
+    trace.set_defaults(func=trace_plan_cmd)
 
     args = parser.parse_args(argv)
     args.func(args)

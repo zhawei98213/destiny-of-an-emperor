@@ -75,3 +75,9 @@ English: Build a runtime tracer that records CPU writes into PPU pattern tables,
 
 中文：当前可运行原型位于 `index.html` 和 `src/`。它使用程序绘制占位画面；当私有 ROM 提取管线稳定后，引擎应改为读取 normalized JSON 与私有资产引用。  
 English: The current runnable prototype lives in `index.html` and `src/`. It uses procedural placeholder rendering. Once the private ROM extraction pipeline stabilizes, the engine should consume normalized JSON and private asset references.
+
+
+## Runtime trace scaffold / 运行时追踪骨架
+
+中文：`tools/nes_rom_tool.py trace-plan` 会生成 metadata-only 的运行时追踪计划，默认输出到 `.omx/rom-analysis/runtime-trace-plan.json`。该命令不提取 pattern table、nametable、palette、截图、文本或音频 payload；真正的 runtime capture 未来必须输出到被忽略的 `.omx/rom-analysis/runtime-captures/`。  
+English: `tools/nes_rom_tool.py trace-plan` writes a metadata-only runtime tracing plan, by default under `.omx/rom-analysis/runtime-trace-plan.json`. It does not extract pattern tables, nametables, palettes, screenshots, text, or audio payloads; future runtime captures must be written to the ignored `.omx/rom-analysis/runtime-captures/` path.

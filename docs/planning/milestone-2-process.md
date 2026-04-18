@@ -121,3 +121,18 @@ npm run check
 python3 -m py_compile tools/nes_rom_tool.py
 npm run rom:inspect
 ```
+
+
+## 2026-04-18 — Phase 5 ROM trace scaffold / 阶段 5 ROM 追踪骨架
+
+中文：新增 `trace-plan` 命令，只生成 metadata-only runtime tracing plan。输出路径位于 `.omx/rom-analysis/runtime-trace-plan.json`，不会提交；文档明确 runtime captures 必须留在忽略目录，不能提交 pattern table、nametable、palette、截图、文本 dump、音频或 bank slice。  
+English: Added the `trace-plan` command, which writes only a metadata-only runtime tracing plan. The output path is `.omx/rom-analysis/runtime-trace-plan.json` and is not committed; docs state that runtime captures must stay under ignored paths and must not commit pattern tables, nametables, palettes, screenshots, text dumps, audio, or bank slices.
+
+验证 / Verification:
+
+```sh
+python3 -m py_compile tools/nes_rom_tool.py
+python3 tools/nes_rom_tool.py trace-plan '吞食天地2.nes' --out .omx/rom-analysis/runtime-trace-plan.json
+npm run check
+npm run rom:inspect
+```

@@ -107,3 +107,13 @@ English: The battle “Item” command now attempts to use `healing-herb` to res
 
 中文：第一阶段目标是击破虎牢关；完成后会解锁第二目标 `rescue-scout`，前往北平南道救回应急斥候。  
 English: The first objective is clearing Hulao Gate; once complete, the second objective `rescue-scout` unlocks and sends the player to Beiping South Road to rescue an emergency scout.
+
+
+Runtime trace plan / 运行时追踪计划：
+
+```sh
+python3 tools/nes_rom_tool.py trace-plan '吞食天地2.nes' --out .omx/rom-analysis/runtime-trace-plan.json
+```
+
+中文：该命令只生成 metadata-only 计划，不生成可提交素材。  
+English: This command writes a metadata-only plan and does not generate commit-safe assets.

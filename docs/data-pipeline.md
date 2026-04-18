@@ -75,3 +75,9 @@ English: Future extractors should produce normalized data like the following so 
 
 中文：第二阶段采用 checked-in generated JS data module + 单一 loader/boundary。规范化 JSON shape 仍记录在本文档中；运行时通过 `src/game/data.js` 导出统一数据，底层 prototype data 位于 `src/game/generated/prototype-data.js`，schema/reference 校验位于 `src/game/validation/data-validation.js`。  
 English: Milestone 2 uses a checked-in generated JS data module plus a single loader/boundary. The normalized JSON shape remains documented here; runtime data is exported through `src/game/data.js`, prototype source-safe data lives in `src/game/generated/prototype-data.js`, and schema/reference checks live in `src/game/validation/data-validation.js`.
+
+
+## Runtime capture safety / 运行时抓取安全
+
+中文：运行时追踪的可提交内容只包括 schema、hash、size、count 和 payload-free manifest。不可提交内容包括 pattern table、nametable、palette、截图、文本 dump、音频、bank slice 和任何 ROM-derived payload。  
+English: Commit-safe runtime tracing outputs include only schemas, hashes, sizes, counts, and payload-free manifests. Non-commit outputs include pattern tables, nametables, palettes, screenshots, text dumps, audio, bank slices, and any ROM-derived payload.
