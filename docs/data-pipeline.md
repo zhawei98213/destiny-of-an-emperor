@@ -81,3 +81,9 @@ English: Milestone 2 uses a checked-in generated JS data module plus a single lo
 
 中文：运行时追踪的可提交内容只包括 schema、hash、size、count 和 payload-free manifest。不可提交内容包括 pattern table、nametable、palette、截图、文本 dump、音频、bank slice 和任何 ROM-derived payload。  
 English: Commit-safe runtime tracing outputs include only schemas, hashes, sizes, counts, and payload-free manifests. Non-commit outputs include pattern tables, nametables, palettes, screenshots, text dumps, audio, bank slices, and any ROM-derived payload.
+
+
+## Town/interior evidence shape / 城镇与室内证据结构
+
+中文：城镇数据需要携带 `evidence.status`，可选值为 `confirmed`、`inferred`、`unknown`、`prototype`。只有 metadata-only 工具或合法资料能支撑时，才能使用 `confirmed` 或 `inferred`；否则必须用 `prototype`。  
+English: Town data must carry `evidence.status`, one of `confirmed`, `inferred`, `unknown`, or `prototype`. Use `confirmed` or `inferred` only when backed by metadata-only tooling or lawful references; otherwise use `prototype`.

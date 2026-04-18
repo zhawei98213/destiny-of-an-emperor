@@ -81,3 +81,9 @@ English: The current runnable prototype lives in `index.html` and `src/`. It use
 
 中文：`tools/nes_rom_tool.py trace-plan` 会生成 metadata-only 的运行时追踪计划，默认输出到 `.omx/rom-analysis/runtime-trace-plan.json`。该命令不提取 pattern table、nametable、palette、截图、文本或音频 payload；真正的 runtime capture 未来必须输出到被忽略的 `.omx/rom-analysis/runtime-captures/`。  
 English: `tools/nes_rom_tool.py trace-plan` writes a metadata-only runtime tracing plan, by default under `.omx/rom-analysis/runtime-trace-plan.json`. It does not extract pattern tables, nametables, palettes, screenshots, text, or audio payloads; future runtime captures must be written to the ignored `.omx/rom-analysis/runtime-captures/` path.
+
+
+## Town inference probe / 城镇推断探针
+
+中文：`tools/nes_rom_tool.py town-probe` 会生成 metadata-only 城镇推断报告，列出候选 PRG bank 的 hash、entropy、结构比例等信息，但不输出原始字节、文本、图像、palette、nametable、pattern table、音频或 bank slice。当前小沛内部实现必须保持 `prototype` 标记，直到有更强证据。  
+English: `tools/nes_rom_tool.py town-probe` writes a metadata-only town inference report with candidate PRG bank hashes, entropy, and structural ratios, but it does not output raw bytes, text, images, palettes, nametables, pattern tables, audio, or bank slices. The current Xiaopei interior must remain labeled `prototype` until stronger evidence exists.

@@ -287,6 +287,54 @@ def trace_plan_cmd(args: argparse.Namespace) -> None:
     out.write_text(json.dumps(plan, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     print(json.dumps({"tracePlan": str(out), "payloadPolicy": plan["payloadPolicy"]}, ensure_ascii=False, indent=2))
 
+
+def town_probe_cmd(args: argparse.Namespace) -> None:
+    """Write a metadata-only town inference probe report without payload."""
+    info, prg, _ = parse_rom(Path(args.rom))
+    out = Path(args.out)
+    bank_rows = []
+    for bank in bank_summary(prg, 8 * 1024):
+        score = 0
+        if bank["entropy"] < 5.2:
+            score += 2
+        if bank["printable_ascii_ratio"] > 0.30:
+            score += 1
+        if bank["zero_ratio"] > 0.10:
+            score += 1
+        if score:
+            bank_rows.append({
+                "bank8k": bank["bank"],
+                "offset": bank["offset"],
+                "entropy": bank["entropy"],
+                "printableAsciiRatio": bank["printable_ascii_ratio"],
+                "zeroRatio": bank["zero_ratio"],
+                "sha256": bank["sha256"],
+                "candidateReason": "metadata heuristic: low entropy and/or structured byte ratios; payload not exported",
+                "evidenceStatus": "unknown",
+            })
+    report = {
+        "kind": "town-inference-probe",
+        "payloadPolicy": "metadata-only; no raw bytes, decoded text, images, palettes, nametables, pattern tables, audio, screenshots, or bank slices",
+        "rom": {
+            "sha256": info.sha256,
+            "mapper": info.mapper,
+            "prgRomSize": info.prg_rom_size,
+            "chrRomSize": info.chr_rom_size,
+            "chrRamSizeHint": info.chr_ram_size_hint,
+        },
+        "evidenceStatuses": ["confirmed", "inferred", "unknown", "prototype"],
+        "candidateBanks": bank_rows[:24],
+        "townEvidenceSummary": {
+            "xiaopeiInterior": {
+                "status": "prototype",
+                "reason": "No committed metadata-only probe currently confirms original Xiaopei interior layout/text/palette; playable implementation must label content as prototype until private evidence exists.",
+            }
+        },
+    }
+    out.parent.mkdir(parents=True, exist_ok=True)
+    out.write_text(json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    print(json.dumps({"townProbe": str(out), "candidateBankCount": len(report["candidateBanks"]), "payloadPolicy": report["payloadPolicy"]}, ensure_ascii=False, indent=2))
+
 def main(argv: Iterable[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Inspect NES ROM headers/banks and extract private CHR visualizations.")
     sub = parser.add_subparsers(dest="cmd", required=True)
@@ -305,6 +353,11 @@ def main(argv: Iterable[str] | None = None) -> int:
     trace.add_argument("rom")
     trace.add_argument("--out", required=True)
     trace.set_defaults(func=trace_plan_cmd)
+
+    town = sub.add_parser("town-probe", help="Write a metadata-only town inference probe report; does not extract payload.")
+    town.add_argument("rom")
+    town.add_argument("--out", required=True)
+    town.set_defaults(func=town_probe_cmd)
 
     args = parser.parse_args(argv)
     args.func(args)
