@@ -76,3 +76,9 @@ English: After Hulao Gate is cleared, the HUD objective changes to rescuing the 
 
 中文：小沛城内是第一个 town/interior slice。当前功能包括地图切换、内部移动、两个 NPC、客栈服务、城门返回和 `xiaopeiInnRested` flag。所有小沛室内布局和 NPC 台词目前都是 `prototype` evidence status，不宣称来自原版。  
 English: Xiaopei interior is the first town/interior slice. Current behavior includes map transitions, interior movement, two NPCs, inn service, gate exit, and the `xiaopeiInnRested` flag. All Xiaopei interior layout and NPC text currently use `prototype` evidence status and are not claimed to be original-derived.
+
+
+## High-fidelity visual slice / 高还原视觉切片
+
+中文：用户反馈“完全没有达到目标”后，视觉目标调整为“看起来像原版”。本切片先用原创程序绘制图块和 UI 模拟 FC RPG 观感：黑底白框窗口、蓝色指令框、复古调色板、像素化城镇/山水/道路/战斗表现。所有视觉仍为 prototype/inspired，不宣称为 ROM 原版素材。  
+English: After the user stated the result did not meet the goal, the visual target changed to “looks like the original.” This slice uses original procedural tiles and UI to mimic an FC RPG feel: black/white windows, blue command boxes, retro palette, and pixelated town/mountain/water/road/battle presentation. All visuals remain prototype/inspired and are not claimed as ROM-original assets.

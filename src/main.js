@@ -26,6 +26,29 @@ const VIEW_W = 16;
 const VIEW_H = 15;
 const FIELD_H = 176;
 const COMMANDS = ["攻击", "计策", "物品", "撤退"];
+const NES = Object.freeze({
+  black: "#050505",
+  white: "#f8f8f8",
+  gray: "#7c7c7c",
+  blue: "#2038ec",
+  navy: "#000060",
+  red: "#bc2c28",
+  gold: "#f8b800",
+  skin: "#f0bc78",
+  hair: "#3f2416",
+  grass1: "#58d854",
+  grass2: "#00a844",
+  forest1: "#008810",
+  forest2: "#005800",
+  road1: "#c08040",
+  road2: "#805020",
+  roof: "#d82800",
+  wall: "#f8d878",
+  mountain1: "#a8a8a8",
+  mountain2: "#585858",
+  water1: "#3cbcfc",
+  water2: "#0078f8",
+});
 const keyMap = new Map([
   ["ArrowUp", "up"], ["w", "up"], ["W", "up"],
   ["ArrowDown", "down"], ["s", "down"], ["S", "down"],
@@ -316,25 +339,53 @@ window.addEventListener("keydown", (event) => {
   draw();
 });
 
+function checker(px, py, color, step = 4) {
+  ctx.fillStyle = color;
+  for (let yy = 0; yy < TILE_SIZE; yy += step) {
+    for (let xx = (yy / step) % 2 ? step : 0; xx < TILE_SIZE; xx += step * 2) {
+      ctx.fillRect(px + xx, py + yy, step, step);
+    }
+  }
+}
+
 function drawTile(x, y, tile) {
-  const info = tileInfo[tile];
   const px = x * TILE_SIZE;
   const py = y * TILE_SIZE;
-  ctx.fillStyle = info.colors[0];
-  ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
-  ctx.fillStyle = info.colors[1];
   if (tile === TILE.GRASS) {
-    ctx.fillRect(px + 3, py + 11, 4, 1); ctx.fillRect(px + 10, py + 5, 3, 1);
+    ctx.fillStyle = NES.grass1; ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
+    checker(px, py, NES.grass2, 4);
+    ctx.fillStyle = "#b8f8b8"; ctx.fillRect(px + 2, py + 11, 2, 1); ctx.fillRect(px + 11, py + 5, 2, 1);
   } else if (tile === TILE.FOREST) {
-    ctx.fillRect(px + 6, py + 4, 4, 10); ctx.fillRect(px + 3, py + 7, 10, 4);
+    ctx.fillStyle = NES.forest1; ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
+    ctx.fillStyle = NES.forest2;
+    for (const [tx, ty] of [[2, 7], [7, 3], [11, 8]]) {
+      ctx.fillRect(px + tx, py + ty, 4, 7);
+      ctx.fillRect(px + tx - 2, py + ty + 2, 8, 3);
+    }
   } else if (tile === TILE.MOUNTAIN) {
+    ctx.fillStyle = "#383838"; ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
+    ctx.fillStyle = NES.mountain1;
     ctx.beginPath(); ctx.moveTo(px + 1, py + 14); ctx.lineTo(px + 8, py + 2); ctx.lineTo(px + 15, py + 14); ctx.fill();
+    ctx.fillStyle = NES.mountain2;
+    ctx.beginPath(); ctx.moveTo(px + 8, py + 2); ctx.lineTo(px + 15, py + 14); ctx.lineTo(px + 9, py + 14); ctx.fill();
+    ctx.fillStyle = NES.white; ctx.fillRect(px + 7, py + 5, 2, 2);
   } else if (tile === TILE.WATER) {
-    ctx.fillRect(px, py + 5, 16, 2); ctx.fillRect(px + 3, py + 11, 13, 2);
+    ctx.fillStyle = NES.water1; ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
+    ctx.fillStyle = NES.water2;
+    ctx.fillRect(px, py + 4, 6, 2); ctx.fillRect(px + 8, py + 9, 8, 2); ctx.fillRect(px + 3, py + 13, 9, 1);
   } else if (tile === TILE.ROAD) {
-    ctx.fillRect(px, py + 6, 16, 4); ctx.fillRect(px + 6, py, 4, 16);
-  } else if (tile === TILE.TOWN || tile === TILE.FORT) {
-    ctx.fillRect(px + 3, py + 5, 10, 8); ctx.fillStyle = "#e1c07a"; ctx.fillRect(px + 6, py + 8, 4, 5);
+    ctx.fillStyle = NES.road1; ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
+    checker(px, py, NES.road2, 2);
+  } else if (tile === TILE.TOWN) {
+    ctx.fillStyle = NES.road1; ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
+    ctx.fillStyle = NES.roof; ctx.fillRect(px + 2, py + 3, 12, 4);
+    ctx.fillStyle = NES.wall; ctx.fillRect(px + 3, py + 7, 10, 7);
+    ctx.fillStyle = NES.black; ctx.fillRect(px + 7, py + 10, 3, 4); ctx.fillRect(px + 4, py + 8, 2, 2);
+  } else if (tile === TILE.FORT) {
+    ctx.fillStyle = NES.road2; ctx.fillRect(px, py, TILE_SIZE, TILE_SIZE);
+    ctx.fillStyle = "#b8b8b8"; ctx.fillRect(px + 2, py + 5, 12, 9);
+    ctx.fillStyle = NES.gray; ctx.fillRect(px + 2, py + 3, 3, 3); ctx.fillRect(px + 11, py + 3, 3, 3); ctx.fillRect(px + 7, py + 9, 3, 5);
+    ctx.fillStyle = NES.black; ctx.fillRect(px + 6, py + 6, 2, 2); ctx.fillRect(px + 10, py + 6, 2, 2);
   }
 }
 
@@ -356,67 +407,106 @@ function drawField() {
   }
   const sx = (state.player.x - cam.x) * TILE_SIZE;
   const sy = (state.player.y - cam.y) * TILE_SIZE;
-  ctx.fillStyle = "#f2d05a";
-  ctx.fillRect(sx + 5, sy + 3, 6, 6);
-  ctx.fillStyle = "#2c4f9c";
-  ctx.fillRect(sx + 4, sy + 9, 8, 5);
-  ctx.fillStyle = "#141414";
-  ctx.fillRect(sx + 6, sy + 5, 1, 1);
-  ctx.fillRect(sx + 9, sy + 5, 1, 1);
+  drawHeroSprite(sx, sy);
 }
 
-function drawPanel(x, y, w, h) {
-  ctx.fillStyle = "#101010";
+function drawHeroSprite(px, py) {
+  ctx.fillStyle = NES.hair; ctx.fillRect(px + 5, py + 2, 6, 3);
+  ctx.fillStyle = NES.skin; ctx.fillRect(px + 5, py + 5, 6, 4);
+  ctx.fillStyle = NES.blue; ctx.fillRect(px + 4, py + 9, 8, 5);
+  ctx.fillStyle = NES.white; ctx.fillRect(px + 5, py + 14, 2, 2); ctx.fillRect(px + 9, py + 14, 2, 2);
+  ctx.fillStyle = NES.black; ctx.fillRect(px + 6, py + 6, 1, 1); ctx.fillRect(px + 9, py + 6, 1, 1);
+}
+
+function drawPanel(x, y, w, h, fill = NES.black) {
+  ctx.fillStyle = fill;
   ctx.fillRect(x, y, w, h);
-  ctx.strokeStyle = "#f0f0f0";
-  ctx.lineWidth = 2;
+  ctx.strokeStyle = NES.white;
+  ctx.lineWidth = 1;
   ctx.strokeRect(x + 1, y + 1, w - 2, h - 2);
+  ctx.strokeStyle = NES.gray;
+  ctx.strokeRect(x + 3, y + 3, w - 6, h - 6);
+  ctx.fillStyle = NES.white;
+  ctx.fillRect(x + 4, y + 4, 3, 1); ctx.fillRect(x + w - 7, y + 4, 3, 1);
+  ctx.fillRect(x + 4, y + h - 5, 3, 1); ctx.fillRect(x + w - 7, y + h - 5, 3, 1);
 }
 
-function text(str, x, y, color = "#ffffff") {
+function text(str, x, y, color = NES.white) {
+  ctx.font = "12px 'Courier New', monospace";
+  ctx.fillStyle = NES.black;
+  ctx.fillText(str, x + 1, y + 1);
   ctx.fillStyle = color;
-  ctx.font = "12px monospace";
   ctx.fillText(str, x, y);
+}
+
+function drawNamePlate(label, x, y, w = 68) {
+  drawPanel(x, y, w, 20, NES.navy);
+  text(label, x + 8, y + 14, NES.gold);
 }
 
 function drawHud() {
   drawPanel(0, FIELD_H, 256, 64);
   const lead = living(state.party)[0] ?? state.party[0];
-  const objective = state.flags.scoutRescued ? "目标:斥候已救回" : (state.flags.hulaoCleared ? "目标:救回应急斥候" : "目标:击破虎牢关");
-  text(`${currentMap(state).name}  ${lead.name} 兵:${lead.soldiers}/${lead.maxSoldiers}  ${objective}`, 8, FIELD_H + 16);
-  const romLine = romMetadata ? `ROM Mapper:${romMetadata.mapper} PRG:${Math.round(romMetadata.prgRomSize / 1024)}K CHR:${Math.round(romMetadata.chrRomSize / 1024)}K` : `金:${state.gold} 粮:${state.food}`;
-  text(`${romLine}  坐标:${state.player.x},${state.player.y}`, 8, FIELD_H + 31);
-  state.messages.slice(-2).forEach((line, i) => text(line, 8, FIELD_H + 46 + i * 12, "#ffd27a"));
+  const objective = state.flags.scoutRescued ? "斥候已救回" : (state.flags.hulaoCleared ? "救回应急斥候" : "击破虎牢关");
+  text(`${currentMap(state).name}`, 8, FIELD_H + 15, NES.gold);
+  text(`${lead.name} 兵 ${lead.soldiers}/${lead.maxSoldiers}`, 8, FIELD_H + 30);
+  text(`金 ${state.gold}  粮 ${state.food}  目标 ${objective}`, 8, FIELD_H + 45);
+  state.messages.slice(-1).forEach((line, i) => text(line, 8, FIELD_H + 59 + i * 12, NES.gold));
 }
 
 function drawDialogue() {
-  drawPanel(8, 148, 240, 84);
-  dialogue.slice(0, 4).forEach((line, index) => text(line, 18, 170 + index * 16));
-  text("▼", 230, 220, "#ffd27a");
+  drawPanel(8, 142, 240, 90);
+  dialogue.slice(0, 4).forEach((line, index) => text(line, 18, 164 + index * 16));
+  text("▼", 230, 220, NES.gold);
 }
 
 function drawMenu() {
-  drawPanel(160, 16, 84, 78);
+  drawPanel(154, 12, 90, 84, NES.navy);
   ["状态", "物品", "保存", "关闭"].forEach((item, index) => {
-    text(`${state.menuIndex === index ? "▶" : " "}${item}`, 174, 36 + index * 15, state.menuIndex === index ? "#ffd27a" : "#fff");
+    text(`${state.menuIndex === index ? "▶" : " "}${item}`, 168, 34 + index * 16, state.menuIndex === index ? NES.gold : NES.white);
   });
 }
 
-function drawBattle() {
-  ctx.fillStyle = "#2a1d1d";
+function drawBattleBackdrop() {
+  ctx.fillStyle = NES.black;
   ctx.fillRect(0, 0, 256, 240);
+  ctx.fillStyle = "#101010";
+  for (let y = 0; y < 112; y += 8) {
+    for (let x = 0; x < 256; x += 8) {
+      if ((x + y) % 16 === 0) ctx.fillRect(x, y, 8, 8);
+    }
+  }
+  ctx.fillStyle = "#303030";
+  ctx.fillRect(0, 96, 256, 16);
+}
+
+function drawEnemySprite(x, y, scale = 1) {
+  ctx.fillStyle = NES.red; ctx.fillRect(x + 8 * scale, y + 4 * scale, 16 * scale, 12 * scale);
+  ctx.fillStyle = NES.skin; ctx.fillRect(x + 12 * scale, y, 8 * scale, 8 * scale);
+  ctx.fillStyle = NES.white; ctx.fillRect(x + 10 * scale, y + 16 * scale, 12 * scale, 12 * scale);
+  ctx.fillStyle = NES.black; ctx.fillRect(x + 14 * scale, y + 3 * scale, 2 * scale, 2 * scale);
+  ctx.fillStyle = NES.gold; ctx.fillRect(x + 4 * scale, y + 12 * scale, 4 * scale, 16 * scale);
+}
+
+function drawBattle() {
+  drawBattleBackdrop();
   const battle = state.battle;
-  text(`遭遇 ${battle.groupName}  第${battle.round}合`, 10, 18, "#ffd27a");
+  drawNamePlate(battle.groupName, 8, 8, 112);
+  battle.enemies.slice(0, 3).forEach((unit, i) => {
+    if (unit.soldiers > 0) drawEnemySprite(40 + i * 58, 42, 1);
+  });
+  drawPanel(8, 120, 112, 112);
   state.party.forEach((unit, i) => {
-    text(`${unit.name.padEnd(4, "　")} ${String(unit.soldiers).padStart(4, " ")}/${unit.maxSoldiers}`, 10, 42 + i * 16, unit.soldiers > 0 ? "#fff" : "#777");
+    const color = unit.soldiers > 0 ? NES.white : NES.gray;
+    text(`${unit.name}`, 18, 140 + i * 24, color);
+    text(`兵 ${String(unit.soldiers).padStart(4, " ")}`, 18, 153 + i * 24, color);
   });
-  battle.enemies.forEach((unit, i) => {
-    text(`${unit.name} ${unit.soldiers}/${unit.maxSoldiers}`, 138, 42 + i * 16, unit.soldiers > 0 ? "#ffb0a0" : "#777");
-  });
-  drawPanel(8, 118, 82, 88);
-  COMMANDS.forEach((cmd, i) => text(`${battle.commandIndex === i ? "▶" : " "}${cmd}`, 22, 138 + i * 16, battle.commandIndex === i ? "#ffd27a" : "#fff"));
-  drawPanel(96, 118, 152, 112);
-  battle.log.slice(-5).forEach((line, i) => text(line, 106, 138 + i * 16));
+  drawPanel(126, 120, 58, 78, NES.navy);
+  COMMANDS.forEach((cmd, i) => text(`${battle.commandIndex === i ? "▶" : " "}${cmd}`, 136, 140 + i * 15, battle.commandIndex === i ? NES.gold : NES.white));
+  drawPanel(8, 198, 240, 34);
+  battle.log.slice(-2).forEach((line, i) => text(line, 18, 214 + i * 13));
+  drawPanel(184, 120, 64, 78);
+  battle.enemies.slice(0, 3).forEach((unit, i) => text(`${unit.name.slice(0, 3)} ${unit.soldiers}`, 192, 140 + i * 16, unit.soldiers > 0 ? NES.white : NES.gray));
 }
 
 function draw() {

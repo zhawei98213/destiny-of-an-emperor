@@ -130,3 +130,9 @@ English: Milestone 2 is complete: data boundary, save migration, item system, se
 
 中文：Milestone 3 加入小沛城内原型：玩家可从大地图进入小沛、与 NPC 对话、使用客栈恢复兵力/计策，并从城门返回大地图。当前城镇布局和台词标记为 prototype，等待未来 ROM 证据替换。  
 English: Milestone 3 adds a prototype Xiaopei interior: the player can enter from the overworld, talk to NPCs, use the inn to restore soldiers/tactics, and exit back to the overworld. The current layout and text are labeled prototype until future ROM evidence replaces them.
+
+
+## High-fidelity visual slice / 高还原视觉切片
+
+中文：当前版本已开始纠偏到“看起来像 FC RPG / 吞食天地风格”的方向：使用更接近 NES 的黑底白框 UI、复古调色板、图块纹理、战斗指令窗、队伍/敌军窗口和像素角色表现。仍然不使用或提交 ROM 提取素材。  
+English: The current version has started pivoting toward a more FC RPG / Destiny-of-an-Emperor-like look: NES-like black/white window UI, retro palette, patterned tiles, battle command windows, party/enemy panels, and pixel character presentation. It still does not use or commit ROM-extracted assets.

@@ -66,3 +66,11 @@ English: Milestone 2 has been delivered. The recommended next phase is Milestone
   English: Xiaopei interior prototype, NPCs, inn, exits, and `xiaopeiInnRested` are implemented.
 - 中文：城镇内容按证据门槛标记为 prototype，等待未来 ROM 证据替换。  
   English: Town content is labeled prototype under the evidence gate and awaits future ROM evidence replacement.
+
+
+## High-fidelity visual slice / 高还原视觉切片
+
+- 中文：已开始把重点从工程原型纠偏到视觉/体验高还原。  
+  English: Work has begun shifting from engineering prototype toward higher-fidelity visual/experience recreation.
+- 中文：下一步应继续对照原版 UI 节奏、菜单布局和战斗画面，但仍避免提交 ROM payload。  
+  English: Next steps should continue matching original UI rhythm, menu layout, and battle presentation while still avoiding committed ROM payload.

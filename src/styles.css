@@ -1,10 +1,10 @@
 :root {
   color-scheme: dark;
-  --bg: #14110d;
-  --panel: #241c16;
-  --ink: #f3e3bd;
-  --muted: #b99965;
-  --accent: #d84f2a;
+  --bg: #080808;
+  --panel: #101018;
+  --ink: #f8f8f8;
+  --muted: #b8b8b8;
+  --accent: #f8b800;
 }
 
 * { box-sizing: border-box; }
@@ -15,8 +15,8 @@ body {
   display: grid;
   place-items: center;
   background:
-    radial-gradient(circle at top, rgba(166, 67, 32, 0.26), transparent 32rem),
-    linear-gradient(135deg, #100e0b, var(--bg));
+    radial-gradient(circle at top, rgba(32, 56, 236, 0.22), transparent 30rem),
+    linear-gradient(135deg, #000, var(--bg));
   color: var(--ink);
   font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
 }
@@ -31,8 +31,9 @@ body {
 
 .screen-panel {
   padding: 1rem;
-  border: 4px solid #5b3822;
-  background: #0b0b0b;
+  border: 4px solid #f8f8f8;
+  outline: 4px solid #2038ec;
+  background: #000;
   box-shadow: 0 1rem 4rem rgba(0, 0, 0, 0.55);
 }
 
@@ -47,19 +48,19 @@ body {
 
 .guide {
   padding: 1.25rem;
-  border: 2px solid #51351f;
-  background: rgba(36, 28, 22, 0.92);
+  border: 2px solid #f8f8f8;
+  background: rgba(0, 0, 32, 0.92);
   line-height: 1.6;
 }
 
 .guide h1 {
   margin: 0 0 0.75rem;
-  color: #ffd27a;
+  color: var(--accent);
   font-size: 1.25rem;
 }
 
 .guide p { color: var(--muted); }
-.guide dt { color: #ffd27a; margin-top: 0.6rem; }
+.guide dt { color: var(--accent); margin-top: 0.6rem; }
 .guide dd { margin-left: 0; }
 
 @media (max-width: 980px) {
