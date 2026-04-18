@@ -53,6 +53,7 @@ English: ROMs and extracted assets are private and ignored by `.gitignore`. Do n
 ```sh
 npm run rom:inspect
 npm run rom:chr
+npm run rom:town-probe
 ```
 
 等价底层命令 / Equivalent low-level commands:
