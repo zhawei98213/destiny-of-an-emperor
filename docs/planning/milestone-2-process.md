@@ -176,6 +176,7 @@ English: Standard-tier Architect review rejected the first completion claim beca
 | `3304c47` | Item system / 物品系统 |
 | `a4d69fa` | Second objective / 第二目标链 |
 | `c6ab166` | ROM metadata-only trace scaffold / ROM metadata-only 追踪骨架 |
+| `ccf6265` | Evidence hardening and closeout tests / 证据加固与收尾测试 |
 
 本轮加固验证 / Evidence-hardening verification:
 
@@ -184,3 +185,23 @@ npm run check
 ```
 
 结果 / Result: `smoke ok`.
+
+
+## 2026-04-18 — Final evidence after ccf6265 / `ccf6265` 后最终证据
+
+中文：`ccf6265` 已推送到 `origin/main`，工作区随后显示 `## main...origin/main` 且无未提交文件。  
+English: `ccf6265` was pushed to `origin/main`; afterwards the working tree reported `## main...origin/main` with no uncommitted files.
+
+最终已执行验证 / Final executed verification:
+
+```text
+npm run check -> smoke ok
+python3 -m py_compile tools/nes_rom_tool.py -> pass
+npm run rom:inspect -> pass
+python3 tools/nes_rom_tool.py trace-plan '吞食天地2.nes' --out .omx/rom-analysis/runtime-trace-plan.evidence.json -> pass
+HTTP smoke: index/main/metadata curl -> http smoke ok
+staged private-payload regex check -> pass
+```
+
+中文：本记录所在提交用于补充最终证据文字；其 commit hash 以 `git log -1 --oneline` 为准。  
+English: The commit containing this section records final evidence text; use `git log -1 --oneline` for its hash.
