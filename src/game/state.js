@@ -25,6 +25,7 @@ export function newGame() {
       hulaoCleared: false,
       visitedXiaopei: false,
       scoutRescued: false,
+      xiaopeiInnRested: false,
     },
     menuIndex: 0,
     battle: null,

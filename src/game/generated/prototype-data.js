@@ -30,6 +30,24 @@ function buildProvinceMap() {
   return tiles;
 }
 
+function buildXiaopeiInteriorMap() {
+  const width = 16;
+  const height = 15;
+  const tiles = Array.from({ length: height }, () => Array(width).fill(TILE.ROAD));
+  for (let y = 0; y < height; y += 1) {
+    for (let x = 0; x < width; x += 1) {
+      if (x === 0 || y === 0 || x === width - 1 || y === height - 1) tiles[y][x] = TILE.MOUNTAIN;
+      if ((x > 1 && x < 5 && y > 1 && y < 5) || (x > 9 && x < 14 && y > 1 && y < 5)) tiles[y][x] = TILE.TOWN;
+      if (x > 2 && x < 8 && y > 8 && y < 13) tiles[y][x] = TILE.FOREST;
+    }
+  }
+  tiles[14][8] = TILE.ROAD;
+  tiles[10][10] = TILE.FORT;
+  tiles[4][7] = TILE.TOWN;
+  tiles[7][5] = TILE.TOWN;
+  return tiles;
+}
+
 export const prototypeGameData = Object.freeze({
   schemaVersion: 1,
   maps: Object.freeze({
@@ -41,7 +59,7 @@ export const prototypeGameData = Object.freeze({
       start: Object.freeze({ x: 7, y: 16 }),
       tiles: buildProvinceMap(),
       events: Object.freeze({
-        "7,15": Object.freeze({ type: "rest-town", name: "小沛", text: "小沛城中人心惶惶，百姓盼望义军安定四方。你在城中休整，兵力与计策恢复。" }),
+        "7,15": Object.freeze({ type: "transition", name: "小沛", toMapId: "xiaopei-interior", toX: 8, toY: 13, text: "进入小沛。" }),
         "23,8": Object.freeze({ type: "town", name: "北平", text: "城门紧闭。守军说：虎牢关校尉截断了官道，击败他才能继续北上。" }),
         "6,22": Object.freeze({ type: "boss", bossId: "hulao-commander", flag: "hulaoCleared", name: "虎牢关", text: "虎牢关校尉横刀立马：来者止步！" }),
         "13,15": Object.freeze({ type: "bridge", name: "木桥", text: "河上木桥摇摇欲坠，但还能通行。" }),
@@ -56,6 +74,21 @@ export const prototypeGameData = Object.freeze({
           completionText: "斥候获救，带回了北方军情。第二阶段目标完成。",
           reward: Object.freeze({ gold: 90, items: Object.freeze({ "healing-herb": 2 }) }),
         }),
+      }),
+    }),
+    "xiaopei-interior": Object.freeze({
+      id: "xiaopei-interior",
+      name: "小沛城内（原型）",
+      width: 16,
+      height: 15,
+      start: Object.freeze({ x: 8, y: 13 }),
+      evidence: Object.freeze({ status: "prototype", evidenceKind: "town-probe", confidence: 0.2, privateCaptureRef: null }),
+      tiles: buildXiaopeiInteriorMap(),
+      events: Object.freeze({
+        "8,14": Object.freeze({ type: "transition", name: "城门", toMapId: "province", toX: 7, toY: 16, text: "离开小沛，回到徐州近郊。" }),
+        "4,7": Object.freeze({ type: "npc", npcId: "xiaopei-elder", name: "小沛长者", text: "听闻虎牢关已破，百姓稍安。若要北上，先在客栈整备兵马。", evidence: Object.freeze({ status: "prototype", evidenceKind: "town-probe", confidence: 0.2 }) }),
+        "7,4": Object.freeze({ type: "npc", npcId: "xiaopei-scribe", name: "小沛书记", text: "此城布局仍为原型；待 ROM 证据充足后，会以原版资料替换。", evidence: Object.freeze({ status: "prototype", evidenceKind: "town-probe", confidence: 0.2 }) }),
+        "10,10": Object.freeze({ type: "inn", serviceId: "xiaopei-inn", name: "小沛客栈", cost: 30, flag: "xiaopeiInnRested", successText: "一夜休整，众将精神复振。", failureText: "店家摇头：钱粮不足，无法安排客房。", evidence: Object.freeze({ status: "prototype", evidenceKind: "town-probe", confidence: 0.2 }) }),
       }),
     }),
   }),

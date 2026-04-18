@@ -123,3 +123,9 @@ English: This command writes a metadata-only plan and does not generate commit-s
 
 中文：第二阶段已完成：数据边界、存档迁移、物品系统、第二目标链、ROM metadata-only 追踪计划和双语过程记录均已实现。运行 `npm run check` 可验证核心数据、存档、物品与目标链 smoke tests。  
 English: Milestone 2 is complete: data boundary, save migration, item system, second objective chain, ROM metadata-only tracing plan, and bilingual process records are implemented. Run `npm run check` to verify the core data, save, item, and objective-chain smoke tests.
+
+
+## Town interior / 城镇内部
+
+中文：Milestone 3 加入小沛城内原型：玩家可从大地图进入小沛、与 NPC 对话、使用客栈恢复兵力/计策，并从城门返回大地图。当前城镇布局和台词标记为 prototype，等待未来 ROM 证据替换。  
+English: Milestone 3 adds a prototype Xiaopei interior: the player can enter from the overworld, talk to NPCs, use the inn to restore soldiers/tactics, and exit back to the overworld. The current layout and text are labeled prototype until future ROM evidence replaces them.

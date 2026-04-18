@@ -2,6 +2,7 @@ import { TILE, bossEncounters, tileInfo, openingText } from "./game/data.js";
 import { useBattleItemCommand } from "./game/battle-actions.js";
 import { inventoryLines } from "./game/items.js";
 import { applyObjectiveEvent } from "./game/objectives.js";
+import { applyInnEvent, applyTransitionEvent, npcDialogue } from "./game/town.js";
 import {
   canEnter,
   currentMap,
@@ -102,6 +103,18 @@ function handleMapEvent(evt) {
   }
   if (evt.type === "objective") {
     handleObjectiveEvent(evt);
+    return;
+  }
+  if (evt.type === "transition") {
+    setDialogue(applyTransitionEvent(state, evt).lines);
+    return;
+  }
+  if (evt.type === "npc") {
+    setDialogue(npcDialogue(evt).lines);
+    return;
+  }
+  if (evt.type === "inn") {
+    setDialogue(applyInnEvent(state, evt).lines);
     return;
   }
   setDialogue([`${evt.name}`, evt.text]);

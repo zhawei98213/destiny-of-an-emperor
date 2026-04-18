@@ -87,3 +87,9 @@ English: Commit-safe runtime tracing outputs include only schemas, hashes, sizes
 
 中文：城镇数据需要携带 `evidence.status`，可选值为 `confirmed`、`inferred`、`unknown`、`prototype`。只有 metadata-only 工具或合法资料能支撑时，才能使用 `confirmed` 或 `inferred`；否则必须用 `prototype`。  
 English: Town data must carry `evidence.status`, one of `confirmed`, `inferred`, `unknown`, or `prototype`. Use `confirmed` or `inferred` only when backed by metadata-only tooling or lawful references; otherwise use `prototype`.
+
+
+## Town/interior runtime data / 城镇与室内运行时数据
+
+中文：城镇事件通过统一 gameplay data boundary 表达，事件类型包括 `transition`、`npc`、`inn`、`objective`、`boss`。涉及原版真实性的事件必须携带 evidence metadata；当前小沛室内事件为 `prototype`。  
+English: Town events are represented through the unified gameplay data boundary. Event types include `transition`, `npc`, `inn`, `objective`, and `boss`. Events involving authenticity claims must carry evidence metadata; current Xiaopei interior events are `prototype`.

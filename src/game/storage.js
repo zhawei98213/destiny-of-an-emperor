@@ -11,6 +11,7 @@ function normalizeFlags(flags) {
     hulaoCleared: false,
     visitedXiaopei: false,
     scoutRescued: false,
+    xiaopeiInnRested: false,
     ...(flags && typeof flags === "object" ? flags : {}),
   };
 }

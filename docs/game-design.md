@@ -70,3 +70,9 @@ English: Milestone 2 turns inventory from a placeholder menu into a testable sys
 
 中文：击破虎牢关后，HUD 目标会切换为“救回应急斥候”。玩家前往北平南道事件点可完成 `rescue-scout`，设置 `scoutRescued`，获得金钱与草药补给。若虎牢关尚未攻破，该事件只提示道路危险，不会完成目标。  
 English: After Hulao Gate is cleared, the HUD objective changes to rescuing the emergency scout. The player can complete `rescue-scout` at the Beiping south-road event, setting `scoutRescued` and receiving gold plus herb supplies. If Hulao Gate is not cleared, the event only warns that the road is unsafe and does not complete the objective.
+
+
+## Town interior system / 城镇内部系统
+
+中文：小沛城内是第一个 town/interior slice。当前功能包括地图切换、内部移动、两个 NPC、客栈服务、城门返回和 `xiaopeiInnRested` flag。所有小沛室内布局和 NPC 台词目前都是 `prototype` evidence status，不宣称来自原版。  
+English: Xiaopei interior is the first town/interior slice. Current behavior includes map transitions, interior movement, two NPCs, inn service, gate exit, and the `xiaopeiInnRested` flag. All Xiaopei interior layout and NPC text currently use `prototype` evidence status and are not claimed to be original-derived.

@@ -4,6 +4,17 @@ function assert(condition, message) {
   if (!condition) throw new Error(message);
 }
 
+const EVIDENCE_STATUSES = new Set(["confirmed", "inferred", "unknown", "prototype"]);
+
+function validateEvidence(evidence, label, required = false) {
+  if (!evidence) {
+    assert(!required, `${label} missing evidence`);
+    return;
+  }
+  assert(EVIDENCE_STATUSES.has(evidence.status), `${label} invalid evidence status`);
+  if (evidence.confidence !== undefined) assert(typeof evidence.confidence === "number" && evidence.confidence >= 0 && evidence.confidence <= 1, `${label} invalid evidence confidence`);
+}
+
 function assertUniqueIds(records, label) {
   const seen = new Set();
   for (const record of records) {
@@ -28,7 +39,23 @@ function validateMap(map, bossIds, itemIds) {
     const [x, y] = coord.split(",").map(Number);
     assert(Number.isInteger(x) && Number.isInteger(y), `map ${map.id} event ${coord} invalid coordinate`);
     assert(x >= 0 && x < map.width && y >= 0 && y < map.height, `map ${map.id} event ${coord} out of bounds`);
+    validateEvidence(event.evidence, `event ${coord}`, false);
     if (event.type === "boss") assert(bossIds.has(event.bossId), `event ${coord} missing boss ${event.bossId}`);
+    if (event.type === "transition") {
+      assert(typeof event.toMapId === "string" && event.toMapId.length > 0, `transition event ${coord} missing toMapId`);
+      assert(Number.isInteger(event.toX) && Number.isInteger(event.toY), `transition event ${coord} invalid destination`);
+    }
+    if (event.type === "npc") {
+      assert(typeof event.npcId === "string" && event.npcId.length > 0, `npc event ${coord} missing npcId`);
+      assert(typeof event.text === "string" && event.text.length > 0, `npc event ${coord} missing text`);
+      validateEvidence(event.evidence, `npc event ${coord}`, true);
+    }
+    if (event.type === "inn") {
+      assert(typeof event.serviceId === "string" && event.serviceId.length > 0, `inn event ${coord} missing serviceId`);
+      assert(Number.isInteger(event.cost) && event.cost >= 0, `inn event ${coord} invalid cost`);
+      assert(typeof event.flag === "string" && event.flag.length > 0, `inn event ${coord} missing flag`);
+      validateEvidence(event.evidence, `inn event ${coord}`, true);
+    }
     if (event.type === "objective") {
       assert(typeof event.objectiveId === "string" && event.objectiveId.length > 0, `objective event ${coord} missing objectiveId`);
       assert(typeof event.flag === "string" && event.flag.length > 0, `objective event ${coord} missing flag`);
@@ -49,8 +76,19 @@ export function validateGameData(data) {
   assertUniqueIds(data.enemyGroups ?? [], "enemy group");
   assertUniqueIds(bossRecords, "boss");
   assertUniqueIds(itemRecords, "item");
+  for (const map of mapRecords) validateEvidence(map.evidence, `map ${map.id}`, false);
   const bossIds = new Set(bossRecords.map((boss) => boss.id));
   const itemIds = new Set(itemRecords.map((item) => item.id));
   for (const map of mapRecords) validateMap(map, bossIds, itemIds);
+  const mapIds = new Set(mapRecords.map((map) => map.id));
+  for (const map of mapRecords) {
+    for (const [coord, event] of Object.entries(map.events ?? {})) {
+      if (event.type === "transition") {
+        assert(mapIds.has(event.toMapId), `transition event ${map.id}:${coord} references missing map ${event.toMapId}`);
+        const target = data.maps[event.toMapId];
+        assert(event.toX >= 0 && event.toX < target.width && event.toY >= 0 && event.toY < target.height, `transition event ${map.id}:${coord} destination out of bounds`);
+      }
+    }
+  }
   return true;
 }
