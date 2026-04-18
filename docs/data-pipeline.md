@@ -69,3 +69,9 @@ English: Future extractors should produce normalized data like the following so 
    English: Battle, officer, and item parameters.
 6. 中文：引擎消费 normalized JSON。  
    English: Engine consumption of normalized JSON.
+
+
+## Milestone 2 data boundary / 第二阶段数据边界
+
+中文：第二阶段采用 checked-in generated JS data module + 单一 loader/boundary。规范化 JSON shape 仍记录在本文档中；运行时通过 `src/game/data.js` 导出统一数据，底层 prototype data 位于 `src/game/generated/prototype-data.js`，schema/reference 校验位于 `src/game/validation/data-validation.js`。  
+English: Milestone 2 uses a checked-in generated JS data module plus a single loader/boundary. The normalized JSON shape remains documented here; runtime data is exported through `src/game/data.js`, prototype source-safe data lives in `src/game/generated/prototype-data.js`, and schema/reference checks live in `src/game/validation/data-validation.js`.

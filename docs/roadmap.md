@@ -42,3 +42,9 @@ English: Build a playable high-fidelity retro RPG while keeping ROMs and extract
    English: Switch `src/game/data.js` to consume exported normalized JSON.
 6. 中文：扩展城镇、剧情脚本、地图切换与存档格式迁移。  
    English: Expand towns, story scripts, map transitions, and save-format migration.
+
+
+## Milestone 2 progress / 第二阶段进度
+
+- 中文：已开始建立规范化可提交数据边界。  
+  English: The normalized commit-safe data boundary has started.

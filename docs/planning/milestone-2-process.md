@@ -56,3 +56,20 @@ English: This is planning and recordkeeping only. Milestone 2 implementation sho
 
 中文：最终 Critic 复核通过：ADR 完整、备选方案公平、风险缓解明确、验收标准可测试、验证步骤具体、双语记录质量合格、私有 ROM/payload 安全边界可执行、Ralph/Team 交接写入范围明确。  
 English: Final Critic review approved: ADR is complete, alternatives are fair, risk mitigations are clear, acceptance criteria are testable, verification steps are concrete, bilingual records are adequate, private ROM/payload boundaries are enforceable, and Ralph/Team handoff write scopes are clear.
+
+
+## 2026-04-18 — Phase 1 data boundary / 阶段 1 数据边界
+
+中文：实现规范化可提交数据边界：新增 `src/game/generated/prototype-data.js`、`src/game/tile-types.js`、`src/game/validation/data-validation.js`，并让 `src/game/data.js` 成为统一导出边界。`scripts/smoke-test.mjs` 现在验证 schema/reference，包括第二目标事件 `rescue-scout`。  
+English: Implemented the normalized commit-safe data boundary: added `src/game/generated/prototype-data.js`, `src/game/tile-types.js`, and `src/game/validation/data-validation.js`, while making `src/game/data.js` the unified export boundary. `scripts/smoke-test.mjs` now validates schema/reference integrity, including the second-objective event `rescue-scout`.
+
+验证 / Verification:
+
+```sh
+npm run check
+python3 -m py_compile tools/nes_rom_tool.py
+npm run rom:inspect
+```
+
+隐私检查 / Privacy check: no staged private payload before commit.  
+English: No staged private payload before commit.

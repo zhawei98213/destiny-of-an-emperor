@@ -83,3 +83,9 @@ English: `npm run check` runs JavaScript syntax checks and a browserless smoke t
 
 中文：提交时遵守 Lore commit protocol；每个提交说明“为什么改”，并记录测试结果。  
 English: Commits follow the Lore commit protocol: explain why the change exists and record verification evidence.
+
+
+## Data boundary / 数据边界
+
+中文：运行时 gameplay data 通过 `src/game/data.js` 统一导出；第二阶段会逐步把 prototype data、存档、物品、目标链都纳入可测试的数据边界。  
+English: Runtime gameplay data is exported through `src/game/data.js`; Milestone 2 progressively routes prototype data, saves, items, and objective chains through a testable data boundary.
