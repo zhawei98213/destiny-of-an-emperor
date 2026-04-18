@@ -142,3 +142,9 @@ English: The current version has started pivoting toward a more FC RPG / Destiny
 
 中文：小沛城内现在会直接显示 NPC、客栈标识和出口标识，不再需要玩家盲踩事件点。  
 English: Xiaopei interior now visibly renders NPCs, the inn marker, and the exit marker so players no longer have to blindly step on event tiles.
+
+
+## FC-style menu / FC 风格菜单
+
+中文：主菜单现在不再把状态/物品塞进普通对话框，而是显示独立的 FC 风格窗口。Enter/Z 打开菜单，选择“状态”或“物品”进入子窗口，X/Esc 返回。  
+English: The main menu no longer shows status/inventory as plain dialogue. It now displays dedicated FC-style windows. Press Enter/Z to open the menu, choose Status or Items to enter a sub-window, and use X/Esc to return.

@@ -78,3 +78,7 @@ English: Milestone 2 has been delivered. The recommended next phase is Milestone
 
 - 中文：城镇内部已加入可见 NPC、客栈和出口标识，减少盲踩事件点的问题。  
   English: Town interiors now include visible NPC, inn, and exit markers, reducing blind event-tile hunting.
+
+
+- 中文：状态/物品菜单已从普通对话框升级为 FC 风格窗口。  
+  English: Status and inventory menus have been upgraded from plain dialogue into FC-style windows.

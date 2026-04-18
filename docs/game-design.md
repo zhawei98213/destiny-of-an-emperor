@@ -88,3 +88,9 @@ English: After the user stated the result did not meet the goal, the visual targ
 
 中文：为了回到“像 FC RPG 游戏”的正轨，城镇内部事件不再只存在于数据中；NPC、客栈和出口会以像素标识显示在地图上。当前图形仍为原创 prototype，不是 ROM 提取素材。  
 English: To move back toward an FC RPG feel, town events are no longer data-only; NPCs, the inn, and exits are rendered as pixel markers on the map. These visuals remain original prototype art, not ROM-extracted assets.
+
+
+## FC-style menu windows / FC 风格菜单窗口
+
+中文：为了更接近《吞食天地》类 FC RPG 观感，状态和物品从对话文本改为独立菜单窗口：状态页显示武将、兵力、攻防策；物品页显示金、粮和物品列表。  
+English: To better match a Destiny-of-an-Emperor-like FC RPG feel, status and inventory now use dedicated menu windows instead of dialogue text: the status page shows officers, soldiers, attack/defense/tactics; the inventory page shows gold, food, and item lines.

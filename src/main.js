@@ -60,6 +60,7 @@ let state = newGame();
 let dialogue = [];
 let lastTick = 0;
 let romMetadata = null;
+let menuPage = "root";
 
 fetch("./src/game/generated/rom-metadata.json")
   .then((response) => response.ok ? response.json() : null)
@@ -168,6 +169,7 @@ function confirm() {
   if (state.mode === "field") {
     state.mode = "menu";
     state.menuIndex = 0;
+    menuPage = "root";
     return;
   }
   if (state.mode === "menu") {
@@ -180,20 +182,29 @@ function confirm() {
 }
 
 function cancel() {
+  if (state.mode === "menu" && menuPage !== "root") {
+    menuPage = "root";
+    return;
+  }
   if (state.mode === "menu") state.mode = "field";
   else if (state.mode === "dialogue") { dialogue = []; state.mode = "field"; }
 }
 
 function runMenuCommand() {
+  if (menuPage !== "root") {
+    menuPage = "root";
+    return;
+  }
   const actions = ["status", "inventory", "save", "close"];
   const action = actions[state.menuIndex];
   if (action === "status") {
-    setDialogue(state.party.map((unit) => `${unit.name} 兵 ${unit.soldiers}/${unit.maxSoldiers} 攻 ${unit.attack} 防 ${unit.defense}`));
+    menuPage = "status";
   } else if (action === "inventory") {
-    setDialogue([`金 ${state.gold}`, `粮 ${state.food}`, ...inventoryLines(state), "选择战斗中的物品指令可使用草药。"]);
+    menuPage = "inventory";
   } else if (action === "save") {
     saveGame(state);
-    setDialogue("已保存到浏览器 localStorage。");
+    pushMessage("已保存。 / SAVED");
+    state.mode = "field";
   } else {
     state.mode = "field";
   }
@@ -498,10 +509,41 @@ function drawDialogue() {
 }
 
 function drawMenu() {
-  drawPanel(154, 12, 90, 84, NES.navy);
+  if (menuPage === "status") {
+    drawStatusMenu();
+    return;
+  }
+  if (menuPage === "inventory") {
+    drawInventoryMenu();
+    return;
+  }
+  drawPanel(148, 10, 96, 92, NES.navy);
+  text("命令", 166, 28, NES.gold);
   ["状态", "物品", "保存", "关闭"].forEach((item, index) => {
-    text(`${state.menuIndex === index ? "▶" : " "}${item}`, 168, 34 + index * 16, state.menuIndex === index ? NES.gold : NES.white);
+    text(`${state.menuIndex === index ? "▶" : " "}${item}`, 164, 48 + index * 14, state.menuIndex === index ? NES.gold : NES.white);
   });
+}
+
+function drawStatusMenu() {
+  drawPanel(10, 12, 236, 142, NES.black);
+  text("状态", 22, 30, NES.gold);
+  text("武将      兵力      攻  防  策", 22, 48, NES.gray);
+  state.party.forEach((unit, i) => {
+    const y = 66 + i * 24;
+    const color = unit.soldiers > 0 ? NES.white : NES.gray;
+    text(unit.name.padEnd(4, "　"), 22, y, color);
+    text(`${String(unit.soldiers).padStart(4, " ")}/${unit.maxSoldiers}`, 78, y, color);
+    text(`${String(unit.attack).padStart(2, " ")}  ${String(unit.defense).padStart(2, " ")}  ${String(unit.tactics).padStart(2, " ")}`, 158, y, color);
+  });
+  text("X/Esc 返回", 154, 140, NES.gold);
+}
+
+function drawInventoryMenu() {
+  drawPanel(18, 18, 220, 120, NES.black);
+  text("物品", 30, 38, NES.gold);
+  text(`金 ${state.gold}    粮 ${state.food}`, 30, 56);
+  inventoryLines(state).slice(0, 4).forEach((line, i) => text(line, 30, 78 + i * 16));
+  text("战斗中选择『物品』可使用草药", 30, 126, NES.gray);
 }
 
 function drawBattleBackdrop() {
