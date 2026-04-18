@@ -74,3 +74,7 @@ English: Milestone 2 has been delivered. The recommended next phase is Milestone
   English: Work has begun shifting from engineering prototype toward higher-fidelity visual/experience recreation.
 - 中文：下一步应继续对照原版 UI 节奏、菜单布局和战斗画面，但仍避免提交 ROM payload。  
   English: Next steps should continue matching original UI rhythm, menu layout, and battle presentation while still avoiding committed ROM payload.
+
+
+- 中文：城镇内部已加入可见 NPC、客栈和出口标识，减少盲踩事件点的问题。  
+  English: Town interiors now include visible NPC, inn, and exit markers, reducing blind event-tile hunting.

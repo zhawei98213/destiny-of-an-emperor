@@ -82,3 +82,9 @@ English: Xiaopei interior is the first town/interior slice. Current behavior inc
 
 中文：用户反馈“完全没有达到目标”后，视觉目标调整为“看起来像原版”。本切片先用原创程序绘制图块和 UI 模拟 FC RPG 观感：黑底白框窗口、蓝色指令框、复古调色板、像素化城镇/山水/道路/战斗表现。所有视觉仍为 prototype/inspired，不宣称为 ROM 原版素材。  
 English: After the user stated the result did not meet the goal, the visual target changed to “looks like the original.” This slice uses original procedural tiles and UI to mimic an FC RPG feel: black/white windows, blue command boxes, retro palette, and pixelated town/mountain/water/road/battle presentation. All visuals remain prototype/inspired and are not claimed as ROM-original assets.
+
+
+## Visible event markers / 可见事件标识
+
+中文：为了回到“像 FC RPG 游戏”的正轨，城镇内部事件不再只存在于数据中；NPC、客栈和出口会以像素标识显示在地图上。当前图形仍为原创 prototype，不是 ROM 提取素材。  
+English: To move back toward an FC RPG feel, town events are no longer data-only; NPCs, the inn, and exits are rendered as pixel markers on the map. These visuals remain original prototype art, not ROM-extracted assets.

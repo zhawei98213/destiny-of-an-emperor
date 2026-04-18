@@ -136,3 +136,9 @@ English: Milestone 3 adds a prototype Xiaopei interior: the player can enter fro
 
 中文：当前版本已开始纠偏到“看起来像 FC RPG / 吞食天地风格”的方向：使用更接近 NES 的黑底白框 UI、复古调色板、图块纹理、战斗指令窗、队伍/敌军窗口和像素角色表现。仍然不使用或提交 ROM 提取素材。  
 English: The current version has started pivoting toward a more FC RPG / Destiny-of-an-Emperor-like look: NES-like black/white window UI, retro palette, patterned tiles, battle command windows, party/enemy panels, and pixel character presentation. It still does not use or commit ROM-extracted assets.
+
+
+## Visible town events / 可见城镇事件
+
+中文：小沛城内现在会直接显示 NPC、客栈标识和出口标识，不再需要玩家盲踩事件点。  
+English: Xiaopei interior now visibly renders NPCs, the inn marker, and the exit marker so players no longer have to blindly step on event tiles.

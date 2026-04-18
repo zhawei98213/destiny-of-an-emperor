@@ -405,9 +405,46 @@ function drawField() {
       drawTile(x, y, tileAt(map, cam.x + x, cam.y + y));
     }
   }
+  drawMapEvents(map, cam);
   const sx = (state.player.x - cam.x) * TILE_SIZE;
   const sy = (state.player.y - cam.y) * TILE_SIZE;
   drawHeroSprite(sx, sy);
+}
+
+function drawMapEvents(map, cam) {
+  for (const [coord, event] of Object.entries(map.events ?? {})) {
+    const [mx, my] = coord.split(",").map(Number);
+    const sx = (mx - cam.x) * TILE_SIZE;
+    const sy = (my - cam.y) * TILE_SIZE;
+    if (sx < 0 || sy < 0 || sx >= 256 || sy >= FIELD_H) continue;
+    if (event.type === "npc") drawNpcSprite(sx, sy);
+    else if (event.type === "inn") drawInnSign(sx, sy);
+    else if (event.type === "transition" && map.id !== "province") drawGateMarker(sx, sy);
+  }
+}
+
+function drawNpcSprite(px, py) {
+  ctx.fillStyle = NES.hair; ctx.fillRect(px + 5, py + 2, 6, 3);
+  ctx.fillStyle = NES.skin; ctx.fillRect(px + 5, py + 5, 6, 4);
+  ctx.fillStyle = NES.red; ctx.fillRect(px + 4, py + 9, 8, 5);
+  ctx.fillStyle = NES.white; ctx.fillRect(px + 5, py + 14, 2, 2); ctx.fillRect(px + 9, py + 14, 2, 2);
+  ctx.fillStyle = NES.black; ctx.fillRect(px + 6, py + 6, 1, 1); ctx.fillRect(px + 9, py + 6, 1, 1);
+}
+
+function drawInnSign(px, py) {
+  ctx.fillStyle = NES.navy; ctx.fillRect(px + 2, py + 2, 12, 12);
+  ctx.strokeStyle = NES.white; ctx.strokeRect(px + 2, py + 2, 12, 12);
+  ctx.fillStyle = NES.gold; ctx.fillRect(px + 5, py + 5, 6, 2); ctx.fillRect(px + 7, py + 5, 2, 7);
+  ctx.fillStyle = NES.white; ctx.fillRect(px + 4, py + 12, 8, 1);
+}
+
+function drawGateMarker(px, py) {
+  ctx.fillStyle = NES.black; ctx.fillRect(px + 2, py + 2, 12, 12);
+  ctx.strokeStyle = NES.white; ctx.strokeRect(px + 2, py + 2, 12, 12);
+  ctx.fillStyle = NES.gold;
+  ctx.fillRect(px + 7, py + 4, 2, 7);
+  ctx.fillRect(px + 5, py + 9, 6, 2);
+  ctx.fillRect(px + 6, py + 11, 4, 2);
 }
 
 function drawHeroSprite(px, py) {
