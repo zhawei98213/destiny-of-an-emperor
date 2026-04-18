@@ -104,3 +104,20 @@ npm run check
 python3 -m py_compile tools/nes_rom_tool.py
 npm run rom:inspect
 ```
+
+
+## 2026-04-18 — Phase 4 second objective / 阶段 4 第二目标链
+
+中文：实现 `rescue-scout` / `scoutRescued` 第二目标链。该事件位于北平南道，前置条件为 `hulaoCleared`；未满足时只显示锁定提示，满足后设置完成旗标、发放金钱与草药奖励，并更新 HUD 目标。  
+English: Implemented the `rescue-scout` / `scoutRescued` second objective chain. The event is located at Beiping South Road and gated by `hulaoCleared`; before the prerequisite it shows a lock message, after the prerequisite it sets the completion flag, grants gold and herb rewards, and updates the HUD objective.
+
+Affected `src/main.js` functions / 受影响函数: `handleMapEvent`, new `handleObjectiveEvent`, `drawHud`.  
+Guardrail / 护栏: localized event/objective integration only, no render/input/battle-loop rewrite.
+
+验证 / Verification:
+
+```sh
+npm run check
+python3 -m py_compile tools/nes_rom_tool.py
+npm run rom:inspect
+```

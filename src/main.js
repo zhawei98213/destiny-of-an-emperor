@@ -1,5 +1,5 @@
 import { TILE, bossEncounters, tileInfo, openingText } from "./game/data.js";
-import { inventoryLines, useItem } from "./game/items.js";
+import { addItems, inventoryLines, useItem } from "./game/items.js";
 import {
   canEnter,
   currentMap,
@@ -98,7 +98,28 @@ function handleMapEvent(evt) {
     });
     return;
   }
+  if (evt.type === "objective") {
+    handleObjectiveEvent(evt);
+    return;
+  }
   setDialogue([`${evt.name}`, evt.text]);
+}
+
+function handleObjectiveEvent(evt) {
+  if (evt.prerequisiteFlag && !state.flags[evt.prerequisiteFlag]) {
+    setDialogue([evt.name, evt.lockedText]);
+    return;
+  }
+  if (state.flags[evt.flag]) {
+    setDialogue([evt.name, "斥候已经安全归队，北方情报已送回营中。"]);
+    return;
+  }
+  state.flags[evt.flag] = true;
+  state.objectives.completed = [...new Set([...(state.objectives.completed ?? []), evt.objectiveId])];
+  state.objectives.active = null;
+  state.gold += evt.reward?.gold ?? 0;
+  addItems(state, evt.reward?.items ?? {});
+  setDialogue([evt.name, evt.text, evt.completionText, `获得 ${evt.reward?.gold ?? 0} 金与草药补给。`]);
 }
 
 function maybeEncounter(map, x, y) {
@@ -360,7 +381,7 @@ function text(str, x, y, color = "#ffffff") {
 function drawHud() {
   drawPanel(0, FIELD_H, 256, 64);
   const lead = living(state.party)[0] ?? state.party[0];
-  const objective = state.flags.hulaoCleared ? "目标:虎牢关已破" : "目标:击破虎牢关";
+  const objective = state.flags.scoutRescued ? "目标:斥候已救回" : (state.flags.hulaoCleared ? "目标:救回应急斥候" : "目标:击破虎牢关");
   text(`${currentMap(state).name}  ${lead.name} 兵:${lead.soldiers}/${lead.maxSoldiers}  ${objective}`, 8, FIELD_H + 16);
   const romLine = romMetadata ? `ROM Mapper:${romMetadata.mapper} PRG:${Math.round(romMetadata.prgRomSize / 1024)}K CHR:${Math.round(romMetadata.chrRomSize / 1024)}K` : `金:${state.gold} 粮:${state.food}`;
   text(`${romLine}  坐标:${state.player.x},${state.player.y}`, 8, FIELD_H + 31);

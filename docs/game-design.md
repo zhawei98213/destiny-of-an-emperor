@@ -64,3 +64,9 @@ English: Milestone 2 introduces `saveVersion: 2`. Versionless saves are complete
 
 中文：第二阶段把物品从占位菜单推进为可测试系统。当前 commit-safe prototype data 提供 `草药 / healing-herb`，可在战斗中恢复单个存活队员兵力，恢复值会 clamp 到最大兵力，使用成功后数量减少。该数据仍是原型数据，不宣称等同 ROM 原始参数。  
 English: Milestone 2 turns inventory from a placeholder menu into a testable system. Current commit-safe prototype data provides `草药 / healing-herb`, usable in battle to restore soldiers for one living ally, clamped to max soldiers, decrementing quantity on success. This remains prototype data and is not claimed to match ROM-authentic parameters.
+
+
+## Second objective chain / 第二目标链
+
+中文：击破虎牢关后，HUD 目标会切换为“救回应急斥候”。玩家前往北平南道事件点可完成 `rescue-scout`，设置 `scoutRescued`，获得金钱与草药补给。若虎牢关尚未攻破，该事件只提示道路危险，不会完成目标。  
+English: After Hulao Gate is cleared, the HUD objective changes to rescuing the emergency scout. The player can complete `rescue-scout` at the Beiping south-road event, setting `scoutRescued` and receiving gold plus herb supplies. If Hulao Gate is not cleared, the event only warns that the road is unsafe and does not complete the objective.

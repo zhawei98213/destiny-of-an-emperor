@@ -101,3 +101,9 @@ English: The current save format version is 2. Older local saves are migrated on
 
 中文：战斗中的“物品”指令现在会尝试使用 `草药` 恢复受伤队员；物品数量会保存到版本 2 存档。  
 English: The battle “Item” command now attempts to use `healing-herb` to restore a wounded ally; item quantity is persisted in version 2 saves.
+
+
+## Objective chain / 目标链
+
+中文：第一阶段目标是击破虎牢关；完成后会解锁第二目标 `rescue-scout`，前往北平南道救回应急斥候。  
+English: The first objective is clearing Hulao Gate; once complete, the second objective `rescue-scout` unlocks and sends the player to Beiping South Road to rescue an emergency scout.

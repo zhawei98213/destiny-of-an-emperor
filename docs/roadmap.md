@@ -48,3 +48,7 @@ English: Build a playable high-fidelity retro RPG while keeping ROMs and extract
 
 - 中文：已开始建立规范化可提交数据边界。  
   English: The normalized commit-safe data boundary has started.
+
+
+- 中文：已加入第二目标链 `rescue-scout` / `scoutRescued`，前置条件为 `hulaoCleared`。  
+  English: Added the second objective chain `rescue-scout` / `scoutRescued`, gated by `hulaoCleared`.
