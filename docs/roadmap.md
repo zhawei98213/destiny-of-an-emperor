@@ -52,3 +52,9 @@ English: Build a playable high-fidelity retro RPG while keeping ROMs and extract
 
 - 中文：已加入第二目标链 `rescue-scout` / `scoutRescued`，前置条件为 `hulaoCleared`。  
   English: Added the second objective chain `rescue-scout` / `scoutRescued`, gated by `hulaoCleared`.
+
+
+## Milestone 2 closeout / 第二阶段收尾
+
+中文：Milestone 2 已交付。下一阶段建议进入 Milestone 3：更强的脚本/地图系统、手动浏览器 QA、以及在安全边界内设计 emulator-backed PPU tracing 的实现细节。  
+English: Milestone 2 has been delivered. The recommended next phase is Milestone 3: stronger script/map systems, manual browser QA, and implementation design for emulator-backed PPU tracing within the safety boundary.

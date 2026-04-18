@@ -136,3 +136,51 @@ python3 tools/nes_rom_tool.py trace-plan '吞食天地2.nes' --out .omx/rom-anal
 npm run check
 npm run rom:inspect
 ```
+
+
+## 2026-04-18 — Milestone 2 closeout / 第二阶段收尾
+
+中文：Milestone 2 实现完成：数据边界、存档迁移、物品系统、第二目标链、ROM metadata-only trace plan、安全文档、双语过程记录均已完成并分切片提交到 GitHub。  
+English: Milestone 2 implementation is complete: data boundary, save migration, item system, second objective chain, ROM metadata-only trace plan, safety docs, and bilingual process records were completed and committed to GitHub in verified slices.
+
+最终验证计划 / Final verification plan:
+
+```sh
+npm run check
+python3 -m py_compile tools/nes_rom_tool.py
+npm run rom:inspect
+python3 tools/nes_rom_tool.py trace-plan '吞食天地2.nes' --out .omx/rom-analysis/runtime-trace-plan.final.json
+python3 -m http.server 8765
+curl -fsS http://127.0.0.1:8765/
+curl -fsS http://127.0.0.1:8765/src/main.js
+curl -fsS http://127.0.0.1:8765/src/game/generated/rom-metadata.json
+```
+
+
+## 2026-04-18 — Evidence hardening after Architect rejection / Architect 拒绝后的证据加固
+
+中文：Architect 标准层复核拒绝了首次完成声明，原因是测试证据不足、最终 closeout 文档未提交、过程记录缺少每个切片的 commit hash。已按反馈补充：负向数据校验 fixtures、完整存档 round-trip 字段断言、可测试的 objective/item 集成 helper、过程记录 commit hash。  
+English: Standard-tier Architect review rejected the first completion claim because test evidence was insufficient, final closeout docs were uncommitted, and process records lacked per-slice commit hashes. Fixes added: negative data-validation fixtures, full save round-trip assertions, testable objective/item integration helpers, and process-record commit hashes.
+
+补充文件 / Added files:
+
+- `src/game/objectives.js` — testable objective application helper.
+- `src/game/battle-actions.js` — testable battle item command helper.
+
+已推送切片 / Pushed slices:
+
+| Hash | Slice |
+| --- | --- |
+| `73e3f19` | Data boundary / 数据边界 |
+| `8cf61d3` | Save migration / 存档迁移 |
+| `3304c47` | Item system / 物品系统 |
+| `a4d69fa` | Second objective / 第二目标链 |
+| `c6ab166` | ROM metadata-only trace scaffold / ROM metadata-only 追踪骨架 |
+
+本轮加固验证 / Evidence-hardening verification:
+
+```sh
+npm run check
+```
+
+结果 / Result: `smoke ok`.

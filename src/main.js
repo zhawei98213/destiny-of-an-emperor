@@ -1,5 +1,7 @@
 import { TILE, bossEncounters, tileInfo, openingText } from "./game/data.js";
-import { addItems, inventoryLines, useItem } from "./game/items.js";
+import { useBattleItemCommand } from "./game/battle-actions.js";
+import { inventoryLines } from "./game/items.js";
+import { applyObjectiveEvent } from "./game/objectives.js";
 import {
   canEnter,
   currentMap,
@@ -106,20 +108,7 @@ function handleMapEvent(evt) {
 }
 
 function handleObjectiveEvent(evt) {
-  if (evt.prerequisiteFlag && !state.flags[evt.prerequisiteFlag]) {
-    setDialogue([evt.name, evt.lockedText]);
-    return;
-  }
-  if (state.flags[evt.flag]) {
-    setDialogue([evt.name, "斥候已经安全归队，北方情报已送回营中。"]);
-    return;
-  }
-  state.flags[evt.flag] = true;
-  state.objectives.completed = [...new Set([...(state.objectives.completed ?? []), evt.objectiveId])];
-  state.objectives.active = null;
-  state.gold += evt.reward?.gold ?? 0;
-  addItems(state, evt.reward?.items ?? {});
-  setDialogue([evt.name, evt.text, evt.completionText, `获得 ${evt.reward?.gold ?? 0} 金与草药补给。`]);
+  setDialogue(applyObjectiveEvent(state, evt).lines);
 }
 
 function maybeEncounter(map, x, y) {
@@ -185,8 +174,7 @@ function runBattleCommand() {
 
 function itemRound() {
   const battle = state.battle;
-  const result = useItem(state, "healing-herb");
-  battle.log.push(result.message);
+  const result = useBattleItemCommand(state, battle, "healing-herb");
   if (result.ok) {
     autoEnemyRound();
   }

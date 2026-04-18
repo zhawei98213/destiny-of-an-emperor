@@ -117,3 +117,9 @@ python3 tools/nes_rom_tool.py trace-plan '吞食天地2.nes' --out .omx/rom-anal
 
 中文：该命令只生成 metadata-only 计划，不生成可提交素材。  
 English: This command writes a metadata-only plan and does not generate commit-safe assets.
+
+
+## Milestone 2 completion / 第二阶段完成状态
+
+中文：第二阶段已完成：数据边界、存档迁移、物品系统、第二目标链、ROM metadata-only 追踪计划和双语过程记录均已实现。运行 `npm run check` 可验证核心数据、存档、物品与目标链 smoke tests。  
+English: Milestone 2 is complete: data boundary, save migration, item system, second objective chain, ROM metadata-only tracing plan, and bilingual process records are implemented. Run `npm run check` to verify the core data, save, item, and objective-chain smoke tests.
