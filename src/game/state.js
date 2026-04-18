@@ -1,4 +1,5 @@
 import { maps, officers, enemyGroups, tileInfo } from "./data.js";
+export { CURRENT_SAVE_VERSION, loadGame, migrateSave, saveGame, serializeSave } from "./storage.js";
 
 export function clone(value) {
   return typeof structuredClone === "function" ? structuredClone(value) : JSON.parse(JSON.stringify(value));
@@ -16,9 +17,13 @@ export function newGame() {
     stepCounter: 0,
     encounterAfter: 7,
     messages: [],
+    inventory: { "healing-herb": 2 },
+    objectives: { active: "hulao-gate", completed: [] },
+    saveVersion: 2,
     flags: {
       hulaoCleared: false,
       visitedXiaopei: false,
+      scoutRescued: false,
     },
     menuIndex: 0,
     battle: null,
@@ -86,17 +91,4 @@ export function startBattle(state, group = weightedEnemyGroup(state), options = 
     defeatText: options.defeatText ?? null,
     canRun: options.canRun ?? true,
   };
-}
-
-export function saveGame(state) {
-  localStorage.setItem("doae-remake-save", JSON.stringify(state));
-}
-
-export function loadGame() {
-  const raw = localStorage.getItem("doae-remake-save");
-  if (!raw) return null;
-  const parsed = JSON.parse(raw);
-  if (!parsed || !parsed.player || !parsed.party) return null;
-  parsed.flags ??= {};
-  return parsed;
 }

@@ -52,3 +52,9 @@ English: Current graphics are procedurally drawn in Canvas, while placeholder te
 
 中文：玩法数据开始通过统一数据边界进入引擎。当前数据仍是占位/原型内容，不宣称等同原版 ROM 数据；后续私有 ROM 提取器应输出 normalized JSON，再生成不含 payload 的可提交 JS 投影。  
 English: Gameplay data now enters the engine through a unified data boundary. Current data is still placeholder/prototype content and is not claimed to match authentic ROM data. Future private ROM extractors should output normalized JSON, then generate a commit-safe JS projection without payload.
+
+
+## Save migration / 存档迁移
+
+中文：第二阶段引入 `saveVersion: 2`。旧版无版本存档会在读取时补齐 `inventory`、`objectives`、`scoutRescued` 等字段；损坏的 JSON 存档会安全返回空结果，不会让游戏崩溃。  
+English: Milestone 2 introduces `saveVersion: 2`. Versionless saves are completed on load with `inventory`, `objectives`, `scoutRescued`, and related fields; malformed JSON saves safely return no loaded state instead of crashing the game.

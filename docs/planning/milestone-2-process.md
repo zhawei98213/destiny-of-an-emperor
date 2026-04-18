@@ -73,3 +73,17 @@ npm run rom:inspect
 
 隐私检查 / Privacy check: no staged private payload before commit.  
 English: No staged private payload before commit.
+
+
+## 2026-04-18 — Phase 2 save migration / 阶段 2 存档迁移
+
+中文：实现 `saveVersion: 2`、存档序列化/读取模块 `src/game/storage.js`、旧版无版本存档迁移、损坏存档安全失败，以及 smoke test 中的 round-trip/migration 断言。  
+English: Implemented `saveVersion: 2`, save serialization/loading module `src/game/storage.js`, migration for versionless saves, safe failure for malformed saves, and smoke-test assertions for round-trip and migration behavior.
+
+验证 / Verification:
+
+```sh
+npm run check
+python3 -m py_compile tools/nes_rom_tool.py
+npm run rom:inspect
+```

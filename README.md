@@ -89,3 +89,9 @@ English: Commits follow the Lore commit protocol: explain why the change exists 
 
 中文：运行时 gameplay data 通过 `src/game/data.js` 统一导出；第二阶段会逐步把 prototype data、存档、物品、目标链都纳入可测试的数据边界。  
 English: Runtime gameplay data is exported through `src/game/data.js`; Milestone 2 progressively routes prototype data, saves, items, and objective chains through a testable data boundary.
+
+
+## Save compatibility / 存档兼容
+
+中文：当前存档格式版本为 2。旧版本地存档会在读取时迁移；损坏存档会安全忽略。  
+English: The current save format version is 2. Older local saves are migrated on load; malformed saves are ignored safely.
