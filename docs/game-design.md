@@ -58,3 +58,9 @@ English: Gameplay data now enters the engine through a unified data boundary. Cu
 
 中文：第二阶段引入 `saveVersion: 2`。旧版无版本存档会在读取时补齐 `inventory`、`objectives`、`scoutRescued` 等字段；损坏的 JSON 存档会安全返回空结果，不会让游戏崩溃。  
 English: Milestone 2 introduces `saveVersion: 2`. Versionless saves are completed on load with `inventory`, `objectives`, `scoutRescued`, and related fields; malformed JSON saves safely return no loaded state instead of crashing the game.
+
+
+## Item system / 物品系统
+
+中文：第二阶段把物品从占位菜单推进为可测试系统。当前 commit-safe prototype data 提供 `草药 / healing-herb`，可在战斗中恢复单个存活队员兵力，恢复值会 clamp 到最大兵力，使用成功后数量减少。该数据仍是原型数据，不宣称等同 ROM 原始参数。  
+English: Milestone 2 turns inventory from a placeholder menu into a testable system. Current commit-safe prototype data provides `草药 / healing-herb`, usable in battle to restore soldiers for one living ally, clamped to max soldiers, decrementing quantity on success. This remains prototype data and is not claimed to match ROM-authentic parameters.

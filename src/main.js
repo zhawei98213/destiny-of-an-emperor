@@ -1,4 +1,5 @@
 import { TILE, bossEncounters, tileInfo, openingText } from "./game/data.js";
+import { inventoryLines, useItem } from "./game/items.js";
 import {
   canEnter,
   currentMap,
@@ -143,7 +144,7 @@ function runMenuCommand() {
   if (action === "status") {
     setDialogue(state.party.map((unit) => `${unit.name} 兵 ${unit.soldiers}/${unit.maxSoldiers} 攻 ${unit.attack} 防 ${unit.defense}`));
   } else if (action === "inventory") {
-    setDialogue([`金 ${state.gold}`, `粮 ${state.food}`, "物品系统将在 ROM 数据表稳定后接入。"]);
+    setDialogue([`金 ${state.gold}`, `粮 ${state.food}`, ...inventoryLines(state), "选择战斗中的物品指令可使用草药。"]);
   } else if (action === "save") {
     saveGame(state);
     setDialogue("已保存到浏览器 localStorage。");
@@ -157,11 +158,18 @@ function runBattleCommand() {
   const command = COMMANDS[battle.commandIndex];
   if (command === "攻击") autoAttackRound();
   else if (command === "计策") tacticRound();
-  else if (command === "物品") {
-    battle.log.push("现在没有可用物品。");
+  else if (command === "物品") itemRound();
+  else attemptRun();
+}
+
+function itemRound() {
+  const battle = state.battle;
+  const result = useItem(state, "healing-herb");
+  battle.log.push(result.message);
+  if (result.ok) {
     autoEnemyRound();
-    finishRound();
-  } else attemptRun();
+  }
+  finishRound();
 }
 
 function damage(attacker, defender, variance = 0) {

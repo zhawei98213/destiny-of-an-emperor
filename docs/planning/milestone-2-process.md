@@ -87,3 +87,20 @@ npm run check
 python3 -m py_compile tools/nes_rom_tool.py
 npm run rom:inspect
 ```
+
+
+## 2026-04-18 — Phase 3 item system / 阶段 3 物品系统
+
+中文：新增 `src/game/items.js`，实现 `草药 / healing-herb` 的数量查询、奖励增加、受伤队员选择、恢复效果和空库存路径。`src/main.js` 只做局部集成：菜单显示物品、战斗“物品”指令调用 `itemRound()`。  
+English: Added `src/game/items.js` with `healing-herb` quantity lookup, reward addition, wounded-ally targeting, healing effect, and empty-inventory path. `src/main.js` received localized integration only: menu inventory display and battle Item command via `itemRound()`.
+
+Affected `src/main.js` functions / 受影响函数: `runMenuCommand`, `runBattleCommand`, new `itemRound`.  
+Guardrail / 护栏: localized item integration only, no render/input/battle-loop rewrite.
+
+验证 / Verification:
+
+```sh
+npm run check
+python3 -m py_compile tools/nes_rom_tool.py
+npm run rom:inspect
+```

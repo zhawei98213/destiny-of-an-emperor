@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { bossEncounters, enemyGroups, gameData, maps, officers, tileInfo } from "../src/game/data.js";
+import { addItems, inventoryLines, itemQuantity, useItem } from "../src/game/items.js";
 import { validateGameData } from "../src/game/validation/data-validation.js";
 import {
   canEnter,
@@ -65,6 +66,17 @@ assert.equal(loaded.player.x, 9);
 assert.equal(loaded.flags.hulaoCleared, true);
 assert.equal(loaded.inventory["healing-herb"], 2);
 assert.equal(loadGame(memoryStorage({ "doae-remake-save": "not-json" })), null);
+state.party[0].soldiers = state.party[0].maxSoldiers - 50;
+const herbCount = itemQuantity(state, "healing-herb");
+const itemResult = useItem(state, "healing-herb", state.party[0]);
+assert.equal(itemResult.ok, true);
+assert.equal(state.party[0].soldiers, state.party[0].maxSoldiers);
+assert.equal(itemQuantity(state, "healing-herb"), herbCount - 1);
+state.inventory["healing-herb"] = 0;
+assert.equal(useItem(state, "healing-herb", state.party[0]).ok, false);
+assert.deepEqual(inventoryLines(state), ["没有可用物品。"]);
+addItems(state, { "healing-herb": 2 });
+assert.equal(itemQuantity(state, "healing-herb"), 2);
 startBattle(state, enemyGroups[0]);
 assert.equal(state.mode, "battle");
 assert.equal(state.battle.enemies.length, enemyGroups[0].enemies.length);

@@ -95,3 +95,9 @@ English: Runtime gameplay data is exported through `src/game/data.js`; Milestone
 
 中文：当前存档格式版本为 2。旧版本地存档会在读取时迁移；损坏存档会安全忽略。  
 English: The current save format version is 2. Older local saves are migrated on load; malformed saves are ignored safely.
+
+
+## Items / 物品
+
+中文：战斗中的“物品”指令现在会尝试使用 `草药` 恢复受伤队员；物品数量会保存到版本 2 存档。  
+English: The battle “Item” command now attempts to use `healing-herb` to restore a wounded ally; item quantity is persisted in version 2 saves.
