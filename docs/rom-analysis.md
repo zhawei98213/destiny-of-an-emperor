@@ -99,3 +99,9 @@ English: Per user constraints, this phase uses only project-local JS/NPM depende
 
 中文：为了继续遵守“只用项目内 NPM 依赖”的边界，已添加 `scripts/patch-jsnes-mapper74.mjs`，把 jsnes 的 mapper 74 临时映射到 MMC3 mapper4。结果：ROM 能越过 unsupported mapper，但运行约 4 帧后崩溃为 `invalid opcode at address $5466`。结论：简单 Mapper 74→MMC3 映射不够准确，不能作为视觉参考截图来源。  
 English: To stay within the “project-local NPM dependencies only” boundary, `scripts/patch-jsnes-mapper74.mjs` temporarily maps jsnes mapper 74 to MMC3 mapper4. Result: the ROM gets past unsupported mapper, but crashes after about 4 frames with `invalid opcode at address $5466`. Conclusion: a simple Mapper 74→MMC3 mapping is not accurate enough and cannot be used as a visual reference capture source.
+
+
+## nes-emu capture result / nes-emu 截图结果
+
+中文：第二个项目内 NPM emulator `nes-emu@1.0.63` 支持 MMC3。加入 Mapper 74→MMC3 实验 shim 后，它可以运行 1200 帧并写出私有 PPM，但画面是单色灰帧，manifest 标记为 `captured-unusable`。结论：该路线比 `jsnes` 前进一步，但仍不能作为视觉对齐参考。  
+English: The second project-local NPM emulator, `nes-emu@1.0.63`, supports MMC3. With an experimental Mapper 74→MMC3 shim, it can run 1200 frames and write a private PPM, but the image is a flat gray frame and the manifest is marked `captured-unusable`. Conclusion: this is one step beyond `jsnes`, but still not useful as a visual reference.

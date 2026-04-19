@@ -96,3 +96,7 @@ English: Milestone 2 has been delivered. The recommended next phase is Milestone
 
 - 中文：Mapper 74→MMC3 简单 shim 已验证失败：约 4 帧后 `invalid opcode at address $5466`。下一步需要真正的 Mapper 74/TQROM 支持或另一个 NPM emulator。  
   English: The simple Mapper 74→MMC3 shim has been verified to fail: after about 4 frames it hits `invalid opcode at address $5466`. Next steps require real Mapper 74/TQROM support or another NPM emulator.
+
+
+- 中文：`nes-emu@1.0.63` + Mapper 74→MMC3 shim 可以运行并输出私有 PPM，但结果是单色灰帧，标记为 `captured-unusable`。  
+  English: `nes-emu@1.0.63` + Mapper 74→MMC3 shim can run and output a private PPM, but the result is a flat gray frame marked `captured-unusable`.

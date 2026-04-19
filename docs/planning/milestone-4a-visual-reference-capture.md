@@ -26,3 +26,9 @@ English: Screenshots, framebuffers, save states, and ROM-derived payloads must n
 
 中文：`jsnes@2.1.0` 原生不支持 Mapper 74。加入本地 shim 后，ROM 可开始运行但约 4 帧后 invalid opcode，因此不能生成可信参考截图。  
 English: `jsnes@2.1.0` does not natively support Mapper 74. After a local shim, the ROM starts running but hits an invalid opcode after about 4 frames, so it cannot produce trustworthy reference screenshots.
+
+
+## nes-emu result / nes-emu 结果
+
+中文：`nes-emu@1.0.63` 被加入为第二候选。Mapper 74 shim 后可运行 1200 帧，但输出为单色灰帧，`uniqueColorCount = 1`，因此 manifest 标记为 `captured-unusable`。  
+English: `nes-emu@1.0.63` was added as the second candidate. With the Mapper 74 shim it can run 1200 frames, but output is a flat gray frame with `uniqueColorCount = 1`, so the manifest is marked `captured-unusable`.
